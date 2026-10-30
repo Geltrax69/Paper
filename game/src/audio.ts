@@ -164,6 +164,16 @@ export class GameAudio {
     });
   }
 
+  grapple(): void {
+    this.count("grapple");
+    this.tone(500, 900, 120, "sine", 0.2);
+  }
+
+  melee(): void {
+    this.count("melee");
+    this.noise(100, 2000, 0.3);
+  }
+
   playerDamage(): void {
     this.count("playerDamage");
     this.tone(160, 80, 200, "square", 0.3);

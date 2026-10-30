@@ -309,6 +309,8 @@ async function startGame(): Promise<void> {
   let coyoteMs = 0;
   let jumpBufferMs = 0;
   let jumpCount = 0;
+  let airJumpsUsed = 0;
+  let streakTimerMs = 0;
   let dashTimeMs = 0;
   let dashCooldownMs = 0;
   let dashDirection = new THREE.Vector3(0, 0, -1);
@@ -451,6 +453,193 @@ async function startGame(): Promise<void> {
     decals.length = 0;
   }
 
+  // Powers are one small state shape each, not scattered booleans.
+  // Grapple anchors are fixed world points, never invented per frame.
+  const GRAPPLE_RANGE = 14;
+  const GRAPPLE_ANCHORS: THREE.Vector3[] = [
+    new THREE.Vector3(-11, 2.8, -11),
+    new THREE.Vector3(11, 2.8, -11),
+    new THREE.Vector3(-11, 2.8, 11),
+    new THREE.Vector3(11, 2.8, 11),
+    new THREE.Vector3(0, 2.8, -11),
+    new THREE.Vector3(0, 2.8, 11),
+    new THREE.Vector3(-11, 2.8, 0),
+    new THREE.Vector3(11, 2.8, 0),
+    new THREE.Vector3(-3, 1.5, -2),
+    new THREE.Vector3(3, 1.5, 1),
+    new THREE.Vector3(0, 1.2, -6),
+    new THREE.Vector3(-6, 1.8, 4),
+    new THREE.Vector3(6, 1.5, -5),
+  ];
+  type GrappleState =
+    | { kind: "detached" }
+    | { kind: "attached"; anchor: THREE.Vector3; ropeLength: number };
+  let grapple: GrappleState = { kind: "detached" };
+  let grappleMomentum = new THREE.Vector3();
+  let grappleMomentumMs = 0;
+  let lastMoveDelta = new THREE.Vector3();
+  const rope = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.02, 0.02, 1, 8),
+    new THREE.MeshBasicMaterial({ color: 0xf5c542, transparent: true, opacity: 0.95 }),
+  );
+  rope.visible = false;
+  rope.frustumCulled = false;
+  scene.add(rope);
+  const anchorCue = new THREE.Mesh(
+    new THREE.OctahedronGeometry(0.18),
+    new THREE.MeshBasicMaterial({ color: 0xf5c542, transparent: true, opacity: 0.9 }),
+  );
+  anchorCue.visible = false;
+  scene.add(anchorCue);
+
+  function nearestValidAnchor(eye: THREE.Vector3): { anchor: THREE.Vector3; distance: number } | null {
+    let best: { anchor: THREE.Vector3; distance: number } | null = null;
+    for (const anchor of GRAPPLE_ANCHORS) {
+      const distance = eye.distanceTo(anchor);
+      if (distance > GRAPPLE_RANGE) continue;
+      const dir = anchor.clone().sub(eye).normalize();
+      const hit = rayHitSolid(eye, dir, distance);
+      if (hit && hit.distance < distance - 0.05) continue;
+      if (!best || distance < best.distance) best = { anchor, distance };
+    }
+    return best;
+  }
+
+  function tryAttachGrapple(): boolean {
+    if (grapple.kind === "attached") return true;
+    const found = nearestValidAnchor(camera.position);
+    if (!found) return false;
+    grapple = {
+      kind: "attached",
+      anchor: found.anchor.clone(),
+      ropeLength: playerFeet.distanceTo(found.anchor),
+    };
+    rope.visible = true;
+    anchorCue.visible = false;
+    audio.grapple();
+    return true;
+  }
+
+  function detachGrapple(withMomentum: boolean): void {
+    if (grapple.kind === "detached") return;
+    grapple = { kind: "detached" };
+    rope.visible = false;
+    if (withMomentum) {
+      grappleMomentum.set(lastMoveDelta.x, 0, lastMoveDelta.z);
+      if (grappleMomentum.length() > 10) grappleMomentum.setLength(10);
+      grappleMomentumMs = 400;
+    } else {
+      grappleMomentum.set(0, 0, 0);
+      grappleMomentumMs = 0;
+    }
+  }
+
+  const jumpRingGeometry = new THREE.RingGeometry(0.45, 0.62, 32);
+  type JumpRing = { lifeMs: number; material: THREE.MeshBasicMaterial; mesh: THREE.Mesh };
+  const jumpRings: JumpRing[] = [];
+  for (let i = 0; i < 4; i += 1) {
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x2b2118,
+      depthWrite: false,
+      opacity: 0,
+      side: THREE.DoubleSide,
+      transparent: true,
+    });
+    const mesh = new THREE.Mesh(jumpRingGeometry, material);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.visible = false;
+    scene.add(mesh);
+    jumpRings.push({ lifeMs: 0, material, mesh });
+  }
+  function spawnJumpRing(at: THREE.Vector3): void {
+    const ring = jumpRings.find((entry) => entry.lifeMs <= 0);
+    if (!ring) return;
+    ring.lifeMs = 300;
+    ring.mesh.position.set(at.x, at.y + 0.03, at.z);
+    ring.mesh.scale.setScalar(0.3);
+    ring.mesh.visible = true;
+    ring.material.opacity = 0.9;
+  }
+  function updateJumpRings(dtMs: number): void {
+    for (const ring of jumpRings) {
+      if (ring.lifeMs <= 0) continue;
+      ring.lifeMs -= dtMs;
+      const t = 1 - Math.max(0, ring.lifeMs) / 300;
+      ring.mesh.scale.setScalar(0.3 + 1.0 * t);
+      ring.material.opacity = 0.9 * (1 - t);
+      if (ring.lifeMs <= 0) ring.mesh.visible = false;
+    }
+  }
+
+  const MELEE_RANGE = 2.8;
+  const MELEE_DAMAGE = 18;
+  const MELEE_SWING_MS = 300;
+  const MELEE_EVENT_MS = 120;
+  const MELEE_COOLDOWN_MS = 500;
+  let meleeTimeMs = 0;
+  let meleeCooldownMs = 0;
+  let meleeHitDone = false;
+  const slashCanvas = document.createElement("canvas");
+  slashCanvas.width = 256;
+  slashCanvas.height = 256;
+  {
+    const ctx = slashCanvas.getContext("2d");
+    if (ctx) {
+      ctx.strokeStyle = "#f5e9c8";
+      ctx.lineWidth = 18;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.arc(128, 150, 78, Math.PI * 1.05, Math.PI * 1.95);
+      ctx.stroke();
+      ctx.strokeStyle = "#c0392b";
+      ctx.lineWidth = 7;
+      ctx.beginPath();
+      ctx.arc(128, 150, 78, Math.PI * 1.05, Math.PI * 1.95);
+      ctx.stroke();
+    }
+  }
+  const slashMaterial = new THREE.MeshBasicMaterial({
+    depthTest: false,
+    map: new THREE.CanvasTexture(slashCanvas),
+    transparent: true,
+  });
+  const slashMesh = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.4), slashMaterial);
+  slashMesh.visible = false;
+  slashMesh.renderOrder = 10;
+  scene.add(slashMesh);
+  function startMelee(): boolean {
+    if (meleeCooldownMs > 0 || meleeTimeMs > 0) return false;
+    meleeTimeMs = MELEE_SWING_MS;
+    meleeCooldownMs = MELEE_COOLDOWN_MS;
+    meleeHitDone = false;
+    slashMesh.visible = true;
+    audio.melee();
+    return true;
+  }
+  function meleeEvent(): void {
+    if (meleeHitDone) return;
+    meleeHitDone = true;
+    const eye = camera.position.clone();
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    for (const runner of runners) {
+      if (runner.state === "death" || runner.state === "spawn") continue;
+      const toRunner = runner.position.clone().sub(playerFeet);
+      toRunner.y = 0;
+      const horizontal = toRunner.length();
+      if (horizontal > MELEE_RANGE + 0.55) continue;
+      const center = runner.position.clone();
+      center.y = 1.1;
+      const toCenter = center.clone().sub(eye);
+      if (toCenter.clone().normalize().dot(forward) <= 0.5) continue;
+      const blocked = rayHitSolid(eye, toCenter.clone().normalize(), toCenter.length());
+      if (blocked) continue;
+      const result = runner.takeDamage(MELEE_DAMAGE, playerFeet);
+      if (result === "applied" || result === "killed") hitmarkerMs = 150;
+    }
+  }
+
+
   let spawnCounter = 0;
   function runnerClipTextures(): {
     attack: THREE.Texture[];
@@ -530,6 +719,8 @@ async function startGame(): Promise<void> {
     mouseDelta.y = 0;
     jumpBufferMs = 0;
     coyoteMs = 0;
+    detachGrapple(false);
+    anchorCue.visible = false;
   }
 
   function clearActionState(): void {
@@ -539,6 +730,14 @@ async function startGame(): Promise<void> {
     fireCooldownMs = 0;
     hitmarkerMs = 0;
     damageFlashMs = 0;
+    meleeTimeMs = 0;
+    meleeCooldownMs = 0;
+    meleeHitDone = false;
+    slashMesh.visible = false;
+    airJumpsUsed = 0;
+    streakTimerMs = 0;
+    detachGrapple(false);
+    anchorCue.visible = false;
     clearParticles();
     disposeTracers();
     disposeDecals();
@@ -831,10 +1030,61 @@ async function startGame(): Promise<void> {
         });
         return { background: scene.background !== null, maps: [...new Set(maps)].sort() };
       },
+      getSceneMeshes: () => {
+        const out: { position: number[]; quaternion: number[]; scale: number[]; visible: boolean }[] = [];
+        scene.traverse((obj) => {
+          if ((obj as THREE.Mesh).isMesh) {
+            out.push({
+              position: obj.position.toArray(),
+              quaternion: obj.quaternion.toArray(),
+              scale: obj.scale.toArray(),
+              visible: obj.visible,
+            });
+          }
+        });
+        return out;
+      },
+      getPowers: () => ({
+        airJumpsUsed,
+        anchors: GRAPPLE_ANCHORS.map((anchor) => [anchor.x, anchor.y, anchor.z]),
+        anchorCueVisible: anchorCue.visible,
+        anchorCue: [anchorCue.position.x, anchorCue.position.y, anchorCue.position.z],
+        grapple:
+          grapple.kind === "attached"
+            ? {
+                anchor: [grapple.anchor.x, grapple.anchor.y, grapple.anchor.z],
+                attached: true,
+                ropeLength: grapple.ropeLength,
+              }
+            : { attached: false },
+        grappleMomentumMs,
+        grappleRange: GRAPPLE_RANGE,
+        meleeCooldownMs,
+        meleeDamage: MELEE_DAMAGE,
+        meleeHitDone,
+        meleeRange: MELEE_RANGE,
+        meleeSwinging: meleeTimeMs > 0,
+        meleeTimeMs,
+        ropeVisible: rope.visible,
+        slashVisible: slashMesh.visible,
+      }),
+      tryGrapple: () => tryAttachGrapple(),
+      releaseGrapple: () => detachGrapple(true),
+      startMelee: () => startMelee(),
+      pressJump: () => {
+        jumpBufferMs = 120;
+      },
+      pressKeyDown: (code: string) => {
+        window.dispatchEvent(new KeyboardEvent("keydown", { code }));
+      },
+      pressKeyUp: (code: string) => {
+        window.dispatchEvent(new KeyboardEvent("keyup", { code }));
+      },
       getState: () => ({
         phase,
         startupState,
         jumpCount,
+        airJumpsUsed,
         playerFeet: [playerFeet.x, playerFeet.y, playerFeet.z],
         grounded,
         playerHealth,
@@ -1113,6 +1363,8 @@ async function startGame(): Promise<void> {
     "KeyD",
     "KeyQ",
     "KeyR",
+    "KeyE",
+    "KeyF",
     "ShiftLeft",
     "ShiftRight",
   ]);
@@ -1122,6 +1374,8 @@ async function startGame(): Promise<void> {
       event.preventDefault();
     }
     if (event.code === "Space" && phase === "playing" && !event.repeat) jumpBufferMs = 120;
+    if (event.code === "KeyE" && phase === "playing" && !event.repeat) tryAttachGrapple();
+    if (event.code === "KeyF" && phase === "playing" && !event.repeat) startMelee();
     if (event.code === "KeyR" && phase === "playing" && weaponView) {
       if (weaponView.startReload()) audio.reload();
     }
@@ -1138,7 +1392,10 @@ async function startGame(): Promise<void> {
       dashCooldownMs = 1200;
     }
   });
-  window.addEventListener("keyup", (event) => keys.delete(event.code));
+  window.addEventListener("keyup", (event) => {
+    keys.delete(event.code);
+    if (event.code === "KeyE" && grapple.kind === "attached") detachGrapple(true);
+  });
 
   renderer.domElement.addEventListener("mousedown", (event) => {
     if (phase !== "playing" || event.button !== 0) return;
@@ -1229,7 +1486,51 @@ async function startGame(): Promise<void> {
       const sprinting = keys.has("ShiftLeft") || keys.has("ShiftRight");
       const speed = sprinting ? 7.5 : 5;
       const prevFeet = playerFeet.clone();
-      if (dashTimeMs > 0) {
+      if (grapple.kind === "attached") {
+        if (jumpBufferMs > 0) {
+          detachGrapple(true);
+          verticalVelocity = 8;
+          jumpBufferMs = 0;
+          grounded = false;
+          audio.jump();
+          spawnJumpRing(playerFeet);
+        }
+      }
+      if (grapple.kind === "attached") {
+        const anchor = grapple.anchor;
+        const beforeGrapple = playerFeet.clone();
+        if (move.lengthSq() > 0) {
+          move.normalize().multiplyScalar(4 * dt);
+          playerFeet.add(move);
+        }
+        verticalVelocity -= 22 * dt;
+        playerFeet.y += verticalVelocity * dt;
+        const toPlayer = playerFeet.clone().sub(anchor);
+        const ropeLen = toPlayer.length();
+        if (ropeLen > grapple.ropeLength) {
+          playerFeet.copy(anchor).addScaledVector(toPlayer, grapple.ropeLength / ropeLen);
+        }
+        resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
+        if (dt > 0) {
+          verticalVelocity = Math.max(-15, Math.min(12, (playerFeet.y - beforeGrapple.y) / dt));
+        }
+        const eye = new THREE.Vector3(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
+        const toAnchor = anchor.clone().sub(eye);
+        const anchorDist = toAnchor.length();
+        const blocked = rayHitSolid(eye, toAnchor.normalize(), anchorDist);
+        if (blocked && blocked.distance < anchorDist - 0.05) {
+          detachGrapple(true);
+        } else {
+          const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
+          if (playerFeet.y <= support + 0.001) {
+            playerFeet.y = support;
+            verticalVelocity = 0;
+            grounded = true;
+          } else {
+            grounded = false;
+          }
+        }
+      } else if (dashTimeMs > 0) {
         dashTimeMs -= dtMs;
         const steps = 6;
         for (let i = 0; i < steps; i += 1) {
@@ -1241,6 +1542,21 @@ async function startGame(): Promise<void> {
         playerFeet.add(move);
         resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
       }
+      if (grappleMomentumMs > 0 && grapple.kind === "detached") {
+        grappleMomentumMs -= dtMs;
+        playerFeet.addScaledVector(grappleMomentum, dt);
+        resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
+        grappleMomentum.multiplyScalar(Math.max(0, 1 - 3 * dt));
+        if (grappleMomentumMs <= 0) grappleMomentum.set(0, 0, 0);
+      }
+      lastMoveDelta.set(
+        playerFeet.x - prevFeet.x,
+        0,
+        playerFeet.z - prevFeet.z,
+      );
+      if (dt > 0) {
+        lastMoveDelta.multiplyScalar(1 / dt);
+      }
       const horizontalSpeed =
         dt > 0
           ? Math.hypot(
@@ -1251,33 +1567,107 @@ async function startGame(): Promise<void> {
 
       const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
       const wasGrounded = grounded;
-      if (playerFeet.y <= support + 0.001) grounded = true;
-      if (grounded) coyoteMs = 100;
-      if (jumpBufferMs > 0 && coyoteMs > 0) {
-        verticalVelocity = 8;
-        playerFeet.y += 0.01;
-        jumpBufferMs = 0;
-        coyoteMs = 0;
-        grounded = false;
-        jumpCount += 1;
-        audio.jump();
-      }
-      verticalVelocity -= 22 * dt;
-      const prevY = playerFeet.y;
-      playerFeet.y += verticalVelocity * dt;
-      if (verticalVelocity <= 0) {
-        const landingSupport = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
-        if (prevY >= landingSupport && playerFeet.y <= landingSupport) {
-          playerFeet.y = landingSupport;
-          verticalVelocity = 0;
+      if (grapple.kind === "detached") {
+        if (playerFeet.y <= support + 0.001) {
           grounded = true;
-          if (!wasGrounded) audio.land();
-        } else if (playerFeet.y < 0) {
-          playerFeet.y = 0;
-          verticalVelocity = 0;
-          grounded = true;
-          if (!wasGrounded) audio.land();
+          airJumpsUsed = 0;
         }
+        if (grounded) coyoteMs = 100;
+        if (jumpBufferMs > 0 && coyoteMs > 0) {
+          verticalVelocity = 8;
+          playerFeet.y += 0.01;
+          jumpBufferMs = 0;
+          coyoteMs = 0;
+          grounded = false;
+          airJumpsUsed = 0;
+          jumpCount += 1;
+          audio.jump();
+          spawnJumpRing(playerFeet);
+        } else if (jumpBufferMs > 0 && !grounded && airJumpsUsed === 0) {
+          verticalVelocity = 8;
+          jumpBufferMs = 0;
+          airJumpsUsed += 1;
+          jumpCount += 1;
+          audio.jump();
+          spawnJumpRing(playerFeet);
+        }
+        verticalVelocity -= 22 * dt;
+        const prevY = playerFeet.y;
+        playerFeet.y += verticalVelocity * dt;
+        if (verticalVelocity <= 0) {
+          const landingSupport = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
+          if (prevY >= landingSupport && playerFeet.y <= landingSupport) {
+            playerFeet.y = landingSupport;
+            verticalVelocity = 0;
+            grounded = true;
+            airJumpsUsed = 0;
+            if (!wasGrounded) {
+              audio.land();
+              burst(playerFeet.clone(), 10);
+            }
+          } else if (playerFeet.y < 0) {
+            playerFeet.y = 0;
+            verticalVelocity = 0;
+            grounded = true;
+            airJumpsUsed = 0;
+            if (!wasGrounded) {
+              audio.land();
+              burst(playerFeet.clone(), 10);
+            }
+          }
+        }
+      }
+
+      if (!grounded && !settings.reducedMotion) {
+        streakTimerMs -= dtMs;
+        if (streakTimerMs <= 0) {
+          burst(playerFeet.clone().setY(playerFeet.y + 0.4), 2);
+          streakTimerMs = 120;
+        }
+      }
+      updateJumpRings(dtMs);
+      if (grapple.kind === "attached") {
+        const eye = new THREE.Vector3(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+        const up = new THREE.Vector3().crossVectors(right, forward).normalize();
+        const start = eye.clone().addScaledVector(forward, 0.8).addScaledVector(right, 0.25).addScaledVector(up, -0.3);
+        const dir = grapple.anchor.clone().sub(start);
+        const len = dir.length();
+        rope.position.copy(start).addScaledVector(dir, 0.5);
+        rope.scale.set(1, Math.max(0.01, len), 1);
+        rope.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
+        anchorCue.position.copy(grapple.anchor);
+        anchorCue.visible = true;
+      } else if (phase === "playing") {
+        const eye = new THREE.Vector3(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
+        const found = nearestValidAnchor(eye);
+        if (found) {
+          anchorCue.position.copy(found.anchor);
+          anchorCue.visible = true;
+        } else {
+          anchorCue.visible = false;
+        }
+      }
+      if (meleeCooldownMs > 0) meleeCooldownMs -= dtMs;
+      if (meleeTimeMs > 0) {
+        meleeTimeMs -= dtMs;
+        const elapsed = MELEE_SWING_MS - meleeTimeMs;
+        if (elapsed >= MELEE_EVENT_MS && !meleeHitDone) meleeEvent();
+        const eye = camera.position.clone();
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+        slashMesh.position
+          .copy(eye)
+          .addScaledVector(forward, 0.9)
+          .addScaledVector(right, 0.15);
+        slashMesh.quaternion.copy(camera.quaternion);
+        const t = elapsed / MELEE_SWING_MS;
+        slashMesh.scale.setScalar(0.8 + 0.4 * t);
+        slashMaterial.opacity = 1 - t;
+        if (meleeTimeMs <= 0) slashMesh.visible = false;
       }
 
       camera.position.set(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
