@@ -621,16 +621,16 @@
         0
       ]
     },
-    "shotgun_fire_01": {
+    "shotgun_fire_diag_01": {
       "alpha": true,
       "attachments": {
         "muzzle": [
-          0.325,
-          0.603
+          0.137,
+          0.155
         ]
       },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_01.png",
-      "id": "shotgun_fire_01",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_01.png",
+      "id": "shotgun_fire_diag_01",
       "pivot": [
         0.5,
         1.0
@@ -638,15 +638,15 @@
       "rect": [
         0,
         0,
-        468,
+        640,
         912
       ],
       "size": [
-        468,
+        640,
         912
       ],
       "sourceSize": [
-        468,
+        640,
         912
       ],
       "trimOffset": [
@@ -654,16 +654,16 @@
         0
       ]
     },
-    "shotgun_fire_02": {
+    "shotgun_fire_diag_02": {
       "alpha": true,
       "attachments": {
         "muzzle": [
-          0.355,
-          0.535
+          0.126,
+          0.137
         ]
       },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_02.png",
-      "id": "shotgun_fire_02",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_02.png",
+      "id": "shotgun_fire_diag_02",
       "pivot": [
         0.5,
         1.0
@@ -671,15 +671,15 @@
       "rect": [
         0,
         0,
-        468,
+        640,
         912
       ],
       "size": [
-        468,
+        640,
         912
       ],
       "sourceSize": [
-        468,
+        640,
         912
       ],
       "trimOffset": [
@@ -687,16 +687,16 @@
         0
       ]
     },
-    "shotgun_fire_03": {
+    "shotgun_fire_diag_03": {
       "alpha": true,
       "attachments": {
         "muzzle": [
-          0.302,
-          0.62
+          0.103,
+          0.083
         ]
       },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_03.png",
-      "id": "shotgun_fire_03",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_03.png",
+      "id": "shotgun_fire_diag_03",
       "pivot": [
         0.5,
         1.0
@@ -704,15 +704,15 @@
       "rect": [
         0,
         0,
-        468,
+        640,
         912
       ],
       "size": [
-        468,
+        640,
         912
       ],
       "sourceSize": [
-        468,
+        640,
         912
       ],
       "trimOffset": [
@@ -720,16 +720,16 @@
         0
       ]
     },
-    "shotgun_fire_04": {
+    "shotgun_fire_diag_04": {
       "alpha": true,
       "attachments": {
         "muzzle": [
-          0.375,
-          0.625
+          0.113,
+          0.092
         ]
       },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_04.png",
-      "id": "shotgun_fire_04",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_04.png",
+      "id": "shotgun_fire_diag_04",
       "pivot": [
         0.5,
         1.0
@@ -737,15 +737,15 @@
       "rect": [
         0,
         0,
-        468,
+        640,
         912
       ],
       "size": [
-        468,
+        640,
         912
       ],
       "sourceSize": [
-        468,
+        640,
         912
       ],
       "trimOffset": [
@@ -753,16 +753,16 @@
         0
       ]
     },
-    "shotgun_fire_05": {
+    "shotgun_fire_diag_05": {
       "alpha": true,
       "attachments": {
         "muzzle": [
-          0.366,
-          0.633
+          0.135,
+          0.101
         ]
       },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_05.png",
-      "id": "shotgun_fire_05",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_05.png",
+      "id": "shotgun_fire_diag_05",
       "pivot": [
         0.5,
         1.0
@@ -770,48 +770,15 @@
       "rect": [
         0,
         0,
-        468,
+        640,
         912
       ],
       "size": [
-        468,
+        640,
         912
       ],
       "sourceSize": [
-        468,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_fire_06": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.355,
-          0.625
-        ]
-      },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_06.png",
-      "id": "shotgun_fire_06",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        468,
-        912
-      ],
-      "size": [
-        468,
-        912
-      ],
-      "sourceSize": [
-        468,
+        640,
         912
       ],
       "trimOffset": [
@@ -1010,12 +977,11 @@
     },
     "shotgun_fire": {
       "assetIds": [
-        "shotgun_fire_01",
-        "shotgun_fire_02",
-        "shotgun_fire_03",
-        "shotgun_fire_04",
-        "shotgun_fire_05",
-        "shotgun_fire_06"
+        "shotgun_fire_diag_01",
+        "shotgun_fire_diag_02",
+        "shotgun_fire_diag_03",
+        "shotgun_fire_diag_04",
+        "shotgun_fire_diag_05"
       ],
       "events": [
         {
@@ -1027,67 +993,57 @@
           "timeMs": 0
         }
       ],
-      "frameMs": 40,
+      "frameMs": 50,
       "frames": [
         {
           "attachments": {
             "muzzle": [
-              0.325,
-              0.603
-            ]
-          },
-          "durationMs": 40,
-          "id": "shotgun_fire_01"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.355,
-              0.535
+              0.137,
+              0.155
             ]
           },
           "durationMs": 50,
-          "id": "shotgun_fire_02"
+          "id": "shotgun_fire_diag_01"
         },
         {
           "attachments": {
             "muzzle": [
-              0.302,
-              0.62
+              0.126,
+              0.137
+            ]
+          },
+          "durationMs": 60,
+          "id": "shotgun_fire_diag_02"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.103,
+              0.083
+            ]
+          },
+          "durationMs": 60,
+          "id": "shotgun_fire_diag_03"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.113,
+              0.092
             ]
           },
           "durationMs": 50,
-          "id": "shotgun_fire_03"
+          "id": "shotgun_fire_diag_04"
         },
         {
           "attachments": {
             "muzzle": [
-              0.375,
-              0.625
+              0.135,
+              0.101
             ]
           },
-          "durationMs": 40,
-          "id": "shotgun_fire_04"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.366,
-              0.633
-            ]
-          },
-          "durationMs": 45,
-          "id": "shotgun_fire_05"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.355,
-              0.625
-            ]
-          },
-          "durationMs": 45,
-          "id": "shotgun_fire_06"
+          "durationMs": 50,
+          "id": "shotgun_fire_diag_05"
         }
       ],
       "loop": false
@@ -1126,7 +1082,7 @@
     }
   },
   "schema": "paper-slice-v1",
-  "status": "phase2_batch1_run_attack_fire_flash",
+  "status": "phase2_batch1_fire_diagonal_fix",
   "weapons": {
     "shotgun": {
       "ammo": 6,

@@ -78,7 +78,7 @@ export class WeaponView {
     this.weapon.add(this.muzzleNode);
 
     const fireHeight = 1.6;
-    const fireWidth = fireHeight * (468 / 912);
+    const fireWidth = fireHeight * (640 / 912);
     const fireGeometry = new THREE.PlaneGeometry(fireWidth, fireHeight);
     fireGeometry.translate(0, fireHeight / 2, 0);
     this.fireWeapon = new THREE.Mesh(
@@ -226,7 +226,7 @@ export class WeaponView {
       material.needsUpdate = true;
     }
     const muzzle = frame.attachments?.muzzle ?? [0.5, 0.5];
-    const width = 1.6 * (468 / 912);
+    const width = 1.6 * (640 / 912);
     const height = 1.6;
     this.fireMuzzleNode.position.set(
       (muzzle[0] - 0.5) * width,
@@ -294,8 +294,25 @@ export class WeaponView {
     this.weapon.position.set(posX, posY, 0);
     this.weapon.rotation.z = rotation;
     this.weapon.scale.setScalar(this.sprintScale);
-    this.fireWeapon.position.set(posX, posY, 0);
-    this.fireWeapon.rotation.z = rotation;
+    // The diagonal fire frames sit about 22 degrees steeper than idle, so
+    // the fire mesh alone gets that rotation back, pivoted on the grip so
+    // the grip stays where the idle grip was. The idle mesh is untouched.
+    const fireRotation = rotation + 0.38;
+    const fireWidth = 1.6 * (640 / 912);
+    const fireHeight = 1.6;
+    const gripX = (0.75 - 0.5) * fireWidth;
+    const gripY = (1 - 0.77) * fireHeight;
+    const s = this.sprintScale;
+    const gripWorldX =
+      posX + s * (gripX * Math.cos(rotation) - gripY * Math.sin(rotation));
+    const gripWorldY =
+      posY + s * (gripX * Math.sin(rotation) + gripY * Math.cos(rotation));
+    this.fireWeapon.position.set(
+      gripWorldX - s * (gripX * Math.cos(fireRotation) - gripY * Math.sin(fireRotation)),
+      gripWorldY - s * (gripX * Math.sin(fireRotation) + gripY * Math.cos(fireRotation)),
+      0,
+    );
+    this.fireWeapon.rotation.z = fireRotation;
     this.fireWeapon.scale.setScalar(this.sprintScale);
     if (this.fireActive) this.fireWeapon.visible = true;
     if (this.flash.visible) {

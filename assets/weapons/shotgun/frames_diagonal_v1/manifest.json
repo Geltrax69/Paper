@@ -1,0 +1,88 @@
+{
+  "frames": [
+    {
+      "id": "shotgun_fire_diag_01",
+      "file": "shotgun_fire_diag_01.png",
+      "size": [
+        640,
+        912
+      ],
+      "bbox": [
+        24,
+        129,
+        607,
+        910,
+        165058
+      ],
+      "offsetX": 28
+    },
+    {
+      "id": "shotgun_fire_diag_02",
+      "file": "shotgun_fire_diag_02.png",
+      "size": [
+        640,
+        912
+      ],
+      "bbox": [
+        523,
+        112,
+        1123,
+        912,
+        171378
+      ],
+      "offsetX": 20
+    },
+    {
+      "id": "shotgun_fire_diag_03",
+      "file": "shotgun_fire_diag_03.png",
+      "size": [
+        640,
+        912
+      ],
+      "bbox": [
+        1034,
+        63,
+        1674,
+        898,
+        186604
+      ],
+      "offsetX": 0
+    },
+    {
+      "id": "shotgun_fire_diag_04",
+      "file": "shotgun_fire_diag_04.png",
+      "size": [
+        640,
+        912
+      ],
+      "bbox": [
+        1588,
+        71,
+        2211,
+        899,
+        181608
+      ],
+      "offsetX": 8
+    },
+    {
+      "id": "shotgun_fire_diag_05",
+      "file": "shotgun_fire_diag_05.png",
+      "size": [
+        640,
+        912
+      ],
+      "bbox": [
+        2146,
+        80,
+        2733,
+        885,
+        171341
+      ],
+      "offsetX": 26
+    }
+  ],
+  "canvas": [
+    640,
+    912
+  ]
+}
