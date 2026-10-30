@@ -1,0 +1,34 @@
+{
+  "monster-key-pose-guide.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "role": "candidate_guide_not_runtime_ready",
+    "alphaMin": 0,
+    "alphaMax": 254,
+    "alphaZeroFraction": 0.5621242523193359,
+    "alphaAtLeast250Fraction": 0.2595176696777344
+  },
+  "effects-candidates.png": {
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "role": "candidate_guide_not_runtime_ready",
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "alphaZeroFraction": 0.48557799924707223,
+    "alphaAtLeast250Fraction": 0.11115859304254042
+  },
+  "gameplay-ui-target.png": {
+    "size": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "role": "visual_target"
+  }
+}

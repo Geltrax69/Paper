@@ -1,6 +1,8 @@
 # Paper vertical slice
 
-First-person arena shooter slice. One shotgun. One runner monster, front view only. One wave of six runners. Built with Vite, TypeScript, and Three.js 0.186.0.
+First-person 2.5D arena shooter built with Vite, TypeScript and Three.js 0.186.0. Current audited commit: 6f109f2. One shotgun, eight-direction animated runner, waves, score/combo, pickups, synthesized sound, settings, sprint, double jump, dash, grapple and melee.
+
+See [current fix.md](../fix.md), the [latest actual gameplay capture](verification/audit-2026-10-31/gameplay-desktop.png), and the [reference-matched art/UI implementation prompt](../docs/PUNCHY_INK_GAME_PROMPT.md). The screenshots below and VERIFICATION.md describe the original milestone; later pass reports under verification/ record later work.
 
 ## Screenshots
 
@@ -14,15 +16,15 @@ The full asset review sheet is in [verification/review-1.png](verification/revie
 
 ## Run and build
 
-Run `npm install` once, then `npm run dev` for development, `npm run build` for a production build, or `npm run preview` to serve the built game on port 5174.
+Run `npm ci`, then `npm run dev` for development. Run `npm run build` before `npm run preview` to serve the production build on port 5174. There is not yet a standard portable npm test command; historical verify scripts have environment-specific browser paths. Current audit results are in verification/audit-2026-10-31/.
 
 ## Controls
 
-WASD moves. Mouse aims. Left click fires the shotgun. R reloads. Shift sprints. Space jumps. Q dashes. Escape pauses. Click Start to enter pointer lock.
+WASD moves. Mouse aims. Left click fires the shotgun. R reloads. Shift sprints. Space jumps; a second press in the air double jumps. Q dashes. Hold E to grapple and release to detach. F performs melee. Escape pauses. Click Start to enter pointer lock. Desktop keyboard/mouse are required; touch controls are not implemented.
 
 ## Verification modes
 
-`?view=1` renders the arena, shotgun overlay, and one runner from a fixed camera with no pointer lock. `?review=1` shows each runtime image on light, dark, and checker backgrounds with its pivot and muzzle point marked.
+`?view=1` renders a fixed scene without pointer lock. `?view=2` shows independently phased animated runners. `?review=1` provides asset/clip review, playback and stepping. `?debug=1` exposes the existing inspection/setup API used by browser checks; controlled test setups are not ordinary player actions.
 
 ## Files
 
@@ -30,7 +32,7 @@ WASD moves. Mouse aims. Left click fires the shotgun. R reloads. Shift sprints. 
 
 ## Runtime images
 
-Only these four images are used at runtime, copied into `public/assets/` so Vite serves them from one consistent path.
+The current manifest has 101 images under `public/assets/`, including runner directions, attack/defeat, gun/fire effects and environment layers. These four original assets remain part of its history and base states:
 
 - `public/assets/weapons/shotgun/shotgun_idle.png`, pivot bottom, muzzle attachment at [0.27, 0.36].
 - `public/assets/monsters/runner/runner_front.png`, pivot at the feet, front view only.
@@ -49,10 +51,11 @@ Nothing under `output/` is used as a runtime texture. Those files are references
 
 ## Placeholders
 
-These are procedural or missing, and are not claimed as final art.
+Remaining gaps and mismatches are documented in the root fix.md. In particular:
 
 - Impact sparks, tracers, and dust are procedural canvas and point effects.
-- The floor grid, wall colour, and sky colour are procedural. There is no generated floor tile, wall tile, sky, or skyline image in this slice.
-- The runner has one still frame. It has no run, attack, hit, or defeat frames, so telegraph is a tint and pulse, hit reaction is a tint, and death is an opacity fade, not an ink dissolve with paper fragments.
-- There is no audio. No sound is claimed.
-- There is no grapple, melee, superjump, weapon switching, second weapon, second monster, directional runner view, or second wave. Those are out of scope for this slice.
+- The environment images exist but do not match the original dark-ground/cyan-depth reference closely enough.
+- Run, front attack/defeat and gun firing are animated; reload is still an idle-sprite dip, and hit reaction uses the old idle image.
+- Audio is synthesized with Web Audio rather than recorded sound assets.
+- The new audit reproduces aerial melee overreach and stale off-ledge grounding, and identifies grapple selection/velocity improvements.
+- Additional weapons, throwables, other monster families, final comic HUD and proper explosion gameplay remain future work. The new source-art guides under output/punchy-ink-v2/ are not in the runtime manifest.

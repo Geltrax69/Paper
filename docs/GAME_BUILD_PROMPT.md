@@ -1,6 +1,6 @@
 # Paper: master game-building prompt
 
-Copy the prompt below into the coding agent that will build the game. Use IMAGE_PROMPTS.md to produce the assets. This document specifies a future game; the current repository contains visual references, not a finished game or production sprite library.
+Historical foundation prompt. The repository now has a playable implementation. For work after the 31 October audit, start with [PUNCHY_INK_GAME_PROMPT.md](PUNCHY_INK_GAME_PROMPT.md), [PUNCHY_INK_ASSET_PROMPTS.md](PUNCHY_INK_ASSET_PROMPTS.md) and the current root fix.md. Preserve the existing working systems rather than restarting from this original build brief.
 
 ---
 

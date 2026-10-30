@@ -1,0 +1,1608 @@
+{
+  "commit": "6f109f2",
+  "browser": "156.0.8078.74",
+  "errors": [],
+  "warnings": [],
+  "failedRequests": [],
+  "tests": {
+    "framesBefore": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        9
+      ],
+      "grounded": true,
+      "playerHealth": 100,
+      "wave": 1,
+      "score": 0,
+      "combo": 0,
+      "comboMultiplier": 1,
+      "comboTimerMs": 0,
+      "spawnQueueLength": 0,
+      "runnersLeft": 2,
+      "drawCalls": 20,
+      "triangles": 308,
+      "frameTimeMs": 16.661903651475235,
+      "audio": {
+        "counts": {
+          "footstep": 3
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.053250000000000186,
+        -0.04400000000000004
+      ],
+      "geometries": 21,
+      "textures": 20,
+      "tracerCount": 0,
+      "lastTracer": null,
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 1,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 7,
+          "runPhase": 0.8954225352112667,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": -0.8237267647315678,
+          "y": 0,
+          "z": 3.2339126468790225
+        },
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 2,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 0,
+          "runPhase": 0.07200704225352118,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": 1.6167764431332485,
+          "y": 0,
+          "z": 3.1475819061043406
+        }
+      ],
+      "weapon": {
+        "fireFrame": 0,
+        "firing": false,
+        "flashFrame": 0,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "framesAfter": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        9
+      ],
+      "grounded": true,
+      "playerHealth": 100,
+      "wave": 1,
+      "score": 0,
+      "combo": 0,
+      "comboMultiplier": 1,
+      "comboTimerMs": 0,
+      "spawnQueueLength": 0,
+      "runnersLeft": 2,
+      "drawCalls": 20,
+      "triangles": 308,
+      "frameTimeMs": 16.661235794025416,
+      "audio": {
+        "counts": {
+          "footstep": 3
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.053250000000000186,
+        -0.04400000000000004
+      ],
+      "geometries": 21,
+      "textures": 20,
+      "tracerCount": 0,
+      "lastTracer": null,
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 2,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 1,
+          "runPhase": 0.15950704225351992,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": -0.75160187305054,
+          "y": 0,
+          "z": 3.7387868886462168
+        },
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 2,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 2,
+          "runPhase": 0.33609154929577506,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": 1.4809718614426906,
+          "y": 0,
+          "z": 3.6391682317805674
+        }
+      ],
+      "weapon": {
+        "fireFrame": 0,
+        "firing": false,
+        "flashFrame": 0,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "firing": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        9
+      ],
+      "grounded": true,
+      "playerHealth": 100,
+      "wave": 1,
+      "score": 0,
+      "combo": 0,
+      "comboMultiplier": 1,
+      "comboTimerMs": 0,
+      "spawnQueueLength": 0,
+      "runnersLeft": 2,
+      "drawCalls": 35,
+      "triangles": 450,
+      "frameTimeMs": 16.663625453432715,
+      "audio": {
+        "counts": {
+          "footstep": 4,
+          "shot": 1,
+          "impact": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 5,
+      "reloading": false,
+      "muzzlePosition": [
+        -0.2791259685708084,
+        0.2645655521853423
+      ],
+      "geometries": 31,
+      "textures": 24,
+      "tracerCount": 7,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          0.2621924524777085,
+          1.645908655765189,
+          -12
+        ]
+      },
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 3,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 4,
+          "runPhase": 0.5996478873239429,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": -0.6313937202488271,
+          "y": 0,
+          "z": 4.580243958258209
+        },
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 3,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 6,
+          "runPhase": 0.7762323943661975,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": 1.2546308919584273,
+          "y": 0,
+          "z": 4.458478774574277
+        }
+      ],
+      "weapon": {
+        "fireFrame": 1,
+        "firing": true,
+        "flashFrame": 2,
+        "flashOn": true,
+        "sprintScale": 1
+      }
+    },
+    "secondShot": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        9
+      ],
+      "grounded": true,
+      "playerHealth": 100,
+      "wave": 1,
+      "score": 0,
+      "combo": 0,
+      "comboMultiplier": 1,
+      "comboTimerMs": 0,
+      "spawnQueueLength": 0,
+      "runnersLeft": 2,
+      "drawCalls": 27,
+      "triangles": 448,
+      "frameTimeMs": 16.663203783004267,
+      "audio": {
+        "counts": {
+          "footstep": 7,
+          "shot": 2,
+          "impact": 2
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 4,
+      "reloading": false,
+      "muzzlePosition": [
+        -0.27346214037096894,
+        0.2465075782847519
+      ],
+      "geometries": 26,
+      "textures": 30,
+      "tracerCount": 7,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 5,
+          "health": 0,
+          "runClip": "runner_run_front",
+          "runFrame": 6,
+          "runPhase": 0.7751477208703405,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "death",
+          "x": -0.5787924346048041,
+          "y": 0,
+          "z": 5.248517039852823
+        },
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 6,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 0,
+          "runPhase": 0.07364013390466104,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "telegraph",
+          "x": 0.7448599021739803,
+          "y": 0,
+          "z": 6.892723278100081
+        }
+      ],
+      "weapon": {
+        "fireFrame": 0,
+        "firing": true,
+        "flashFrame": 0,
+        "flashOn": true,
+        "sprintScale": 1
+      }
+    },
+    "reloadMid": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        9
+      ],
+      "grounded": true,
+      "playerHealth": 100,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 3700.1000000000004,
+      "spawnQueueLength": 0,
+      "runnersLeft": 2,
+      "drawCalls": 31,
+      "triangles": 528,
+      "frameTimeMs": 16.659270762775034,
+      "audio": {
+        "counts": {
+          "footstep": 7,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 4,
+      "reloading": true,
+      "muzzlePosition": [
+        0.05734919531183452,
+        -0.2104097206186285
+      ],
+      "geometries": 27,
+      "textures": 35,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 3,
+          "direction": "front",
+          "footstepCount": 5,
+          "health": 0,
+          "runClip": "runner_run_front",
+          "runFrame": 6,
+          "runPhase": 0.7751477208703405,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "death",
+          "x": -0.5787924346048041,
+          "y": 0,
+          "z": 5.248517039852823
+        },
+        {
+          "attackFrame": 1,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 6,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 0,
+          "runPhase": 0.07364013390466104,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "attack",
+          "x": 0.7448599021739803,
+          "y": 0,
+          "z": 6.892723278100081
+        }
+      ],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "reloadDone": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        9
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 2416.7000000000007,
+      "spawnQueueLength": 0,
+      "runnersLeft": 1,
+      "drawCalls": 29,
+      "triangles": 502,
+      "frameTimeMs": 16.690770979983128,
+      "audio": {
+        "counts": {
+          "footstep": 7,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.05324991207814078,
+        -0.04399992793633212
+      ],
+      "geometries": 21,
+      "textures": 43,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [
+        {
+          "attackFrame": 2,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 6,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 0,
+          "runPhase": 0.10286548601733611,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "attack",
+          "x": 0.7260504954022042,
+          "y": 0,
+          "z": 6.945936808493146
+        }
+      ],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "grappleStart": true,
+    "grapple": {
+      "airJumpsUsed": 0,
+      "anchors": [
+        [
+          -11,
+          2.8,
+          -11
+        ],
+        [
+          11,
+          2.8,
+          -11
+        ],
+        [
+          -11,
+          2.8,
+          11
+        ],
+        [
+          11,
+          2.8,
+          11
+        ],
+        [
+          0,
+          2.8,
+          -11
+        ],
+        [
+          0,
+          2.8,
+          11
+        ],
+        [
+          -11,
+          2.8,
+          0
+        ],
+        [
+          11,
+          2.8,
+          0
+        ],
+        [
+          -3,
+          1.5,
+          -2
+        ],
+        [
+          3,
+          1.5,
+          1
+        ],
+        [
+          0,
+          1.2,
+          -6
+        ],
+        [
+          -6,
+          1.8,
+          4
+        ],
+        [
+          6,
+          1.5,
+          -5
+        ]
+      ],
+      "anchorCueVisible": false,
+      "anchorCue": [
+        0,
+        2.8,
+        11
+      ],
+      "grapple": {
+        "anchor": [
+          0,
+          2.8,
+          11
+        ],
+        "attached": true,
+        "ropeLength": 3.4409301068170506
+      },
+      "grappleMomentumMs": 0,
+      "grappleRange": 14,
+      "meleeCooldownMs": 0,
+      "meleeDamage": 18,
+      "meleeHitDone": false,
+      "meleeRange": 2.8,
+      "meleeSwinging": false,
+      "meleeTimeMs": 0,
+      "ropeVisible": true,
+      "slashVisible": false
+    },
+    "aerialMeleeBefore": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        9.99393768,
+        1.5
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 1700.1000000000004,
+      "spawnQueueLength": 0,
+      "runnersLeft": 1,
+      "drawCalls": 28,
+      "triangles": 610,
+      "frameTimeMs": 16.66645422065787,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.05325000025674792,
+        -0.04400000021043893
+      ],
+      "geometries": 25,
+      "textures": 45,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16777215,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 1,
+          "health": 36,
+          "runClip": "runner_run_front",
+          "runFrame": 0,
+          "runPhase": 0.07271126760563414,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "pursue",
+          "x": 0,
+          "y": 0,
+          "z": 0.6232200000000007
+        }
+      ],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "aerialMeleeAfter": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        9.597252599999997,
+        1.5
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 1533.5,
+      "spawnQueueLength": 0,
+      "runnersLeft": 1,
+      "drawCalls": 29,
+      "triangles": 612,
+      "frameTimeMs": 16.661346398197075,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1,
+          "melee": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.05324999997950369,
+        -0.04399999998320048
+      ],
+      "geometries": 26,
+      "textures": 46,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [
+        {
+          "attackFrame": 0,
+          "color": 16738893,
+          "defeatFrame": 0,
+          "direction": "front",
+          "footstepCount": 1,
+          "health": 18,
+          "runClip": "runner_run_front",
+          "runFrame": 2,
+          "runPhase": 0.30739436619718374,
+          "scale": 1,
+          "spawnCue": false,
+          "state": "hit",
+          "x": 0,
+          "y": 0,
+          "z": 0.27644000000000135
+        }
+      ],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "ledgeStart": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        3,
+        1.5,
+        1
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 1433.4000000000005,
+      "spawnQueueLength": 0,
+      "runnersLeft": 0,
+      "drawCalls": 26,
+      "triangles": 454,
+      "frameTimeMs": 16.672086891204216,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1,
+          "melee": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.0532499999685761,
+        -0.043999999974243864
+      ],
+      "geometries": 22,
+      "textures": 46,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "ledgeAirborne": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        4.916500000000001,
+        1.1637542000000007,
+        1
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 1050.1000000000004,
+      "spawnQueueLength": 0,
+      "runnersLeft": 0,
+      "drawCalls": 24,
+      "triangles": 440,
+      "frameTimeMs": 16.668017687075604,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1,
+          "melee": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.05325000000021041,
+        -0.05807212933616335
+      ],
+      "geometries": 22,
+      "textures": 46,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1
+      }
+    },
+    "ledgeInput": {
+      "keys": [],
+      "dashTimeMs": 0,
+      "dashCooldownMs": 0,
+      "fireCooldownMs": 0,
+      "jumpBufferMs": 0,
+      "coyoteMs": 100,
+      "mouseDelta": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "sprint": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        6.249750000000008
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 1,
+      "comboMultiplier": 1,
+      "comboTimerMs": 66.80000000000109,
+      "spawnQueueLength": 0,
+      "runnersLeft": 0,
+      "drawCalls": 19,
+      "triangles": 324,
+      "frameTimeMs": 16.670753161105466,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1,
+          "melee": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.05458280900460161,
+        0.058869447169234035
+      ],
+      "geometries": 22,
+      "textures": 46,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1.099986647927714
+      }
+    },
+    "idle": {
+      "phase": "playing",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        6.249750000000008
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 0,
+      "comboMultiplier": 1,
+      "comboTimerMs": 0,
+      "spawnQueueLength": 0,
+      "runnersLeft": 0,
+      "drawCalls": 15,
+      "triangles": 244,
+      "frameTimeMs": 16.67122906728935,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1,
+          "melee": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.053243457288194684,
+        -0.043236135842242396
+      ],
+      "geometries": 22,
+      "textures": 46,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1.0002283298526524
+      }
+    },
+    "resources": {
+      "before": 22,
+      "mid": 52,
+      "after": 22
+    },
+    "pause": {
+      "phase": "paused",
+      "startupState": "ready",
+      "jumpCount": 0,
+      "airJumpsUsed": 0,
+      "playerFeet": [
+        0,
+        0,
+        6.249750000000008
+      ],
+      "grounded": true,
+      "playerHealth": 88,
+      "wave": 1,
+      "score": 100,
+      "combo": 0,
+      "comboMultiplier": 1,
+      "comboTimerMs": 0,
+      "spawnQueueLength": 0,
+      "runnersLeft": 0,
+      "drawCalls": 15,
+      "triangles": 244,
+      "frameTimeMs": 18.01340504674934,
+      "audio": {
+        "counts": {
+          "footstep": 8,
+          "shot": 2,
+          "impact": 2,
+          "reload": 1,
+          "monsterAttack": 2,
+          "playerDamage": 1,
+          "grapple": 1,
+          "melee": 1
+        },
+        "ctxState": "running",
+        "gain": 0.800000011920929,
+        "initialized": true,
+        "muted": false,
+        "volume": 0.8
+      },
+      "settings": {
+        "flash": 1,
+        "muted": false,
+        "reducedMotion": false,
+        "sensitivity": 1,
+        "shake": 1,
+        "volume": 0.8
+      },
+      "pickups": [
+        {
+          "kind": "health",
+          "taken": false,
+          "x": -9,
+          "z": 5
+        },
+        {
+          "kind": "ammo",
+          "taken": false,
+          "x": 9,
+          "z": 5
+        }
+      ],
+      "ammo": 6,
+      "reloading": false,
+      "muzzlePosition": [
+        0.053245624640066824,
+        -0.04339835482953025
+      ],
+      "geometries": 22,
+      "textures": 46,
+      "tracerCount": 0,
+      "lastTracer": {
+        "from": [
+          0.28,
+          1.48,
+          8.45
+        ],
+        "to": [
+          -0.1728634308077862,
+          2.470447692616059,
+          -12
+        ]
+      },
+      "runners": [],
+      "weapon": {
+        "fireFrame": 4,
+        "firing": false,
+        "flashFrame": 5,
+        "flashOn": false,
+        "sprintScale": 1.0001525243415719
+      }
+    }
+  },
+  "load": {
+    "readyMs": 1527.9000000059605,
+    "resources": 102,
+    "assetRequests": 102
+  },
+  "pointerLock": true,
+  "initial": {
+    "phase": "playing",
+    "startupState": "ready",
+    "jumpCount": 0,
+    "airJumpsUsed": 0,
+    "playerFeet": [
+      0,
+      0,
+      9
+    ],
+    "grounded": true,
+    "playerHealth": 100,
+    "wave": 1,
+    "score": 0,
+    "combo": 0,
+    "comboMultiplier": 1,
+    "comboTimerMs": 0,
+    "spawnQueueLength": 5,
+    "runnersLeft": 6,
+    "drawCalls": 18,
+    "triangles": 282,
+    "frameTimeMs": 16.737095673474958,
+    "audio": {
+      "counts": {
+        "footstep": 1
+      },
+      "ctxState": "running",
+      "gain": 0.800000011920929,
+      "initialized": true,
+      "muted": false,
+      "volume": 0.8
+    },
+    "settings": {
+      "flash": 1,
+      "muted": false,
+      "reducedMotion": false,
+      "sensitivity": 1,
+      "shake": 1,
+      "volume": 0.8
+    },
+    "pickups": [
+      {
+        "kind": "health",
+        "taken": false,
+        "x": -9,
+        "z": 5
+      },
+      {
+        "kind": "ammo",
+        "taken": false,
+        "x": 9,
+        "z": 5
+      }
+    ],
+    "ammo": 6,
+    "reloading": false,
+    "muzzlePosition": [
+      0.053250000000000186,
+      -0.04400000000000004
+    ],
+    "geometries": 17,
+    "textures": 16,
+    "tracerCount": 0,
+    "lastTracer": null,
+    "runners": [
+      {
+        "attackFrame": 0,
+        "color": 16777215,
+        "defeatFrame": 0,
+        "direction": "front",
+        "footstepCount": 1,
+        "health": 36,
+        "runClip": "runner_run_front",
+        "runFrame": 3,
+        "runPhase": 0.44014084507042256,
+        "scale": 1,
+        "spawnCue": false,
+        "state": "pursue",
+        "x": -8.61986844382504,
+        "y": 0,
+        "z": -8.23973688765007
+      }
+    ],
+    "weapon": {
+      "fireFrame": 0,
+      "firing": false,
+      "flashFrame": 0,
+      "flashOn": false,
+      "sprintScale": 1
+    }
+  },
+  "narrow": {
+    "viewport": [
+      390,
+      844
+    ],
+    "button": {
+      "x": 149.984375,
+      "y": 735.4375,
+      "width": 90.015625,
+      "height": 49,
+      "top": 735.4375,
+      "right": 240,
+      "bottom": 784.4375,
+      "left": 149.984375
+    },
+    "menu": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844,
+      "top": 0,
+      "right": 390,
+      "bottom": 844,
+      "left": 0
+    },
+    "scrollHeight": 844,
+    "menuScroll": 845,
+    "menuClient": 844
+  }
+}

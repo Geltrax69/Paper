@@ -4,7 +4,17 @@ Paper-and-ink arcade shooter visual development based on [gun.mp4](gun.mp4).
 
 ## Playable vertical slice
 
-The vertical slice in [game/](game/) is playable: one shotgun, one front-view runner, one wave of six runners, in a first-person arena with crates and walls. Run it from `game/` with `npm install`, then `npm run dev` or `npm run preview`.
+The build in [game/](game/) has one shotgun, eight-direction runner animation, waves, score/combo, pickups, synthesized sound, settings, sprint, double jump, dash, grapple and melee. Run it from `game/` with `npm ci`, then `npm run dev`; for production preview run `npm run build` followed by `npm run preview`. The screenshots immediately below show the original milestone, not the latest art review.
+
+## Current audit and punchy ink direction
+
+- [Current fix plan, audited at 6f109f2](fix.md)
+- [Reference-matched game, animation and UI implementation prompt](docs/PUNCHY_INK_GAME_PROMPT.md)
+- [Matching asset prompts and all 40 optimization techniques](docs/PUNCHY_INK_ASSET_PROMPTS.md)
+- [New illustrated gameplay/UI target and candidate-art notes](output/punchy-ink-v2/README.md)
+- [Latest actual gameplay capture](game/verification/audit-2026-10-31/gameplay-desktop.png)
+
+The new direction pack is a target and source-art guide. Its planned restyle, reload poses, monster families and explosion gameplay are not yet integrated into the runtime.
 
 ![Paper arena, shotgun overlay, and one runner](game/verification/view-1.png)
 
@@ -20,7 +30,7 @@ The plan uses a small spatial scene for movement and collision, with image-based
 
 ### Slice sprites
 
-These are the four runtime images used by the slice, after real alpha extraction (see `scripts/make_alpha.py`). The raw generator files stay under each `raw/` folder.
+These are four original source images from the first slice, after alpha extraction (see `scripts/make_alpha.py`). The current manifest contains 101 images, including animation frames and environment layers; these four previews are not the complete runtime library. Raw generator files stay under their source folders.
 
 <img src="assets/weapons/shotgun/shotgun_idle.png" alt="Paper shotgun sprite" width="400">
 

@@ -1,0 +1,304 @@
+{
+  "single": {
+    "phase": "playing",
+    "startupState": "ready",
+    "jumpCount": 1,
+    "airJumpsUsed": 0,
+    "playerFeet": [
+      0,
+      1.0732125999999997,
+      9
+    ],
+    "grounded": false,
+    "playerHealth": 100,
+    "wave": 1,
+    "score": 0,
+    "combo": 0,
+    "comboMultiplier": 1,
+    "comboTimerMs": 0,
+    "spawnQueueLength": 0,
+    "runnersLeft": 0,
+    "drawCalls": 16,
+    "triangles": 256,
+    "frameTimeMs": 18.496297418602087,
+    "audio": {
+      "counts": {
+        "jump": 1
+      },
+      "ctxState": "running",
+      "gain": 0.800000011920929,
+      "initialized": true,
+      "muted": false,
+      "volume": 0.8
+    },
+    "settings": {
+      "flash": 1,
+      "muted": false,
+      "reducedMotion": false,
+      "sensitivity": 1,
+      "shake": 1,
+      "volume": 0.8
+    },
+    "pickups": [
+      {
+        "kind": "health",
+        "taken": false,
+        "x": -9,
+        "z": 5
+      },
+      {
+        "kind": "ammo",
+        "taken": false,
+        "x": 9,
+        "z": 5
+      }
+    ],
+    "ammo": 6,
+    "reloading": false,
+    "muzzlePosition": [
+      0.053250000000000186,
+      -0.04400000000000004
+    ],
+    "geometries": 13,
+    "textures": 12,
+    "tracerCount": 0,
+    "lastTracer": null,
+    "runners": [],
+    "weapon": {
+      "fireFrame": 0,
+      "firing": false,
+      "flashFrame": 0,
+      "flashOn": false,
+      "sprintScale": 1
+    }
+  },
+  "double": {
+    "phase": "playing",
+    "startupState": "ready",
+    "jumpCount": 2,
+    "airJumpsUsed": 1,
+    "playerFeet": [
+      0,
+      1.9799886799999993,
+      9
+    ],
+    "grounded": false,
+    "playerHealth": 100,
+    "wave": 1,
+    "score": 0,
+    "combo": 0,
+    "comboMultiplier": 1,
+    "comboTimerMs": 0,
+    "spawnQueueLength": 0,
+    "runnersLeft": 0,
+    "drawCalls": 16,
+    "triangles": 256,
+    "frameTimeMs": 17.37893234220426,
+    "audio": {
+      "counts": {
+        "jump": 2
+      },
+      "ctxState": "running",
+      "gain": 0.800000011920929,
+      "initialized": true,
+      "muted": false,
+      "volume": 0.8
+    },
+    "settings": {
+      "flash": 1,
+      "muted": false,
+      "reducedMotion": false,
+      "sensitivity": 1,
+      "shake": 1,
+      "volume": 0.8
+    },
+    "pickups": [
+      {
+        "kind": "health",
+        "taken": false,
+        "x": -9,
+        "z": 5
+      },
+      {
+        "kind": "ammo",
+        "taken": false,
+        "x": 9,
+        "z": 5
+      }
+    ],
+    "ammo": 6,
+    "reloading": false,
+    "muzzlePosition": [
+      0.053250000000000186,
+      -0.04400000000000004
+    ],
+    "geometries": 13,
+    "textures": 12,
+    "tracerCount": 0,
+    "lastTracer": null,
+    "runners": [],
+    "weapon": {
+      "fireFrame": 0,
+      "firing": false,
+      "flashFrame": 0,
+      "flashOn": false,
+      "sprintScale": 1
+    }
+  },
+  "third": {
+    "phase": "playing",
+    "startupState": "ready",
+    "jumpCount": 2,
+    "airJumpsUsed": 1,
+    "playerFeet": [
+      0,
+      2.3996751999999995,
+      9
+    ],
+    "grounded": false,
+    "playerHealth": 100,
+    "wave": 1,
+    "score": 0,
+    "combo": 0,
+    "comboMultiplier": 1,
+    "comboTimerMs": 0,
+    "spawnQueueLength": 0,
+    "runnersLeft": 0,
+    "drawCalls": 16,
+    "triangles": 256,
+    "frameTimeMs": 17.004755824586045,
+    "audio": {
+      "counts": {
+        "jump": 2
+      },
+      "ctxState": "running",
+      "gain": 0.800000011920929,
+      "initialized": true,
+      "muted": false,
+      "volume": 0.8
+    },
+    "settings": {
+      "flash": 1,
+      "muted": false,
+      "reducedMotion": false,
+      "sensitivity": 1,
+      "shake": 1,
+      "volume": 0.8
+    },
+    "pickups": [
+      {
+        "kind": "health",
+        "taken": false,
+        "x": -9,
+        "z": 5
+      },
+      {
+        "kind": "ammo",
+        "taken": false,
+        "x": 9,
+        "z": 5
+      }
+    ],
+    "ammo": 6,
+    "reloading": false,
+    "muzzlePosition": [
+      0.053250000000000186,
+      -0.04400000000000004
+    ],
+    "geometries": 13,
+    "textures": 12,
+    "tracerCount": 0,
+    "lastTracer": null,
+    "runners": [],
+    "weapon": {
+      "fireFrame": 0,
+      "firing": false,
+      "flashFrame": 0,
+      "flashOn": false,
+      "sprintScale": 1
+    }
+  },
+  "landed": {
+    "phase": "playing",
+    "startupState": "ready",
+    "jumpCount": 2,
+    "airJumpsUsed": 0,
+    "playerFeet": [
+      0,
+      0,
+      9
+    ],
+    "grounded": true,
+    "playerHealth": 100,
+    "wave": 1,
+    "score": 0,
+    "combo": 0,
+    "comboMultiplier": 1,
+    "comboTimerMs": 0,
+    "spawnQueueLength": 0,
+    "runnersLeft": 0,
+    "drawCalls": 16,
+    "triangles": 256,
+    "frameTimeMs": 16.66636342302264,
+    "audio": {
+      "counts": {
+        "jump": 2,
+        "land": 1
+      },
+      "ctxState": "running",
+      "gain": 0.800000011920929,
+      "initialized": true,
+      "muted": false,
+      "volume": 0.8
+    },
+    "settings": {
+      "flash": 1,
+      "muted": false,
+      "reducedMotion": false,
+      "sensitivity": 1,
+      "shake": 1,
+      "volume": 0.8
+    },
+    "pickups": [
+      {
+        "kind": "health",
+        "taken": false,
+        "x": -9,
+        "z": 5
+      },
+      {
+        "kind": "ammo",
+        "taken": false,
+        "x": 9,
+        "z": 5
+      }
+    ],
+    "ammo": 6,
+    "reloading": false,
+    "muzzlePosition": [
+      0.053250000000000186,
+      -0.04400000000000004
+    ],
+    "geometries": 13,
+    "textures": 12,
+    "tracerCount": 0,
+    "lastTracer": null,
+    "runners": [],
+    "weapon": {
+      "fireFrame": 0,
+      "firing": false,
+      "flashFrame": 0,
+      "flashOn": false,
+      "sprintScale": 1
+    }
+  },
+  "failedAsset": {
+    "text": "Failed to load: Failed to load asset \"crate_face\" from /assets/scenery/crate_face.png. Click Retry.",
+    "button": "Retry",
+    "pageErrors": []
+  },
+  "retry": {
+    "button": "Start",
+    "text": "Paper. One shotgun. One runner type. Waves, score, and pickups."
+  }
+}
