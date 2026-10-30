@@ -137,6 +137,10 @@ export class WeaponView {
     return this.firePlayer.frameIndex;
   }
 
+  get recoilValue(): number {
+    return this.recoil;
+  }
+
   get flashFrameIndex(): number {
     return this.flashPlayer.frameIndex;
   }
@@ -205,7 +209,7 @@ export class WeaponView {
     this.weapon.visible = false;
     this.flash.visible = true;
     this.flash.rotation.z = Math.random() * Math.PI * 2;
-    this.recoilVelocity += 9;
+    if (!this.reducedMotion) this.recoilVelocity += 9;
     this.syncFireFrame();
   }
 
@@ -254,6 +258,13 @@ export class WeaponView {
   }
 
   update(dt: number, opts: WeaponUpdate): void {
+    if (this.reducedMotion) {
+      this.recoil = 0;
+      this.recoilVelocity = 0;
+      this.swayX = 0;
+      this.swayY = 0;
+      this.bobAmp = 0;
+    }
     const springK = 90;
     const damping = 14;
     this.recoilVelocity += (-springK * this.recoil - damping * this.recoilVelocity) * dt;
@@ -284,6 +295,10 @@ export class WeaponView {
     }
     this.swayX += (-opts.mouseDelta.x * 0.0006 - this.swayX) * Math.min(1, dt * 10);
     this.swayY += (opts.mouseDelta.y * 0.0006 - this.swayY) * Math.min(1, dt * 10);
+    if (this.reducedMotion) {
+      this.swayX = 0;
+      this.swayY = 0;
+    }
     const acceptedSprint =
       opts.sprinting && opts.horizontalSpeed > 1.0 && !this.reloading;
     const sprintTarget = this.reducedMotion || !acceptedSprint ? 1 : 1.1;

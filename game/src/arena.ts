@@ -1,7 +1,14 @@
 import * as THREE from "three";
 
 export type Box = { half: number; height: number; x: number; z: number };
-export type RayHit = { distance: number; kind: "crate" | "wall"; point: THREE.Vector3 };
+export type RayHit = {
+  crate?: Box;
+  distance: number;
+  kind: "crate" | "floor" | "wall";
+  normal: THREE.Vector3;
+  owner: string;
+  point: THREE.Vector3;
+};
 
 // One authoritative player body. feet is the ground contact point, not the
 // camera eye. The eye is feet plus a fixed eye height, kept in main.ts.
@@ -208,19 +215,50 @@ function slabHit(
   return tMin;
 }
 
+function faceNormal(
+  point: THREE.Vector3,
+  minX: number,
+  maxX: number,
+  minZ: number,
+  maxZ: number,
+  minY: number,
+  maxY: number,
+): THREE.Vector3 {
+  const candidates: [number, THREE.Vector3][] = [
+    [Math.abs(point.x - minX), new THREE.Vector3(-1, 0, 0)],
+    [Math.abs(point.x - maxX), new THREE.Vector3(1, 0, 0)],
+    [Math.abs(point.z - minZ), new THREE.Vector3(0, 0, -1)],
+    [Math.abs(point.z - maxZ), new THREE.Vector3(0, 0, 1)],
+    [Math.abs(point.y - minY), new THREE.Vector3(0, -1, 0)],
+    [Math.abs(point.y - maxY), new THREE.Vector3(0, 1, 0)],
+  ];
+  candidates.sort((a, b) => a[0] - b[0]);
+  return candidates[0][1];
+}
+
 export function rayHitSolid(
   origin: THREE.Vector3,
   dir: THREE.Vector3,
   maxDistance: number,
 ): RayHit | null {
   let best: RayHit | null = null;
-  const consider = (distance: number | null, kind: "crate" | "wall") => {
+  const consider = (
+    distance: number | null,
+    kind: "crate" | "wall",
+    owner: string,
+    crate: Box | undefined,
+    bounds: [number, number, number, number, number, number],
+  ) => {
     if (distance === null || distance > maxDistance) return;
     if (best && distance >= best.distance) return;
+    const point = origin.clone().addScaledVector(dir, distance);
     best = {
+      crate,
       distance,
       kind,
-      point: origin.clone().addScaledVector(dir, distance),
+      normal: faceNormal(point, ...bounds),
+      owner,
+      point,
     };
   };
   for (const crate of CRATES) {
@@ -236,14 +274,73 @@ export function rayHitSolid(
         crate.height,
       ),
       "crate",
+      `crate(${crate.x},${crate.z})`,
+      crate,
+      [crate.x - crate.half, crate.x + crate.half, crate.z - crate.half, crate.z + crate.half, 0, crate.height],
     );
   }
   const h = ARENA_HALF;
-  consider(slabHit(origin, dir, -h - 0.5, h + 0.5, -h - 0.5, -h, 0, WALL_HEIGHT), "wall");
-  consider(slabHit(origin, dir, -h - 0.5, h + 0.5, h, h + 0.5, 0, WALL_HEIGHT), "wall");
-  consider(slabHit(origin, dir, -h - 0.5, -h, -h - 0.5, h + 0.5, 0, WALL_HEIGHT), "wall");
-  consider(slabHit(origin, dir, h, h + 0.5, -h - 0.5, h + 0.5, 0, WALL_HEIGHT), "wall");
+  consider(slabHit(origin, dir, -h - 0.5, h + 0.5, -h - 0.5, -h, 0, WALL_HEIGHT), "wall", "wall-south", undefined, [-h - 0.5, h + 0.5, -h - 0.5, -h, 0, WALL_HEIGHT]);
+  consider(slabHit(origin, dir, -h - 0.5, h + 0.5, h, h + 0.5, 0, WALL_HEIGHT), "wall", "wall-north", undefined, [-h - 0.5, h + 0.5, h, h + 0.5, 0, WALL_HEIGHT]);
+  consider(slabHit(origin, dir, -h - 0.5, -h, -h - 0.5, h + 0.5, 0, WALL_HEIGHT), "wall", "wall-west", undefined, [-h - 0.5, -h, -h - 0.5, h + 0.5, 0, WALL_HEIGHT]);
+  consider(slabHit(origin, dir, h, h + 0.5, -h - 0.5, h + 0.5, 0, WALL_HEIGHT), "wall", "wall-east", undefined, [h, h + 0.5, -h - 0.5, h + 0.5, 0, WALL_HEIGHT]);
   return best;
+}
+
+export function rayHitSurface(
+  origin: THREE.Vector3,
+  dir: THREE.Vector3,
+  maxDistance: number,
+): RayHit | null {
+  const solid = rayHitSolid(origin, dir, maxDistance);
+  if (dir.y < -1e-9 && origin.y > 0) {
+    const floorT = -origin.y / dir.y;
+    if (floorT > 0 && floorT <= maxDistance) {
+      const point = origin.clone().addScaledVector(dir, floorT);
+      if (Math.abs(point.x) <= ARENA_HALF && Math.abs(point.z) <= ARENA_HALF) {
+        if (!solid || floorT < solid.distance) {
+          return {
+            distance: floorT,
+            kind: "floor",
+            normal: new THREE.Vector3(0, 1, 0),
+            owner: "floor",
+            point,
+          };
+        }
+      }
+    }
+  }
+  return solid;
+}
+
+export function decalFitScale(hit: RayHit, radius: number): number {
+  const crate = hit.crate;
+  if (!crate) return 1;
+  let edgeDistance = Infinity;
+  if (hit.normal.y === 1) {
+    edgeDistance = Math.min(
+      hit.point.x - (crate.x - crate.half),
+      crate.x + crate.half - hit.point.x,
+      hit.point.z - (crate.z - crate.half),
+      crate.z + crate.half - hit.point.z,
+    );
+  } else if (hit.normal.x !== 0) {
+    edgeDistance = Math.min(
+      hit.point.z - (crate.z - crate.half),
+      crate.z + crate.half - hit.point.z,
+      hit.point.y,
+      crate.height - hit.point.y,
+    );
+  } else if (hit.normal.z !== 0) {
+    edgeDistance = Math.min(
+      hit.point.x - (crate.x - crate.half),
+      crate.x + crate.half - hit.point.x,
+      hit.point.y,
+      crate.height - hit.point.y,
+    );
+  }
+  if (!Number.isFinite(edgeDistance)) return 1;
+  return Math.max(0.3, Math.min(1, edgeDistance / radius));
 }
 
 export function segmentBlockedByCrate(from: THREE.Vector3, to: THREE.Vector3): Box | null {

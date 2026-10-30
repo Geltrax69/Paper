@@ -2,10 +2,13 @@ import * as THREE from "three";
 import {
   ARENA_HALF,
   buildArena,
+  decalFitScale,
   groundSupportY,
   rayHitSolid,
+  rayHitSurface,
   resolveBody,
   type PlayerBody,
+  type RayHit,
 } from "./arena";
 import { loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
 import { AnimationPlayer, clipFromManifest } from "./animation";
@@ -402,28 +405,30 @@ async function startGame(): Promise<void> {
   }
 
   const decalGeometry = new THREE.CircleGeometry(0.35, 20);
-  type Decal = { lifeMs: number; material: THREE.MeshBasicMaterial; mesh: THREE.Mesh };
+  type Decal = {
+    hit: RayHit;
+    lifeMs: number;
+    material: THREE.MeshBasicMaterial;
+    mesh: THREE.Mesh;
+    scale: number;
+  };
   const decals: Decal[] = [];
-  function addDecal(point: THREE.Vector3, cameraPosition: THREE.Vector3): void {
+  function addDecal(hit: RayHit): void {
     const material = new THREE.MeshBasicMaterial({
       color: 0x241d18,
       depthWrite: false,
       opacity: 0.55,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
       transparent: true,
     });
     const mesh = new THREE.Mesh(decalGeometry, material);
-    if (point.y < 0.25) {
-      mesh.rotation.x = -Math.PI / 2;
-      mesh.position.set(point.x, 0.03, point.z);
-    } else {
-      mesh.position.copy(point).addScaledVector(
-        cameraPosition.clone().sub(point).normalize(),
-        0.03,
-      );
-      mesh.lookAt(cameraPosition);
-    }
+    const scale = decalFitScale(hit, 0.35);
+    mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), hit.normal.clone().normalize());
+    mesh.position.copy(hit.point).addScaledVector(hit.normal, 0.02);
+    mesh.scale.setScalar(scale);
     scene.add(mesh);
-    decals.push({ lifeMs: 4000, material, mesh });
+    decals.push({ hit, lifeMs: 4000, material, mesh, scale });
     while (decals.length > 12) {
       const old = decals.shift();
       if (old) {
@@ -477,7 +482,7 @@ async function startGame(): Promise<void> {
   let grapple: GrappleState = { kind: "detached" };
   let grappleMomentum = new THREE.Vector3();
   let grappleMomentumMs = 0;
-  let lastMoveDelta = new THREE.Vector3();
+  let playerVelocity = new THREE.Vector3();
   const rope = new THREE.Mesh(
     new THREE.CylinderGeometry(0.02, 0.02, 1, 8),
     new THREE.MeshBasicMaterial({ color: 0xf5c542, transparent: true, opacity: 0.95 }),
@@ -492,23 +497,77 @@ async function startGame(): Promise<void> {
   anchorCue.visible = false;
   scene.add(anchorCue);
 
-  function nearestValidAnchor(eye: THREE.Vector3): { anchor: THREE.Vector3; distance: number } | null {
-    let best: { anchor: THREE.Vector3; distance: number } | null = null;
+  type GrappleSelection = {
+    anchor: THREE.Vector3;
+    angleDeg: number;
+    distance: number;
+    valid: boolean;
+  };
+  const GRAPPLE_CONE_COS = Math.cos((35 * Math.PI) / 180);
+  let lastGrappleSelection: GrappleSelection | null = null;
+  let lastCueAnchor: THREE.Vector3 | null = null;
+  function selectGrappleAnchor(
+    eye: THREE.Vector3,
+    forward: THREE.Vector3,
+  ): GrappleSelection | null {
+    let bestValid: GrappleSelection | null = null;
+    let bestBlocked: GrappleSelection | null = null;
     for (const anchor of GRAPPLE_ANCHORS) {
-      const distance = eye.distanceTo(anchor);
-      if (distance > GRAPPLE_RANGE) continue;
-      const dir = anchor.clone().sub(eye).normalize();
+      const toAnchor = anchor.clone().sub(eye);
+      const distance = toAnchor.length();
+      if (distance > GRAPPLE_RANGE || distance === 0) continue;
+      const dir = toAnchor.clone().normalize();
+      const cos = dir.dot(forward);
+      if (cos < GRAPPLE_CONE_COS) continue;
+      const angleDeg = (Math.acos(Math.max(-1, Math.min(1, cos))) * 180) / Math.PI;
       const hit = rayHitSolid(eye, dir, distance);
-      if (hit && hit.distance < distance - 0.05) continue;
-      if (!best || distance < best.distance) best = { anchor, distance };
+      const blocked = hit !== null && hit.distance < distance - 0.05;
+      const candidate = { anchor: anchor.clone(), angleDeg, distance, valid: !blocked };
+      const rank = (entry: GrappleSelection | null) =>
+        entry === null || angleDeg < entry.angleDeg - 0.01 ||
+        (Math.abs(angleDeg - entry.angleDeg) <= 0.01 && distance < entry.distance);
+      if (blocked) {
+        if (rank(bestBlocked)) bestBlocked = candidate;
+      } else if (rank(bestValid)) {
+        bestValid = candidate;
+      }
     }
-    return best;
+    if (bestValid && lastCueAnchor) {
+      const kept = GRAPPLE_ANCHORS.find((anchor) => anchor.equals(lastCueAnchor as THREE.Vector3));
+      if (kept) {
+        const toKept = kept.clone().sub(eye);
+        const keptDistance = toKept.length();
+        if (keptDistance <= GRAPPLE_RANGE) {
+          const keptDir = toKept.clone().normalize();
+          const keptCos = keptDir.dot(forward);
+          const keptHit = rayHitSolid(eye, keptDir, keptDistance);
+          if (
+            keptCos >= GRAPPLE_CONE_COS &&
+            !(keptHit !== null && keptHit.distance < keptDistance - 0.05) &&
+            Math.acos(Math.max(-1, Math.min(1, keptCos))) * 180 / Math.PI <= bestValid.angleDeg + 5
+          ) {
+            bestValid = {
+              anchor: kept.clone(),
+              angleDeg: (Math.acos(Math.max(-1, Math.min(1, keptCos))) * 180) / Math.PI,
+              distance: keptDistance,
+              valid: true,
+            };
+          }
+        }
+      }
+    }
+    const selected = bestValid ?? bestBlocked;
+    if (selected) lastCueAnchor = selected.anchor.clone();
+    lastGrappleSelection = selected;
+    return selected;
   }
 
   function tryAttachGrapple(): boolean {
     if (grapple.kind === "attached") return true;
-    const found = nearestValidAnchor(camera.position);
-    if (!found) return false;
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    const found = selectGrappleAnchor(camera.position, forward);
+    if (!found || !found.valid) return false;
     grapple = {
       kind: "attached",
       anchor: found.anchor.clone(),
@@ -525,9 +584,10 @@ async function startGame(): Promise<void> {
     grapple = { kind: "detached" };
     rope.visible = false;
     if (withMomentum) {
-      grappleMomentum.set(lastMoveDelta.x, 0, lastMoveDelta.z);
-      if (grappleMomentum.length() > 10) grappleMomentum.setLength(10);
-      grappleMomentumMs = 400;
+      grappleMomentum.set(playerVelocity.x, 0, playerVelocity.z);
+      if (grappleMomentum.length() > 12) grappleMomentum.setLength(12);
+      verticalVelocity = Math.max(-15, Math.min(12, playerVelocity.y));
+      grappleMomentumMs = 1000;
     } else {
       grappleMomentum.set(0, 0, 0);
       grappleMomentumMs = 0;
@@ -579,6 +639,7 @@ async function startGame(): Promise<void> {
   let meleeTimeMs = 0;
   let meleeCooldownMs = 0;
   let meleeHitDone = false;
+  const meleeHitRunners = new Set<Runner>();
   const slashCanvas = document.createElement("canvas");
   slashCanvas.width = 256;
   slashCanvas.height = 256;
@@ -612,9 +673,42 @@ async function startGame(): Promise<void> {
     meleeTimeMs = MELEE_SWING_MS;
     meleeCooldownMs = MELEE_COOLDOWN_MS;
     meleeHitDone = false;
+    meleeHitRunners.clear();
     slashMesh.visible = true;
     audio.melee();
     return true;
+  }
+  function segmentSegmentDistance(
+    a0: THREE.Vector3,
+    a1: THREE.Vector3,
+    b0: THREE.Vector3,
+    b1: THREE.Vector3,
+  ): number {
+    const d1 = a1.clone().sub(a0);
+    const d2 = b1.clone().sub(b0);
+    const r = a0.clone().sub(b0);
+    const a = d1.dot(d1);
+    const e = d2.dot(d2);
+    const f = d2.dot(r);
+    let s = 0;
+    let t = 0;
+    if (a > 1e-9 && e > 1e-9) {
+      const c = d1.dot(r);
+      const b = d1.dot(d2);
+      const denom = a * e - b * b;
+      s = denom > 1e-9 ? Math.max(0, Math.min(1, (b * f - c * e) / denom)) : 0;
+      t = (b * s + f) / e;
+      if (t < 0) {
+        t = 0;
+        s = Math.max(0, Math.min(1, -c / a));
+      } else if (t > 1) {
+        t = 1;
+        s = Math.max(0, Math.min(1, (b - c) / a));
+      }
+    }
+    const closestA = a0.clone().addScaledVector(d1, s);
+    const closestB = b0.clone().addScaledVector(d2, t);
+    return closestA.distanceTo(closestB);
   }
   function meleeEvent(): void {
     if (meleeHitDone) return;
@@ -622,18 +716,22 @@ async function startGame(): Promise<void> {
     const eye = camera.position.clone();
     const forward = new THREE.Vector3();
     camera.getWorldDirection(forward);
+    const playerTop = playerFeet.clone();
+    playerTop.y += PLAYER_HEIGHT;
     for (const runner of runners) {
       if (runner.state === "death" || runner.state === "spawn") continue;
-      const toRunner = runner.position.clone().sub(playerFeet);
-      toRunner.y = 0;
-      const horizontal = toRunner.length();
-      if (horizontal > MELEE_RANGE + 0.55) continue;
+      if (meleeHitRunners.has(runner)) continue;
+      const runnerTop = runner.position.clone();
+      runnerTop.y += 2.0;
+      const reach = segmentSegmentDistance(playerFeet, playerTop, runner.position, runnerTop);
+      if (reach > MELEE_RANGE) continue;
       const center = runner.position.clone();
       center.y = 1.1;
       const toCenter = center.clone().sub(eye);
       if (toCenter.clone().normalize().dot(forward) <= 0.5) continue;
       const blocked = rayHitSolid(eye, toCenter.clone().normalize(), toCenter.length());
-      if (blocked) continue;
+      if (blocked && blocked.distance < toCenter.length() - 0.05) continue;
+      meleeHitRunners.add(runner);
       const result = runner.takeDamage(MELEE_DAMAGE, playerFeet);
       if (result === "applied" || result === "killed") hitmarkerMs = 150;
     }
@@ -733,6 +831,7 @@ async function startGame(): Promise<void> {
     meleeTimeMs = 0;
     meleeCooldownMs = 0;
     meleeHitDone = false;
+    meleeHitRunners.clear();
     slashMesh.visible = false;
     airJumpsUsed = 0;
     streakTimerMs = 0;
@@ -810,8 +909,13 @@ async function startGame(): Promise<void> {
     if (phase !== "playing" || playerHealth <= 0) return;
     playerHealth -= amount;
     damageFlashMs = 400;
-    shakeTimeMs = 300;
-    shakeAmp = 0.25 * settings.shake;
+    if (settings.reducedMotion) {
+      shakeTimeMs = 0;
+      shakeAmp = 0;
+    } else {
+      shakeTimeMs = 300;
+      shakeAmp = 0.25 * settings.shake;
+    }
     audio.playerDamage();
     if (playerHealth <= 0) {
       playerHealth = 0;
@@ -912,7 +1016,7 @@ async function startGame(): Promise<void> {
       const toAim = aim.clone().sub(muzzle);
       const aimLen = toAim.length();
       const muzzleDir = aimLen > 0 ? toAim.normalize() : dir.clone();
-      const blocked = rayHitSolid(muzzle, muzzleDir, aimLen);
+      const blocked = rayHitSurface(muzzle, muzzleDir, aimLen);
       let end: THREE.Vector3;
       let hitRunner: Runner | null = null;
       if (blocked) {
@@ -931,7 +1035,12 @@ async function startGame(): Promise<void> {
         }
       }
       tracer(muzzle, end);
-      if (blocked || (aimPoint && !aimRunner)) addDecal(end, eye);
+      if (blocked) {
+        addDecal(blocked);
+      } else if (aimPoint && !aimRunner) {
+        const eyeSurface = rayHitSurface(eye, dir, aimDistance);
+        if (eyeSurface) addDecal(eyeSurface);
+      }
       if (end.distanceTo(muzzle) > 0.05) burst(end, 6);
       if (blocked || aimPoint) anyImpact = true;
       if (hitRunner) {
@@ -1049,6 +1158,16 @@ async function startGame(): Promise<void> {
         anchors: GRAPPLE_ANCHORS.map((anchor) => [anchor.x, anchor.y, anchor.z]),
         anchorCueVisible: anchorCue.visible,
         anchorCue: [anchorCue.position.x, anchorCue.position.y, anchorCue.position.z],
+        grappleCue: lastGrappleSelection
+          ? {
+              anchor: [lastGrappleSelection.anchor.x, lastGrappleSelection.anchor.y, lastGrappleSelection.anchor.z],
+              angleDeg: lastGrappleSelection.angleDeg,
+              distance: lastGrappleSelection.distance,
+              valid: lastGrappleSelection.valid,
+            }
+          : null,
+        grappleMomentumMs,
+        playerVelocity: [playerVelocity.x, playerVelocity.y, playerVelocity.z],
         grapple:
           grapple.kind === "attached"
             ? {
@@ -1057,7 +1176,6 @@ async function startGame(): Promise<void> {
                 ropeLength: grapple.ropeLength,
               }
             : { attached: false },
-        grappleMomentumMs,
         grappleRange: GRAPPLE_RANGE,
         meleeCooldownMs,
         meleeDamage: MELEE_DAMAGE,
@@ -1130,7 +1248,9 @@ async function startGame(): Promise<void> {
             runClip: runner.runClipId,
             runFrame: runner.runFrameIndex,
             runPhase: runner.runPhase01,
+            runScale: runner.runMeshScale,
             scale: anyRunner.mesh.scale.x,
+            visibleMesh: runner.visibleMeshKind,
             spawnCue: runner.spawnCueVisible,
             state: runner.state,
             x: runner.position.x,
@@ -1144,9 +1264,14 @@ async function startGame(): Promise<void> {
               firing: weaponView.firing,
               flashFrame: weaponView.flashFrameIndex,
               flashOn: weaponView.flashOn,
+              recoil: weaponView.recoilValue,
               sprintScale: weaponView.sprintScale,
             }
           : null,
+      }),
+      getCamera: () => ({
+        position: [camera.position.x, camera.position.y, camera.position.z],
+        roll: camera.rotation.z,
       }),
       getInputState: () => ({
         keys: [...keys],
@@ -1186,6 +1311,10 @@ async function startGame(): Promise<void> {
       getDecals: () =>
         decals.map((entry) => ({
           lifeMs: entry.lifeMs,
+          normal: [entry.hit.normal.x, entry.hit.normal.y, entry.hit.normal.z],
+          owner: entry.hit.owner,
+          quaternion: entry.mesh.quaternion.toArray(),
+          scale: entry.scale,
           x: entry.mesh.position.x,
           y: entry.mesh.position.y,
           z: entry.mesh.position.z,
@@ -1544,18 +1673,21 @@ async function startGame(): Promise<void> {
       }
       if (grappleMomentumMs > 0 && grapple.kind === "detached") {
         grappleMomentumMs -= dtMs;
-        playerFeet.addScaledVector(grappleMomentum, dt);
-        resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
-        grappleMomentum.multiplyScalar(Math.max(0, 1 - 3 * dt));
+        const momentumDistance = grappleMomentum.length() * dt;
+        const steps = Math.max(1, Math.min(8, Math.ceil(momentumDistance / 0.25)));
+        for (let i = 0; i < steps; i += 1) {
+          playerFeet.addScaledVector(grappleMomentum, dt / steps);
+          resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
+        }
+        grappleMomentum.multiplyScalar(Math.max(0, 1 - 1.0 * dt));
         if (grappleMomentumMs <= 0) grappleMomentum.set(0, 0, 0);
       }
-      lastMoveDelta.set(
-        playerFeet.x - prevFeet.x,
-        0,
-        playerFeet.z - prevFeet.z,
-      );
       if (dt > 0) {
-        lastMoveDelta.multiplyScalar(1 / dt);
+        playerVelocity.set(
+          (playerFeet.x - prevFeet.x) / dt,
+          (playerFeet.y - prevFeet.y) / dt,
+          (playerFeet.z - prevFeet.z) / dt,
+        );
       }
       const horizontalSpeed =
         dt > 0
@@ -1565,14 +1697,8 @@ async function startGame(): Promise<void> {
             ) / dt
           : 0;
 
-      const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
       const wasGrounded = grounded;
       if (grapple.kind === "detached") {
-        if (playerFeet.y <= support + 0.001) {
-          grounded = true;
-          airJumpsUsed = 0;
-        }
-        if (grounded) coyoteMs = 100;
         if (jumpBufferMs > 0 && coyoteMs > 0) {
           verticalVelocity = 8;
           playerFeet.y += 0.01;
@@ -1592,30 +1718,22 @@ async function startGame(): Promise<void> {
           spawnJumpRing(playerFeet);
         }
         verticalVelocity -= 22 * dt;
-        const prevY = playerFeet.y;
         playerFeet.y += verticalVelocity * dt;
-        if (verticalVelocity <= 0) {
-          const landingSupport = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
-          if (prevY >= landingSupport && playerFeet.y <= landingSupport) {
-            playerFeet.y = landingSupport;
-            verticalVelocity = 0;
-            grounded = true;
-            airJumpsUsed = 0;
-            if (!wasGrounded) {
-              audio.land();
-              burst(playerFeet.clone(), 10);
-            }
-          } else if (playerFeet.y < 0) {
-            playerFeet.y = 0;
-            verticalVelocity = 0;
-            grounded = true;
-            airJumpsUsed = 0;
-            if (!wasGrounded) {
-              audio.land();
-              burst(playerFeet.clone(), 10);
-            }
+        const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
+        if (playerFeet.y <= support + 0.001) {
+          const landed = !wasGrounded && verticalVelocity <= 0;
+          playerFeet.y = support;
+          verticalVelocity = 0;
+          grounded = true;
+          airJumpsUsed = 0;
+          if (landed) {
+            audio.land();
+            burst(playerFeet.clone(), 10);
           }
+        } else {
+          grounded = false;
         }
+        if (grounded) coyoteMs = 100;
       }
 
       if (!grounded && !settings.reducedMotion) {
@@ -1642,10 +1760,15 @@ async function startGame(): Promise<void> {
         anchorCue.visible = true;
       } else if (phase === "playing") {
         const eye = new THREE.Vector3(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
-        const found = nearestValidAnchor(eye);
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        const found = selectGrappleAnchor(eye, forward);
         if (found) {
           anchorCue.position.copy(found.anchor);
           anchorCue.visible = true;
+          (anchorCue.material as THREE.MeshBasicMaterial).color.setHex(
+            found.valid ? 0xf5c542 : 0xc0392b,
+          );
         } else {
           anchorCue.visible = false;
         }

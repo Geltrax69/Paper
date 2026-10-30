@@ -1,0 +1,82 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "n03-aerial",
+      "name": "Melee from 10m above deals no damage",
+      "status": "PASS",
+      "detail": "runnerHealth=36 playerFeetAtCheck=0.00,7.53,1.50"
+    },
+    {
+      "id": "n03-close",
+      "name": "Valid close strike deals exactly 18 once",
+      "status": "PASS",
+      "detail": "afterFirst=18 afterWait=18"
+    },
+    {
+      "id": "n03-blocked",
+      "name": "Crate-blocked melee deals no damage",
+      "status": "PASS",
+      "detail": "runnerHealth=36 runnerAt=-4.55,4.30"
+    },
+    {
+      "id": "n04-ledge",
+      "name": "Stepping off crate clears grounded, coyote expires, landing once",
+      "status": "PASS",
+      "detail": "beforeGrounded=true onCrateCoyoteMs=100 offFeet=4.25,1.45,1.00 offGrounded=false coyoteFirst=0 coyoteLast=0 landBefore=0 landAfter=1 airJumps=0"
+    },
+    {
+      "id": "n05-behind",
+      "name": "No behind-camera grapple, E uses indicated forward anchor",
+      "status": "PASS",
+      "detail": "cue=-3,1.5,-2 attached=-3,1.5,-2 cue2=0,2.8,11 attached2=0,2.8,11"
+    },
+    {
+      "id": "n06-release",
+      "name": "Two release phases drift usefully without tunneling",
+      "status": "PASS",
+      "detail": "velA=-0.00,0.00,4.00 driftA=1.77 maxYA=0.00 relY=0.00 velB=-3.53,0.71,0.71 driftB=2.39 maxYB=0.10 relYB=0.03 tunneled=false"
+    },
+    {
+      "id": "n07-back-attack-hit",
+      "name": "Back-facing attack and hit show run pose, not front face or idle pop",
+      "status": "PASS",
+      "detail": "attack=telegraph/back/run/runner_run_back hit=hit/run/runScale=1.00"
+    },
+    {
+      "id": "n07-hysteresis",
+      "name": "Runner crossing sectors does not flicker, phase preserved",
+      "status": "PASS",
+      "detail": "directions=front,front-left changes=1 flicker=false phaseReset=false"
+    },
+    {
+      "id": "n10-decal",
+      "name": "Crate decal stays flush to its surface when the camera moves",
+      "status": "PASS",
+      "detail": "decal1=crate(3,1) n=0.00,0.00,1.00 pos=3.31,1.41,1.77 scale=0.30 same=true"
+    },
+    {
+      "id": "n12-reduced",
+      "name": "Reduced motion damage has no shake or roll, zero flash hides bright layer, health still drops",
+      "status": "PASS",
+      "detail": "shaken=false rolled=false health=100->90 damageOpacity=0"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Two shots use two ammo",
+      "status": "PASS",
+      "detail": "ammo 6->4 weapon={\"fireFrame\":0,\"firing\":true,\"flashFrame\":0,\"flashOn\":true,\"recoil\":0.000036348808142276174,\"sprintScale\":1}"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Kill plays defeat and removes runner",
+      "status": "PASS",
+      "detail": "removed=true runners=0 score=350"
+    }
+  ]
+}

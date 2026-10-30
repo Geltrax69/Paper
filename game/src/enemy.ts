@@ -28,23 +28,29 @@ export type RunDirection =
   | "front-left";
 
 // Sectors are ordered by relative heading angle, starting at front and
-// stepping 45 degrees toward the camera's right. Ground and top values
-// are measured from the sliced frames, not guessed from canvas size.
+// stepping 45 degrees toward the camera's right. Top values are measured
+// from the sliced frames, not guessed from canvas size. Ground lines are
+// not stored here: they come from the manifest pivot of each clip's
+// first asset, so the geometry and the manifest cannot drift apart.
 export const RUN_DIRECTIONS: {
   clipId: string;
-  groundY: number;
   name: RunDirection;
   topY: number;
 }[] = [
-  { clipId: "runner_run_front", groundY: 832, name: "front", topY: 103 },
-  { clipId: "runner_run_front_right", groundY: 756, name: "front-right", topY: 51 },
-  { clipId: "runner_run_right", groundY: 729, name: "right", topY: 82 },
-  { clipId: "runner_run_back_right", groundY: 908, name: "back-right", topY: 32 },
-  { clipId: "runner_run_back", groundY: 775, name: "back", topY: 46 },
-  { clipId: "runner_run_back_left", groundY: 800, name: "back-left", topY: 35 },
-  { clipId: "runner_run_left", groundY: 809, name: "left", topY: 108 },
-  { clipId: "runner_run_front_left", groundY: 808, name: "front-left", topY: 113 },
+  { clipId: "runner_run_front", name: "front", topY: 103 },
+  { clipId: "runner_run_front_right", name: "front-right", topY: 51 },
+  { clipId: "runner_run_right", name: "right", topY: 82 },
+  { clipId: "runner_run_back_right", name: "back-right", topY: 32 },
+  { clipId: "runner_run_back", name: "back", topY: 46 },
+  { clipId: "runner_run_back_left", name: "back-left", topY: 35 },
+  { clipId: "runner_run_left", name: "left", topY: 108 },
+  { clipId: "runner_run_front_left", name: "front-left", topY: 113 },
 ];
+
+export function manifestGroundY(clipId: string): number {
+  const first = manifest.assets[manifest.clips[clipId].assetIds[0]];
+  return first.pivot[1] * first.size[1];
+}
 
 export const RUN_DIRECTION_CLIPS: Record<RunDirection, string> = Object.fromEntries(
   RUN_DIRECTIONS.map((entry) => [entry.name, entry.clipId]),
@@ -66,6 +72,38 @@ export function directionForHeading(
   const index =
     ((Math.round(relative / (Math.PI / 4)) % 8) + 8) % 8;
   return RUN_DIRECTIONS[index].name;
+}
+
+function angularDistance(a: number, b: number): number {
+  let diff = a - b;
+  while (diff > Math.PI) diff -= Math.PI * 2;
+  while (diff <= -Math.PI) diff += Math.PI * 2;
+  return Math.abs(diff);
+}
+
+export function directionForHeadingWithHysteresis(
+  heading: THREE.Vector3,
+  camera: THREE.Camera,
+  position: THREE.Vector3,
+  current: RunDirection,
+): RunDirection {
+  const nearest = directionForHeading(heading, camera, position);
+  if (nearest === current) return current;
+  const toCamera = Math.atan2(
+    camera.position.x - position.x,
+    camera.position.z - position.z,
+  );
+  const headingAngle = Math.atan2(heading.x, heading.z);
+  let relative = headingAngle - toCamera;
+  while (relative > Math.PI) relative -= Math.PI * 2;
+  while (relative <= -Math.PI) relative += Math.PI * 2;
+  const currentIndex = RUN_DIRECTIONS.findIndex((entry) => entry.name === current);
+  let centre = currentIndex * (Math.PI / 4);
+  if (centre > Math.PI) centre -= Math.PI * 2;
+  const boundary = Math.PI / 8;
+  const hysteresis = (10 * Math.PI) / 180;
+  if (angularDistance(relative, centre) <= boundary + hysteresis) return current;
+  return nearest;
 }
 
 export type RunnerClipTextures = {
@@ -186,7 +224,7 @@ export class Runner {
         if (textures && textures.length > 0) {
           this.runGeometries.set(
             entry.name,
-            clipGeometry(entry.clipId, spec.height, entry.groundY, entry.topY),
+            clipGeometry(entry.clipId, spec.height, manifestGroundY(entry.clipId), entry.topY),
           );
         }
       }
@@ -202,7 +240,7 @@ export class Runner {
       );
       this.runMesh.visible = false;
       this.group.add(this.runMesh);
-      this.attackGeometry = clipGeometry(spec.attackClip, spec.height, 885, 31);
+      this.attackGeometry = clipGeometry(spec.attackClip, spec.height, manifestGroundY(spec.attackClip), 31);
       this.attackMaterial = new THREE.MeshBasicMaterial({
         alphaTest: 0.08,
         map: clips.attack[0],
@@ -213,7 +251,7 @@ export class Runner {
       this.attackMesh.visible = false;
       this.group.add(this.attackMesh);
       if (clips.defeat.length > 0) {
-        this.defeatGeometry = clipGeometry(spec.defeatClip, spec.height, 802, 144);
+        this.defeatGeometry = clipGeometry(spec.defeatClip, spec.height, manifestGroundY(spec.defeatClip), 144);
         this.defeatMaterial = new THREE.MeshBasicMaterial({
           alphaTest: 0.08,
           map: clips.defeat[0],
@@ -254,6 +292,17 @@ export class Runner {
     return this.direction;
   }
 
+  get visibleMeshKind(): string {
+    if (this.runMesh?.visible) return "run";
+    if (this.attackMesh?.visible) return "attack";
+    if (this.defeatMesh?.visible) return "defeat";
+    return "idle";
+  }
+
+  get runMeshScale(): number {
+    return this.runMesh ? this.runMesh.scale.x : this.mesh.scale.x;
+  }
+
   get runClipId(): string {
     return RUN_DIRECTION_CLIPS[this.direction];
   }
@@ -279,8 +328,18 @@ export class Runner {
   }
 
   private updateDirection(camera: THREE.Camera): void {
-    const next = this.directionOverride ?? directionForHeading(this.heading, camera, this.position);
+    const next =
+      this.directionOverride ??
+      directionForHeadingWithHysteresis(this.heading, camera, this.position, this.direction);
     if (next !== this.direction) this.applyDirection(next);
+  }
+
+  private attackUsesFrontArt(): boolean {
+    return this.direction === "front";
+  }
+
+  private attackMeshKind(): "attack" | "run" {
+    return this.attackUsesFrontArt() ? "attack" : "run";
   }
 
   get runFrameIndex(): number {
@@ -401,10 +460,10 @@ export class Runner {
       this.syncAttackTexture();
     }
     this.showMesh(
-      next === "pursue"
+      next === "pursue" || next === "hit"
         ? "run"
         : next === "telegraph" || next === "attack"
-          ? "attack"
+          ? this.attackMeshKind()
           : next === "death"
             ? "defeat"
             : "idle",
@@ -523,24 +582,32 @@ export class Runner {
         this.setState("telegraph");
       }
     } else if (this.state === "telegraph") {
-      this.showMesh("attack");
+      this.showMesh(this.attackMeshKind());
       const pulse = 1 + 0.08 * Math.sin(this.stateTimeMs / 60);
-      if (this.attackMesh) this.attackMesh.scale.setScalar(pulse);
-      else this.mesh.scale.setScalar(pulse);
-      const tintMaterial = this.attackMaterial ?? this.material;
+      if (this.attackUsesFrontArt() && this.attackMesh) {
+        this.attackMesh.scale.setScalar(pulse);
+      } else if (this.runMesh) {
+        this.runMesh.scale.setScalar(pulse);
+      } else {
+        this.mesh.scale.setScalar(pulse);
+      }
+      const tintMaterial =
+        this.attackUsesFrontArt() && this.attackMaterial
+          ? this.attackMaterial
+          : this.runMaterial ?? this.material;
       tintMaterial.color.setHex(0xffd9c2);
       if (this.attackPlayer) {
         this.attackPlayer.play(0);
-        this.syncAttackTexture();
+        if (this.attackUsesFrontArt()) this.syncAttackTexture();
       }
       if (this.stateTimeMs >= 400) {
         this.setState("attack");
       }
     } else if (this.state === "attack") {
-      this.showMesh("attack");
+      this.showMesh(this.attackMeshKind());
       if (this.attackPlayer) {
         const events = this.attackPlayer.update(dtMs, 1);
-        this.syncAttackTexture();
+        if (this.attackUsesFrontArt()) this.syncAttackTexture();
         if (events.includes("strike")) {
           const enemyChest = this.position.clone();
           enemyChest.y = 1;
@@ -570,8 +637,9 @@ export class Runner {
         if (this.stateTimeMs >= 280) this.setState("pursue");
       }
     } else if (this.state === "hit") {
-      this.showMesh("idle");
-      this.material.color.setHex(0xff6a4d);
+      this.showMesh("run");
+      const tintMaterial = this.runMaterial ?? this.material;
+      tintMaterial.color.setHex(0xff6a4d);
       if (this.stateTimeMs >= 250) {
         this.setState("pursue");
       }
