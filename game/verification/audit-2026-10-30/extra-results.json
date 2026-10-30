@@ -1,0 +1,60 @@
+{
+  "reviewLayout": {
+    "viewport": 1280,
+    "rowWidth": 1240,
+    "rowContent": 1317,
+    "rootWidth": 1280,
+    "rootContent": 1337,
+    "cells": [
+      {
+        "left": 20,
+        "width": 482
+      },
+      {
+        "left": 437.328125,
+        "width": 482
+      },
+      {
+        "left": 854.65625,
+        "width": 482
+      }
+    ],
+    "documentHeight": 720,
+    "internalHeight": 1784
+  },
+  "controlledKill": {
+    "healthBefore": 36,
+    "state": "pursue",
+    "after": {
+      "ammo": 5,
+      "health": 0,
+      "state": "death"
+    },
+    "afterRemoval": {
+      "remaining": 1,
+      "states": [
+        "spawn"
+      ]
+    }
+  },
+  "heightCollision": {
+    "before": [
+      3,
+      10,
+      1
+    ],
+    "after": [
+      4.15,
+      10,
+      1
+    ]
+  },
+  "simulatedAssetFailure": {
+    "pageErrors": [
+      "Event"
+    ],
+    "menuText": "Vertical slice. One shotgun. One runner. One wave.",
+    "button": "Start",
+    "pointerLock": false
+  }
+}
