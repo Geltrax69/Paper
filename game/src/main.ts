@@ -10,6 +10,7 @@ import {
 import { loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
 import { AnimationPlayer, clipFromManifest } from "./animation";
 import { Runner } from "./enemy";
+import { applySky, buildEnvironment } from "./environment";
 import { findRoute } from "./pathing";
 import { WeaponView } from "./weapon";
 
@@ -595,6 +596,16 @@ async function startGame(): Promise<void> {
       holdFlash: () => {
         weaponView?.forceFlashVisible();
       },
+      getEnvironment: () => {
+        const maps: string[] = [];
+        scene.traverse((obj) => {
+          const mesh = obj as THREE.Mesh;
+          const material = mesh.material as THREE.MeshBasicMaterial | undefined;
+          const src = (material?.map?.image as { src?: string } | undefined)?.src;
+          if (mesh.isMesh && src) maps.push(src.split("/").pop() ?? src);
+        });
+        return { background: scene.background !== null, maps: [...new Set(maps)].sort() };
+      },
       getState: () => ({
         phase,
         startupState,
@@ -712,7 +723,9 @@ async function startGame(): Promise<void> {
         menuText.textContent = `Loading assets ${done}/${total}: ${id}…`;
       });
       if (!arenaBuilt) {
-        scene.add(buildArena(textures.get("crate_face") as THREE.Texture));
+        scene.add(buildArena(textures, manifest.environment));
+        scene.add(buildEnvironment(textures, manifest.environment));
+        applySky(scene, textures.get(manifest.environment.sky.asset));
         arenaBuilt = true;
       }
       if (!weaponView) {

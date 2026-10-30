@@ -47,10 +47,19 @@ export type EnemySpec = {
   runClip: string;
   speed: number;
 };
+export type Environment = {
+  crates: string[];
+  floor: { asset: string; repeat: [number, number] };
+  ruins: { asset: string; cards: [number, number, number][]; height: number; width: number };
+  sky: { asset: string };
+  skyline: { asset: string; height: number; radius: number };
+  wall: { asset: string; repeat: [number, number] };
+};
 export type Manifest = {
   assets: Record<string, Asset>;
   clips: Record<string, Clip>;
   enemies: Record<string, EnemySpec>;
+  environment: Environment;
   schema: string;
   weapons: Record<string, Weapon>;
 };

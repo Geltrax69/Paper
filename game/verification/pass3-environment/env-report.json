@@ -1,0 +1,48 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "env-layers",
+      "name": "All environment layers present in scene",
+      "status": "PASS",
+      "detail": "background=true maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,floor_seamless.png,mid_ruins.png,runner_attack_front_01.png,runner_front.png,runner_run_front_01.png,wall_seamless.png missing=none"
+    },
+    {
+      "id": "env-angle",
+      "name": "Second angle shows cards beyond arena",
+      "status": "PASS",
+      "detail": "screenshot env-angle.png from corner facing north-west"
+    },
+    {
+      "id": "env-crates",
+      "name": "Crate variants visible from centre",
+      "status": "PASS",
+      "detail": "screenshot env-crates.png facing north from centre"
+    },
+    {
+      "id": "env-floor",
+      "name": "Floor tiling close view",
+      "status": "PASS",
+      "detail": "screenshot env-floor.png looking down at floor"
+    },
+    {
+      "id": "env-wall",
+      "name": "Wall tiling close view",
+      "status": "PASS",
+      "detail": "screenshot env-wall.png facing south wall"
+    },
+    {
+      "id": "env-view1",
+      "name": "View mode shows environment layers",
+      "status": "PASS",
+      "detail": "screenshot env-view1.png"
+    }
+  ],
+  "browser": "chromium cached 1248",
+  "base": "http://127.0.0.1:5178"
+}

@@ -98,42 +98,36 @@ export const CRATES: Box[] = [
   { half: 0.75, height: 1.5, x: 6, z: -5 },
 ];
 
-export function buildArena(crateTexture: THREE.Texture): THREE.Group {
+export function buildArena(
+  textures: Map<string, THREE.Texture>,
+  env: {
+    crates: string[];
+    floor: { asset: string; repeat: [number, number] };
+    wall: { asset: string; repeat: [number, number] };
+  },
+): THREE.Group {
   const group = new THREE.Group();
-  const floorCanvas = document.createElement("canvas");
-  floorCanvas.width = 256;
-  floorCanvas.height = 256;
-  const ctx = floorCanvas.getContext("2d");
-  if (ctx) {
-    ctx.fillStyle = "#f0e7d2";
-    ctx.fillRect(0, 0, 256, 256);
-    ctx.strokeStyle = "rgba(60,50,40,0.18)";
-    ctx.lineWidth = 2;
-    for (let i = 0; i <= 256; i += 64) {
-      ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i, 256);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(0, i);
-      ctx.lineTo(256, i);
-      ctx.stroke();
-    }
+  const floorTexture = textures.get(env.floor.asset);
+  if (floorTexture) {
+    floorTexture.wrapS = THREE.RepeatWrapping;
+    floorTexture.wrapT = THREE.RepeatWrapping;
+    floorTexture.repeat.set(env.floor.repeat[0], env.floor.repeat[1]);
   }
-  const floorTexture = new THREE.CanvasTexture(floorCanvas);
-  floorTexture.wrapS = THREE.RepeatWrapping;
-  floorTexture.wrapT = THREE.RepeatWrapping;
-  floorTexture.repeat.set(12, 12);
-  floorTexture.colorSpace = THREE.SRGBColorSpace;
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(ARENA_HALF * 2, ARENA_HALF * 2),
-    new THREE.MeshStandardMaterial({ map: floorTexture }),
+    new THREE.MeshStandardMaterial({ map: floorTexture ?? null }),
   );
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = false;
   group.add(floor);
 
-  const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xd8cdb4 });
+  const wallTexture = textures.get(env.wall.asset);
+  if (wallTexture) {
+    wallTexture.wrapS = THREE.RepeatWrapping;
+    wallTexture.wrapT = THREE.RepeatWrapping;
+    wallTexture.repeat.set(env.wall.repeat[0], env.wall.repeat[1]);
+  }
+  const wallMaterial = new THREE.MeshStandardMaterial({ map: wallTexture ?? null });
   const wallGeoLong = new THREE.BoxGeometry(ARENA_HALF * 2 + 1, WALL_HEIGHT, 0.5);
   const wallGeoShort = new THREE.BoxGeometry(0.5, WALL_HEIGHT, ARENA_HALF * 2 + 1);
   const walls: [THREE.BufferGeometry, number, number][] = [
@@ -148,11 +142,12 @@ export function buildArena(crateTexture: THREE.Texture): THREE.Group {
     group.add(wall);
   }
 
-  const crateMaterial = new THREE.MeshStandardMaterial({ map: crateTexture });
-  for (const crate of CRATES) {
+  for (let i = 0; i < CRATES.length; i += 1) {
+    const crate = CRATES[i];
+    const variant = textures.get(env.crates[i % env.crates.length]);
     const mesh = new THREE.Mesh(
       new THREE.BoxGeometry(crate.half * 2, crate.height, crate.half * 2),
-      crateMaterial,
+      new THREE.MeshStandardMaterial({ map: variant ?? null }),
     );
     mesh.position.set(crate.x, crate.height / 2, crate.z);
     group.add(mesh);

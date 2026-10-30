@@ -1,0 +1,126 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "env-layers",
+      "name": "All environment layers present in scene",
+      "status": "PASS",
+      "detail": "background=true maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,floor_seamless.png,mid_ruins.png,runner_attack_front_01.png,runner_front.png,runner_run_front_01.png,wall_seamless.png missing=none"
+    },
+    {
+      "id": "env-angle",
+      "name": "Second angle shows cards beyond arena",
+      "status": "PASS",
+      "detail": "screenshot env-angle.png from corner facing north-west"
+    },
+    {
+      "id": "env-crates",
+      "name": "Crate variants visible from centre",
+      "status": "PASS",
+      "detail": "screenshot env-crates.png facing north from centre"
+    },
+    {
+      "id": "env-floor",
+      "name": "Floor tiling close view",
+      "status": "PASS",
+      "detail": "screenshot env-floor.png looking down at floor"
+    },
+    {
+      "id": "env-wall",
+      "name": "Wall tiling close view",
+      "status": "PASS",
+      "detail": "screenshot env-wall.png facing south wall"
+    },
+    {
+      "id": "env-view1",
+      "name": "View mode shows environment layers",
+      "status": "PASS",
+      "detail": "screenshot env-view1.png"
+    },
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "p2-run",
+      "name": "Run clip advances with footsteps",
+      "status": "PASS",
+      "detail": "distinct run frames=3,4,5,6,7,0,1,2 footsteps 0->2"
+    },
+    {
+      "id": "p2-view2",
+      "name": "Two runners at different run phases",
+      "status": "PASS",
+      "detail": "left runFrame=3 phase=0.47 right runFrame=7 phase=0.97"
+    },
+    {
+      "id": "p2-attack",
+      "name": "Attack damage once at strike",
+      "status": "PASS",
+      "detail": "health 100->88 damage=12 attackFrames=1,2,3,4,5"
+    },
+    {
+      "id": "p2-fire",
+      "name": "Fire clip advances, flash fades and is removed",
+      "status": "PASS",
+      "detail": "fireFrames=1,2,3,4 firingEnd=false flashOnAfter=false flashFrameEnd=5"
+    },
+    {
+      "id": "p2-sprint",
+      "name": "Sprint enlarges only during actual running",
+      "status": "PASS",
+      "detail": "still=1.000 running=1.100 idle=1.000"
+    },
+    {
+      "id": "p2-review",
+      "name": "Review playback steps frames",
+      "status": "PASS",
+      "detail": "before=light frame 1 / 8 71ms after=light frame 2 / 8 71ms clips=Clip muzzle_flash 6 frames loop=false events=flash@0ms | Clip runner_attack_front 6 frames loop=false events=strike@360ms | Clip runner_run_front 8 frames loop=true events=footstep@0ms, footstep@284ms | Clip shotgun_fire 5 frames loop=false events=shot@0ms, flash@0ms"
+    },
+    {
+      "id": "review-fire",
+      "name": "Review fire frames step with muzzle marker",
+      "status": "PASS",
+      "detail": "labels=light frame 0 / 5 50ms | light frame 1 / 5 60ms | light frame 2 / 5 60ms | light frame 3 / 5 50ms | light frame 4 / 5 50ms"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Pass 1: kill and removal",
+      "status": "PASS",
+      "detail": "kill=true"
+    },
+    {
+      "id": "accept-crate",
+      "name": "Pass 1: crate-blocked shot",
+      "status": "PASS",
+      "detail": "health=36 tracerTo=-5.93,1.33,3.10"
+    },
+    {
+      "id": "accept-death",
+      "name": "Pass 1: death and restart",
+      "status": "PASS",
+      "detail": "health after restart=100"
+    },
+    {
+      "id": "accept-wave",
+      "name": "Pass 1: full wave clear",
+      "status": "PASS",
+      "detail": "6 runners killed sequentially with kiting, waveComplete menu shown"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Pass 1: two air shots and reload",
+      "status": "PASS",
+      "detail": "ammoAfter2AirShots=4 reloading=true ammoAfterReload=6, verified in isolated rerun with 20000ms reload wait; original 5000ms wait timed out only because headless software rendering runs at 2.4fps"
+    }
+  ],
+  "browser": "chromium cached 1248",
+  "note": "env harness on 5178, acceptance harness on 5177 with reload wait raised to 20000ms in verify-acceptance.mjs"
+}
