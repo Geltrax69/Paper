@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>Paper vertical slice</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #efe6d0; font-family: system-ui, sans-serif; }
+      #game { position: fixed; inset: 0; }
+      canvas { display: block; }
+      .hud { position: fixed; z-index: 5; color: #1d1710; pointer-events: none; }
+      #crosshair { left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 22px; }
+      #health { left: 20px; bottom: 20px; }
+      #healthbar { width: 220px; height: 14px; background: rgba(0,0,0,0.25); }
+      #healthfill { height: 100%; background: #c0392b; width: 100%; }
+      #ammo { right: 20px; bottom: 20px; font-size: 22px; font-weight: 700; }
+      #wave { left: 20px; top: 20px; font-weight: 700; }
+      #hitmarker { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(45deg); font-size: 26px; color: #c0392b; opacity: 0; }
+      #damage { inset: 0; box-shadow: inset 0 0 120px rgba(192,57,43,0.8); opacity: 0; }
+      .menu { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #efe6d0; color: #1d1710; text-align: center; padding: 20px; }
+      .menu button { pointer-events: auto; font-size: 18px; padding: 12px 24px; cursor: pointer; }
+      .hidden { display: none !important; }
+      #review { position: static; overflow: auto; height: 100vh; background: #fff; padding: 20px; box-sizing: border-box; }
+      .review-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+      .review-cell { position: relative; height: 320px; overflow: hidden; border: 1px solid #888; }
+      .review-cell img { width: 100%; height: 100%; object-fit: contain; }
+      .light { background: #f2ead8; }
+      .dark { background: #1a1a1a; }
+      .checker { background: repeating-conic-gradient(#bbb 0% 25%, #fff 0% 50%) 0 0 / 32px 32px; }
+      .marker { position: absolute; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%, -50%); border: 2px solid #fff; box-shadow: 0 0 0 1px #000; }
+      .pivot { background: #e00; }
+      .muzzle { background: #f5b301; }
+    </style>
+  </head>
+  <body>
+    <div id="game"></div>
+    <div id="crosshair" class="hud">+</div>
+    <div id="hitmarker" class="hud">+</div>
+    <div id="damage" class="hud"></div>
+    <div id="wave" class="hud"></div>
+    <div id="health" class="hud"><div>Health</div><div id="healthbar"><div id="healthfill"></div></div></div>
+    <div id="ammo" class="hud"></div>
+    <div id="menu" class="menu">
+      <h1>Paper</h1>
+      <p id="menuText">Vertical slice. One shotgun. One runner. One wave.</p>
+      <p>WASD move. Mouse aim. Click fire. R reload. Shift sprint. Space jump. Q dash. Esc pause.</p>
+      <button id="startBtn">Start</button>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

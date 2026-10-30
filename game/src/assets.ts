@@ -1,0 +1,108 @@
+import * as THREE from "three";
+import rawManifest from "../assets.json";
+
+export type Asset = {
+  alpha: boolean;
+  attachments?: Record<string, [number, number]>;
+  file: string;
+  id: string;
+  pivot: [number, number];
+  rect: [number, number, number, number];
+  size: [number, number];
+  sourceSize: [number, number];
+  trimOffset: [number, number];
+};
+export type Clip = {
+  assetIds: string[];
+  events?: { name: string; timeMs: number }[];
+  frameMs: number;
+  loop: boolean;
+};
+export type Weapon = {
+  ammo: number;
+  clip: string;
+  damage: number;
+  fireIntervalMs: number;
+  id: "shotgun";
+  pellets: number;
+  spread: number;
+};
+export type EnemySpec = {
+  attackDamage: number;
+  attackRange: number;
+  clip: string;
+  health: number;
+  height: number;
+  id: string;
+  radius: number;
+  speed: number;
+};
+export type Manifest = {
+  assets: Record<string, Asset>;
+  clips: Record<string, Clip>;
+  enemies: Record<string, EnemySpec>;
+  schema: string;
+  weapons: Record<string, Weapon>;
+};
+
+export const manifest = rawManifest as unknown as Manifest;
+
+export function asset(id: string): Asset {
+  const entry = manifest.assets[id];
+  if (!entry) throw new Error(`Unknown asset id: ${id}`);
+  return entry;
+}
+
+export function weaponSpec(): Weapon {
+  return manifest.weapons.shotgun;
+}
+
+export function runnerSpec(): EnemySpec {
+  return manifest.enemies.runner;
+}
+
+function alphaReport(image: HTMLImageElement, entry: Asset): void {
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  if (!ctx) return;
+  ctx.drawImage(image, 0, 0);
+  const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  let minX = canvas.width;
+  let minY = canvas.height;
+  let maxX = -1;
+  let maxY = -1;
+  let opaque = 0;
+  for (let y = 0; y < canvas.height; y += 1) {
+    for (let x = 0; x < canvas.width; x += 1) {
+      const alpha = data[(y * canvas.width + x) * 4 + 3];
+      if (alpha > 16) {
+        opaque += 1;
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  const expected = entry.alpha ? "alpha expected" : "opaque expected";
+  console.log(
+    `[assets] ${entry.id} ${canvas.width}x${canvas.height} ${expected} ` +
+      `opaque=${opaque} bbox=[${minX},${minY},${maxX},${maxY}] pivot=${entry.pivot.join(",")}`,
+  );
+}
+
+export async function loadTextures(): Promise<Map<string, THREE.Texture>> {
+  const loader = new THREE.TextureLoader();
+  const out = new Map<string, THREE.Texture>();
+  for (const entry of Object.values(manifest.assets)) {
+    const texture = await loader.loadAsync(`/${entry.file}`);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    const image = texture.image as HTMLImageElement;
+    if (image && image.naturalWidth > 0) alphaReport(image, entry);
+    out.set(entry.id, texture);
+  }
+  return out;
+}
