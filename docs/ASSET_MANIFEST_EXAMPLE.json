@@ -1,0 +1,65 @@
+{
+  "schema": "paper-sprite-example-v1",
+  "status": "illustrative_only_no_referenced_images_exist_yet",
+  "conventions": {
+    "rectOrigin": "top-left",
+    "rectUnits": "pixels",
+    "pivotOrigin": "top-left-of-untrimmed-source",
+    "pivotUnits": "normalized",
+    "attachmentOrigin": "top-left-of-untrimmed-source",
+    "attachmentUnits": "normalized",
+    "durationUnits": "milliseconds",
+    "eventTiming": "milliseconds-from-clip-start"
+  },
+  "atlases": {
+    "shotgun": {
+      "image": "assets/weapons/shotgun/atlas.png",
+      "size": [2048, 2048],
+      "alpha": true
+    }
+  },
+  "frames": {
+    "shotgun_idle": {
+      "atlas": "shotgun",
+      "rect": [4, 4, 768, 768],
+      "sourceSize": [1024, 1024],
+      "trimOffset": [128, 256],
+      "pivot": [0.66, 0.96],
+      "attachments": { "muzzle": [0.38, 0.49] }
+    },
+    "shotgun_recoil_01": {
+      "atlas": "shotgun",
+      "rect": [780, 4, 768, 768],
+      "sourceSize": [1024, 1024],
+      "trimOffset": [128, 256],
+      "pivot": [0.66, 0.96],
+      "attachments": { "muzzle": [0.39, 0.47] }
+    }
+  },
+  "clips": {
+    "shotgun_idle": {
+      "loop": true,
+      "frames": [{ "id": "shotgun_idle", "durationMs": 1000 }],
+      "events": []
+    },
+    "shotgun_fire_example": {
+      "loop": false,
+      "frames": [
+        { "id": "shotgun_recoil_01", "durationMs": 40 },
+        { "id": "shotgun_idle", "durationMs": 80 }
+      ],
+      "events": [{ "timeMs": 0, "name": "shot" }],
+      "note": "Two-frame schema demonstration; replace with approved four-frame recoil art."
+    }
+  },
+  "directionConvention": {
+    "front": "Viewer sees the face; camera on the entity's forward axis.",
+    "front_right": "Viewer sees face and entity's right side.",
+    "right": "Viewer sees entity's right side.",
+    "back_right": "Viewer sees back and entity's right side.",
+    "back": "Viewer sees the back.",
+    "back_left": "Viewer sees back and entity's left side.",
+    "left": "Viewer sees entity's left side.",
+    "front_left": "Viewer sees face and entity's left side."
+  }
+}

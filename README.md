@@ -2,6 +2,14 @@
 
 Paper-and-ink arcade shooter visual development based on [gun.mp4](gun.mp4).
 
+## Game-building and image prompts
+
+- [Master prompt: build the image-based 2.5D web game](docs/GAME_BUILD_PROMPT.md)
+- [Image prompt pack: transparent weapons, monsters, effects and scenery](docs/IMAGE_PROMPTS.md)
+- [Example sprite/atlas manifest](docs/ASSET_MANIFEST_EXAMPLE.json)
+
+The plan uses a small spatial scene for movement and collision, with image-based weapons, animated enemy cutouts and layered environment art. Start with one shotgun and one monster before expanding the asset library. These documents describe future implementation; they do not include newly generated production sprites or a playable game.
+
 ## Gameplay concepts
 
 Three generated boards explore richer colors and distinct combat effects while retaining the original ink-and-paper aesthetic. Each board contains two gameplay concepts.
