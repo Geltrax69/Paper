@@ -2,6 +2,16 @@
 
 First-person arena shooter slice. One shotgun. One runner monster, front view only. One wave of six runners. Built with Vite, TypeScript, and Three.js 0.186.0.
 
+## Screenshots
+
+![Paper arena, shotgun overlay, and one runner](verification/view-1.png)
+
+![Paper gameplay, shotgun in hand and a runner approaching](verification/gameplay.png)
+
+![Paper gameplay, runners reaching the player](verification/gameplay-attack.png)
+
+The full asset review sheet is in [verification/review-1.png](verification/review-1.png). It shows each runtime image on light, dark, and checker backgrounds, with pivot and muzzle points marked.
+
 ## Run and build
 
 Run `npm install` once, then `npm run dev` for development, `npm run build` for a production build, or `npm run preview` to serve the built game on port 5174.
@@ -28,6 +38,14 @@ Only these four images are used at runtime, copied into `public/assets/` so Vite
 - `public/assets/scenery/crate_face.png`, opaque crate texture.
 
 Nothing under `output/` is used as a runtime texture. Those files are references only.
+
+<img src="public/assets/weapons/shotgun/shotgun_idle.png" alt="Paper shotgun sprite" width="400">
+
+<img src="public/assets/monsters/runner/runner_front.png" alt="Paper runner sprite" width="300">
+
+<img src="public/assets/effects/muzzle_flash_shotgun.png" alt="Paper muzzle flash sprite" width="300">
+
+<img src="public/assets/scenery/crate_face.png" alt="Paper crate face texture" width="300">
 
 ## Placeholders
 
