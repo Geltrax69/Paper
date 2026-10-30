@@ -2,14 +2,18 @@ import * as THREE from "three";
 import {
   ARENA_HALF,
   buildArena,
+  groundSupportY,
   rayHitSolid,
-  resolveCircle,
+  resolveBody,
+  type PlayerBody,
 } from "./arena";
-import { asset, loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
+import { loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
 import { Runner } from "./enemy";
+import { findRoute } from "./pathing";
 import { WeaponView } from "./weapon";
 
 export type GamePhase = "menu" | "playing" | "paused" | "dead" | "waveComplete";
+export type StartupState = "loading" | "ready" | "error";
 
 const params = new URLSearchParams(window.location.search);
 
@@ -40,28 +44,31 @@ function buildReview(): void {
     for (const [label, cls] of backgrounds) {
       const cell = document.createElement("div");
       cell.className = `review-cell ${cls}`;
-      cell.style.aspectRatio = `${entry.size[0]} / ${entry.size[1]}`;
+      const wrapper = document.createElement("div");
+      wrapper.className = "review-image";
+      wrapper.style.aspectRatio = `${entry.size[0]} / ${entry.size[1]}`;
       const caption = document.createElement("div");
       caption.textContent = label;
       caption.style.cssText = "position:absolute;top:4px;left:6px;z-index:2;background:#fff;padding:2px 6px;";
-      cell.appendChild(caption);
+      wrapper.appendChild(caption);
       const img = document.createElement("img");
       img.src = `/${entry.file}`;
       img.alt = entry.id;
-      cell.appendChild(img);
+      wrapper.appendChild(img);
       const pivot = document.createElement("div");
       pivot.className = "marker pivot";
       pivot.style.left = `${entry.pivot[0] * 100}%`;
       pivot.style.top = `${entry.pivot[1] * 100}%`;
-      cell.appendChild(pivot);
+      wrapper.appendChild(pivot);
       const muzzle = entry.attachments?.muzzle;
       if (muzzle) {
         const mark = document.createElement("div");
         mark.className = "marker muzzle";
         mark.style.left = `${muzzle[0] * 100}%`;
         mark.style.top = `${muzzle[1] * 100}%`;
-        cell.appendChild(mark);
+        wrapper.appendChild(mark);
       }
+      cell.appendChild(wrapper);
       row.appendChild(cell);
     }
     root.appendChild(row);
@@ -77,6 +84,7 @@ if (params.get("review") === "1") {
 
 async function startGame(): Promise<void> {
   const viewOnly = params.get("view") === "1";
+  const debugMode = params.get("debug") === "1";
   const container = document.getElementById("game") as HTMLDivElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -98,14 +106,6 @@ async function startGame(): Promise<void> {
   sun.position.set(5, 10, 3);
   scene.add(sun);
 
-  const textures = await loadTextures();
-  scene.add(buildArena(textures.get("crate_face") as THREE.Texture));
-  const weaponView = new WeaponView(
-    textures.get("shotgun_idle") as THREE.Texture,
-    textures.get("muzzle_flash_shotgun") as THREE.Texture,
-    window.innerWidth / window.innerHeight,
-  );
-
   const menu = document.getElementById("menu") as HTMLDivElement;
   const menuText = document.getElementById("menuText") as HTMLParagraphElement;
   const startBtn = document.getElementById("startBtn") as HTMLButtonElement;
@@ -116,13 +116,22 @@ async function startGame(): Promise<void> {
   const damageEl = document.getElementById("damage") as HTMLDivElement;
   const crosshair = document.getElementById("crosshair") as HTMLDivElement;
 
+  let startupState: StartupState = "loading";
+  let attemptInFlight = false;
+  let textures: Map<string, THREE.Texture> | null = null;
+  let weaponView: WeaponView | null = null;
+  let arenaBuilt = false;
+
   let phase: GamePhase = "menu";
+  let waveActive = true;
   let playerHealth = 100;
   let yaw = 0;
   let pitch = 0;
   let verticalVelocity = 0;
+  let grounded = true;
   let coyoteMs = 0;
   let jumpBufferMs = 0;
+  let jumpCount = 0;
   let dashTimeMs = 0;
   let dashCooldownMs = 0;
   let dashDirection = new THREE.Vector3(0, 0, -1);
@@ -130,9 +139,10 @@ async function startGame(): Promise<void> {
   let hitmarkerMs = 0;
   let damageFlashMs = 0;
   let spawnTimerMs = 0;
-  let playerY = 0;
 
-  const playerPos = new THREE.Vector3(0, 0, 9);
+  const PLAYER_HEIGHT = 1.7;
+  const playerFeet = new THREE.Vector3(0, 0, 9);
+  const playerBody: PlayerBody = { feet: playerFeet, height: PLAYER_HEIGHT };
   const keys = new Set<string>();
   const mouseDelta = { x: 0, y: 0 };
   let runners: Runner[] = [];
@@ -182,40 +192,82 @@ async function startGame(): Promise<void> {
     particleGeo.attributes.position.needsUpdate = true;
   }
 
+  function clearParticles(): void {
+    for (let i = 0; i < particleCount; i += 1) {
+      particleLife[i] = 0;
+      particlePositions[i * 3 + 1] = -999;
+    }
+    particleGeo.attributes.position.needsUpdate = true;
+  }
+
   const tracers: { lifeMs: number; line: THREE.Line }[] = [];
-  function tracer(to: THREE.Vector3): void {
-    const geometry = new THREE.BufferGeometry().setFromPoints([camera.position.clone(), to]);
+  let lastTracer: { from: THREE.Vector3; to: THREE.Vector3 } | null = null;
+  function tracer(from: THREE.Vector3, to: THREE.Vector3): void {
+    const geometry = new THREE.BufferGeometry().setFromPoints([from.clone(), to.clone()]);
     const line = new THREE.Line(
       geometry,
       new THREE.LineBasicMaterial({ color: 0xf5c542, transparent: true, opacity: 0.9 }),
     );
     scene.add(line);
     tracers.push({ lifeMs: 60, line });
+    lastTracer = { from: from.clone(), to: to.clone() };
   }
 
-  function spawnRunner(at: THREE.Vector3): void {
+  function disposeTracers(): void {
+    for (const entry of tracers) {
+      scene.remove(entry.line);
+      entry.line.geometry.dispose();
+      (entry.line.material as THREE.Material).dispose();
+    }
+    tracers.length = 0;
+  }
+
+  function spawnRunner(at: THREE.Vector3): Runner {
     const runner = new Runner(
-      textures.get("runner_front") as THREE.Texture,
+      textures?.get("runner_front") as THREE.Texture,
       at,
       runnerSpec(),
     );
     scene.add(runner.group);
     runners.push(runner);
+    waveActive = true;
+    return runner;
+  }
+
+  function clearInputTransient(): void {
+    keys.clear();
+    mouseDelta.x = 0;
+    mouseDelta.y = 0;
+    jumpBufferMs = 0;
+    coyoteMs = 0;
+  }
+
+  function clearActionState(): void {
+    dashTimeMs = 0;
+    dashCooldownMs = 0;
+    dashDirection.set(0, 0, -1);
+    fireCooldownMs = 0;
+    hitmarkerMs = 0;
+    damageFlashMs = 0;
+    clearParticles();
+    disposeTracers();
+    weaponView?.reset();
   }
 
   function resetGame(): void {
     for (const runner of runners) runner.dispose();
     runners = [];
     spawnQueue = [...spawnPoints];
+    waveActive = true;
     spawnTimerMs = 0;
     playerHealth = 100;
-    playerPos.set(0, 0, 9);
-    playerY = 0;
+    playerFeet.set(0, 0, 9);
     verticalVelocity = 0;
+    grounded = true;
     yaw = 0;
     pitch = 0;
-    weaponView.ammo = weaponSpec().ammo;
-    weaponView.reloadTimeMs = 0;
+    clearInputTransient();
+    clearActionState();
   }
 
   function showMenu(text: string, button: string): void {
@@ -229,20 +281,334 @@ async function startGame(): Promise<void> {
   }
 
   function onPlayerDamage(amount: number): void {
+    if (phase !== "playing" || playerHealth <= 0) return;
     playerHealth -= amount;
     damageFlashMs = 400;
     if (playerHealth <= 0) {
       playerHealth = 0;
       phase = "dead";
+      clearInputTransient();
       document.exitPointerLock?.();
       showMenu("You were defeated. Restart the wave.", "Restart");
     }
   }
 
+  // The first-person overlay has no world transform, so the gameplay muzzle
+  // is a fixed offset from the eye: 0.55 forward, 0.28 right, 0.22 down.
+  // This point, not the eye, validates shots and starts cosmetic tracers.
+  function worldMuzzle(
+    eye: THREE.Vector3,
+    forward: THREE.Vector3,
+    right: THREE.Vector3,
+    up: THREE.Vector3,
+  ): THREE.Vector3 {
+    return eye
+      .clone()
+      .addScaledVector(forward, 0.55)
+      .addScaledVector(right, 0.28)
+      .addScaledVector(up, -0.22);
+  }
+
+  function fireShot(): void {
+    if (!weaponView) return;
+    const spec = weaponSpec();
+    if (fireCooldownMs > 0 || weaponView.reloading) return;
+    if (weaponView.ammo <= 0) {
+      weaponView.startReload();
+      return;
+    }
+    weaponView.ammo -= 1;
+    fireCooldownMs = spec.fireIntervalMs;
+    weaponView.triggerFlash();
+    const eye = camera.position.clone();
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+    const up = new THREE.Vector3().crossVectors(right, forward).normalize();
+    const muzzle = worldMuzzle(eye, forward, right, up);
+    for (let pellet = 0; pellet < spec.pellets; pellet += 1) {
+      const dir = forward
+        .clone()
+        .addScaledVector(right, (Math.random() - 0.5) * 2 * spec.spread)
+        .addScaledVector(up, (Math.random() - 0.5) * 2 * spec.spread)
+        .normalize();
+      let aimDistance = 30;
+      let aimPoint: THREE.Vector3 | null = null;
+      let aimRunner: Runner | null = null;
+      const solid = rayHitSolid(eye, dir, 30);
+      if (solid) {
+        aimDistance = solid.distance;
+        aimPoint = solid.point;
+      }
+      for (const runner of runners) {
+        if (runner.state === "death" || runner.state === "spawn") continue;
+        const center = runner.position.clone();
+        center.y = 1.1;
+        const toCenter = center.clone().sub(eye);
+        const along = toCenter.dot(dir);
+        if (along < 0 || along > aimDistance) continue;
+        const closest = eye.clone().addScaledVector(dir, along);
+        if (closest.distanceTo(center) <= 0.75) {
+          aimDistance = along;
+          aimPoint = closest;
+          aimRunner = runner;
+        }
+      }
+      if (dir.y < 0) {
+        const floorT = -eye.y / dir.y;
+        if (floorT > 0 && floorT < aimDistance) {
+          const point = eye.clone().addScaledVector(dir, floorT);
+          if (Math.abs(point.x) <= ARENA_HALF && Math.abs(point.z) <= ARENA_HALF) {
+            aimDistance = floorT;
+            aimPoint = point;
+            aimRunner = null;
+          }
+        }
+      }
+      const aim = aimPoint ?? eye.clone().addScaledVector(dir, 30);
+      const toAim = aim.clone().sub(muzzle);
+      const aimLen = toAim.length();
+      const muzzleDir = aimLen > 0 ? toAim.normalize() : dir.clone();
+      const blocked = rayHitSolid(muzzle, muzzleDir, aimLen);
+      let end: THREE.Vector3;
+      let hitRunner: Runner | null = null;
+      if (blocked) {
+        end = blocked.point;
+      } else {
+        end = aim;
+        if (aimRunner) {
+          const center = aimRunner.position.clone();
+          center.y = 1.1;
+          const toCenter = center.clone().sub(muzzle);
+          const along = toCenter.dot(muzzleDir);
+          const closest = muzzle.clone().addScaledVector(muzzleDir, along);
+          if (along >= 0 && along <= aimLen + 0.1 && closest.distanceTo(center) <= 0.75) {
+            hitRunner = aimRunner;
+          }
+        }
+      }
+      tracer(muzzle, end);
+      if (end.distanceTo(muzzle) > 0.05) burst(end, 6);
+      if (hitRunner) {
+        const result = hitRunner.takeDamage(spec.damage, playerFeet);
+        if (result === "applied" || result === "killed") hitmarkerMs = 150;
+      }
+    }
+  }
+
+  function setupViewOnly(): void {
+    menu.classList.add("hidden");
+    crosshair.classList.add("hidden");
+    const caption = document.createElement("div");
+    caption.className = "menu";
+    caption.style.cssText =
+      "position:fixed;top:12px;left:12px;right:auto;bottom:auto;z-index:20;background:rgba(239,230,208,0.9);padding:8px 12px;display:block;text-align:left;";
+    caption.innerHTML =
+      "<strong>View mode ?view=1</strong><br/>Fixed camera. No pointer lock. Arena, shotgun overlay, one runner.";
+    document.body.appendChild(caption);
+    playerFeet.set(0, 0, 7.5);
+    camera.position.set(0, 1.8, 7.5);
+    camera.lookAt(0, 1.2, -1);
+    spawnRunner(new THREE.Vector3(0, 0, -3.5));
+    runners[0].state = "pursue";
+  }
+
+  function setupDebug(): void {
+    const api = {
+      renderer,
+      findRoute,
+      findRoutePlain: (from: [number, number], to: [number, number]) => {
+        const route = findRoute(
+          new THREE.Vector3(from[0], 0, from[1]),
+          new THREE.Vector3(to[0], 0, to[1]),
+          0.55,
+        );
+        return route.map((point) => [point.x, point.z]);
+      },
+      checkMuzzle: () => {
+        if (!weaponView) return null;
+        const anyWeapon = weaponView as unknown as {
+          weapon: THREE.Mesh;
+          muzzleNode: THREE.Object3D;
+        };
+        const local = anyWeapon.muzzleNode.position;
+        const rotation = anyWeapon.weapon.rotation.z;
+        const expected = {
+          x:
+            anyWeapon.weapon.position.x +
+            Math.cos(rotation) * local.x -
+            Math.sin(rotation) * local.y,
+          y:
+            anyWeapon.weapon.position.y +
+            Math.sin(rotation) * local.x +
+            Math.cos(rotation) * local.y,
+        };
+        const reported = weaponView.muzzlePosition;
+        return {
+          reported: [reported.x, reported.y],
+          expected: [expected.x, expected.y],
+          error: Math.hypot(reported.x - expected.x, reported.y - expected.y),
+        };
+      },
+      holdFlash: () => {
+        if (!weaponView) return;
+        const anyWeapon = weaponView as unknown as {
+          flashTimeMs: number;
+          flash: THREE.Mesh;
+        };
+        anyWeapon.flashTimeMs = 100000;
+        anyWeapon.flash.visible = true;
+      },
+      getState: () => ({
+        phase,
+        startupState,
+        jumpCount,
+        playerFeet: [playerFeet.x, playerFeet.y, playerFeet.z],
+        grounded,
+        playerHealth,
+        ammo: weaponView?.ammo ?? null,
+        reloading: weaponView?.reloading ?? null,
+        muzzlePosition: weaponView ? [weaponView.muzzlePosition.x, weaponView.muzzlePosition.y] : null,
+        geometries: renderer.info.memory.geometries,
+        textures: renderer.info.memory.textures,
+        tracerCount: tracers.length,
+        lastTracer: lastTracer
+          ? { from: lastTracer.from.toArray(), to: lastTracer.to.toArray() }
+          : null,
+        runners: runners.map((runner) => {
+          const anyRunner = runner as unknown as {
+            mesh: THREE.Mesh;
+            material: THREE.MeshBasicMaterial;
+          };
+          return {
+            state: runner.state,
+            x: runner.position.x,
+            y: runner.position.y,
+            z: runner.position.z,
+            health: runner.health,
+            scale: anyRunner.mesh.scale.x,
+            color: anyRunner.material.color.getHex(),
+          };
+        }),
+      }),
+      getInputState: () => ({
+        keys: [...keys],
+        dashTimeMs,
+        dashCooldownMs,
+        fireCooldownMs,
+        jumpBufferMs,
+        coyoteMs,
+        mouseDelta: { ...mouseDelta },
+      }),
+      setPlayerFeet: (x: number, y: number, z: number) => {
+        playerFeet.set(x, y, z);
+        verticalVelocity = 0;
+      },
+      setYaw: (value: number) => {
+        yaw = value;
+      },
+      setPitch: (value: number) => {
+        pitch = value;
+      },
+      spawnRunnerAt: (x: number, z: number) => {
+        spawnQueue = [];
+        return spawnRunner(new THREE.Vector3(x, 0, z));
+      },
+      damageRunner: (index: number, amount: number) => {
+        const runner = runners[index];
+        if (!runner) return null;
+        return runner.takeDamage(amount, playerFeet);
+      },
+      clearRunners: () => {
+        for (const runner of runners) runner.dispose();
+        runners = [];
+        spawnQueue = [];
+        waveActive = false;
+      },
+      resetGame,
+      fireShot,
+      setHitmarkerMs: (ms: number) => {
+        hitmarkerMs = ms;
+      },
+      getHitmarkerMs: () => hitmarkerMs,
+      cycleRunners: (count: number) => {
+        const texture = textures?.get("runner_front") as THREE.Texture;
+        renderer.render(scene, camera);
+        const before = renderer.info.memory.geometries;
+        const temp: Runner[] = [];
+        for (let i = 0; i < count; i += 1) {
+          const runner = new Runner(texture, new THREE.Vector3(0, 0, -5), runnerSpec());
+          scene.add(runner.group);
+          temp.push(runner);
+        }
+        renderer.render(scene, camera);
+        const mid = renderer.info.memory.geometries;
+        for (const runner of temp) runner.dispose();
+        renderer.render(scene, camera);
+        const after = renderer.info.memory.geometries;
+        return { before, mid, after };
+      },
+    };
+    (window as unknown as { __paperDebug: unknown }).__paperDebug = api;
+  }
+
+  async function attemptLoad(): Promise<void> {
+    if (attemptInFlight) return;
+    attemptInFlight = true;
+    startupState = "loading";
+    startBtn.disabled = true;
+    menuText.textContent = "Loading assets…";
+    try {
+      textures = await loadTextures((done, total, id) => {
+        menuText.textContent = `Loading assets ${done}/${total}: ${id}…`;
+      });
+      if (!arenaBuilt) {
+        scene.add(buildArena(textures.get("crate_face") as THREE.Texture));
+        arenaBuilt = true;
+      }
+      if (!weaponView) {
+        weaponView = new WeaponView(
+          textures.get("shotgun_idle") as THREE.Texture,
+          textures.get("muzzle_flash_shotgun") as THREE.Texture,
+          window.innerWidth / window.innerHeight,
+        );
+      }
+      startupState = "ready";
+      showMenu("Vertical slice. One shotgun. One runner. One wave.", "Start");
+      startBtn.disabled = false;
+      if (viewOnly) setupViewOnly();
+      if (debugMode) setupDebug();
+    } catch (error) {
+      startupState = "error";
+      const message = error instanceof Error ? error.message : String(error);
+      menuText.textContent = `Failed to load: ${message}. Click Retry.`;
+      startBtn.textContent = "Retry";
+      startBtn.disabled = false;
+      menu.classList.remove("hidden");
+    } finally {
+      attemptInFlight = false;
+    }
+  }
+
   startBtn.addEventListener("click", () => {
+    if (startupState === "loading") return;
+    if (startupState === "error") {
+      void attemptLoad();
+      return;
+    }
     if (phase === "menu" || phase === "paused" || phase === "dead" || phase === "waveComplete") {
       if (phase !== "paused") resetGame();
-      renderer.domElement.requestPointerLock();
+      else clearInputTransient();
+      try {
+        const result = renderer.domElement.requestPointerLock() as unknown;
+        if (result && typeof (result as Promise<void>).catch === "function") {
+          (result as Promise<void>).catch(() => {
+            showMenu("Pointer lock was denied or is unavailable. Click Start to try again.", "Start");
+          });
+        }
+      } catch {
+        showMenu("Pointer lock is not supported in this browser. Click Start to try again.", "Start");
+      }
     }
   });
 
@@ -252,8 +618,20 @@ async function startGame(): Promise<void> {
       hideMenu();
     } else if (phase === "playing") {
       phase = "paused";
+      clearInputTransient();
       showMenu("Paused. Click Resume to keep playing.", "Resume");
     }
+  });
+
+  document.addEventListener("pointerlockerror", () => {
+    if (phase === "menu" || phase === "paused") {
+      showMenu("Pointer lock was denied or is unavailable. Click Start to try again.", "Start");
+    }
+  });
+
+  window.addEventListener("blur", () => clearInputTransient());
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) clearInputTransient();
   });
 
   document.addEventListener("mousemove", (event) => {
@@ -266,10 +644,24 @@ async function startGame(): Promise<void> {
     }
   });
 
+  const gameKeys = new Set([
+    "Space",
+    "KeyW",
+    "KeyA",
+    "KeyS",
+    "KeyD",
+    "KeyQ",
+    "KeyR",
+    "ShiftLeft",
+    "ShiftRight",
+  ]);
   window.addEventListener("keydown", (event) => {
     keys.add(event.code);
-    if (event.code === "Space") jumpBufferMs = 120;
-    if (event.code === "KeyR" && phase === "playing") weaponView.startReload();
+    if (phase === "playing" && document.pointerLockElement && gameKeys.has(event.code)) {
+      event.preventDefault();
+    }
+    if (event.code === "Space" && phase === "playing" && !event.repeat) jumpBufferMs = 120;
+    if (event.code === "KeyR" && phase === "playing" && weaponView) weaponView.startReload();
     if (event.code === "KeyQ" && phase === "playing" && dashCooldownMs <= 0 && dashTimeMs <= 0) {
       const forward = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
       const right = new THREE.Vector3(-forward.z, 0, forward.x);
@@ -287,91 +679,17 @@ async function startGame(): Promise<void> {
 
   renderer.domElement.addEventListener("mousedown", (event) => {
     if (phase !== "playing" || event.button !== 0) return;
-    const spec = weaponSpec();
-    if (fireCooldownMs > 0 || weaponView.reloading) return;
-    if (weaponView.ammo <= 0) {
-      weaponView.startReload();
-      return;
-    }
-    weaponView.ammo -= 1;
-    fireCooldownMs = spec.fireIntervalMs;
-    weaponView.triggerFlash();
-    const forward = new THREE.Vector3();
-    camera.getWorldDirection(forward);
-    const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
-    const up = new THREE.Vector3().crossVectors(right, forward).normalize();
-    for (let pellet = 0; pellet < spec.pellets; pellet += 1) {
-      const dir = forward
-        .clone()
-        .addScaledVector(right, (Math.random() - 0.5) * 2 * spec.spread)
-        .addScaledVector(up, (Math.random() - 0.5) * 2 * spec.spread)
-        .normalize();
-      const origin = camera.position.clone();
-      let bestDistance = 30;
-      let bestPoint: THREE.Vector3 | null = null;
-      let bestRunner: Runner | null = null;
-      const solid = rayHitSolid(origin, dir, 30);
-      if (solid) {
-        bestDistance = solid.distance;
-        bestPoint = solid.point;
-      }
-      for (const runner of runners) {
-        if (runner.state === "death") continue;
-        const center = runner.position.clone();
-        center.y = 1.1;
-        const toCenter = center.clone().sub(origin);
-        const along = toCenter.dot(dir);
-        if (along < 0 || along > bestDistance) continue;
-        const closest = origin.clone().addScaledVector(dir, along);
-        if (closest.distanceTo(center) <= 0.75) {
-          bestDistance = along;
-          bestPoint = closest;
-          bestRunner = runner;
-        }
-      }
-      if (dir.y < 0) {
-        const floorT = -origin.y / dir.y;
-        if (floorT > 0 && floorT < bestDistance) {
-          const point = origin.clone().addScaledVector(dir, floorT);
-          if (Math.abs(point.x) <= ARENA_HALF && Math.abs(point.z) <= ARENA_HALF) {
-            bestDistance = floorT;
-            bestPoint = point;
-            bestRunner = null;
-          }
-        }
-      }
-      const end = bestPoint ?? origin.clone().addScaledVector(dir, 30);
-      tracer(end);
-      if (bestPoint) burst(bestPoint, 6);
-      if (bestRunner) {
-        bestRunner.takeDamage(spec.damage, playerPos);
-        hitmarkerMs = 150;
-      }
-    }
+    fireShot();
   });
 
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    weaponView.resize(camera.aspect);
+    weaponView?.resize(camera.aspect);
   });
 
-  if (viewOnly) {
-    menu.classList.add("hidden");
-    crosshair.classList.add("hidden");
-    const caption = document.createElement("div");
-    caption.className = "menu";
-    caption.style.cssText =
-      "position:fixed;top:12px;left:12px;right:auto;bottom:auto;z-index:20;background:rgba(239,230,208,0.9);padding:8px 12px;display:block;text-align:left;";
-    caption.innerHTML =
-      "<strong>View mode ?view=1</strong><br/>Fixed camera. No pointer lock. Arena, shotgun overlay, one runner.";
-    document.body.appendChild(caption);
-    camera.position.set(0, 1.8, 7.5);
-    camera.lookAt(0, 1.2, -1);
-    spawnRunner(new THREE.Vector3(0, 0, -3.5));
-    runners[0].state = "pursue";
-  }
+  void attemptLoad();
 
   let lastTime = performance.now();
   function loop(now: number): void {
@@ -380,8 +698,8 @@ async function startGame(): Promise<void> {
     lastTime = now;
     const dtMs = dt * 1000;
 
-    if (viewOnly) {
-      runners[0]?.update(0, camera, camera.position, () => undefined);
+    if (viewOnly && weaponView) {
+      runners[0]?.update(0, camera, playerBody, () => undefined, runners);
       weaponView.update(0, false, { x: 0, y: 0 });
       renderer.clear();
       renderer.render(scene, camera);
@@ -420,76 +738,97 @@ async function startGame(): Promise<void> {
         dashTimeMs -= dtMs;
         const steps = 6;
         for (let i = 0; i < steps; i += 1) {
-          playerPos.addScaledVector(dashDirection, (18 * dt) / steps);
-          resolveCircle(playerPos, 0.4);
+          playerFeet.addScaledVector(dashDirection, (18 * dt) / steps);
+          resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
         }
       } else if (move.lengthSq() > 0) {
         move.normalize().multiplyScalar(speed * dt);
-        playerPos.add(move);
-        resolveCircle(playerPos, 0.4);
+        playerFeet.add(move);
+        resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
       }
 
-      if (playerY <= 0) coyoteMs = 100;
+      const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
+      if (playerFeet.y <= support + 0.001) grounded = true;
+      if (grounded) coyoteMs = 100;
       if (jumpBufferMs > 0 && coyoteMs > 0) {
         verticalVelocity = 8;
-        playerY = 0.01;
+        playerFeet.y += 0.01;
         jumpBufferMs = 0;
         coyoteMs = 0;
+        grounded = false;
+        jumpCount += 1;
       }
       verticalVelocity -= 22 * dt;
-      playerY += verticalVelocity * dt;
-      if (playerY <= 0) {
-        playerY = 0;
-        verticalVelocity = 0;
+      const prevY = playerFeet.y;
+      playerFeet.y += verticalVelocity * dt;
+      if (verticalVelocity <= 0) {
+        const landingSupport = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
+        if (prevY >= landingSupport && playerFeet.y <= landingSupport) {
+          playerFeet.y = landingSupport;
+          verticalVelocity = 0;
+          grounded = true;
+        } else if (playerFeet.y < 0) {
+          playerFeet.y = 0;
+          verticalVelocity = 0;
+          grounded = true;
+        }
       }
 
-      camera.position.set(playerPos.x, 1.7 + playerY, playerPos.z);
+      camera.position.set(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
       camera.rotation.order = "YXZ";
       camera.rotation.y = yaw;
       camera.rotation.x = pitch;
       camera.rotation.z = 0;
 
       const moving = move.lengthSq() > 0;
-      weaponView.update(dt, moving, mouseDelta);
+      weaponView?.update(dt, moving, mouseDelta);
       mouseDelta.x = 0;
       mouseDelta.y = 0;
 
       for (const runner of [...runners]) {
-        runner.update(dt, camera, playerPos, onPlayerDamage);
+        runner.update(dt, camera, playerBody, onPlayerDamage, runners);
         if (runner.finished) {
           runner.dispose();
           runners = runners.filter((entry) => entry !== runner);
         }
       }
-      if (spawnQueue.length === 0 && runners.length === 0 && phase === "playing") {
+      if (waveActive && spawnQueue.length === 0 && runners.length === 0 && phase === "playing") {
+        waveActive = false;
         phase = "waveComplete";
+        clearInputTransient();
         document.exitPointerLock?.();
         showMenu("Wave complete. One shotgun, one runner type, one wave cleared.", "Play again");
       }
-    }
 
-    for (let i = 0; i < particleCount; i += 1) {
-      if (particleLife[i] <= 0) continue;
-      particleLife[i] -= dtMs;
-      particleVelocities[i].y -= 9 * dt;
-      particlePositions[i * 3] += particleVelocities[i].x * dt;
-      particlePositions[i * 3 + 1] += particleVelocities[i].y * dt;
-      particlePositions[i * 3 + 2] += particleVelocities[i].z * dt;
-      if (particleLife[i] <= 0) particlePositions[i * 3 + 1] = -999;
-    }
-    particleGeo.attributes.position.needsUpdate = true;
-    for (const entry of [...tracers]) {
-      entry.lifeMs -= dtMs;
-      const material = entry.line.material as THREE.LineBasicMaterial;
-      material.opacity = Math.max(0, entry.lifeMs / 60) * 0.9;
-      if (entry.lifeMs <= 0) {
-        scene.remove(entry.line);
-        tracers.splice(tracers.indexOf(entry), 1);
+      for (let i = 0; i < particleCount; i += 1) {
+        if (particleLife[i] <= 0) continue;
+        particleLife[i] -= dtMs;
+        particleVelocities[i].y -= 9 * dt;
+        particlePositions[i * 3] += particleVelocities[i].x * dt;
+        particlePositions[i * 3 + 1] += particleVelocities[i].y * dt;
+        particlePositions[i * 3 + 2] += particleVelocities[i].z * dt;
+        if (particleLife[i] <= 0) particlePositions[i * 3 + 1] = -999;
+      }
+      particleGeo.attributes.position.needsUpdate = true;
+      for (const entry of [...tracers]) {
+        entry.lifeMs -= dtMs;
+        const material = entry.line.material as THREE.LineBasicMaterial;
+        material.opacity = Math.max(0, entry.lifeMs / 60) * 0.9;
+        if (entry.lifeMs <= 0) {
+          scene.remove(entry.line);
+          entry.line.geometry.dispose();
+          (entry.line.material as THREE.Material).dispose();
+          tracers.splice(tracers.indexOf(entry), 1);
+        }
       }
     }
 
     healthFill.style.width = `${playerHealth}%`;
-    ammoEl.textContent = weaponView.reloading ? "Reloading..." : `${weaponView.ammo} / 6`;
+    ammoEl.textContent = weaponView
+      ? weaponView.reloading
+        ? "Reloading..."
+        : `${weaponView.ammo} / 6`
+      : "Loading…";
     waveEl.textContent = `Wave 1 — Runners left: ${runners.length + spawnQueue.length}`;
     hitmarker.style.opacity = hitmarkerMs > 0 ? "1" : "0";
     damageEl.style.opacity = damageFlashMs > 0 ? String(damageFlashMs / 400) : "0";
@@ -497,8 +836,10 @@ async function startGame(): Promise<void> {
 
     renderer.clear();
     renderer.render(scene, camera);
-    renderer.clearDepth();
-    renderer.render(weaponView.scene, weaponView.camera);
+    if (weaponView) {
+      renderer.clearDepth();
+      renderer.render(weaponView.scene, weaponView.camera);
+    }
   }
   requestAnimationFrame(loop);
 }

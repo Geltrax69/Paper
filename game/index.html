@@ -22,9 +22,11 @@
       .menu button { pointer-events: auto; font-size: 18px; padding: 12px 24px; cursor: pointer; }
       .hidden { display: none !important; }
       #review { position: static; overflow: auto; height: 100vh; background: #fff; padding: 20px; box-sizing: border-box; }
-      .review-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 32px; }
-      .review-cell { position: relative; height: 320px; overflow: hidden; border: 1px solid #888; }
-      .review-cell img { width: 100%; height: 100%; object-fit: contain; }
+      .review-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 32px; }
+      .review-cell { position: relative; min-width: 0; overflow: hidden; border: 1px solid #888; }
+      .review-image { position: relative; width: 100%; }
+      .review-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+      @media (max-width: 1000px) { .review-row { grid-template-columns: minmax(0, 1fr); } }
       .light { background: #f2ead8; }
       .dark { background: #1a1a1a; }
       .checker { background: repeating-conic-gradient(#bbb 0% 25%, #fff 0% 50%) 0 0 / 32px 32px; }
@@ -43,9 +45,9 @@
     <div id="ammo" class="hud"></div>
     <div id="menu" class="menu">
       <h1>Paper</h1>
-      <p id="menuText">Vertical slice. One shotgun. One runner. One wave.</p>
+      <p id="menuText">Loading assets…</p>
       <p>WASD move. Mouse aim. Click fire. R reload. Shift sprint. Space jump. Q dash. Esc pause.</p>
-      <button id="startBtn">Start</button>
+      <button id="startBtn" disabled>Start</button>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

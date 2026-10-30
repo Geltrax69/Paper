@@ -8,7 +8,7 @@ export class WeaponView {
   reloadTimeMs = 0;
   private readonly weapon: THREE.Mesh;
   private readonly flash: THREE.Mesh;
-  private readonly muzzleLocal: THREE.Vector2;
+  private readonly muzzleNode: THREE.Object3D;
   private recoil = 0;
   private recoilVelocity = 0;
   private flashTimeMs = 0;
@@ -27,7 +27,9 @@ export class WeaponView {
     const entry = asset("shotgun_idle");
     const muzzle = entry.attachments?.muzzle ?? [0.5, 0.5];
     const height = 1.15;
-    const width = height * (entry.size[0] / entry.size[1]);
+    const trimmedWidth = entry.rect[2];
+    const trimmedHeight = entry.rect[3];
+    const width = height * (trimmedWidth / trimmedHeight);
     const geometry = new THREE.PlaneGeometry(width, height);
     geometry.translate(0, height / 2, 0);
     this.weapon = new THREE.Mesh(
@@ -40,13 +42,17 @@ export class WeaponView {
     );
     this.weapon.renderOrder = 10;
     this.scene.add(this.weapon);
-    this.muzzleLocal = new THREE.Vector2(
-      (muzzle[0] - entry.pivot[0]) * width,
-      (1 - muzzle[1] - (1 - entry.pivot[1])) * height,
+    const muzzleTrimmedX = muzzle[0] * entry.sourceSize[0] - entry.trimOffset[0];
+    const muzzleTrimmedY = muzzle[1] * entry.sourceSize[1] - entry.trimOffset[1];
+    this.muzzleNode = new THREE.Object3D();
+    this.muzzleNode.position.set(
+      (muzzleTrimmedX / trimmedWidth - 0.5) * width,
+      (1 - muzzleTrimmedY / trimmedHeight) * height,
+      0,
     );
+    this.weapon.add(this.muzzleNode);
     const flashSize = 0.62;
     const flashGeo = new THREE.PlaneGeometry(flashSize, flashSize);
-    flashGeo.translate(0, 0, 0);
     this.flash = new THREE.Mesh(
       flashGeo,
       new THREE.MeshBasicMaterial({
@@ -57,7 +63,7 @@ export class WeaponView {
     );
     this.flash.renderOrder = 11;
     this.flash.visible = false;
-    this.scene.add(this.flash);
+    this.muzzleNode.add(this.flash);
   }
 
   get reloading(): boolean {
@@ -65,16 +71,29 @@ export class WeaponView {
   }
 
   get muzzlePosition(): THREE.Vector2 {
-    return new THREE.Vector2(
-      this.weapon.position.x + this.muzzleLocal.x,
-      this.weapon.position.y + this.muzzleLocal.y,
-    );
+    this.weapon.updateWorldMatrix(true, false);
+    const world = new THREE.Vector3();
+    this.muzzleNode.getWorldPosition(world);
+    return new THREE.Vector2(world.x, world.y);
   }
 
   resize(aspect: number): void {
     this.camera.left = -aspect;
     this.camera.right = aspect;
     this.camera.updateProjectionMatrix();
+  }
+
+  reset(): void {
+    this.ammo = manifest.weapons.shotgun.ammo;
+    this.reloadTimeMs = 0;
+    this.recoil = 0;
+    this.recoilVelocity = 0;
+    this.flashTimeMs = 0;
+    this.flash.visible = false;
+    this.swayX = 0;
+    this.swayY = 0;
+    this.bobTime = 0;
+    this.update(0, false, { x: 0, y: 0 });
   }
 
   triggerFlash(): void {
@@ -117,8 +136,6 @@ export class WeaponView {
       0,
     );
     this.weapon.rotation.z = -this.recoil * 0.06 + this.swayX * 0.4;
-    const muzzle = this.muzzlePosition;
-    this.flash.position.set(muzzle.x, muzzle.y, 0);
     const flashScale = 1 + this.recoil * 0.1;
     this.flash.scale.setScalar(flashScale);
   }

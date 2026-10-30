@@ -1,0 +1,150 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Two shots and reload",
+      "status": "PASS",
+      "detail": "after1=5 / 6 after2=4 / 6 reload=Reloading... afterReload=6 / 6"
+    },
+    {
+      "id": "f01-graph",
+      "name": "F01 route graph for all crates both sides",
+      "status": "PASS",
+      "detail": "10/10 routes reach goal without crossing a crate"
+    },
+    {
+      "id": "f01-route",
+      "name": "F01 reproduced route (-6,1) to (-6,7)",
+      "status": "PASS",
+      "detail": "final runner -7.67,5.19 state=pursue distance=2.46 health=100"
+    },
+    {
+      "id": "f02-airborne",
+      "name": "F02 airborne player takes no ground melee",
+      "status": "PASS",
+      "detail": "health before=100 after=100"
+    },
+    {
+      "id": "f02-landing",
+      "name": "F02 landing on low crate top",
+      "status": "PASS",
+      "detail": "feetY=1.80 grounded=true"
+    },
+    {
+      "id": "f02-height",
+      "name": "F02 high movement is not pushed by crates",
+      "status": "PASS",
+      "detail": "final x=6.17 y=0.00"
+    },
+    {
+      "id": "f03-reset",
+      "name": "F03 fresh run after reset",
+      "status": "PASS",
+      "detail": "keys=[] dash=0/0 fire=0 ammo=6 feet=0.00,0.00,9.00"
+    },
+    {
+      "id": "f03-blur",
+      "name": "F03 blur clears held keys",
+      "status": "PASS",
+      "detail": "keys=[]"
+    },
+    {
+      "id": "f04",
+      "name": "F04 missing asset error and retry",
+      "status": "PASS",
+      "detail": "error=Failed to load: Failed to load asset \"crate_face\" from /assets/scenery/crate_face.png. Click Retry. button=Retry enabled=true"
+    },
+    {
+      "id": "f07",
+      "name": "F07 muzzle marker through recoil",
+      "status": "PASS",
+      "detail": "reported=0.0592,-0.0489 expected=0.0592,-0.0489 error=0"
+    },
+    {
+      "id": "f08-wall",
+      "name": "F08 wall-blocked shot from world muzzle",
+      "status": "PASS",
+      "detail": "tracer from=-0.28,1.48,11.55 to=-0.04,1.68,12.00 (eye would be 0,1.70,11.00)"
+    },
+    {
+      "id": "f08-crate",
+      "name": "F08 crate-blocked shot",
+      "status": "PASS",
+      "detail": "runner health=36 tracer to=-5.99,1.27,3.10 (crate at (-6,4) height 1.8, front face z=3.10)"
+    },
+    {
+      "id": "f09",
+      "name": "F09 spawn shot gives no hit feedback, later shot damages",
+      "status": "PASS",
+      "detail": "spawn health=36 hitmarker=0 later health=0"
+    },
+    {
+      "id": "f10-interrupt",
+      "name": "F10 interrupted telegraph returns to neutral",
+      "status": "PASS",
+      "detail": "damage=applied state=pursue scale=1 color=16777215"
+    },
+    {
+      "id": "f10-pause",
+      "name": "F10 pause freezes feedback, resume clears it",
+      "status": "PASS",
+      "detail": "before=1 paused=1 afterResume=0"
+    },
+    {
+      "id": "f11-held",
+      "name": "F11 held Space gives no repeat jumps",
+      "status": "PASS",
+      "detail": "jumpCount=1 feetY=0.00"
+    },
+    {
+      "id": "f11-menu",
+      "name": "F11 menu Space does not buffer a jump",
+      "status": "PASS",
+      "detail": "jumpCount=0"
+    },
+    {
+      "id": "f12-1280",
+      "name": "F12 review rows at 1280 width",
+      "status": "PASS",
+      "detail": "rows=[{\"scroll\":1240,\"client\":1240},{\"scroll\":1240,\"client\":1240},{\"scroll\":1240,\"client\":1240},{\"scroll\":1240,\"client\":1240}] overlap=false"
+    },
+    {
+      "id": "f12-390",
+      "name": "F12 review columns collapse at 390 width",
+      "status": "PASS",
+      "detail": "row={\"scroll\":350,\"client\":350}"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Kill and removal",
+      "status": "PASS",
+      "detail": "runner removed after death"
+    },
+    {
+      "id": "accept-death",
+      "name": "Death and restart",
+      "status": "PASS",
+      "detail": "health after restart=100"
+    },
+    {
+      "id": "accept-wave",
+      "name": "One full wave clear through browser",
+      "status": "PASS",
+      "detail": "6 runners killed sequentially with kiting, waveComplete menu shown"
+    },
+    {
+      "id": "f06",
+      "name": "F06 resource disposal settles",
+      "status": "PASS",
+      "detail": "geometries before=12 during=32 after=12"
+    }
+  ],
+  "browser": "chromium cached 1248",
+  "base": "http://127.0.0.1:5174"
+}

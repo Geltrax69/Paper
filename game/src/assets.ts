@@ -93,16 +93,27 @@ function alphaReport(image: HTMLImageElement, entry: Asset): void {
   );
 }
 
-export async function loadTextures(): Promise<Map<string, THREE.Texture>> {
+export async function loadTextures(
+  onProgress?: (done: number, total: number, id: string) => void,
+): Promise<Map<string, THREE.Texture>> {
   const loader = new THREE.TextureLoader();
   const out = new Map<string, THREE.Texture>();
-  for (const entry of Object.values(manifest.assets)) {
-    const texture = await loader.loadAsync(`/${entry.file}`);
+  const entries = Object.values(manifest.assets);
+  for (let i = 0; i < entries.length; i += 1) {
+    const entry = entries[i];
+    let texture: THREE.Texture;
+    try {
+      texture = await loader.loadAsync(`/${entry.file}`);
+    } catch {
+      for (const partial of out.values()) partial.dispose();
+      throw new Error(`Failed to load asset "${entry.id}" from /${entry.file}`);
+    }
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = 4;
     const image = texture.image as HTMLImageElement;
     if (image && image.naturalWidth > 0) alphaReport(image, entry);
     out.set(entry.id, texture);
+    onProgress?.(i + 1, entries.length, entry.id);
   }
   return out;
 }

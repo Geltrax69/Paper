@@ -3,6 +3,90 @@ import * as THREE from "three";
 export type Box = { half: number; height: number; x: number; z: number };
 export type RayHit = { distance: number; kind: "crate" | "wall"; point: THREE.Vector3 };
 
+// One authoritative player body. feet is the ground contact point, not the
+// camera eye. The eye is feet plus a fixed eye height, kept in main.ts.
+export type PlayerBody = { feet: THREE.Vector3; height: number };
+
+export function bodyTop(feetY: number, height: number): number {
+  return feetY + height;
+}
+
+export function intervalsOverlap(aMin: number, aMax: number, bMin: number, bMax: number): boolean {
+  return aMin < bMax && bMin < aMax;
+}
+
+export function groundSupportY(x: number, z: number, radius: number): number {
+  let support = 0;
+  for (const crate of CRATES) {
+    const nearestX = Math.max(crate.x - crate.half, Math.min(crate.x + crate.half, x));
+    const nearestZ = Math.max(crate.z - crate.half, Math.min(crate.z + crate.half, z));
+    const dx = x - nearestX;
+    const dz = z - nearestZ;
+    if (dx * dx + dz * dz <= radius * radius && crate.height > support) {
+      support = crate.height;
+    }
+  }
+  return support;
+}
+
+export function resolveBody(feet: THREE.Vector3, radius: number, height: number): void {
+  const limit = ARENA_HALF - radius;
+  feet.x = Math.max(-limit, Math.min(limit, feet.x));
+  feet.z = Math.max(-limit, Math.min(limit, feet.z));
+  const top = bodyTop(feet.y, height);
+  for (const crate of CRATES) {
+    if (!intervalsOverlap(feet.y, top, 0, crate.height)) continue;
+    const nearestX = Math.max(crate.x - crate.half, Math.min(crate.x + crate.half, feet.x));
+    const nearestZ = Math.max(crate.z - crate.half, Math.min(crate.z + crate.half, feet.z));
+    const dx = feet.x - nearestX;
+    const dz = feet.z - nearestZ;
+    const distSq = dx * dx + dz * dz;
+    if (distSq >= radius * radius) continue;
+    if (distSq === 0) {
+      feet.x = crate.x + crate.half + radius;
+      continue;
+    }
+    const dist = Math.sqrt(distSq);
+    feet.x = nearestX + (dx / dist) * radius;
+    feet.z = nearestZ + (dz / dist) * radius;
+  }
+}
+
+export function segmentHitsExpandedRect(
+  from: THREE.Vector3,
+  to: THREE.Vector3,
+  crate: Box,
+  expand: number,
+): boolean {
+  // Shrink by a hair so a segment that only touches the expanded boundary
+  // (for example, travelling along a corner edge) does not count as a hit.
+  // A segment through the interior still hits.
+  const eps = 0.01;
+  const minX = crate.x - crate.half - expand + eps;
+  const maxX = crate.x + crate.half + expand - eps;
+  const minZ = crate.z - crate.half - expand + eps;
+  const maxZ = crate.z + crate.half + expand - eps;
+  let tMin = 0;
+  let tMax = 1;
+  const axes: [number, number, number, number][] = [
+    [from.x, to.x - from.x, minX, maxX],
+    [from.z, to.z - from.z, minZ, maxZ],
+  ];
+  for (const [o, d, lo, hi] of axes) {
+    if (Math.abs(d) < 1e-9) {
+      if (o < lo || o > hi) return false;
+      continue;
+    }
+    let t1 = (lo - o) / d;
+    let t2 = (hi - o) / d;
+    if (t1 > t2) [t1, t2] = [t2, t1];
+    tMin = Math.max(tMin, t1);
+    tMax = Math.min(tMax, t2);
+    if (tMin > tMax) return false;
+  }
+  return tMax > 0 && tMin < 1;
+}
+
 export const ARENA_HALF = 12;
 export const WALL_HEIGHT = 3;
 

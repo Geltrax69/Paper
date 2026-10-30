@@ -19,27 +19,29 @@ except ImportError:
 
 
 def main(src, dst):
+    if ndimage is None:
+        raise SystemExit(
+            "make_alpha.py: SciPy is required for connected-component "
+            "background removal. Refusing to fall back to removing every "
+            "bright low-saturation region, which would erase ivory object "
+            "surfaces. Install scipy and run again."
+        )
     im = Image.open(src).convert("RGB")
     arr = np.asarray(im).astype(np.int16)
     brightness = arr.max(axis=2)
     saturation = arr.max(axis=2) - arr.min(axis=2)
     background_like = (brightness > 200) & (saturation < 60)
-    if ndimage is not None:
-        labels, _ = ndimage.label(background_like)
-        border_labels = set(np.unique(np.concatenate([
-            labels[0, :], labels[-1, :], labels[:, 0], labels[:, -1],
-        ])))
-        border_labels.discard(0)
-        is_background = np.isin(labels, list(border_labels))
-    else:
-        is_background = background_like
+    labels, _ = ndimage.label(background_like)
+    border_labels = set(np.unique(np.concatenate([
+        labels[0, :], labels[-1, :], labels[:, 0], labels[:, -1],
+    ])))
+    border_labels.discard(0)
+    is_background = np.isin(labels, list(border_labels))
     alpha = np.where(is_background, 0, 255).astype(np.uint8)
-    alpha_img = Image.fromarray(alpha, "L")
-    alpha_img = alpha_img.filter(ImageFilter.GaussianBlur(0.8))
+    alpha_img = Image.fromarray(alpha, "L").filter(ImageFilter.GaussianBlur(0.8))
     out = im.convert("RGBA")
     out.putalpha(alpha_img)
     out.save(dst)
-    total = alpha.size
     print(f"{dst}: {im.size} transparent={(alpha == 0).mean():.1%} "
           f"opaque={(alpha == 255).mean():.1%}")
 
