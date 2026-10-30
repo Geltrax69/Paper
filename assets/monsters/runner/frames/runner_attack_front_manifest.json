@@ -1,0 +1,146 @@
+{
+  "frames": [
+    {
+      "id": "runner_attack_front_01",
+      "file": "runner_attack_front_01.png",
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9703947368421053
+      ],
+      "bbox": [
+        60,
+        32,
+        361,
+        882
+      ]
+    },
+    {
+      "id": "runner_attack_front_02",
+      "file": "runner_attack_front_02.png",
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9703947368421053
+      ],
+      "bbox": [
+        12,
+        153,
+        392,
+        875
+      ]
+    },
+    {
+      "id": "runner_attack_front_03",
+      "file": "runner_attack_front_03.png",
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9703947368421053
+      ],
+      "bbox": [
+        5,
+        134,
+        440,
+        880
+      ]
+    },
+    {
+      "id": "runner_attack_front_04",
+      "file": "runner_attack_front_04.png",
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9703947368421053
+      ],
+      "bbox": [
+        -25,
+        141,
+        549,
+        878
+      ]
+    },
+    {
+      "id": "runner_attack_front_05",
+      "file": "runner_attack_front_05.png",
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9703947368421053
+      ],
+      "bbox": [
+        15,
+        131,
+        500,
+        880
+      ]
+    },
+    {
+      "id": "runner_attack_front_06",
+      "file": "runner_attack_front_06.png",
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9703947368421053
+      ],
+      "bbox": [
+        40,
+        28,
+        395,
+        885
+      ]
+    }
+  ],
+  "groundY": 885,
+  "bounds": [
+    0,
+    411,
+    835,
+    1319,
+    1837,
+    2312,
+    2736
+  ]
+}

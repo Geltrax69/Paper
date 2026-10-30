@@ -12,22 +12,31 @@ export type Asset = {
   sourceSize: [number, number];
   trimOffset: [number, number];
 };
+export type ClipFrame = {
+  attachments?: Record<string, [number, number]>;
+  durationMs: number;
+  id: string;
+};
 export type Clip = {
   assetIds: string[];
   events?: { name: string; timeMs: number }[];
   frameMs: number;
+  frames?: ClipFrame[];
   loop: boolean;
 };
 export type Weapon = {
   ammo: number;
   clip: string;
   damage: number;
+  fireClip: string;
   fireIntervalMs: number;
+  flashClip: string;
   id: "shotgun";
   pellets: number;
   spread: number;
 };
 export type EnemySpec = {
+  attackClip: string;
   attackDamage: number;
   attackRange: number;
   clip: string;
@@ -35,6 +44,7 @@ export type EnemySpec = {
   height: number;
   id: string;
   radius: number;
+  runClip: string;
   speed: number;
 };
 export type Manifest = {

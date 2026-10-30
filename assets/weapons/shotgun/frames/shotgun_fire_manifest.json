@@ -1,0 +1,146 @@
+{
+  "frames": [
+    {
+      "id": "shotgun_fire_01",
+      "file": "shotgun_fire_01.png",
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "bbox": [
+        32,
+        87,
+        373,
+        910
+      ]
+    },
+    {
+      "id": "shotgun_fire_02",
+      "file": "shotgun_fire_02.png",
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "bbox": [
+        -5,
+        12,
+        481,
+        912
+      ]
+    },
+    {
+      "id": "shotgun_fire_03",
+      "file": "shotgun_fire_03.png",
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "bbox": [
+        47,
+        22,
+        398,
+        911
+      ]
+    },
+    {
+      "id": "shotgun_fire_04",
+      "file": "shotgun_fire_04.png",
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "bbox": [
+        53,
+        66,
+        426,
+        912
+      ]
+    },
+    {
+      "id": "shotgun_fire_05",
+      "file": "shotgun_fire_05.png",
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "bbox": [
+        52,
+        126,
+        390,
+        912
+      ]
+    },
+    {
+      "id": "shotgun_fire_06",
+      "file": "shotgun_fire_06.png",
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "bbox": [
+        63,
+        113,
+        391,
+        912
+      ]
+    }
+  ],
+  "groundY": 912,
+  "bounds": [
+    0,
+    440,
+    899,
+    1361,
+    1821,
+    2268,
+    2736
+  ]
+}

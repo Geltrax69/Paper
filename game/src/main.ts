@@ -8,6 +8,7 @@ import {
   type PlayerBody,
 } from "./arena";
 import { loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
+import { AnimationPlayer, clipFromManifest } from "./animation";
 import { Runner } from "./enemy";
 import { findRoute } from "./pathing";
 import { WeaponView } from "./weapon";
@@ -73,6 +74,107 @@ function buildReview(): void {
     }
     root.appendChild(row);
   }
+  for (const [clipId, clip] of Object.entries(manifest.clips)) {
+    if (!clip.frames || clip.frames.length === 0) continue;
+    const heading = document.createElement("h2");
+    heading.textContent = `Clip ${clipId} ${clip.frames.length} frames loop=${clip.loop} events=${(clip.events ?? []).map((e) => `${e.name}@${e.timeMs}ms`).join(", ") || "none"}`;
+    root.appendChild(heading);
+    const row = document.createElement("div");
+    row.className = "review-row";
+    for (const [label, cls] of backgrounds) {
+      const cell = document.createElement("div");
+      cell.className = `review-cell ${cls}`;
+      const wrapper = document.createElement("div");
+      wrapper.className = "review-image";
+      const first = clip.frames[0];
+      const firstAsset = manifest.assets[first.id];
+      wrapper.style.aspectRatio = `${firstAsset.size[0]} / ${firstAsset.size[1]}`;
+      const img = document.createElement("img");
+      img.src = `/${firstAsset.file}`;
+      img.alt = `${clipId} frame 0`;
+      wrapper.appendChild(img);
+      const pivot = document.createElement("div");
+      pivot.className = "marker pivot";
+      wrapper.appendChild(pivot);
+      const muzzle = document.createElement("div");
+      muzzle.className = "marker muzzle";
+      wrapper.appendChild(muzzle);
+      const labelEl = document.createElement("div");
+      labelEl.textContent = `${label} frame 0 / ${clip.frames.length}`;
+      labelEl.style.cssText = "position:absolute;top:4px;left:6px;z-index:2;background:#fff;padding:2px 6px;";
+      wrapper.appendChild(labelEl);
+      cell.appendChild(wrapper);
+      row.appendChild(cell);
+      const player = new AnimationPlayer(clipFromManifest(clip));
+      player.play(0);
+      const showFrame = () => {
+        const frame = player.currentFrame;
+        const entry = manifest.assets[frame.id];
+        img.src = `/${entry.file}`;
+        img.alt = `${clipId} frame ${player.frameIndex}`;
+        pivot.style.left = `${entry.pivot[0] * 100}%`;
+        pivot.style.top = `${entry.pivot[1] * 100}%`;
+        const mz = frame.attachments?.muzzle ?? entry.attachments?.muzzle;
+        if (mz) {
+          muzzle.style.display = "block";
+          muzzle.style.left = `${mz[0] * 100}%`;
+          muzzle.style.top = `${mz[1] * 100}%`;
+        } else {
+          muzzle.style.display = "none";
+        }
+        labelEl.textContent = `${label} frame ${player.frameIndex} / ${(clip.frames ?? []).length} ${frame.durationMs}ms`;
+      };
+      showFrame();
+      const controls = document.createElement("div");
+      controls.style.cssText = "display:flex;gap:6px;margin-top:6px;";
+      const playBtn = document.createElement("button");
+      playBtn.textContent = "Pause";
+      playBtn.addEventListener("click", () => {
+        if (player.paused) {
+          if (player.finished) player.play(0);
+          player.resume();
+          playBtn.textContent = "Pause";
+        } else {
+          player.pause();
+          playBtn.textContent = "Play";
+        }
+      });
+      const stepBtn = document.createElement("button");
+      stepBtn.textContent = "Step frame";
+      stepBtn.addEventListener("click", () => {
+        player.pause();
+        playBtn.textContent = "Play";
+        if (player.finished) {
+          player.play(0);
+          showFrame();
+          return;
+        }
+        player.stepFrame();
+        showFrame();
+      });
+      const speed = document.createElement("select");
+      for (const value of ["1", "0.5", "0.25"]) {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = `${value}x`;
+        speed.appendChild(option);
+      }
+      controls.append(playBtn, stepBtn, speed);
+      cell.appendChild(controls);
+      let last = performance.now();
+      const tick = (now: number) => {
+        const dt = Math.min(100, now - last);
+        last = now;
+        if (!player.paused) {
+          player.update(dt * Number(speed.value), 1);
+          showFrame();
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+    root.appendChild(row);
+  }
   document.body.appendChild(root);
 }
 
@@ -84,6 +186,7 @@ if (params.get("review") === "1") {
 
 async function startGame(): Promise<void> {
   const viewOnly = params.get("view") === "1";
+  const viewTwo = params.get("view") === "2";
   const debugMode = params.get("debug") === "1";
   const container = document.getElementById("game") as HTMLDivElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -222,11 +325,29 @@ async function startGame(): Promise<void> {
     tracers.length = 0;
   }
 
+  let spawnCounter = 0;
+  function runnerClipTextures(): {
+    attack: THREE.Texture[];
+    run: THREE.Texture[];
+    runStartPhase01: number;
+  } {
+    const run = manifest.clips[runnerSpec().runClip].assetIds.map(
+      (id) => textures?.get(id) as THREE.Texture,
+    );
+    const attack = manifest.clips[runnerSpec().attackClip].assetIds.map(
+      (id) => textures?.get(id) as THREE.Texture,
+    );
+    const phase = (spawnCounter % 4) / 4;
+    spawnCounter += 1;
+    return { attack, run, runStartPhase01: phase };
+  }
+
   function spawnRunner(at: THREE.Vector3): Runner {
     const runner = new Runner(
       textures?.get("runner_front") as THREE.Texture,
       at,
       runnerSpec(),
+      runnerClipTextures(),
     );
     scene.add(runner.group);
     runners.push(runner);
@@ -319,7 +440,7 @@ async function startGame(): Promise<void> {
     }
     weaponView.ammo -= 1;
     fireCooldownMs = spec.fireIntervalMs;
-    weaponView.triggerFlash();
+    weaponView.triggerFire();
     const eye = camera.position.clone();
     const forward = new THREE.Vector3();
     camera.getWorldDirection(forward);
@@ -413,6 +534,27 @@ async function startGame(): Promise<void> {
     runners[0].state = "pursue";
   }
 
+  function setupViewTwo(): void {
+    menu.classList.add("hidden");
+    crosshair.classList.add("hidden");
+    const caption = document.createElement("div");
+    caption.className = "menu";
+    caption.style.cssText =
+      "position:fixed;top:12px;right:12px;left:auto;bottom:auto;z-index:20;background:rgba(239,230,208,0.9);padding:8px 12px;display:block;text-align:left;";
+    caption.innerHTML =
+      "<strong>View mode ?view=2</strong><br/>Fixed camera. No pointer lock. Two runners at different run phases, animated in place.";
+    document.body.appendChild(caption);
+    playerFeet.set(0, 0, 7.5);
+    camera.position.set(0, 1.8, 7.5);
+    camera.lookAt(0, 1.2, -1);
+    const left = spawnRunner(new THREE.Vector3(-1.2, 0, -3.5));
+    const right = spawnRunner(new THREE.Vector3(1.2, 0, -3.5));
+    left.state = "pursue";
+    right.state = "pursue";
+    left.setRunPhase01(0);
+    right.setRunPhase01(0.5);
+  }
+
   function setupDebug(): void {
     const api = {
       renderer,
@@ -451,13 +593,7 @@ async function startGame(): Promise<void> {
         };
       },
       holdFlash: () => {
-        if (!weaponView) return;
-        const anyWeapon = weaponView as unknown as {
-          flashTimeMs: number;
-          flash: THREE.Mesh;
-        };
-        anyWeapon.flashTimeMs = 100000;
-        anyWeapon.flash.visible = true;
+        weaponView?.forceFlashVisible();
       },
       getState: () => ({
         phase,
@@ -481,15 +617,28 @@ async function startGame(): Promise<void> {
             material: THREE.MeshBasicMaterial;
           };
           return {
+            attackFrame: runner.attackFrameIndex,
+            color: anyRunner.material.color.getHex(),
+            footstepCount: runner.footstepCount,
+            health: runner.health,
+            runFrame: runner.runFrameIndex,
+            runPhase: runner.runPhase01,
+            scale: anyRunner.mesh.scale.x,
             state: runner.state,
             x: runner.position.x,
             y: runner.position.y,
             z: runner.position.z,
-            health: runner.health,
-            scale: anyRunner.mesh.scale.x,
-            color: anyRunner.material.color.getHex(),
           };
         }),
+        weapon: weaponView
+          ? {
+              fireFrame: weaponView.fireFrameIndex,
+              firing: weaponView.firing,
+              flashFrame: weaponView.flashFrameIndex,
+              flashOn: weaponView.flashOn,
+              sprintScale: weaponView.sprintScale,
+            }
+          : null,
       }),
       getInputState: () => ({
         keys: [...keys],
@@ -567,9 +716,16 @@ async function startGame(): Promise<void> {
         arenaBuilt = true;
       }
       if (!weaponView) {
+        const fireClip = manifest.clips[weaponSpec().fireClip];
+        const flashClip = manifest.clips[weaponSpec().flashClip];
+        const loaded = textures;
+        if (!loaded) throw new Error("Textures not loaded");
         weaponView = new WeaponView(
-          textures.get("shotgun_idle") as THREE.Texture,
-          textures.get("muzzle_flash_shotgun") as THREE.Texture,
+          {
+            fire: fireClip.assetIds.map((id) => loaded.get(id) as THREE.Texture),
+            flash: flashClip.assetIds.map((id) => loaded.get(id) as THREE.Texture),
+            idle: loaded.get("shotgun_idle") as THREE.Texture,
+          },
           window.innerWidth / window.innerHeight,
         );
       }
@@ -577,6 +733,7 @@ async function startGame(): Promise<void> {
       showMenu("Vertical slice. One shotgun. One runner. One wave.", "Start");
       startBtn.disabled = false;
       if (viewOnly) setupViewOnly();
+      if (viewTwo) setupViewTwo();
       if (debugMode) setupDebug();
     } catch (error) {
       startupState = "error";
@@ -700,7 +857,29 @@ async function startGame(): Promise<void> {
 
     if (viewOnly && weaponView) {
       runners[0]?.update(0, camera, playerBody, () => undefined, runners);
-      weaponView.update(0, false, { x: 0, y: 0 });
+      weaponView.update(0, {
+        grounded: true,
+        horizontalSpeed: 0,
+        mouseDelta: { x: 0, y: 0 },
+        moving: false,
+        sprinting: false,
+      });
+      renderer.clear();
+      renderer.render(scene, camera);
+      renderer.clearDepth();
+      renderer.render(weaponView.scene, weaponView.camera);
+      return;
+    }
+
+    if (viewTwo && weaponView) {
+      for (const runner of runners) runner.advanceRunAnimation(dtMs);
+      weaponView.update(dt, {
+        grounded: true,
+        horizontalSpeed: 0,
+        mouseDelta: { x: 0, y: 0 },
+        moving: false,
+        sprinting: false,
+      });
       renderer.clear();
       renderer.render(scene, camera);
       renderer.clearDepth();
@@ -734,6 +913,7 @@ async function startGame(): Promise<void> {
       if (keys.has("KeyA")) move.sub(right);
       const sprinting = keys.has("ShiftLeft") || keys.has("ShiftRight");
       const speed = sprinting ? 7.5 : 5;
+      const prevFeet = playerFeet.clone();
       if (dashTimeMs > 0) {
         dashTimeMs -= dtMs;
         const steps = 6;
@@ -746,6 +926,13 @@ async function startGame(): Promise<void> {
         playerFeet.add(move);
         resolveBody(playerFeet, 0.4, PLAYER_HEIGHT);
       }
+      const horizontalSpeed =
+        dt > 0
+          ? Math.hypot(
+              playerFeet.x - prevFeet.x,
+              playerFeet.z - prevFeet.z,
+            ) / dt
+          : 0;
 
       const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
       if (playerFeet.y <= support + 0.001) grounded = true;
@@ -781,7 +968,13 @@ async function startGame(): Promise<void> {
       camera.rotation.z = 0;
 
       const moving = move.lengthSq() > 0;
-      weaponView?.update(dt, moving, mouseDelta);
+      weaponView?.update(dt, {
+        grounded,
+        horizontalSpeed,
+        mouseDelta,
+        moving,
+        sprinting,
+      });
       mouseDelta.x = 0;
       mouseDelta.y = 0;
 

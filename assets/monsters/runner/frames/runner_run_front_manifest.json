@@ -1,0 +1,192 @@
+{
+  "frames": [
+    {
+      "id": "runner_run_front_01",
+      "file": "runner_run_front_01.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        2,
+        103,
+        389,
+        832
+      ]
+    },
+    {
+      "id": "runner_run_front_02",
+      "file": "runner_run_front_02.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        33,
+        207,
+        283,
+        814
+      ]
+    },
+    {
+      "id": "runner_run_front_03",
+      "file": "runner_run_front_03.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        -13,
+        130,
+        335,
+        827
+      ]
+    },
+    {
+      "id": "runner_run_front_04",
+      "file": "runner_run_front_04.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        -8,
+        103,
+        380,
+        706
+      ]
+    },
+    {
+      "id": "runner_run_front_05",
+      "file": "runner_run_front_05.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        -18,
+        118,
+        358,
+        824
+      ]
+    },
+    {
+      "id": "runner_run_front_06",
+      "file": "runner_run_front_06.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        29,
+        226,
+        269,
+        810
+      ]
+    },
+    {
+      "id": "runner_run_front_07",
+      "file": "runner_run_front_07.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        -21,
+        133,
+        365,
+        813
+      ]
+    },
+    {
+      "id": "runner_run_front_08",
+      "file": "runner_run_front_08.png",
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9122807017543859
+      ],
+      "bbox": [
+        -6,
+        105,
+        369,
+        711
+      ]
+    }
+  ],
+  "groundY": 832,
+  "bounds": [
+    0,
+    352,
+    670,
+    1016,
+    1372,
+    1690,
+    2011,
+    2363,
+    2736
+  ]
+}

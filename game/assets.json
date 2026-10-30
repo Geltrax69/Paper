@@ -1,1 +1,1143 @@
-{"assets":{"crate_face":{"alpha":false,"file":"assets/scenery/crate_face.png","id":"crate_face","pivot":[0.5,0.5],"rect":[0,0,1600,1600],"size":[1600,1600],"sourceSize":[1600,1600],"trimOffset":[0,0]},"muzzle_flash_shotgun":{"alpha":true,"file":"assets/effects/muzzle_flash_shotgun.png","id":"muzzle_flash_shotgun","pivot":[0.5,0.5],"rect":[0,0,1600,1600],"size":[1600,1600],"sourceSize":[1600,1600],"trimOffset":[0,0]},"runner_front":{"alpha":true,"file":"assets/monsters/runner/runner_front.png","id":"runner_front","pivot":[0.5,0.99],"rect":[0,0,1600,1600],"size":[1600,1600],"sourceSize":[1600,1600],"trimOffset":[0,0]},"shotgun_idle":{"alpha":true,"attachments":{"muzzle":[0.27,0.36]},"file":"assets/weapons/shotgun/shotgun_idle.png","id":"shotgun_idle","pivot":[0.5,1.0],"rect":[0,0,1920,1280],"size":[1920,1280],"sourceSize":[1920,1280],"trimOffset":[0,0]}},"clips":{"muzzle_flash":{"assetIds":["muzzle_flash_shotgun"],"events":[{"name":"flash","timeMs":0}],"frameMs":60,"loop":false},"runner_front":{"assetIds":["runner_front"],"events":[],"frameMs":1000,"loop":true},"shotgun_idle":{"assetIds":["shotgun_idle"],"events":[],"frameMs":1000,"loop":true}},"conventions":{"attachmentOrigin":"top-left-of-untrimmed-source","attachmentUnits":"normalized","durationUnits":"milliseconds","eventTiming":"milliseconds-from-clip-start","pivotOrigin":"top-left-of-untrimmed-source","pivotUnits":"normalized","rectOrigin":"top-left","rectUnits":"pixels"},"enemies":{"runner":{"attackDamage":12,"attackRange":2.3,"clip":"runner_front","health":36,"height":2.0,"id":"runner","radius":0.55,"speed":3.4}},"schema":"paper-slice-v1","status":"vertical_slice_only_shotgun_and_runner_front","weapons":{"shotgun":{"ammo":6,"clip":"shotgun_idle","damage":12,"fireIntervalMs":750,"id":"shotgun","pellets":7,"spread":0.055}}}
+{
+  "assets": {
+    "crate_face": {
+      "alpha": false,
+      "file": "assets/scenery/crate_face.png",
+      "id": "crate_face",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        1600,
+        1600
+      ],
+      "size": [
+        1600,
+        1600
+      ],
+      "sourceSize": [
+        1600,
+        1600
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_01": {
+      "alpha": true,
+      "file": "assets/effects/frames/muzzle_flash_01.png",
+      "id": "muzzle_flash_01",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_02": {
+      "alpha": true,
+      "file": "assets/effects/frames/muzzle_flash_02.png",
+      "id": "muzzle_flash_02",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_03": {
+      "alpha": true,
+      "file": "assets/effects/frames/muzzle_flash_03.png",
+      "id": "muzzle_flash_03",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_04": {
+      "alpha": true,
+      "file": "assets/effects/frames/muzzle_flash_04.png",
+      "id": "muzzle_flash_04",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_05": {
+      "alpha": true,
+      "file": "assets/effects/frames/muzzle_flash_05.png",
+      "id": "muzzle_flash_05",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_06": {
+      "alpha": true,
+      "file": "assets/effects/frames/muzzle_flash_06.png",
+      "id": "muzzle_flash_06",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "muzzle_flash_shotgun": {
+      "alpha": true,
+      "file": "assets/effects/muzzle_flash_shotgun.png",
+      "id": "muzzle_flash_shotgun",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        1600,
+        1600
+      ],
+      "size": [
+        1600,
+        1600
+      ],
+      "sourceSize": [
+        1600,
+        1600
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_attack_front_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_attack_front_01.png",
+      "id": "runner_attack_front_01",
+      "pivot": [
+        0.5,
+        0.9704
+      ],
+      "rect": [
+        0,
+        0,
+        518,
+        912
+      ],
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_attack_front_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_attack_front_02.png",
+      "id": "runner_attack_front_02",
+      "pivot": [
+        0.5,
+        0.9704
+      ],
+      "rect": [
+        0,
+        0,
+        518,
+        912
+      ],
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_attack_front_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_attack_front_03.png",
+      "id": "runner_attack_front_03",
+      "pivot": [
+        0.5,
+        0.9704
+      ],
+      "rect": [
+        0,
+        0,
+        518,
+        912
+      ],
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_attack_front_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_attack_front_04.png",
+      "id": "runner_attack_front_04",
+      "pivot": [
+        0.5,
+        0.9704
+      ],
+      "rect": [
+        0,
+        0,
+        518,
+        912
+      ],
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_attack_front_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_attack_front_05.png",
+      "id": "runner_attack_front_05",
+      "pivot": [
+        0.5,
+        0.9704
+      ],
+      "rect": [
+        0,
+        0,
+        518,
+        912
+      ],
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_attack_front_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_attack_front_06.png",
+      "id": "runner_attack_front_06",
+      "pivot": [
+        0.5,
+        0.9704
+      ],
+      "rect": [
+        0,
+        0,
+        518,
+        912
+      ],
+      "size": [
+        518,
+        912
+      ],
+      "sourceSize": [
+        518,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_front": {
+      "alpha": true,
+      "file": "assets/monsters/runner/runner_front.png",
+      "id": "runner_front",
+      "pivot": [
+        0.5,
+        0.99
+      ],
+      "rect": [
+        0,
+        0,
+        1600,
+        1600
+      ],
+      "size": [
+        1600,
+        1600
+      ],
+      "sourceSize": [
+        1600,
+        1600
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_01.png",
+      "id": "runner_run_front_01",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_02.png",
+      "id": "runner_run_front_02",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_03.png",
+      "id": "runner_run_front_03",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_04.png",
+      "id": "runner_run_front_04",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_05.png",
+      "id": "runner_run_front_05",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_06.png",
+      "id": "runner_run_front_06",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_07.png",
+      "id": "runner_run_front_07",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_08.png",
+      "id": "runner_run_front_08",
+      "pivot": [
+        0.5,
+        0.9123
+      ],
+      "rect": [
+        0,
+        0,
+        373,
+        912
+      ],
+      "size": [
+        373,
+        912
+      ],
+      "sourceSize": [
+        373,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_fire_01": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.325,
+          0.603
+        ]
+      },
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_01.png",
+      "id": "shotgun_fire_01",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        468,
+        912
+      ],
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_fire_02": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.355,
+          0.535
+        ]
+      },
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_02.png",
+      "id": "shotgun_fire_02",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        468,
+        912
+      ],
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_fire_03": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.302,
+          0.62
+        ]
+      },
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_03.png",
+      "id": "shotgun_fire_03",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        468,
+        912
+      ],
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_fire_04": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.375,
+          0.625
+        ]
+      },
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_04.png",
+      "id": "shotgun_fire_04",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        468,
+        912
+      ],
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_fire_05": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.366,
+          0.633
+        ]
+      },
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_05.png",
+      "id": "shotgun_fire_05",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        468,
+        912
+      ],
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_fire_06": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.355,
+          0.625
+        ]
+      },
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_06.png",
+      "id": "shotgun_fire_06",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        468,
+        912
+      ],
+      "size": [
+        468,
+        912
+      ],
+      "sourceSize": [
+        468,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "shotgun_idle": {
+      "alpha": true,
+      "attachments": {
+        "muzzle": [
+          0.27,
+          0.36
+        ]
+      },
+      "file": "assets/weapons/shotgun/shotgun_idle.png",
+      "id": "shotgun_idle",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        1920,
+        1280
+      ],
+      "size": [
+        1920,
+        1280
+      ],
+      "sourceSize": [
+        1920,
+        1280
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    }
+  },
+  "clips": {
+    "muzzle_flash": {
+      "assetIds": [
+        "muzzle_flash_01",
+        "muzzle_flash_02",
+        "muzzle_flash_03",
+        "muzzle_flash_04",
+        "muzzle_flash_05",
+        "muzzle_flash_06"
+      ],
+      "events": [
+        {
+          "name": "flash",
+          "timeMs": 0
+        }
+      ],
+      "frameMs": 15,
+      "frames": [
+        {
+          "durationMs": 15,
+          "id": "muzzle_flash_01"
+        },
+        {
+          "durationMs": 20,
+          "id": "muzzle_flash_02"
+        },
+        {
+          "durationMs": 20,
+          "id": "muzzle_flash_03"
+        },
+        {
+          "durationMs": 15,
+          "id": "muzzle_flash_04"
+        },
+        {
+          "durationMs": 15,
+          "id": "muzzle_flash_05"
+        },
+        {
+          "durationMs": 15,
+          "id": "muzzle_flash_06"
+        }
+      ],
+      "loop": false
+    },
+    "runner_attack_front": {
+      "assetIds": [
+        "runner_attack_front_01",
+        "runner_attack_front_02",
+        "runner_attack_front_03",
+        "runner_attack_front_04",
+        "runner_attack_front_05",
+        "runner_attack_front_06"
+      ],
+      "events": [
+        {
+          "name": "strike",
+          "timeMs": 360
+        }
+      ],
+      "frameMs": 100,
+      "frames": [
+        {
+          "durationMs": 100,
+          "id": "runner_attack_front_01"
+        },
+        {
+          "durationMs": 120,
+          "id": "runner_attack_front_02"
+        },
+        {
+          "durationMs": 140,
+          "id": "runner_attack_front_03"
+        },
+        {
+          "durationMs": 140,
+          "id": "runner_attack_front_04"
+        },
+        {
+          "durationMs": 100,
+          "id": "runner_attack_front_05"
+        },
+        {
+          "durationMs": 100,
+          "id": "runner_attack_front_06"
+        }
+      ],
+      "loop": false
+    },
+    "runner_front": {
+      "assetIds": [
+        "runner_front"
+      ],
+      "events": [],
+      "frameMs": 1000,
+      "loop": true
+    },
+    "runner_run_front": {
+      "assetIds": [
+        "runner_run_front_01",
+        "runner_run_front_02",
+        "runner_run_front_03",
+        "runner_run_front_04",
+        "runner_run_front_05",
+        "runner_run_front_06",
+        "runner_run_front_07",
+        "runner_run_front_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_08"
+        }
+      ],
+      "loop": true
+    },
+    "shotgun_fire": {
+      "assetIds": [
+        "shotgun_fire_01",
+        "shotgun_fire_02",
+        "shotgun_fire_03",
+        "shotgun_fire_04",
+        "shotgun_fire_05",
+        "shotgun_fire_06"
+      ],
+      "events": [
+        {
+          "name": "shot",
+          "timeMs": 0
+        },
+        {
+          "name": "flash",
+          "timeMs": 0
+        }
+      ],
+      "frameMs": 40,
+      "frames": [
+        {
+          "attachments": {
+            "muzzle": [
+              0.325,
+              0.603
+            ]
+          },
+          "durationMs": 40,
+          "id": "shotgun_fire_01"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.355,
+              0.535
+            ]
+          },
+          "durationMs": 50,
+          "id": "shotgun_fire_02"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.302,
+              0.62
+            ]
+          },
+          "durationMs": 50,
+          "id": "shotgun_fire_03"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.375,
+              0.625
+            ]
+          },
+          "durationMs": 40,
+          "id": "shotgun_fire_04"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.366,
+              0.633
+            ]
+          },
+          "durationMs": 45,
+          "id": "shotgun_fire_05"
+        },
+        {
+          "attachments": {
+            "muzzle": [
+              0.355,
+              0.625
+            ]
+          },
+          "durationMs": 45,
+          "id": "shotgun_fire_06"
+        }
+      ],
+      "loop": false
+    },
+    "shotgun_idle": {
+      "assetIds": [
+        "shotgun_idle"
+      ],
+      "events": [],
+      "frameMs": 1000,
+      "loop": true
+    }
+  },
+  "conventions": {
+    "attachmentOrigin": "top-left-of-untrimmed-source",
+    "attachmentUnits": "normalized",
+    "durationUnits": "milliseconds",
+    "eventTiming": "milliseconds-from-clip-start",
+    "pivotOrigin": "top-left-of-untrimmed-source",
+    "pivotUnits": "normalized",
+    "rectOrigin": "top-left",
+    "rectUnits": "pixels"
+  },
+  "enemies": {
+    "runner": {
+      "attackClip": "runner_attack_front",
+      "attackDamage": 12,
+      "attackRange": 2.3,
+      "clip": "runner_front",
+      "health": 36,
+      "height": 2.0,
+      "id": "runner",
+      "radius": 0.55,
+      "runClip": "runner_run_front",
+      "speed": 3.4
+    }
+  },
+  "schema": "paper-slice-v1",
+  "status": "phase2_batch1_run_attack_fire_flash",
+  "weapons": {
+    "shotgun": {
+      "ammo": 6,
+      "clip": "shotgun_idle",
+      "damage": 12,
+      "fireClip": "shotgun_fire",
+      "fireIntervalMs": 750,
+      "flashClip": "muzzle_flash",
+      "id": "shotgun",
+      "pellets": 7,
+      "spread": 0.055
+    }
+  }
+}

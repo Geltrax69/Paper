@@ -1,0 +1,78 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "p2-run",
+      "name": "Run clip advances with footsteps",
+      "status": "PASS",
+      "detail": "distinct run frames=5,6,0,1,3,4,7,2 footsteps 1->5"
+    },
+    {
+      "id": "p2-view2",
+      "name": "Two runners at different run phases",
+      "status": "PASS",
+      "detail": "left runFrame=5 phase=0.73 right runFrame=1 phase=0.23"
+    },
+    {
+      "id": "p2-attack",
+      "name": "Attack damage once at strike",
+      "status": "PASS",
+      "detail": "health 100->88 damage=12 attackFrames=1,2,3,4,5"
+    },
+    {
+      "id": "p2-fire",
+      "name": "Fire clip advances, flash fades and is removed",
+      "status": "PASS",
+      "detail": "fireFrames=1,2,3,4,5 firingEnd=false flashOnAfter=false flashFrameEnd=5"
+    },
+    {
+      "id": "p2-sprint",
+      "name": "Sprint enlarges only during actual running",
+      "status": "PASS",
+      "detail": "still=1.000 running=1.100 idle=1.000"
+    },
+    {
+      "id": "p2-review",
+      "name": "Review playback steps frames",
+      "status": "PASS",
+      "detail": "before=light frame 1 / 8 71ms after=light frame 2 / 8 71ms clips=Clip muzzle_flash 6 frames loop=false events=flash@0ms | Clip runner_attack_front 6 frames loop=false events=strike@360ms | Clip runner_run_front 8 frames loop=true events=footstep@0ms, footstep@284ms | Clip shotgun_fire 6 frames loop=false events=shot@0ms, flash@0ms"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Pass 1: kill and removal",
+      "status": "PASS",
+      "detail": "kill=true"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Pass 1: two air shots and reload",
+      "status": "PASS",
+      "detail": "ammoAfter2AirShots=4 reloading=true ammoAfterReload=6"
+    },
+    {
+      "id": "accept-crate",
+      "name": "Pass 1: crate-blocked shot",
+      "status": "PASS",
+      "detail": "health=36 tracerTo=-5.89,1.44,3.10"
+    },
+    {
+      "id": "accept-death",
+      "name": "Pass 1: death and restart",
+      "status": "PASS",
+      "detail": "health after restart=100"
+    },
+    {
+      "id": "accept-wave",
+      "name": "Pass 1: full wave clear",
+      "status": "PASS",
+      "detail": "6 runners killed sequentially with kiting, waveComplete menu shown"
+    }
+  ],
+  "browser": "chromium cached 1248",
+  "base": "http://127.0.0.1:5175"
+}
