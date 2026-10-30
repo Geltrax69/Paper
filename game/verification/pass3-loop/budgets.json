@@ -1,0 +1,271 @@
+{
+  "diskAssetBytes": 23252028,
+  "textureEstimateBytes": 128626261,
+  "distJs": [
+    {
+      "file": "index-DVMM4Snz.js",
+      "bytes": 590049
+    }
+  ],
+  "perAsset": [
+    {
+      "id": "crate_face",
+      "file": "assets/scenery/crate_face.png",
+      "bytes": 4283728,
+      "w": 1600,
+      "h": 1600
+    },
+    {
+      "id": "crate_variant_metal",
+      "file": "assets/environment/crate_variant_metal.png",
+      "bytes": 455948,
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "crate_variant_paper",
+      "file": "assets/environment/crate_variant_paper.png",
+      "bytes": 557369,
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "crate_variant_wood",
+      "file": "assets/environment/crate_variant_wood.png",
+      "bytes": 463985,
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "far_skyline",
+      "file": "assets/environment/far_skyline.png",
+      "bytes": 411275,
+      "w": 1368,
+      "h": 410
+    },
+    {
+      "id": "floor_seamless",
+      "file": "assets/environment/floor_seamless.png",
+      "bytes": 410176,
+      "w": 512,
+      "h": 512
+    },
+    {
+      "id": "mid_ruins",
+      "file": "assets/environment/mid_ruins.png",
+      "bytes": 746414,
+      "w": 960,
+      "h": 640
+    },
+    {
+      "id": "muzzle_flash_01",
+      "file": "assets/effects/frames/muzzle_flash_01.png",
+      "bytes": 251445,
+      "w": 456,
+      "h": 912
+    },
+    {
+      "id": "muzzle_flash_02",
+      "file": "assets/effects/frames/muzzle_flash_02.png",
+      "bytes": 469333,
+      "w": 456,
+      "h": 912
+    },
+    {
+      "id": "muzzle_flash_03",
+      "file": "assets/effects/frames/muzzle_flash_03.png",
+      "bytes": 282763,
+      "w": 456,
+      "h": 912
+    },
+    {
+      "id": "muzzle_flash_04",
+      "file": "assets/effects/frames/muzzle_flash_04.png",
+      "bytes": 219216,
+      "w": 456,
+      "h": 912
+    },
+    {
+      "id": "muzzle_flash_05",
+      "file": "assets/effects/frames/muzzle_flash_05.png",
+      "bytes": 167610,
+      "w": 456,
+      "h": 912
+    },
+    {
+      "id": "muzzle_flash_06",
+      "file": "assets/effects/frames/muzzle_flash_06.png",
+      "bytes": 66529,
+      "w": 456,
+      "h": 912
+    },
+    {
+      "id": "muzzle_flash_shotgun",
+      "file": "assets/effects/muzzle_flash_shotgun.png",
+      "bytes": 2588001,
+      "w": 1600,
+      "h": 1600
+    },
+    {
+      "id": "runner_attack_front_01",
+      "file": "assets/monsters/runner/frames/runner_attack_front_01.png",
+      "bytes": 415081,
+      "w": 518,
+      "h": 912
+    },
+    {
+      "id": "runner_attack_front_02",
+      "file": "assets/monsters/runner/frames/runner_attack_front_02.png",
+      "bytes": 413163,
+      "w": 518,
+      "h": 912
+    },
+    {
+      "id": "runner_attack_front_03",
+      "file": "assets/monsters/runner/frames/runner_attack_front_03.png",
+      "bytes": 406547,
+      "w": 518,
+      "h": 912
+    },
+    {
+      "id": "runner_attack_front_04",
+      "file": "assets/monsters/runner/frames/runner_attack_front_04.png",
+      "bytes": 405445,
+      "w": 518,
+      "h": 912
+    },
+    {
+      "id": "runner_attack_front_05",
+      "file": "assets/monsters/runner/frames/runner_attack_front_05.png",
+      "bytes": 433804,
+      "w": 518,
+      "h": 912
+    },
+    {
+      "id": "runner_attack_front_06",
+      "file": "assets/monsters/runner/frames/runner_attack_front_06.png",
+      "bytes": 434934,
+      "w": 518,
+      "h": 912
+    },
+    {
+      "id": "runner_front",
+      "file": "assets/monsters/runner/runner_front.png",
+      "bytes": 1773606,
+      "w": 1600,
+      "h": 1600
+    },
+    {
+      "id": "runner_run_front_01",
+      "file": "assets/monsters/runner/frames/runner_run_front_01.png",
+      "bytes": 259267,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_02",
+      "file": "assets/monsters/runner/frames/runner_run_front_02.png",
+      "bytes": 264537,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_03",
+      "file": "assets/monsters/runner/frames/runner_run_front_03.png",
+      "bytes": 250373,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_04",
+      "file": "assets/monsters/runner/frames/runner_run_front_04.png",
+      "bytes": 251009,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_05",
+      "file": "assets/monsters/runner/frames/runner_run_front_05.png",
+      "bytes": 245082,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_06",
+      "file": "assets/monsters/runner/frames/runner_run_front_06.png",
+      "bytes": 250026,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_07",
+      "file": "assets/monsters/runner/frames/runner_run_front_07.png",
+      "bytes": 269443,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "runner_run_front_08",
+      "file": "assets/monsters/runner/frames/runner_run_front_08.png",
+      "bytes": 259482,
+      "w": 373,
+      "h": 912
+    },
+    {
+      "id": "shotgun_fire_diag_01",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_01.png",
+      "bytes": 446257,
+      "w": 640,
+      "h": 912
+    },
+    {
+      "id": "shotgun_fire_diag_02",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_02.png",
+      "bytes": 480926,
+      "w": 640,
+      "h": 912
+    },
+    {
+      "id": "shotgun_fire_diag_03",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_03.png",
+      "bytes": 516350,
+      "w": 640,
+      "h": 912
+    },
+    {
+      "id": "shotgun_fire_diag_04",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_04.png",
+      "bytes": 497723,
+      "w": 640,
+      "h": 912
+    },
+    {
+      "id": "shotgun_fire_diag_05",
+      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_05.png",
+      "bytes": 441953,
+      "w": 640,
+      "h": 912
+    },
+    {
+      "id": "shotgun_idle",
+      "file": "assets/weapons/shotgun/shotgun_idle.png",
+      "bytes": 1749876,
+      "w": 1920,
+      "h": 1280
+    },
+    {
+      "id": "sky_panorama",
+      "file": "assets/environment/sky_panorama.png",
+      "bytes": 1017992,
+      "w": 1024,
+      "h": 512
+    },
+    {
+      "id": "wall_seamless",
+      "file": "assets/environment/wall_seamless.png",
+      "bytes": 395360,
+      "w": 512,
+      "h": 512
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "budget-startup",
+      "name": "Startup bytes on the wire",
+      "status": "PASS",
+      "detail": "total=23848517 byExt={\"1:5178/\":6440,\"js\":590049,\"png\":23252028}"
+    },
+    {
+      "id": "wave-score",
+      "name": "Wave 1 clear with score and combo",
+      "status": "PASS",
+      "detail": "wave=1 score=1450 combo=6 runnersLeft=0 startScore=0"
+    },
+    {
+      "id": "wave2",
+      "name": "Wave 2 starts with 8 runners",
+      "status": "PASS",
+      "detail": "wave=2 runnersLeft=8 drawCalls=18 frameTimeMs=50.0"
+    },
+    {
+      "id": "pickup-health",
+      "name": "Health pickup collected once, +40 capped",
+      "status": "PASS",
+      "detail": "damaged=60 after=100"
+    },
+    {
+      "id": "pickup-ammo",
+      "name": "Ammo pickup collected once, +3 capped",
+      "status": "PASS",
+      "detail": "ammoAfterShots=4 after=6"
+    },
+    {
+      "id": "settings",
+      "name": "Settings menu changes take effect",
+      "status": "PASS",
+      "detail": "panel=true settings={\"flash\":0.5,\"muted\":true,\"reducedMotion\":true,\"sensitivity\":1.5,\"shake\":0,\"volume\":0.5} audioBeforeStart={\"counts\":{},\"ctxState\":\"none\",\"gain\":0,\"initialized\":false,\"muted\":false,\"volume\":0.8}"
+    },
+    {
+      "id": "audio-gate",
+      "name": "Audio starts only after Start and respects mute",
+      "status": "PASS",
+      "detail": "beforeStartInitialized=false afterStart={\"counts\":{},\"ctxState\":\"running\",\"gain\":0,\"initialized\":true,\"muted\":true,\"volume\":0.5} afterUnmuteGain=0.5"
+    },
+    {
+      "id": "hud-1280",
+      "name": "HUD at 1280x720",
+      "status": "PASS",
+      "detail": "{\"wave\":\"Wave 1 — Runners left: 6\",\"score\":\"Score: 0\",\"combo\":\"Combo: —\",\"health\":\"100 / 100\",\"ammo\":\"6 / 6\",\"role\":\"progressbar\"}"
+    },
+    {
+      "id": "hud-narrow",
+      "name": "Narrow menu remains usable",
+      "status": "PASS",
+      "detail": "startBox={\"x\":149.984375,\"y\":712.9375,\"w\":90.015625,\"h\":49,\"vw\":390} settingsPanel=true"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Two shots and reload",
+      "status": "PASS",
+      "detail": "ammoAfter2=6 reloadStart=true"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Kill and removal",
+      "status": "PASS",
+      "detail": "kill=true"
+    },
+    {
+      "id": "accept-crate",
+      "name": "Crate-blocked shot",
+      "status": "PASS",
+      "detail": "health=36 tracerTo=-5.94,1.28,3.10"
+    },
+    {
+      "id": "accept-sprint",
+      "name": "Sprint still 1.000 running 1.100",
+      "status": "PASS",
+      "detail": "still=1.000 running=1.100 idle=1.000"
+    },
+    {
+      "id": "accept-view2",
+      "name": "Two runners out of phase",
+      "status": "PASS",
+      "detail": "left frame=3 phase=0.50 right frame=7 phase=1.00"
+    },
+    {
+      "id": "accept-death",
+      "name": "Death restarts current wave at full health",
+      "status": "PASS",
+      "detail": "health=100 wave=1 before=1"
+    },
+    {
+      "id": "accept-fire",
+      "name": "Fire clip and audio counts",
+      "status": "PASS",
+      "detail": "shotCount=1 firing=false"
+    },
+    {
+      "id": "accept-env",
+      "name": "Environment layers present",
+      "status": "PASS",
+      "detail": "maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,floor_seamless.png,mid_ruins.png,wall_seamless.png"
+    }
+  ]
+}

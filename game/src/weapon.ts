@@ -39,6 +39,7 @@ export class WeaponView {
   private flashActive = false;
   private flashHold = false;
   private reducedMotion = false;
+  private flashStrength = 1;
 
   constructor(textures: WeaponTextures, aspect: number) {
     this.camera = new THREE.OrthographicCamera(-aspect, aspect, 1, -1, 0.1, 10);
@@ -147,6 +148,14 @@ export class WeaponView {
     const world = new THREE.Vector3();
     node.getWorldPosition(world);
     return new THREE.Vector2(world.x, world.y);
+  }
+
+  setReducedMotion(value: boolean): void {
+    this.reducedMotion = value;
+  }
+
+  setFlashStrength(value: number): void {
+    this.flashStrength = Math.max(0, Math.min(1, value));
   }
 
   resize(aspect: number): void {
@@ -319,6 +328,7 @@ export class WeaponView {
       const muzzle = this.muzzlePosition;
       this.flash.position.set(muzzle.x, muzzle.y, 0);
       this.flash.scale.setScalar(1 + this.recoil * 0.1);
+      (this.flash.material as THREE.MeshBasicMaterial).opacity = this.flashStrength;
     }
   }
 }

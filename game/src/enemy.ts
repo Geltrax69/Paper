@@ -45,6 +45,7 @@ function clipGeometry(
 export class Runner {
   readonly group = new THREE.Group();
   readonly position: THREE.Vector3;
+  speedScale = 1;
   state: EnemyState = "spawn";
   stateTimeMs = 0;
   health: number;
@@ -310,7 +311,7 @@ export class Runner {
       const before = this.position.clone();
       if (dir.lengthSq() > 0) {
         dir.normalize();
-        this.position.addScaledVector(dir, this.spec.speed * dt);
+        this.position.addScaledVector(dir, this.spec.speed * this.speedScale * dt);
         resolveCircle(this.position, this.spec.radius);
       }
       for (const other of neighbors) {
@@ -326,7 +327,10 @@ export class Runner {
         }
       }
       const actualSpeed = dt > 0 ? this.position.distanceTo(before) / dt : 0;
-      this.gaitRate = Math.max(0, Math.min(1.5, actualSpeed / this.spec.speed));
+      this.gaitRate = Math.max(
+        0,
+        Math.min(1.5, actualSpeed / (this.spec.speed * this.speedScale)),
+      );
       if (this.runPlayer) {
         const events = this.runPlayer.update(dtMs, this.gaitRate);
         this.footstepCount += events.filter((name) => name === "footstep").length;

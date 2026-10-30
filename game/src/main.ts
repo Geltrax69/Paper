@@ -13,6 +13,8 @@ import { Runner } from "./enemy";
 import { applySky, buildEnvironment } from "./environment";
 import { findRoute } from "./pathing";
 import { WeaponView } from "./weapon";
+import { GameAudio } from "./audio";
+import { PICKUP_RULES, Pickup, type PickupKind } from "./pickups";
 
 export type GamePhase = "menu" | "playing" | "paused" | "dead" | "waveComplete";
 export type StartupState = "loading" | "ready" | "error";
@@ -213,12 +215,51 @@ async function startGame(): Promise<void> {
   const menu = document.getElementById("menu") as HTMLDivElement;
   const menuText = document.getElementById("menuText") as HTMLParagraphElement;
   const startBtn = document.getElementById("startBtn") as HTMLButtonElement;
+  const settingsBtn = document.getElementById("settingsBtn") as HTMLButtonElement;
+  const settingsPanel = document.getElementById("settingsPanel") as HTMLDivElement;
   const healthFill = document.getElementById("healthfill") as HTMLDivElement;
+  const healthBar = document.getElementById("healthbar") as HTMLDivElement;
+  const healthValue = document.getElementById("healthvalue") as HTMLDivElement;
   const ammoEl = document.getElementById("ammo") as HTMLDivElement;
   const waveEl = document.getElementById("wave") as HTMLDivElement;
+  const scoreEl = document.getElementById("score") as HTMLDivElement;
+  const comboEl = document.getElementById("combo") as HTMLDivElement;
+  const announceEl = document.getElementById("announce") as HTMLDivElement;
   const hitmarker = document.getElementById("hitmarker") as HTMLDivElement;
   const damageEl = document.getElementById("damage") as HTMLDivElement;
   const crosshair = document.getElementById("crosshair") as HTMLDivElement;
+
+  type Settings = {
+    flash: number;
+    muted: boolean;
+    reducedMotion: boolean;
+    sensitivity: number;
+    shake: number;
+    volume: number;
+  };
+  const defaultSettings: Settings = {
+    flash: 1,
+    muted: false,
+    reducedMotion:
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    sensitivity: 1,
+    shake: 1,
+    volume: 0.8,
+  };
+  function loadSettings(): Settings {
+    try {
+      const raw = window.localStorage.getItem("paper-settings-v1");
+      if (!raw) return { ...defaultSettings };
+      return { ...defaultSettings, ...(JSON.parse(raw) as Partial<Settings>) };
+    } catch {
+      return { ...defaultSettings };
+    }
+  }
+  const settings = loadSettings();
+  const audio = new GameAudio();
+  audio.volume = settings.volume;
+  audio.muted = settings.muted;
 
   let startupState: StartupState = "loading";
   let attemptInFlight = false;
@@ -229,6 +270,38 @@ async function startGame(): Promise<void> {
   let phase: GamePhase = "menu";
   let waveActive = true;
   let playerHealth = 100;
+  let wave = 1;
+  let score = 0;
+  let combo = 0;
+  let comboTimerMs = 0;
+  let pickups: Pickup[] = [];
+  let shakeTimeMs = 0;
+  let shakeAmp = 0;
+  let lastDrawCalls = 0;
+  let lastTriangles = 0;
+  let frameTimeEmaMs = 0;
+  let lastFootstepSoundMs = 0;
+  const runnerFootsteps = new Map<Runner, number>();
+  const runnerStates = new Map<Runner, string>();
+  const lastHud = {
+    ammo: "",
+    combo: "",
+    crosshair: "",
+    damage: "",
+    health: "",
+    healthValue: "",
+    hitmarker: "",
+    score: "",
+    wave: "",
+  };
+
+  function comboMultiplier(): number {
+    return combo >= 5 ? 3 : combo >= 3 ? 2 : 1;
+  }
+
+  function announce(text: string): void {
+    announceEl.textContent = text;
+  }
   let yaw = 0;
   let pitch = 0;
   let verticalVelocity = 0;
@@ -343,17 +416,47 @@ async function startGame(): Promise<void> {
     return { attack, run, runStartPhase01: phase };
   }
 
-  function spawnRunner(at: THREE.Vector3): Runner {
+  function spawnRunner(at: THREE.Vector3, speedScale = 1): Runner {
     const runner = new Runner(
       textures?.get("runner_front") as THREE.Texture,
       at,
       runnerSpec(),
       runnerClipTextures(),
     );
+    runner.speedScale = speedScale;
     scene.add(runner.group);
     runners.push(runner);
     waveActive = true;
     return runner;
+  }
+
+  function clearPickups(): void {
+    for (const pickup of pickups) pickup.dispose();
+    pickups = [];
+  }
+
+  function spawnPickups(): void {
+    for (const kind of Object.keys(PICKUP_RULES) as PickupKind[]) {
+      if (pickups.some((pickup) => pickup.kind === kind && !pickup.taken)) continue;
+      const rule = PICKUP_RULES[kind];
+      const pickup = new Pickup(kind, new THREE.Vector3(...rule.position));
+      scene.add(pickup.group);
+      pickups.push(pickup);
+    }
+  }
+
+  function startWave(next: number): void {
+    wave = next;
+    const count = 6 + 2 * (wave - 1);
+    const speedScale = Math.min(1.5, 1 + 0.05 * (wave - 1));
+    spawnQueue = [];
+    for (let i = 0; i < count; i += 1) {
+      spawnQueue.push(spawnPoints[i % spawnPoints.length].clone());
+    }
+    waveActive = true;
+    spawnTimerMs = 0;
+    spawnPickups();
+    announce(`Wave ${wave} started`);
   }
 
   function clearInputTransient(): void {
@@ -376,12 +479,18 @@ async function startGame(): Promise<void> {
     weaponView?.reset();
   }
 
-  function resetGame(): void {
+  function resetGame(full = true): void {
     for (const runner of runners) runner.dispose();
     runners = [];
-    spawnQueue = [...spawnPoints];
-    waveActive = true;
-    spawnTimerMs = 0;
+    runnerFootsteps.clear();
+    runnerStates.clear();
+    clearPickups();
+    if (full) {
+      wave = 1;
+      score = 0;
+    }
+    combo = 0;
+    comboTimerMs = 0;
     playerHealth = 100;
     playerFeet.set(0, 0, 9);
     verticalVelocity = 0;
@@ -390,6 +499,36 @@ async function startGame(): Promise<void> {
     pitch = 0;
     clearInputTransient();
     clearActionState();
+    startWave(wave);
+  }
+
+  function applySettings(): void {
+    try {
+      window.localStorage.setItem("paper-settings-v1", JSON.stringify(settings));
+    } catch {
+      // Settings still apply for this session when storage is unavailable.
+    }
+    audio.setVolume(settings.volume);
+    audio.setMuted(settings.muted);
+    weaponView?.setReducedMotion(settings.reducedMotion);
+    weaponView?.setFlashStrength(settings.flash);
+    const shake = document.getElementById("setShake") as HTMLInputElement | null;
+    const flash = document.getElementById("setFlash") as HTMLInputElement | null;
+    const sensitivity = document.getElementById("setSensitivity") as HTMLInputElement | null;
+    const volume = document.getElementById("setVolume") as HTMLInputElement | null;
+    const mute = document.getElementById("setMute") as HTMLInputElement | null;
+    const reduced = document.getElementById("setReduced") as HTMLInputElement | null;
+    if (shake) shake.value = String(settings.shake);
+    if (flash) flash.value = String(settings.flash);
+    if (sensitivity) sensitivity.value = String(settings.sensitivity);
+    if (volume) volume.value = String(settings.volume);
+    if (mute) mute.checked = settings.muted;
+    if (reduced) reduced.checked = settings.reducedMotion;
+  }
+
+  function setSettings(partial: Partial<Settings>): void {
+    Object.assign(settings, partial);
+    applySettings();
   }
 
   function showMenu(text: string, button: string): void {
@@ -406,13 +545,28 @@ async function startGame(): Promise<void> {
     if (phase !== "playing" || playerHealth <= 0) return;
     playerHealth -= amount;
     damageFlashMs = 400;
+    shakeTimeMs = 300;
+    shakeAmp = 0.25 * settings.shake;
+    audio.playerDamage();
     if (playerHealth <= 0) {
       playerHealth = 0;
+      combo = 0;
+      comboTimerMs = 0;
       phase = "dead";
       clearInputTransient();
       document.exitPointerLock?.();
+      announce("Defeated");
       showMenu("You were defeated. Restart the wave.", "Restart");
     }
+  }
+
+  function addScoreForKill(): { combo: number; multiplier: number; points: number } {
+    combo += 1;
+    comboTimerMs = 4000;
+    const multiplier = comboMultiplier();
+    const points = 100 * multiplier;
+    score += points;
+    return { combo, multiplier, points };
   }
 
   // The first-person overlay has no world transform, so the gameplay muzzle
@@ -436,12 +590,14 @@ async function startGame(): Promise<void> {
     const spec = weaponSpec();
     if (fireCooldownMs > 0 || weaponView.reloading) return;
     if (weaponView.ammo <= 0) {
-      weaponView.startReload();
+      if (weaponView.startReload()) audio.reload();
       return;
     }
     weaponView.ammo -= 1;
     fireCooldownMs = spec.fireIntervalMs;
     weaponView.triggerFire();
+    audio.shot();
+    let anyImpact = false;
     const eye = camera.position.clone();
     const forward = new THREE.Vector3();
     camera.getWorldDirection(forward);
@@ -511,11 +667,13 @@ async function startGame(): Promise<void> {
       }
       tracer(muzzle, end);
       if (end.distanceTo(muzzle) > 0.05) burst(end, 6);
+      if (blocked || aimPoint) anyImpact = true;
       if (hitRunner) {
         const result = hitRunner.takeDamage(spec.damage, playerFeet);
         if (result === "applied" || result === "killed") hitmarkerMs = 150;
       }
     }
+    if (anyImpact) audio.impact();
   }
 
   function setupViewOnly(): void {
@@ -613,6 +771,24 @@ async function startGame(): Promise<void> {
         playerFeet: [playerFeet.x, playerFeet.y, playerFeet.z],
         grounded,
         playerHealth,
+        wave,
+        score,
+        combo,
+        comboMultiplier: comboMultiplier(),
+        comboTimerMs,
+        spawnQueueLength: spawnQueue.length,
+        runnersLeft: runners.length + spawnQueue.length,
+        drawCalls: lastDrawCalls,
+        triangles: lastTriangles,
+        frameTimeMs: frameTimeEmaMs,
+        audio: audio.state(),
+        settings: { ...settings },
+        pickups: pickups.map((pickup) => ({
+          kind: pickup.kind,
+          taken: pickup.taken,
+          x: pickup.position.x,
+          z: pickup.position.z,
+        })),
         ammo: weaponView?.ammo ?? null,
         reloading: weaponView?.reloading ?? null,
         muzzlePosition: weaponView ? [weaponView.muzzlePosition.x, weaponView.muzzlePosition.y] : null,
@@ -686,6 +862,9 @@ async function startGame(): Promise<void> {
         waveActive = false;
       },
       resetGame,
+      damagePlayer: (amount: number) => onPlayerDamage(amount),
+      setSettings: (partial: Partial<Settings>) => setSettings(partial),
+      getSettings: () => ({ ...settings }),
       fireShot,
       setHitmarkerMs: (ms: number) => {
         hitmarkerMs = ms;
@@ -741,9 +920,11 @@ async function startGame(): Promise<void> {
           },
           window.innerWidth / window.innerHeight,
         );
+        weaponView.setReducedMotion(settings.reducedMotion);
+        weaponView.setFlashStrength(settings.flash);
       }
       startupState = "ready";
-      showMenu("Vertical slice. One shotgun. One runner. One wave.", "Start");
+      showMenu("Paper. One shotgun. One runner type. Waves, score, and pickups.", "Start");
       startBtn.disabled = false;
       if (viewOnly) setupViewOnly();
       if (viewTwo) setupViewTwo();
@@ -760,6 +941,26 @@ async function startGame(): Promise<void> {
     }
   }
 
+  settingsBtn.addEventListener("click", () => {
+    settingsPanel.classList.toggle("hidden");
+  });
+  const bindSetting = (
+    id: string,
+    apply: (element: HTMLInputElement) => void,
+  ): void => {
+    const element = document.getElementById(id) as HTMLInputElement | null;
+    if (!element) return;
+    element.addEventListener("input", () => apply(element));
+    element.addEventListener("change", () => apply(element));
+  };
+  bindSetting("setShake", (el) => setSettings({ shake: Number(el.value) }));
+  bindSetting("setFlash", (el) => setSettings({ flash: Number(el.value) }));
+  bindSetting("setSensitivity", (el) => setSettings({ sensitivity: Number(el.value) }));
+  bindSetting("setVolume", (el) => setSettings({ volume: Number(el.value) }));
+  bindSetting("setMute", (el) => setSettings({ muted: el.checked }));
+  bindSetting("setReduced", (el) => setSettings({ reducedMotion: el.checked }));
+  applySettings();
+
   startBtn.addEventListener("click", () => {
     if (startupState === "loading") return;
     if (startupState === "error") {
@@ -767,8 +968,13 @@ async function startGame(): Promise<void> {
       return;
     }
     if (phase === "menu" || phase === "paused" || phase === "dead" || phase === "waveComplete") {
-      if (phase !== "paused") resetGame();
-      else clearInputTransient();
+      audio.init();
+      if (phase === "menu") resetGame(true);
+      else if (phase === "dead") resetGame(false);
+      else if (phase === "waveComplete") {
+        weaponView?.reset();
+        startWave(wave + 1);
+      } else clearInputTransient();
       try {
         const result = renderer.domElement.requestPointerLock() as unknown;
         if (result && typeof (result as Promise<void>).catch === "function") {
@@ -808,8 +1014,8 @@ async function startGame(): Promise<void> {
     if (document.pointerLockElement && phase === "playing") {
       mouseDelta.x += event.movementX;
       mouseDelta.y += event.movementY;
-      yaw -= event.movementX * 0.0022;
-      pitch -= event.movementY * 0.0022;
+      yaw -= event.movementX * 0.0022 * settings.sensitivity;
+      pitch -= event.movementY * 0.0022 * settings.sensitivity;
       pitch = Math.max(-1.4, Math.min(1.4, pitch));
     }
   });
@@ -831,7 +1037,9 @@ async function startGame(): Promise<void> {
       event.preventDefault();
     }
     if (event.code === "Space" && phase === "playing" && !event.repeat) jumpBufferMs = 120;
-    if (event.code === "KeyR" && phase === "playing" && weaponView) weaponView.startReload();
+    if (event.code === "KeyR" && phase === "playing" && weaponView) {
+      if (weaponView.startReload()) audio.reload();
+    }
     if (event.code === "KeyQ" && phase === "playing" && dashCooldownMs <= 0 && dashTimeMs <= 0) {
       const forward = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
       const right = new THREE.Vector3(-forward.z, 0, forward.x);
@@ -907,6 +1115,13 @@ async function startGame(): Promise<void> {
       dashCooldownMs = Math.max(0, dashCooldownMs - dtMs);
       coyoteMs = Math.max(0, coyoteMs - dtMs);
       jumpBufferMs = Math.max(0, jumpBufferMs - dtMs);
+      if (combo > 0) {
+        comboTimerMs -= dtMs;
+        if (comboTimerMs <= 0) {
+          combo = 0;
+          comboTimerMs = 0;
+        }
+      }
 
       if (spawnQueue.length > 0) {
         spawnTimerMs -= dtMs;
@@ -948,6 +1163,7 @@ async function startGame(): Promise<void> {
           : 0;
 
       const support = groundSupportY(playerFeet.x, playerFeet.z, 0.4);
+      const wasGrounded = grounded;
       if (playerFeet.y <= support + 0.001) grounded = true;
       if (grounded) coyoteMs = 100;
       if (jumpBufferMs > 0 && coyoteMs > 0) {
@@ -957,6 +1173,7 @@ async function startGame(): Promise<void> {
         coyoteMs = 0;
         grounded = false;
         jumpCount += 1;
+        audio.jump();
       }
       verticalVelocity -= 22 * dt;
       const prevY = playerFeet.y;
@@ -967,14 +1184,22 @@ async function startGame(): Promise<void> {
           playerFeet.y = landingSupport;
           verticalVelocity = 0;
           grounded = true;
+          if (!wasGrounded) audio.land();
         } else if (playerFeet.y < 0) {
           playerFeet.y = 0;
           verticalVelocity = 0;
           grounded = true;
+          if (!wasGrounded) audio.land();
         }
       }
 
       camera.position.set(playerFeet.x, playerFeet.y + PLAYER_HEIGHT, playerFeet.z);
+      if (shakeTimeMs > 0) {
+        shakeTimeMs -= dtMs;
+        const amp = shakeAmp * Math.max(0, shakeTimeMs / 300);
+        camera.position.x += (Math.random() - 0.5) * amp;
+        camera.position.y += (Math.random() - 0.5) * amp;
+      }
       camera.rotation.order = "YXZ";
       camera.rotation.y = yaw;
       camera.rotation.x = pitch;
@@ -993,17 +1218,66 @@ async function startGame(): Promise<void> {
 
       for (const runner of [...runners]) {
         runner.update(dt, camera, playerBody, onPlayerDamage, runners);
+        const prevSteps = runnerFootsteps.get(runner) ?? 0;
+        if (runner.footstepCount > prevSteps) {
+          const nowMs = performance.now();
+          if (nowMs - lastFootstepSoundMs >= 120) {
+            audio.footstep();
+            lastFootstepSoundMs = nowMs;
+          }
+          runnerFootsteps.set(runner, runner.footstepCount);
+        }
+        const prevState = runnerStates.get(runner);
+        if (runner.state === "attack" && prevState !== "attack") audio.monsterAttack();
+        // Score at the death transition itself, not in the shot path, so
+        // every kill scores exactly once no matter which damage source
+        // caused it, and a shot that only wounds scores nothing.
+        if (runner.state === "death" && prevState !== undefined && prevState !== "death") {
+          addScoreForKill();
+        }
+        runnerStates.set(runner, runner.state);
         if (runner.finished) {
           runner.dispose();
+          runnerFootsteps.delete(runner);
+          runnerStates.delete(runner);
           runners = runners.filter((entry) => entry !== runner);
+        }
+      }
+      for (const pickup of pickups) {
+        if (pickup.taken) continue;
+        pickup.update(camera, now);
+        const dx = playerFeet.x - pickup.position.x;
+        const dz = playerFeet.z - pickup.position.z;
+        if (Math.hypot(dx, dz) < 1.0 && playerFeet.y <= 1.2) {
+          pickup.taken = true;
+          const rule = PICKUP_RULES[pickup.kind];
+          if (pickup.kind === "health") {
+            playerHealth = Math.min(100, playerHealth + rule.amount);
+          } else if (weaponView) {
+            weaponView.ammo = Math.min(6, weaponView.ammo + rule.amount);
+          }
+          scene.remove(pickup.group);
+          burst(pickup.position.clone().setY(0.6), 12);
+          audio.pickup();
         }
       }
       if (waveActive && spawnQueue.length === 0 && runners.length === 0 && phase === "playing") {
         waveActive = false;
+        const bonus = 250 * wave;
+        score += bonus;
         phase = "waveComplete";
         clearInputTransient();
         document.exitPointerLock?.();
-        showMenu("Wave complete. One shotgun, one runner type, one wave cleared.", "Play again");
+        audio.waveComplete();
+        announce(`Wave ${wave} complete`);
+        const nextCount = 6 + 2 * wave;
+        const nextSpeed = (3.4 * Math.min(1.5, 1 + 0.05 * wave)).toFixed(1);
+        showMenu(
+          `Wave ${wave} complete. Bonus ${bonus}. Score ${score}. ` +
+            `Next wave has ${nextCount} runners at speed ${nextSpeed}. ` +
+            "Health carries over, ammo refills.",
+          "Next wave",
+        );
       }
 
       for (let i = 0; i < particleCount; i += 1) {
@@ -1029,22 +1303,72 @@ async function startGame(): Promise<void> {
       }
     }
 
-    healthFill.style.width = `${playerHealth}%`;
-    ammoEl.textContent = weaponView
+    frameTimeEmaMs = frameTimeEmaMs === 0 ? dtMs : frameTimeEmaMs * 0.9 + dtMs * 0.1;
+    const hudHealth = `${playerHealth}`;
+    if (lastHud.health !== hudHealth) {
+      lastHud.health = hudHealth;
+      healthFill.style.width = `${playerHealth}%`;
+      healthBar.setAttribute("aria-valuenow", hudHealth);
+    }
+    const hudHealthValue = `${playerHealth} / 100`;
+    if (lastHud.healthValue !== hudHealthValue) {
+      lastHud.healthValue = hudHealthValue;
+      healthValue.textContent = hudHealthValue;
+    }
+    const hudAmmo = weaponView
       ? weaponView.reloading
         ? "Reloading..."
         : `${weaponView.ammo} / 6`
       : "Loading…";
-    waveEl.textContent = `Wave 1 — Runners left: ${runners.length + spawnQueue.length}`;
-    hitmarker.style.opacity = hitmarkerMs > 0 ? "1" : "0";
-    damageEl.style.opacity = damageFlashMs > 0 ? String(damageFlashMs / 400) : "0";
-    crosshair.style.display = phase === "playing" ? "block" : "none";
+    if (lastHud.ammo !== hudAmmo) {
+      lastHud.ammo = hudAmmo;
+      ammoEl.textContent = hudAmmo;
+    }
+    const hudWave = `Wave ${wave} — Runners left: ${runners.length + spawnQueue.length}`;
+    if (lastHud.wave !== hudWave) {
+      lastHud.wave = hudWave;
+      waveEl.textContent = hudWave;
+    }
+    const hudScore = `Score: ${score}`;
+    if (lastHud.score !== hudScore) {
+      lastHud.score = hudScore;
+      scoreEl.textContent = hudScore;
+    }
+    const hudCombo =
+      combo > 0 ? `Combo x${comboMultiplier()} (${combo})` : "Combo: —";
+    if (lastHud.combo !== hudCombo) {
+      lastHud.combo = hudCombo;
+      comboEl.textContent = hudCombo;
+    }
+    const hudHitmarker = hitmarkerMs > 0 ? "1" : "0";
+    if (lastHud.hitmarker !== hudHitmarker) {
+      lastHud.hitmarker = hudHitmarker;
+      hitmarker.style.opacity = hudHitmarker;
+    }
+    const hudDamage =
+      damageFlashMs > 0 ? String((damageFlashMs / 400) * settings.flash) : "0";
+    if (lastHud.damage !== hudDamage) {
+      lastHud.damage = hudDamage;
+      damageEl.style.opacity = hudDamage;
+    }
+    const hudCrosshair = phase === "playing" ? "block" : "none";
+    if (lastHud.crosshair !== hudCrosshair) {
+      lastHud.crosshair = hudCrosshair;
+      crosshair.style.display = hudCrosshair;
+    }
 
     renderer.clear();
     renderer.render(scene, camera);
+    const worldCalls = renderer.info.render.calls;
+    const worldTriangles = renderer.info.render.triangles;
     if (weaponView) {
       renderer.clearDepth();
       renderer.render(weaponView.scene, weaponView.camera);
+      lastDrawCalls = worldCalls + renderer.info.render.calls;
+      lastTriangles = worldTriangles + renderer.info.render.triangles;
+    } else {
+      lastDrawCalls = worldCalls;
+      lastTriangles = worldTriangles;
     }
   }
   requestAnimationFrame(loop);
