@@ -1,0 +1,110 @@
+{
+  "frames": [
+    {
+      "id": "runner_run_front_left_01",
+      "file": "runner_run_front_left_01.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 807
+    },
+    {
+      "id": "runner_run_front_left_02",
+      "file": "runner_run_front_left_02.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 804
+    },
+    {
+      "id": "runner_run_front_left_03",
+      "file": "runner_run_front_left_03.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 808
+    },
+    {
+      "id": "runner_run_front_left_04",
+      "file": "runner_run_front_left_04.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 805
+    },
+    {
+      "id": "runner_run_front_left_05",
+      "file": "runner_run_front_left_05.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 803
+    },
+    {
+      "id": "runner_run_front_left_06",
+      "file": "runner_run_front_left_06.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 798
+    },
+    {
+      "id": "runner_run_front_left_07",
+      "file": "runner_run_front_left_07.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 797
+    },
+    {
+      "id": "runner_run_front_left_08",
+      "file": "runner_run_front_left_08.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "bottom": 713
+    }
+  ],
+  "groundY": 808,
+  "cellWidth": 342
+}

@@ -1034,6 +1034,1734 @@
         0,
         0
       ]
+    },
+    "runner_run_back_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_01.png",
+      "id": "runner_run_back_01",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_02.png",
+      "id": "runner_run_back_02",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_03.png",
+      "id": "runner_run_back_03",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_04.png",
+      "id": "runner_run_back_04",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_05.png",
+      "id": "runner_run_back_05",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_06.png",
+      "id": "runner_run_back_06",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_07.png",
+      "id": "runner_run_back_07",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_08.png",
+      "id": "runner_run_back_08",
+      "pivot": [
+        0.5,
+        0.96875
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_01.png",
+      "id": "runner_run_back_left_01",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_02.png",
+      "id": "runner_run_back_left_02",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_03.png",
+      "id": "runner_run_back_left_03",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_04.png",
+      "id": "runner_run_back_left_04",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_05.png",
+      "id": "runner_run_back_left_05",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_06.png",
+      "id": "runner_run_back_left_06",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_07.png",
+      "id": "runner_run_back_left_07",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_left_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_left_08.png",
+      "id": "runner_run_back_left_08",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_01.png",
+      "id": "runner_run_back_right_01",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_02.png",
+      "id": "runner_run_back_right_02",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_03.png",
+      "id": "runner_run_back_right_03",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_04.png",
+      "id": "runner_run_back_right_04",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_05.png",
+      "id": "runner_run_back_right_05",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_06.png",
+      "id": "runner_run_back_right_06",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_07.png",
+      "id": "runner_run_back_right_07",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_back_right_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_back_right_08.png",
+      "id": "runner_run_back_right_08",
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "rect": [
+        0,
+        0,
+        320,
+        960
+      ],
+      "size": [
+        320,
+        960
+      ],
+      "sourceSize": [
+        320,
+        960
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_01.png",
+      "id": "runner_run_front_left_01",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_02.png",
+      "id": "runner_run_front_left_02",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_03.png",
+      "id": "runner_run_front_left_03",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_04.png",
+      "id": "runner_run_front_left_04",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_05.png",
+      "id": "runner_run_front_left_05",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_06.png",
+      "id": "runner_run_front_left_06",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_07.png",
+      "id": "runner_run_front_left_07",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_left_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_left_08.png",
+      "id": "runner_run_front_left_08",
+      "pivot": [
+        0.5,
+        0.8859649122807017
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_01.png",
+      "id": "runner_run_front_right_01",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_02.png",
+      "id": "runner_run_front_right_02",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_03.png",
+      "id": "runner_run_front_right_03",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_04.png",
+      "id": "runner_run_front_right_04",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_05.png",
+      "id": "runner_run_front_right_05",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_06.png",
+      "id": "runner_run_front_right_06",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_07.png",
+      "id": "runner_run_front_right_07",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_front_right_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_front_right_08.png",
+      "id": "runner_run_front_right_08",
+      "pivot": [
+        0.5,
+        0.945
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_01.png",
+      "id": "runner_run_left_01",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_02.png",
+      "id": "runner_run_left_02",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_03.png",
+      "id": "runner_run_left_03",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_04.png",
+      "id": "runner_run_left_04",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_05.png",
+      "id": "runner_run_left_05",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_06.png",
+      "id": "runner_run_left_06",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_07.png",
+      "id": "runner_run_left_07",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_left_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_left_08.png",
+      "id": "runner_run_left_08",
+      "pivot": [
+        0.5,
+        0.8870614035087719
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_01.png",
+      "id": "runner_run_right_01",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_02.png",
+      "id": "runner_run_right_02",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_03.png",
+      "id": "runner_run_right_03",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_04.png",
+      "id": "runner_run_right_04",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_05.png",
+      "id": "runner_run_right_05",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_06.png",
+      "id": "runner_run_right_06",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_07.png",
+      "id": "runner_run_right_07",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_run_right_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_run_right_08.png",
+      "id": "runner_run_right_08",
+      "pivot": [
+        0.5,
+        0.91125
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_01.png",
+      "id": "runner_defeat_front_01",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_02.png",
+      "id": "runner_defeat_front_02",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_03.png",
+      "id": "runner_defeat_front_03",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_04.png",
+      "id": "runner_defeat_front_04",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_05.png",
+      "id": "runner_defeat_front_05",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_06.png",
+      "id": "runner_defeat_front_06",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_07.png",
+      "id": "runner_defeat_front_07",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "runner_defeat_front_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/runner_defeat_front_08.png",
+      "id": "runner_defeat_front_08",
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
     }
   },
   "clips": {
@@ -1271,6 +2999,461 @@
       "events": [],
       "frameMs": 1000,
       "loop": true
+    },
+    "runner_run_back": {
+      "assetIds": [
+        "runner_run_back_01",
+        "runner_run_back_02",
+        "runner_run_back_03",
+        "runner_run_back_04",
+        "runner_run_back_05",
+        "runner_run_back_06",
+        "runner_run_back_07",
+        "runner_run_back_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_run_back_left": {
+      "assetIds": [
+        "runner_run_back_left_01",
+        "runner_run_back_left_02",
+        "runner_run_back_left_03",
+        "runner_run_back_left_04",
+        "runner_run_back_left_05",
+        "runner_run_back_left_06",
+        "runner_run_back_left_07",
+        "runner_run_back_left_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_left_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_run_back_right": {
+      "assetIds": [
+        "runner_run_back_right_01",
+        "runner_run_back_right_02",
+        "runner_run_back_right_03",
+        "runner_run_back_right_04",
+        "runner_run_back_right_05",
+        "runner_run_back_right_06",
+        "runner_run_back_right_07",
+        "runner_run_back_right_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_back_right_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_run_front_left": {
+      "assetIds": [
+        "runner_run_front_left_01",
+        "runner_run_front_left_02",
+        "runner_run_front_left_03",
+        "runner_run_front_left_04",
+        "runner_run_front_left_05",
+        "runner_run_front_left_06",
+        "runner_run_front_left_07",
+        "runner_run_front_left_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_left_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_run_front_right": {
+      "assetIds": [
+        "runner_run_front_right_01",
+        "runner_run_front_right_02",
+        "runner_run_front_right_03",
+        "runner_run_front_right_04",
+        "runner_run_front_right_05",
+        "runner_run_front_right_06",
+        "runner_run_front_right_07",
+        "runner_run_front_right_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_front_right_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_run_left": {
+      "assetIds": [
+        "runner_run_left_01",
+        "runner_run_left_02",
+        "runner_run_left_03",
+        "runner_run_left_04",
+        "runner_run_left_05",
+        "runner_run_left_06",
+        "runner_run_left_07",
+        "runner_run_left_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_left_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_run_right": {
+      "assetIds": [
+        "runner_run_right_01",
+        "runner_run_right_02",
+        "runner_run_right_03",
+        "runner_run_right_04",
+        "runner_run_right_05",
+        "runner_run_right_06",
+        "runner_run_right_07",
+        "runner_run_right_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 284
+        }
+      ],
+      "frameMs": 71,
+      "frames": [
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_01"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_02"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_03"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_04"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_05"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_06"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_07"
+        },
+        {
+          "durationMs": 71,
+          "id": "runner_run_right_08"
+        }
+      ],
+      "loop": true
+    },
+    "runner_defeat_front": {
+      "assetIds": [
+        "runner_defeat_front_01",
+        "runner_defeat_front_02",
+        "runner_defeat_front_03",
+        "runner_defeat_front_04",
+        "runner_defeat_front_05",
+        "runner_defeat_front_06",
+        "runner_defeat_front_07",
+        "runner_defeat_front_08"
+      ],
+      "events": [],
+      "frameMs": 90,
+      "frames": [
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_01"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_02"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_03"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_04"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_05"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_06"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_07"
+        },
+        {
+          "durationMs": 90,
+          "id": "runner_defeat_front_08"
+        }
+      ],
+      "loop": false
     }
   },
   "conventions": {
@@ -1294,7 +3477,8 @@
       "id": "runner",
       "radius": 0.55,
       "runClip": "runner_run_front",
-      "speed": 3.4
+      "speed": 3.4,
+      "defeatClip": "runner_defeat_front"
     }
   },
   "environment": {
@@ -1344,7 +3528,7 @@
     }
   },
   "schema": "paper-slice-v1",
-  "status": "pass3_environment",
+  "status": "pass3_directional",
   "weapons": {
     "shotgun": {
       "ammo": 6,

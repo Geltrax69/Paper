@@ -9,7 +9,7 @@ import {
 } from "./arena";
 import { loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
 import { AnimationPlayer, clipFromManifest } from "./animation";
-import { Runner } from "./enemy";
+import { RUN_DIRECTION_CLIPS, Runner, type RunDirection } from "./enemy";
 import { applySky, buildEnvironment } from "./environment";
 import { findRoute } from "./pathing";
 import { WeaponView } from "./weapon";
@@ -399,10 +399,64 @@ async function startGame(): Promise<void> {
     tracers.length = 0;
   }
 
+  const decalGeometry = new THREE.CircleGeometry(0.35, 20);
+  type Decal = { lifeMs: number; material: THREE.MeshBasicMaterial; mesh: THREE.Mesh };
+  const decals: Decal[] = [];
+  function addDecal(point: THREE.Vector3, cameraPosition: THREE.Vector3): void {
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x241d18,
+      depthWrite: false,
+      opacity: 0.55,
+      transparent: true,
+    });
+    const mesh = new THREE.Mesh(decalGeometry, material);
+    if (point.y < 0.25) {
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.set(point.x, 0.03, point.z);
+    } else {
+      mesh.position.copy(point).addScaledVector(
+        cameraPosition.clone().sub(point).normalize(),
+        0.03,
+      );
+      mesh.lookAt(cameraPosition);
+    }
+    scene.add(mesh);
+    decals.push({ lifeMs: 4000, material, mesh });
+    while (decals.length > 12) {
+      const old = decals.shift();
+      if (old) {
+        scene.remove(old.mesh);
+        old.material.dispose();
+      }
+    }
+  }
+  function updateDecals(dtMs: number): void {
+    for (const entry of [...decals]) {
+      entry.lifeMs -= dtMs;
+      if (entry.lifeMs <= 1000) {
+        entry.material.opacity = Math.max(0, entry.lifeMs / 1000) * 0.55;
+      }
+      if (entry.lifeMs <= 0) {
+        scene.remove(entry.mesh);
+        entry.material.dispose();
+        decals.splice(decals.indexOf(entry), 1);
+      }
+    }
+  }
+  function disposeDecals(): void {
+    for (const entry of decals) {
+      scene.remove(entry.mesh);
+      entry.material.dispose();
+    }
+    decals.length = 0;
+  }
+
   let spawnCounter = 0;
   function runnerClipTextures(): {
     attack: THREE.Texture[];
+    defeat: THREE.Texture[];
     run: THREE.Texture[];
+    runDirections: Partial<Record<RunDirection, THREE.Texture[]>>;
     runStartPhase01: number;
   } {
     const run = manifest.clips[runnerSpec().runClip].assetIds.map(
@@ -411,9 +465,20 @@ async function startGame(): Promise<void> {
     const attack = manifest.clips[runnerSpec().attackClip].assetIds.map(
       (id) => textures?.get(id) as THREE.Texture,
     );
+    const defeat = manifest.clips[runnerSpec().defeatClip].assetIds.map(
+      (id) => textures?.get(id) as THREE.Texture,
+    );
+    const runDirections = Object.fromEntries(
+      (Object.keys(RUN_DIRECTION_CLIPS) as RunDirection[]).map((direction) => [
+        direction,
+        manifest.clips[RUN_DIRECTION_CLIPS[direction]].assetIds.map(
+          (id) => textures?.get(id) as THREE.Texture,
+        ),
+      ]),
+    ) as Partial<Record<RunDirection, THREE.Texture[]>>;
     const phase = (spawnCounter % 4) / 4;
     spawnCounter += 1;
-    return { attack, run, runStartPhase01: phase };
+    return { attack, defeat, run, runDirections, runStartPhase01: phase };
   }
 
   function spawnRunner(at: THREE.Vector3, speedScale = 1): Runner {
@@ -476,6 +541,7 @@ async function startGame(): Promise<void> {
     damageFlashMs = 0;
     clearParticles();
     disposeTracers();
+    disposeDecals();
     weaponView?.reset();
   }
 
@@ -666,6 +732,7 @@ async function startGame(): Promise<void> {
         }
       }
       tracer(muzzle, end);
+      if (blocked || (aimPoint && !aimRunner)) addDecal(end, eye);
       if (end.distanceTo(muzzle) > 0.05) burst(end, 6);
       if (blocked || aimPoint) anyImpact = true;
       if (hitRunner) {
@@ -806,11 +873,15 @@ async function startGame(): Promise<void> {
           return {
             attackFrame: runner.attackFrameIndex,
             color: anyRunner.material.color.getHex(),
+            defeatFrame: runner.defeatFrameIndex,
+            direction: runner.runDirection,
             footstepCount: runner.footstepCount,
             health: runner.health,
+            runClip: runner.runClipId,
             runFrame: runner.runFrameIndex,
             runPhase: runner.runPhase01,
             scale: anyRunner.mesh.scale.x,
+            spawnCue: runner.spawnCueVisible,
             state: runner.state,
             x: runner.position.x,
             y: runner.position.y,
@@ -855,6 +926,20 @@ async function startGame(): Promise<void> {
         if (!runner) return null;
         return runner.takeDamage(amount, playerFeet);
       },
+      setRunnerDirection: (index: number, direction: string) => {
+        const runner = runners[index];
+        const names = Object.keys(RUN_DIRECTION_CLIPS) as RunDirection[];
+        if (!runner || !names.includes(direction as RunDirection)) return null;
+        runner.setDirectionOverride(direction as RunDirection);
+        return runner.runDirection;
+      },
+      getDecals: () =>
+        decals.map((entry) => ({
+          lifeMs: entry.lifeMs,
+          x: entry.mesh.position.x,
+          y: entry.mesh.position.y,
+          z: entry.mesh.position.z,
+        })),
       clearRunners: () => {
         for (const runner of runners) runner.dispose();
         runners = [];
@@ -1077,6 +1162,7 @@ async function startGame(): Promise<void> {
     const dtMs = dt * 1000;
 
     if (viewOnly && weaponView) {
+      updateDecals(dtMs);
       runners[0]?.update(0, camera, playerBody, () => undefined, runners);
       weaponView.update(0, {
         grounded: true,
@@ -1093,6 +1179,7 @@ async function startGame(): Promise<void> {
     }
 
     if (viewTwo && weaponView) {
+      updateDecals(dtMs);
       for (const runner of runners) runner.advanceRunAnimation(dtMs);
       weaponView.update(dt, {
         grounded: true,
@@ -1290,6 +1377,7 @@ async function startGame(): Promise<void> {
         if (particleLife[i] <= 0) particlePositions[i * 3 + 1] = -999;
       }
       particleGeo.attributes.position.needsUpdate = true;
+      updateDecals(dtMs);
       for (const entry of [...tracers]) {
         entry.lifeMs -= dtMs;
         const material = entry.line.material as THREE.LineBasicMaterial;

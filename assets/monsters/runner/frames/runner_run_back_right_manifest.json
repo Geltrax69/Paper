@@ -1,0 +1,110 @@
+{
+  "frames": [
+    {
+      "id": "runner_run_back_right_01",
+      "file": "runner_run_back_right_01.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 908
+    },
+    {
+      "id": "runner_run_back_right_02",
+      "file": "runner_run_back_right_02.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 907
+    },
+    {
+      "id": "runner_run_back_right_03",
+      "file": "runner_run_back_right_03.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 896
+    },
+    {
+      "id": "runner_run_back_right_04",
+      "file": "runner_run_back_right_04.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 898
+    },
+    {
+      "id": "runner_run_back_right_05",
+      "file": "runner_run_back_right_05.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 897
+    },
+    {
+      "id": "runner_run_back_right_06",
+      "file": "runner_run_back_right_06.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 895
+    },
+    {
+      "id": "runner_run_back_right_07",
+      "file": "runner_run_back_right_07.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 884
+    },
+    {
+      "id": "runner_run_back_right_08",
+      "file": "runner_run_back_right_08.png",
+      "size": [
+        320,
+        960
+      ],
+      "pivot": [
+        0.5,
+        0.9458333333333333
+      ],
+      "bottom": 705
+    }
+  ],
+  "groundY": 908,
+  "cellWidth": 320
+}

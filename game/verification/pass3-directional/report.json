@@ -1,0 +1,100 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "dir-all",
+      "name": "Eight forced directions map to eight clips",
+      "status": "PASS",
+      "detail": "directions=front,front-right,right,back-right,back,back-left,left,front-left clipsOk=true"
+    },
+    {
+      "id": "dir-change",
+      "name": "Natural direction change preserves run phase",
+      "status": "PASS",
+      "detail": "change front-left->left phase 0.43->0.51 frame 3->4"
+    },
+    {
+      "id": "defeat",
+      "name": "Defeat clip plays, enemy removed, score once",
+      "status": "PASS",
+      "detail": "result=killed maxDefeatFrame=7 removed=true scoreGain=350 phase=waveComplete deadResult=dead"
+    },
+    {
+      "id": "spawn",
+      "name": "Spawn cue visible before hittability, gone after",
+      "status": "PASS",
+      "detail": "during cue=true state=spawn after cue=false state=pursue"
+    },
+    {
+      "id": "impact",
+      "name": "Impact decal appears then expires",
+      "status": "PASS",
+      "detail": "decalsAfterShot=7 first={\"lifeMs\":3950,\"x\":0.04859945348442616,\"y\":0.03,\"z\":7.740473458312147} decalsAtEnd=0"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Two shots and reload",
+      "status": "PASS",
+      "detail": "ammoAfter2=4 ammoAfterReload=6"
+    },
+    {
+      "id": "accept-sprint",
+      "name": "Sprint scale running vs idle",
+      "status": "PASS",
+      "detail": "running=1.1 idle=1"
+    },
+    {
+      "id": "accept-crate",
+      "name": "Crate-blocked shot",
+      "status": "PASS",
+      "detail": "decals=[[\"0.35\",\"1.03\",\"-5.37\"],[\"0.89\",\"1.17\",\"-11.97\"],[\"-0.48\",\"1.18\",\"-11.97\"],[\"0.36\",\"1.22\",\"-11.97\"],[\"0.44\",\"1.91\",\"-11.97\"],[\"0.43\",\"1.67\",\"-11.97\"],[\"-0.44\",\"1.20\",\"-6.17\"],[\"-1.08\",\"1.74\",\"-11.97\"],[\"-0.36\",\"1.03\",\"-5.37\"],[\"0.52\",\"2.74\",\"-11.97\"],[\"-0.30\",\"2.70\",\"-11.97\"],[\"0.06\",\"1.13\",\"-5.37\"]]"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Kill and removal",
+      "status": "PASS",
+      "detail": "kill=killed"
+    },
+    {
+      "id": "accept-view2",
+      "name": "Two runners out of phase",
+      "status": "PASS",
+      "detail": "left phase=0.47 right phase=0.97"
+    },
+    {
+      "id": "accept-env",
+      "name": "Environment layers present",
+      "status": "PASS",
+      "detail": "maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,floor_seamless.png,mid_ruins.png,runner_attack_front_01.png,runner_defeat_front_01.png,runner_front.png,runner_run_front_03.png,wall_seamless.png"
+    },
+    {
+      "id": "accept-death",
+      "name": "Player death",
+      "status": "PASS",
+      "detail": "phase=dead health=0"
+    },
+    {
+      "id": "accept-restart",
+      "name": "Death and restart",
+      "status": "PASS",
+      "detail": "health=100 wave=1"
+    },
+    {
+      "id": "accept-wave",
+      "name": "Full wave clear, wave 2, pickups",
+      "status": "PASS",
+      "detail": "cleared=true wave2=true pickups=true"
+    },
+    {
+      "id": "review",
+      "name": "Review shows all new clips",
+      "status": "PASS",
+      "detail": "missing= defeatHeading=Clip runner_defeat_front 8 frames loop=false events=none"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "frames": [
+    {
+      "id": "runner_defeat_front_01",
+      "file": "runner_defeat_front_01.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 783
+    },
+    {
+      "id": "runner_defeat_front_02",
+      "file": "runner_defeat_front_02.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 773
+    },
+    {
+      "id": "runner_defeat_front_03",
+      "file": "runner_defeat_front_03.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 785
+    },
+    {
+      "id": "runner_defeat_front_04",
+      "file": "runner_defeat_front_04.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 784
+    },
+    {
+      "id": "runner_defeat_front_05",
+      "file": "runner_defeat_front_05.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 778
+    },
+    {
+      "id": "runner_defeat_front_06",
+      "file": "runner_defeat_front_06.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 772
+    },
+    {
+      "id": "runner_defeat_front_07",
+      "file": "runner_defeat_front_07.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 779
+    },
+    {
+      "id": "runner_defeat_front_08",
+      "file": "runner_defeat_front_08.png",
+      "size": [
+        342,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.8793859649122807
+      ],
+      "bottom": 802
+    }
+  ],
+  "groundY": 802,
+  "cellWidth": 342
+}

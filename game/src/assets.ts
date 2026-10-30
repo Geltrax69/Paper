@@ -38,6 +38,7 @@ export type Weapon = {
 export type EnemySpec = {
   attackClip: string;
   attackDamage: number;
+  defeatClip: string;
   attackRange: number;
   clip: string;
   health: number;
