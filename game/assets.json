@@ -2924,6 +2924,654 @@
         0,
         0
       ]
+    },
+    "punchy_insect_run_02": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_run_02.png",
+      "id": "punchy_insect_run_02",
+      "pivot": [
+        0.5,
+        0.8475877192982456
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_run_03": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_run_03.png",
+      "id": "punchy_insect_run_03",
+      "pivot": [
+        0.5,
+        0.8475877192982456
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_run_04": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_run_04.png",
+      "id": "punchy_insect_run_04",
+      "pivot": [
+        0.5,
+        0.8475877192982456
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_run_05": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_run_05.png",
+      "id": "punchy_insect_run_05",
+      "pivot": [
+        0.5,
+        0.8475877192982456
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_run_06": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_run_06.png",
+      "id": "punchy_insect_run_06",
+      "pivot": [
+        0.5,
+        0.8475877192982456
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_run_07": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_run_07.png",
+      "id": "punchy_insect_run_07",
+      "pivot": [
+        0.5,
+        0.8475877192982456
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_attack_02": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_attack_02.png",
+      "id": "punchy_insect_attack_02",
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_attack_03": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_attack_03.png",
+      "id": "punchy_insect_attack_03",
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_attack_04": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_attack_04.png",
+      "id": "punchy_insect_attack_04",
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_attack_05": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_attack_05.png",
+      "id": "punchy_insect_attack_05",
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_insect_attack_06": {
+      "alpha": true,
+      "file": "assets/monsters/insect/frames/punchy_insect_attack_06.png",
+      "id": "punchy_insect_attack_06",
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_02": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_02.png",
+      "id": "punchy_brute_run_02",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_03": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_03.png",
+      "id": "punchy_brute_run_03",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_04": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_04.png",
+      "id": "punchy_brute_run_04",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_05": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_05.png",
+      "id": "punchy_brute_run_05",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_06": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_06.png",
+      "id": "punchy_brute_run_06",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_07": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_07.png",
+      "id": "punchy_brute_run_07",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_run_08": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_run_08.png",
+      "id": "punchy_brute_run_08",
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "rect": [
+        0,
+        0,
+        560,
+        560
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "sourceSize": [
+        560,
+        560
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_attack_01": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_attack_01.png",
+      "id": "punchy_brute_attack_01",
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_attack_02": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_attack_02.png",
+      "id": "punchy_brute_attack_02",
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_attack_03": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_attack_03.png",
+      "id": "punchy_brute_attack_03",
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_attack_04": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_attack_04.png",
+      "id": "punchy_brute_attack_04",
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_attack_05": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_attack_05.png",
+      "id": "punchy_brute_attack_05",
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_brute_attack_06": {
+      "alpha": true,
+      "file": "assets/monsters/brute/frames/punchy_brute_attack_06.png",
+      "id": "punchy_brute_attack_06",
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "rect": [
+        0,
+        0,
+        456,
+        912
+      ],
+      "size": [
+        456,
+        912
+      ],
+      "sourceSize": [
+        456,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
     }
   },
   "clips": {
@@ -3669,6 +4317,190 @@
         }
       ],
       "loop": false
+    },
+    "insect_run_front": {
+      "assetIds": [
+        "punchy_insect_run_02",
+        "punchy_insect_run_03",
+        "punchy_insect_run_04",
+        "punchy_insect_run_05",
+        "punchy_insect_run_06",
+        "punchy_insect_run_07"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 180
+        }
+      ],
+      "frameMs": 60,
+      "frames": [
+        {
+          "durationMs": 60,
+          "id": "punchy_insect_run_02"
+        },
+        {
+          "durationMs": 60,
+          "id": "punchy_insect_run_03"
+        },
+        {
+          "durationMs": 60,
+          "id": "punchy_insect_run_04"
+        },
+        {
+          "durationMs": 60,
+          "id": "punchy_insect_run_05"
+        },
+        {
+          "durationMs": 60,
+          "id": "punchy_insect_run_06"
+        },
+        {
+          "durationMs": 60,
+          "id": "punchy_insect_run_07"
+        }
+      ],
+      "loop": true
+    },
+    "insect_attack_front": {
+      "assetIds": [
+        "punchy_insect_attack_02",
+        "punchy_insect_attack_03",
+        "punchy_insect_attack_04",
+        "punchy_insect_attack_05",
+        "punchy_insect_attack_06"
+      ],
+      "events": [
+        {
+          "name": "strike",
+          "timeMs": 270
+        }
+      ],
+      "frameMs": 80,
+      "frames": [
+        {
+          "durationMs": 80,
+          "id": "punchy_insect_attack_02"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_insect_attack_03"
+        },
+        {
+          "durationMs": 100,
+          "id": "punchy_insect_attack_04"
+        },
+        {
+          "durationMs": 110,
+          "id": "punchy_insect_attack_05"
+        },
+        {
+          "durationMs": 110,
+          "id": "punchy_insect_attack_06"
+        }
+      ],
+      "loop": false
+    },
+    "brute_run_front": {
+      "assetIds": [
+        "punchy_brute_run_02",
+        "punchy_brute_run_03",
+        "punchy_brute_run_04",
+        "punchy_brute_run_05",
+        "punchy_brute_run_06",
+        "punchy_brute_run_07",
+        "punchy_brute_run_08"
+      ],
+      "events": [
+        {
+          "name": "footstep",
+          "timeMs": 0
+        },
+        {
+          "name": "footstep",
+          "timeMs": 315
+        }
+      ],
+      "frameMs": 90,
+      "frames": [
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_02"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_03"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_04"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_05"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_06"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_07"
+        },
+        {
+          "durationMs": 90,
+          "id": "punchy_brute_run_08"
+        }
+      ],
+      "loop": true
+    },
+    "brute_attack_front": {
+      "assetIds": [
+        "punchy_brute_attack_01",
+        "punchy_brute_attack_02",
+        "punchy_brute_attack_03",
+        "punchy_brute_attack_04",
+        "punchy_brute_attack_05",
+        "punchy_brute_attack_06"
+      ],
+      "events": [
+        {
+          "name": "strike",
+          "timeMs": 450
+        }
+      ],
+      "frameMs": 150,
+      "frames": [
+        {
+          "durationMs": 150,
+          "id": "punchy_brute_attack_01"
+        },
+        {
+          "durationMs": 150,
+          "id": "punchy_brute_attack_02"
+        },
+        {
+          "durationMs": 150,
+          "id": "punchy_brute_attack_03"
+        },
+        {
+          "durationMs": 150,
+          "id": "punchy_brute_attack_04"
+        },
+        {
+          "durationMs": 150,
+          "id": "punchy_brute_attack_05"
+        },
+        {
+          "durationMs": 150,
+          "id": "punchy_brute_attack_06"
+        }
+      ],
+      "loop": false
     }
   },
   "conventions": {
@@ -3693,7 +4525,54 @@
       "radius": 0.55,
       "runClip": "runner_run_front",
       "speed": 3.4,
-      "defeatClip": "runner_defeat_front"
+      "defeatClip": "runner_defeat_front",
+      "family": "runner",
+      "attackKind": "strike",
+      "telegraphMs": 400,
+      "leapSpeed": 0,
+      "leapMs": 0,
+      "slamRadius": 0,
+      "recoveryMs": 0
+    },
+    "insect": {
+      "attackClip": "insect_attack_front",
+      "attackDamage": 10,
+      "defeatClip": "",
+      "attackRange": 2.0,
+      "clip": "insect_front",
+      "health": 24,
+      "height": 1.2,
+      "id": "insect",
+      "radius": 0.45,
+      "runClip": "insect_run_front",
+      "speed": 4.6,
+      "family": "insect",
+      "attackKind": "leap",
+      "telegraphMs": 500,
+      "leapSpeed": 9,
+      "leapMs": 250,
+      "slamRadius": 0,
+      "recoveryMs": 200
+    },
+    "brute": {
+      "attackClip": "brute_attack_front",
+      "attackDamage": 20,
+      "defeatClip": "",
+      "attackRange": 2.6,
+      "clip": "brute_front",
+      "health": 72,
+      "height": 2.6,
+      "id": "brute",
+      "radius": 0.85,
+      "runClip": "brute_run_front",
+      "speed": 2.2,
+      "family": "brute",
+      "attackKind": "slam",
+      "telegraphMs": 900,
+      "leapSpeed": 0,
+      "leapMs": 0,
+      "slamRadius": 2.6,
+      "recoveryMs": 900
     }
   },
   "environment": {

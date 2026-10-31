@@ -175,6 +175,23 @@ export class GameAudio {
     this.tone(500, 900, 120, "sine", 0.2);
   }
 
+  insectLeap(): void {
+    this.count("insectLeap");
+    this.tone(400, 950, 150, "sine", 0.22);
+    this.noise(120, 2400, 0.2);
+  }
+
+  bruteWindup(): void {
+    this.count("bruteWindup");
+    this.tone(90, 60, 300, "sawtooth", 0.25);
+  }
+
+  bruteSlam(): void {
+    this.count("bruteSlam");
+    this.noise(220, 350, 0.5);
+    this.tone(110, 35, 220, "sine", 0.4);
+  }
+
   melee(): void {
     this.count("melee");
     this.noise(100, 2000, 0.3);

@@ -39,15 +39,22 @@ export type Weapon = {
 export type EnemySpec = {
   attackClip: string;
   attackDamage: number;
-  defeatClip: string;
+  attackKind: "strike" | "leap" | "slam";
   attackRange: number;
   clip: string;
+  defeatClip: string;
+  family: string;
   health: number;
   height: number;
   id: string;
+  leapMs: number;
+  leapSpeed: number;
   radius: number;
+  recoveryMs: number;
   runClip: string;
+  slamRadius: number;
   speed: number;
+  telegraphMs: number;
 };
 export type Environment = {
   crates: string[];
@@ -80,6 +87,12 @@ export function weaponSpec(): Weapon {
 
 export function runnerSpec(): EnemySpec {
   return manifest.enemies.runner;
+}
+
+export function enemySpec(id: string): EnemySpec {
+  const spec = manifest.enemies[id];
+  if (!spec) throw new Error(`Unknown enemy family: ${id}`);
+  return spec;
 }
 
 export function alphaReport(image: HTMLImageElement, entry: Asset): void {

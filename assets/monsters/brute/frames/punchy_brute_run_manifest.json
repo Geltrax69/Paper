@@ -1,0 +1,110 @@
+{
+  "frames": [
+    {
+      "id": "punchy_brute_run_01",
+      "file": "punchy_brute_run_01.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 525
+    },
+    {
+      "id": "punchy_brute_run_02",
+      "file": "punchy_brute_run_02.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 523
+    },
+    {
+      "id": "punchy_brute_run_03",
+      "file": "punchy_brute_run_03.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 525
+    },
+    {
+      "id": "punchy_brute_run_04",
+      "file": "punchy_brute_run_04.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 519
+    },
+    {
+      "id": "punchy_brute_run_05",
+      "file": "punchy_brute_run_05.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 524
+    },
+    {
+      "id": "punchy_brute_run_06",
+      "file": "punchy_brute_run_06.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 519
+    },
+    {
+      "id": "punchy_brute_run_07",
+      "file": "punchy_brute_run_07.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 525
+    },
+    {
+      "id": "punchy_brute_run_08",
+      "file": "punchy_brute_run_08.png",
+      "size": [
+        560,
+        560
+      ],
+      "pivot": [
+        0.5,
+        0.9375
+      ],
+      "bottom": 522
+    }
+  ],
+  "groundY": 525,
+  "cellWidth": 560
+}

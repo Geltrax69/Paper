@@ -1,0 +1,84 @@
+{
+  "frames": [
+    {
+      "id": "punchy_insect_attack_01",
+      "file": "punchy_insect_attack_01.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "bottom": 844
+    },
+    {
+      "id": "punchy_insect_attack_02",
+      "file": "punchy_insect_attack_02.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "bottom": 831
+    },
+    {
+      "id": "punchy_insect_attack_03",
+      "file": "punchy_insect_attack_03.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "bottom": 751
+    },
+    {
+      "id": "punchy_insect_attack_04",
+      "file": "punchy_insect_attack_04.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "bottom": 813
+    },
+    {
+      "id": "punchy_insect_attack_05",
+      "file": "punchy_insect_attack_05.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "bottom": 837
+    },
+    {
+      "id": "punchy_insect_attack_06",
+      "file": "punchy_insect_attack_06.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9254385964912281
+      ],
+      "bottom": 829
+    }
+  ],
+  "groundY": 844,
+  "cellWidth": 456
+}

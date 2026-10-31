@@ -1,0 +1,146 @@
+[
+  {
+    "id": "build",
+    "name": "npm run build",
+    "status": "PASS",
+    "detail": "tsc and vite build succeeded"
+  },
+  {
+    "id": "c02-trio",
+    "name": "Runner, insect, brute spawn side by side with distinct run clips",
+    "status": "PASS",
+    "detail": "families=runner,insect,brute clips=runner_run_front,insect_run_front,brute_run_front"
+  },
+  {
+    "id": "c02-composition",
+    "name": "Wave 1 all runner, wave 2 adds insects, wave 3 adds brutes",
+    "status": "PASS",
+    "detail": "w1={\"runner\":6,\"insect\":0,\"brute\":0} w2={\"runner\":6,\"insect\":2,\"brute\":0} w3={\"runner\":5,\"insect\":3,\"brute\":2}"
+  },
+  {
+    "id": "c02-insect-attack",
+    "name": "Insect telegraph shows a turquoise ring, leap strikes for 10",
+    "status": "PASS",
+    "detail": "warning=true radius=0.75 health=90 insectLeap=1"
+  },
+  {
+    "id": "c02-brute-slam",
+    "name": "Brute windup shows a 2.6 gold ring, slam hits for 20, then recovery",
+    "status": "PASS",
+    "detail": "warning=true radius=2.6 health=80 stillAttack=true windup=1 slam=1"
+  },
+  {
+    "id": "c02-kills",
+    "name": "Insect and brute kills score 100 each and build combo",
+    "status": "PASS",
+    "detail": "midScore=100 midCombo=1 score=200 combo=2"
+  },
+  {
+    "id": "c02-cover",
+    "name": "Crate blocks brute slam and insect strike",
+    "status": "PASS",
+    "detail": "bruteHealth=100 insectHealth=100"
+  },
+  {
+    "id": "c02-attack-cap",
+    "name": "Mixed-family attacks stay at or below the cap of 4",
+    "status": "PASS",
+    "detail": "maxAttackers=2 maxTelegraph=7"
+  },
+  {
+    "id": "c02-reduced",
+    "name": "Reduced-motion brute slam shakes and rolls nothing",
+    "status": "PASS",
+    "detail": "roll=0 cam=0,1.7,0 feet=0,0,0"
+  },
+  {
+    "id": "accept-shots",
+    "name": "Two shots use ammo 6 to 4",
+    "status": "PASS",
+    "detail": "after1=5 after2=4"
+  },
+  {
+    "id": "accept-reload",
+    "name": "Reload transfers ammo and refills to 6",
+    "status": "PASS",
+    "detail": "reloadTransferred true, ammo 6"
+  },
+  {
+    "id": "accept-kill",
+    "name": "Runner kill still scores",
+    "status": "PASS",
+    "detail": "score=350"
+  },
+  {
+    "id": "accept-crate-decal",
+    "name": "Crate-blocked shot leaves runner at 36 and leaves a flush decal",
+    "status": "PASS",
+    "detail": "health=36 tracerZ=4.9 decals=1 normal=0,0,1"
+  },
+  {
+    "id": "accept-directional",
+    "name": "Forced direction shows the left run clip",
+    "status": "PASS",
+    "detail": "direction=left runClip=runner_run_left"
+  },
+  {
+    "id": "n03-aerial",
+    "name": "Melee from 10m above deals no damage",
+    "status": "PASS",
+    "detail": "health=36"
+  },
+  {
+    "id": "n05-behind",
+    "name": "No behind-camera grapple",
+    "status": "PASS",
+    "detail": "cue=-3,1.5,-2 anchor=-3,1.5,-2"
+  },
+  {
+    "id": "accept-double-jump",
+    "name": "Two jump presses register as ground plus air jump",
+    "status": "PASS",
+    "detail": "jumpCount=2 airJumpsUsed=1"
+  },
+  {
+    "id": "accept-sprint",
+    "name": "Sprinting while moving scales the weapon toward 1.1",
+    "status": "PASS",
+    "detail": "sprintScale=1.1"
+  },
+  {
+    "id": "accept-barrel-cover",
+    "name": "Explosion behind a crate deals no player damage through cover",
+    "status": "PASS",
+    "detail": "healthBefore=100 healthAfter=100"
+  },
+  {
+    "id": "accept-barrel",
+    "name": "Triggered barrel detonates and is gone",
+    "status": "PASS",
+    "detail": "trigger=warning barrel0=gone"
+  },
+  {
+    "id": "accept-death-restart",
+    "name": "Death restarts the wave at full health",
+    "status": "PASS",
+    "detail": "health=100 wave=2"
+  },
+  {
+    "id": "accept-wave-clear",
+    "name": "Wave 1 clears to waveComplete with a score",
+    "status": "PASS",
+    "detail": "phase=waveComplete score=1800"
+  },
+  {
+    "id": "accept-hud",
+    "name": "Comic HUD still reports wave and ammo",
+    "status": "PASS",
+    "detail": "{\"ammoCount\":\"6 / 6\",\"ammoState\":\"\",\"comboCount\":\"6\",\"comicWords\":0,\"hitmarker\":\"×\",\"powers\":\"Dash: ready · Air jump: ready · Grapple: — · Melee: ready\",\"waveBanner\":\"WAVE 2\",\"waveBannerVisible\":false,\"waveNum\":\"1\"}"
+  },
+  {
+    "id": "n08-cap-still",
+    "name": "Wave 5 still caps at 12 active with 2 queued across families",
+    "status": "PASS",
+    "detail": "active=12 queued=2"
+  }
+]

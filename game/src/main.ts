@@ -13,7 +13,7 @@ import {
   type PlayerBody,
   type RayHit,
 } from "./arena";
-import { alphaReport, loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
+import { alphaReport, enemySpec, loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
 import { SpatialGrid } from "./spatial";
 import { AnimationPlayer, clipFromManifest } from "./animation";
 import { RUN_DIRECTION_CLIPS, Runner, type RunDirection } from "./enemy";
@@ -407,7 +407,10 @@ async function startGame(): Promise<void> {
     new THREE.Vector3(0, 0, -10),
     new THREE.Vector3(-10, 0, 0),
   ];
-  let spawnQueue: THREE.Vector3[] = [...spawnPoints];
+  let spawnQueue: { at: THREE.Vector3; family: string }[] = spawnPoints.map((at) => ({
+    at: at.clone(),
+    family: "runner",
+  }));
   const ACTIVE_RUNNER_CAP = 12;
   const MAX_ATTACKERS = 4;
   const neighborGrid = new SpatialGrid<Runner>(2.0);
@@ -1076,47 +1079,91 @@ async function startGame(): Promise<void> {
 
 
   let spawnCounter = 0;
-  function runnerClipTextures(): {
+  function enemyClipTextures(spec: import("./assets").EnemySpec): {
     attack: THREE.Texture[];
+    attackTopY: number;
     defeat: THREE.Texture[];
     run: THREE.Texture[];
     runDirections: Partial<Record<RunDirection, THREE.Texture[]>>;
     runStartPhase01: number;
+    runTopY: number;
   } {
-    const run = manifest.clips[runnerSpec().runClip].assetIds.map(
+    const run = manifest.clips[spec.runClip].assetIds.map(
       (id) => textures?.get(id) as THREE.Texture,
     );
-    const attack = manifest.clips[runnerSpec().attackClip].assetIds.map(
+    const attack = manifest.clips[spec.attackClip].assetIds.map(
       (id) => textures?.get(id) as THREE.Texture,
     );
-    const defeat = manifest.clips[runnerSpec().defeatClip].assetIds.map(
-      (id) => textures?.get(id) as THREE.Texture,
-    );
-    const runDirections = Object.fromEntries(
-      (Object.keys(RUN_DIRECTION_CLIPS) as RunDirection[]).map((direction) => [
-        direction,
-        manifest.clips[RUN_DIRECTION_CLIPS[direction]].assetIds.map(
-          (id) => textures?.get(id) as THREE.Texture,
-        ),
-      ]),
-    ) as Partial<Record<RunDirection, THREE.Texture[]>>;
+    const defeatSpec = manifest.enemies[spec.id];
+    const defeat =
+      defeatSpec.defeatClip.length > 0
+        ? manifest.clips[defeatSpec.defeatClip].assetIds.map(
+            (id) => textures?.get(id) as THREE.Texture,
+          )
+        : [];
+    const runDirections =
+      spec.id === "runner"
+        ? (Object.fromEntries(
+            (Object.keys(RUN_DIRECTION_CLIPS) as RunDirection[]).map((direction) => [
+              direction,
+              manifest.clips[RUN_DIRECTION_CLIPS[direction]].assetIds.map(
+                (id) => textures?.get(id) as THREE.Texture,
+              ),
+            ]),
+          ) as Partial<Record<RunDirection, THREE.Texture[]>>)
+        : { front: run };
     const phase = (spawnCounter % 4) / 4;
     spawnCounter += 1;
-    return { attack, defeat, run, runDirections, runStartPhase01: phase };
+    const tops: Record<string, { attack: number; run: number }> = {
+      runner: { attack: 31, run: 58 },
+      insect: { attack: 51, run: 193 },
+      brute: { attack: 62, run: 37 },
+    };
+    const top = tops[spec.id] ?? tops.runner;
+    return { attack, attackTopY: top.attack, defeat, run, runDirections, runStartPhase01: phase, runTopY: top.run };
   }
 
-  function spawnRunner(at: THREE.Vector3, speedScale = 1): Runner {
+  function spawnRunner(at: THREE.Vector3, family = "runner", speedScale = 1): Runner {
+    const spec = enemySpec(family);
     const runner = new Runner(
-      textures?.get("runner_front") as THREE.Texture,
+      textures?.get(manifest.clips[spec.runClip].assetIds[0]) as THREE.Texture,
       at,
-      runnerSpec(),
-      runnerClipTextures(),
+      spec,
+      enemyClipTextures(spec),
     );
     runner.speedScale = speedScale;
     scene.add(runner.group);
     runners.push(runner);
     waveActive = true;
     return runner;
+  }
+
+  function buildSpawnQueue(next: number): { at: THREE.Vector3; family: string }[] {
+    const total = 6 + 2 * (next - 1);
+    const bruteCount =
+      next >= 3 ? Math.min(2 + Math.floor((next - 3) / 2), Math.floor(total / 4)) : 0;
+    const insectCount =
+      next >= 2 ? Math.min(Math.floor(total * 0.3), total - bruteCount - 1) : 0;
+    const runnerCount = total - bruteCount - insectCount;
+    const remaining: Record<string, number> = {
+      runner: runnerCount,
+      insect: insectCount,
+      brute: bruteCount,
+    };
+    const cycle = ["runner", "insect", "runner", "brute"];
+    const queue: { at: THREE.Vector3; family: string }[] = [];
+    let cycleIndex = 0;
+    while (queue.length < total) {
+      const family = cycle[cycleIndex % cycle.length];
+      cycleIndex += 1;
+      if (remaining[family] <= 0) continue;
+      remaining[family] -= 1;
+      queue.push({
+        at: spawnPoints[queue.length % spawnPoints.length].clone(),
+        family,
+      });
+    }
+    return queue;
   }
 
   function clearPickups(): void {
@@ -1137,12 +1184,7 @@ async function startGame(): Promise<void> {
   function startWave(next: number): void {
     wave = next;
     pendingWaveBanner = next;
-    const count = 6 + 2 * (wave - 1);
-    const speedScale = Math.min(1.5, 1 + 0.05 * (wave - 1));
-    spawnQueue = [];
-    for (let i = 0; i < count; i += 1) {
-      spawnQueue.push(spawnPoints[i % spawnPoints.length].clone());
-    }
+    spawnQueue = buildSpawnQueue(next);
     waveActive = true;
     spawnTimerMs = 0;
     spawnPickups();
@@ -1627,6 +1669,7 @@ async function startGame(): Promise<void> {
             color: anyRunner.material.color.getHex(),
             defeatFrame: runner.defeatFrameIndex,
             direction: runner.runDirection,
+            family: runner.family,
             footstepCount: runner.footstepCount,
             health: runner.health,
             runClip: runner.runClipId,
@@ -1636,6 +1679,8 @@ async function startGame(): Promise<void> {
             scale: anyRunner.mesh.scale.x,
             visibleMesh: runner.visibleMeshKind,
             spawnCue: runner.spawnCueVisible,
+            warningRadius: runner.warningRadius,
+            warningVisible: runner.warningVisible,
             state: runner.state,
             x: runner.position.x,
             y: runner.position.y,
@@ -1684,6 +1729,24 @@ async function startGame(): Promise<void> {
         spawnQueue = [];
         return spawnRunner(new THREE.Vector3(x, 0, z));
       },
+      spawnFamilyAt: (x: number, z: number, family: string) => {
+        spawnQueue = [];
+        const runner = spawnRunner(new THREE.Vector3(x, 0, z), family);
+        runner.beginPursue();
+        return runner.family;
+      },
+      getWaveComposition: () => {
+        const count = (list: string[]): Record<string, number> => {
+          const out: Record<string, number> = {};
+          for (const family of list) out[family] = (out[family] ?? 0) + 1;
+          return out;
+        };
+        return {
+          active: count(runners.map((runner) => runner.family)),
+          queued: count(spawnQueue.map((entry) => entry.family)),
+          wave,
+        };
+      },
       damageRunner: (index: number, amount: number) => {
         const runner = runners[index];
         if (!runner) return null;
@@ -1708,6 +1771,7 @@ async function startGame(): Promise<void> {
           z: entry.mesh.position.z,
         })),
       getCaps: () => ({
+        activeEnemies: runners.length,
         activeRunnerCap: ACTIVE_RUNNER_CAP,
         activeRunners: runners.length,
         attackers: runners.filter((runner) => runner.state === "attack").length,
@@ -1848,7 +1912,7 @@ async function startGame(): Promise<void> {
         weaponView.setFlashStrength(settings.flash);
       }
       startupState = "ready";
-      showMenu("Paper. One shotgun. One runner type. Waves, score, and pickups.", "Play");
+      showMenu("Paper. One shotgun. Runner, insect, and brute waves, score, and pickups.", "Play");
       startBtn.disabled = false;
       if (viewOnly) setupViewOnly();
       if (viewTwo) setupViewTwo();
@@ -2076,7 +2140,7 @@ async function startGame(): Promise<void> {
         spawnTimerMs -= dtMs;
         if (spawnTimerMs <= 0) {
           const next = spawnQueue.shift();
-          if (next) spawnRunner(next);
+          if (next) spawnRunner(next.at, next.family, Math.min(1.5, 1 + 0.05 * (wave - 1)));
           spawnTimerMs = 1200;
         }
       }
@@ -2305,7 +2369,14 @@ async function startGame(): Promise<void> {
           let canAttack = true;
           if (runner.state === "telegraph" && attackers >= MAX_ATTACKERS) canAttack = false;
           if (runner.state === "telegraph" && canAttack) attackers += 1;
-          runner.update(dt, camera, playerBody, onPlayerDamage, candidates, { canAttack });
+          runner.update(dt, camera, playerBody, onPlayerDamage, candidates, {
+            canAttack,
+            onFamilyStrike: (enemy, kind) => {
+              if (kind !== "slam") return;
+              fx.impact(enemy.position.clone().setY(0.1), new THREE.Vector3(0, 1, 0), fxSettings(), true);
+              audio.bruteSlam();
+            },
+          });
         }
         const prevSteps = runnerFootsteps.get(runner) ?? 0;
         if (runner.footstepCount > prevSteps) {
@@ -2317,7 +2388,11 @@ async function startGame(): Promise<void> {
           runnerFootsteps.set(runner, runner.footstepCount);
         }
         const prevState = runnerStates.get(runner);
-        if (runner.state === "attack" && prevState !== "attack") audio.monsterAttack();
+        if (runner.state === "attack" && prevState !== "attack") {
+          if (runner.family === "insect") audio.insectLeap();
+          else if (runner.family === "brute") audio.bruteWindup();
+          else audio.monsterAttack();
+        }
         // Score at the death transition itself, not in the shot path, so
         // every kill scores exactly once no matter which damage source
         // caused it, and a shot that only wounds scores nothing.
@@ -2363,7 +2438,7 @@ async function startGame(): Promise<void> {
         const nextSpeed = (3.4 * Math.min(1.5, 1 + 0.05 * wave)).toFixed(1);
         showMenu(
           `Wave ${wave} complete. Bonus ${bonus}. Score ${score}. ` +
-            `Next wave has ${nextCount} runners at speed ${nextSpeed}. ` +
+            `Next wave has ${nextCount} enemies at speed ${nextSpeed}. ` +
             "Health carries over, ammo refills.",
           "Next wave",
         );
@@ -2437,7 +2512,7 @@ async function startGame(): Promise<void> {
       ammoStateEl.textContent = hudAmmoState;
       ammoStateEl.classList.toggle("empty", hudAmmoState === "RELOAD");
     }
-    const hudWave = `Wave ${wave} — Runners left: ${runners.length + spawnQueue.length}`;
+    const hudWave = `Wave ${wave} — Enemies left: ${runners.length + spawnQueue.length}`;
     if (lastHud.wave !== hudWave) {
       lastHud.wave = hudWave;
       waveEl.textContent = hudWave;

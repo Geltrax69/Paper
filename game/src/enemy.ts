@@ -108,10 +108,12 @@ export function directionForHeadingWithHysteresis(
 
 export type RunnerClipTextures = {
   attack: THREE.Texture[];
+  attackTopY?: number;
   defeat: THREE.Texture[];
   run: THREE.Texture[];
   runDirections: Partial<Record<RunDirection, THREE.Texture[]>>;
   runStartPhase01?: number;
+  runTopY?: number;
 };
 
 // Geometry for a clip whose ground line must sit at the group origin.
@@ -172,6 +174,11 @@ export class Runner {
   private spawnRing: THREE.Mesh | null = null;
   private spawnRingMaterial: THREE.MeshBasicMaterial | null = null;
   private spawnRingGeometry: THREE.RingGeometry | null = null;
+  private warning: THREE.Mesh | null = null;
+  private warningMaterial: THREE.MeshBasicMaterial | null = null;
+  private warningGeometry: THREE.RingGeometry | null = null;
+  private attackRecoveryMs = 0;
+  private slamStruck = false;
 
   constructor(
     texture: THREE.Texture,
@@ -218,10 +225,37 @@ export class Runner {
     this.spawnRing.position.y = 0.03;
     this.spawnRing.visible = true;
     this.group.add(this.spawnRing);
+    if (spec.id === "insect" || spec.id === "brute") {
+      const radius = spec.id === "brute" ? spec.slamRadius : spec.radius + 0.3;
+      this.warningGeometry = new THREE.RingGeometry(radius * 0.86, radius, 40);
+      this.warningMaterial = new THREE.MeshBasicMaterial({
+        color: spec.id === "brute" ? 0xffc928 : 0x24c9d6,
+        depthWrite: false,
+        opacity: 0.55,
+        side: THREE.DoubleSide,
+        transparent: true,
+      });
+      this.warning = new THREE.Mesh(this.warningGeometry, this.warningMaterial);
+      this.warning.rotation.x = -Math.PI / 2;
+      this.warning.position.y = 0.04;
+      this.warning.visible = false;
+      this.group.add(this.warning);
+    }
     if (clips && clips.run.length > 0 && clips.attack.length > 0) {
+      if (spec.id !== "runner") {
+        this.runGeometries.set(
+          "front",
+          clipGeometry(
+            spec.runClip,
+            spec.height,
+            manifestGroundY(spec.runClip),
+            clips.runTopY ?? 0,
+          ),
+        );
+      }
       for (const entry of RUN_DIRECTIONS) {
         const textures = clips.runDirections[entry.name];
-        if (textures && textures.length > 0) {
+        if (textures && textures.length > 0 && spec.id === "runner") {
           this.runGeometries.set(
             entry.name,
             clipGeometry(entry.clipId, spec.height, manifestGroundY(entry.clipId), entry.topY),
@@ -240,7 +274,12 @@ export class Runner {
       );
       this.runMesh.visible = false;
       this.group.add(this.runMesh);
-      this.attackGeometry = clipGeometry(spec.attackClip, spec.height, manifestGroundY(spec.attackClip), 31);
+      this.attackGeometry = clipGeometry(
+        spec.attackClip,
+        spec.height,
+        manifestGroundY(spec.attackClip),
+        clips.attackTopY ?? 31,
+      );
       this.attackMaterial = new THREE.MeshBasicMaterial({
         alphaTest: 0.08,
         map: clips.attack[0],
@@ -303,7 +342,21 @@ export class Runner {
     return this.runMesh ? this.runMesh.scale.x : this.mesh.scale.x;
   }
 
+  get family(): string {
+    return this.spec.id;
+  }
+
+  get warningVisible(): boolean {
+    return this.warning?.visible ?? false;
+  }
+
+  get warningRadius(): number {
+    if (!this.warning) return 0;
+    return this.spec.id === "brute" ? this.spec.slamRadius : this.spec.radius + 0.3;
+  }
+
   get runClipId(): string {
+    if (this.spec.id !== "runner") return this.spec.runClip;
     return RUN_DIRECTION_CLIPS[this.direction];
   }
 
@@ -315,19 +368,27 @@ export class Runner {
     return this.spawnRing?.visible ?? false;
   }
 
-  setDirectionOverride(direction: RunDirection | null): void {
+  beginPursue(): void {
+    this.setState("pursue");
+  }
+
+  setDirectionOverride(direction: RunDirection | null): void {    if (this.spec.id !== "runner") return;
     this.directionOverride = direction;
     if (direction) this.applyDirection(direction);
   }
 
   private applyDirection(direction: RunDirection): void {
     this.direction = direction;
-    const geometry = this.runGeometries.get(direction);
+    const geometry = this.runGeometries.get(direction) ?? this.runGeometries.get("front");
     if (this.runMesh && geometry) this.runMesh.geometry = geometry;
     this.syncRunTexture();
   }
 
   private updateDirection(camera: THREE.Camera): void {
+    if (this.spec.id !== "runner") {
+      if (this.direction !== "front") this.applyDirection("front");
+      return;
+    }
     const next =
       this.directionOverride ??
       directionForHeadingWithHysteresis(this.heading, camera, this.position, this.direction);
@@ -405,12 +466,12 @@ export class Runner {
 
   private showMesh(kind: "idle" | "run" | "attack" | "defeat"): void {
     this.mesh.visible = kind === "idle" || (!this.runMesh && kind !== "defeat");
-    if (this.runMesh) this.runMesh.visible = kind === "run";
+    if (this.runMesh) this.runMesh.visible = kind === "run" || (kind === "defeat" && !this.defeatMesh);
     if (this.attackMesh) this.attackMesh.visible = kind === "attack";
     if (this.defeatMesh) this.defeatMesh.visible = kind === "defeat";
     if (kind === "run" && !this.runMesh) this.mesh.visible = true;
     if (kind === "attack" && !this.attackMesh) this.mesh.visible = true;
-    if (kind === "defeat" && !this.defeatMesh) this.mesh.visible = true;
+    if (kind === "defeat" && !this.defeatMesh && !this.runMesh) this.mesh.visible = true;
   }
 
   private resetVisuals(): void {
@@ -437,6 +498,11 @@ export class Runner {
     }
     if (this.defeatMesh) this.defeatMesh.scale.setScalar(1);
     this.shadowMaterial.opacity = 0.35;
+    if (this.warning) {
+      this.warning.visible = false;
+      this.warning.scale.setScalar(1);
+      if (this.warningMaterial) this.warningMaterial.opacity = 0.55;
+    }
   }
 
   private setState(next: EnemyState): void {
@@ -446,7 +512,10 @@ export class Runner {
     this.resetVisuals();
     this.state = next;
     this.stateTimeMs = 0;
+    this.attackRecoveryMs = 0;
+    this.slamStruck = false;
     if (this.spawnRing) this.spawnRing.visible = next === "spawn";
+    if (this.warning) this.warning.visible = next === "telegraph";
     if (next === "death" && this.defeatPlayer) {
       this.defeatPlayer.play(0);
       this.syncDefeatTexture();
@@ -506,7 +575,10 @@ export class Runner {
     player: PlayerBody,
     onPlayerDamage: (amount: number, source?: THREE.Vector3) => void,
     neighbors: Runner[] = [],
-    options: { canAttack?: boolean } = {},
+    options: {
+      canAttack?: boolean;
+      onFamilyStrike?: (enemy: Runner, kind: "strike" | "leap" | "slam") => void;
+    } = {},
   ): void {
     const dtMs = dt * 1000;
     const previousTime = this.stateTimeMs;
@@ -592,36 +664,84 @@ export class Runner {
       } else {
         this.mesh.scale.setScalar(pulse);
       }
+      if (this.warning && this.warningMaterial) {
+        this.warning.visible = true;
+        this.warningMaterial.opacity = 0.4 + 0.3 * Math.sin(this.stateTimeMs / 90);
+      }
       const tintMaterial =
         this.attackUsesFrontArt() && this.attackMaterial
           ? this.attackMaterial
           : this.runMaterial ?? this.material;
-      tintMaterial.color.setHex(0xffd9c2);
+      tintMaterial.color.setHex(
+        this.spec.id === "insect" ? 0x9be8f2 : this.spec.id === "brute" ? 0xffd34d : 0xffd9c2,
+      );
       if (this.attackPlayer) {
         this.attackPlayer.play(0);
         if (this.attackUsesFrontArt()) this.syncAttackTexture();
       }
-      if (this.stateTimeMs >= 400) {
+      if (this.stateTimeMs >= (this.spec.telegraphMs ?? 400)) {
         if (options.canAttack !== false) this.setState("attack");
       }
     } else if (this.state === "attack") {
       this.showMesh(this.attackMeshKind());
+      if (this.warning && this.spec.id === "brute") {
+        this.warning.visible = true;
+        if (this.warningMaterial) {
+          this.warningMaterial.opacity = this.slamStruck
+            ? Math.max(0, 0.55 * (1 - this.attackRecoveryMs / Math.max(1, this.spec.recoveryMs)))
+            : 0.55;
+        }
+      }
+      if (this.spec.attackKind === "leap" && this.stateTimeMs < (this.spec.leapMs ?? 0)) {
+        const leapDir = playerFeet.clone().sub(this.position);
+        leapDir.y = 0;
+        if (leapDir.lengthSq() > 0) {
+          leapDir.normalize();
+          this.heading.copy(leapDir);
+          this.position.addScaledVector(leapDir, (this.spec.leapSpeed ?? 0) * dt);
+          resolveCircle(this.position, this.spec.radius);
+        }
+      }
+      const strike = (): void => {
+        if (this.spec.attackKind === "slam") {
+          const horizontal = playerFeet.clone().sub(this.position);
+          horizontal.y = 0;
+          const blocked = segmentBlockedByCrate(this.position, playerFeet);
+          if (
+            horizontal.length() <= (this.spec.slamRadius ?? 0) &&
+            playerFeet.y <= 1.5 &&
+            !blocked
+          ) {
+            onPlayerDamage(this.spec.attackDamage, this.position);
+          }
+          this.slamStruck = true;
+          options.onFamilyStrike?.(this, "slam");
+          return;
+        }
+        const enemyChest = this.position.clone();
+        enemyChest.y = 1;
+        const playerCenter = playerFeet.clone();
+        playerCenter.y = playerFeet.y + player.height / 2;
+        const toCenter = playerCenter.clone().sub(enemyChest);
+        const reach = toCenter.length();
+        const solid = rayHitSolid(enemyChest, toCenter.normalize(), reach);
+        if (distance <= this.spec.attackRange + 0.4 && verticalOverlap && !solid) {
+          onPlayerDamage(this.spec.attackDamage, this.position);
+        }
+        options.onFamilyStrike?.(this, this.spec.attackKind);
+      };
       if (this.attackPlayer) {
         const events = this.attackPlayer.update(dtMs, 1);
         if (this.attackUsesFrontArt()) this.syncAttackTexture();
-        if (events.includes("strike")) {
-          const enemyChest = this.position.clone();
-          enemyChest.y = 1;
-          const playerCenter = playerFeet.clone();
-          playerCenter.y = playerFeet.y + player.height / 2;
-          const toCenter = playerCenter.clone().sub(enemyChest);
-          const reach = toCenter.length();
-          const solid = rayHitSolid(enemyChest, toCenter.normalize(), reach);
-          if (distance <= this.spec.attackRange + 0.4 && verticalOverlap && !solid) {
-            onPlayerDamage(this.spec.attackDamage, this.position);
+        if (events.includes("strike")) strike();
+        if (this.attackPlayer.finished) {
+          if ((this.spec.recoveryMs ?? 0) > 0 && this.attackRecoveryMs < this.spec.recoveryMs) {
+            this.attackRecoveryMs += dtMs;
+            this.showMesh(this.attackMeshKind());
+          } else {
+            this.setState("pursue");
           }
         }
-        if (this.attackPlayer.finished) this.setState("pursue");
       } else {
         if (previousTime < 100 && this.stateTimeMs >= 100) {
           const enemyChest = this.position.clone();
@@ -651,8 +771,13 @@ export class Runner {
         this.syncDefeatTexture();
       } else {
         const t = Math.min(1, this.stateTimeMs / 800);
-        this.material.opacity = 1 - t;
+        for (const mat of [this.material, this.runMaterial, this.attackMaterial]) {
+          if (!mat) continue;
+          mat.transparent = true;
+          mat.opacity = 1 - t;
+        }
         this.mesh.scale.setScalar(1 - 0.3 * t);
+        if (this.runMesh) this.runMesh.scale.setScalar(1 - 0.3 * t);
         this.shadowMaterial.opacity = 0.35 * (1 - t);
       }
     }
@@ -677,6 +802,8 @@ export class Runner {
     this.defeatMaterial?.dispose();
     this.spawnRingGeometry?.dispose();
     this.spawnRingMaterial?.dispose();
+    this.warningGeometry?.dispose();
+    this.warningMaterial?.dispose();
     this.shadowGeometry.dispose();
     this.shadowMaterial.dispose();
   }

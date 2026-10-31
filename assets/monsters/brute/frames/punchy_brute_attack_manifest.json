@@ -1,0 +1,84 @@
+{
+  "frames": [
+    {
+      "id": "punchy_brute_attack_01",
+      "file": "punchy_brute_attack_01.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "bottom": 820
+    },
+    {
+      "id": "punchy_brute_attack_02",
+      "file": "punchy_brute_attack_02.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "bottom": 820
+    },
+    {
+      "id": "punchy_brute_attack_03",
+      "file": "punchy_brute_attack_03.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "bottom": 881
+    },
+    {
+      "id": "punchy_brute_attack_04",
+      "file": "punchy_brute_attack_04.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "bottom": 889
+    },
+    {
+      "id": "punchy_brute_attack_05",
+      "file": "punchy_brute_attack_05.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "bottom": 842
+    },
+    {
+      "id": "punchy_brute_attack_06",
+      "file": "punchy_brute_attack_06.png",
+      "size": [
+        456,
+        912
+      ],
+      "pivot": [
+        0.5,
+        0.9747807017543859
+      ],
+      "bottom": 837
+    }
+  ],
+  "groundY": 889,
+  "cellWidth": 456
+}
