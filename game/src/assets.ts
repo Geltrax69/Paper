@@ -82,7 +82,7 @@ export function runnerSpec(): EnemySpec {
   return manifest.enemies.runner;
 }
 
-function alphaReport(image: HTMLImageElement, entry: Asset): void {
+export function alphaReport(image: HTMLImageElement, entry: Asset): void {
   const canvas = document.createElement("canvas");
   canvas.width = image.naturalWidth;
   canvas.height = image.naturalHeight;
@@ -116,6 +116,7 @@ function alphaReport(image: HTMLImageElement, entry: Asset): void {
 
 export async function loadTextures(
   onProgress?: (done: number, total: number, id: string) => void,
+  options?: { alphaDiagnostics?: boolean },
 ): Promise<Map<string, THREE.Texture>> {
   const loader = new THREE.TextureLoader();
   const out = new Map<string, THREE.Texture>();
@@ -132,7 +133,7 @@ export async function loadTextures(
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = 4;
     const image = texture.image as HTMLImageElement;
-    if (image && image.naturalWidth > 0) alphaReport(image, entry);
+    if (options?.alphaDiagnostics && image && image.naturalWidth > 0) alphaReport(image, entry);
     out.set(entry.id, texture);
     onProgress?.(i + 1, entries.length, entry.id);
   }

@@ -16,7 +16,7 @@ The full asset review sheet is in [verification/review-1.png](verification/revie
 
 ## Run and build
 
-Run `npm ci`, then `npm run dev` for development. Run `npm run build` before `npm run preview` to serve the production build on port 5174. There is not yet a standard portable npm test command; historical verify scripts have environment-specific browser paths. Current audit results are in verification/audit-2026-10-31/.
+Run `npm ci`, then `npm run dev` for development. Run `npm run build` before `npm run preview` to serve the production build on port 5174. Run `npm test` (same as `npm run check`) for the portable regression suite in verification/fix-n08-n11/verify.mjs. It builds, starts its own preview server, and drives headless Chromium. Set PAPER_BROWSER to a Chromium executable path, PAPER_PORT for the preview port (default 5181), PAPER_BASE_URL to override the base URL, and PAPER_OUT_DIR to override the report and screenshot directory. Historical verify scripts under verification/ keep their own hardcoded paths and are labeled historical; they are not the current entry point. Current audit results are in verification/audit-2026-10-31/.
 
 ## Controls
 
@@ -32,12 +32,10 @@ WASD moves. Mouse aims. Left click fires the shotgun. R reloads. Shift sprints. 
 
 ## Runtime images
 
-The current manifest has 101 images under `public/assets/`, including runner directions, attack/defeat, gun/fire effects and environment layers. These four original assets remain part of its history and base states:
+The current manifest has 107 images under `public/assets/`, including runner directions, attack/defeat, gun/fire effects and environment layers. The original `public/assets/effects/muzzle_flash_shotgun.png` and `public/assets/scenery/crate_face.png` are no longer in the runtime manifest, because no clip, environment entry, or source file references them; their masters remain in the repo `assets/` tree outside `game/public/`. The other two original assets remain part of its history and base states:
 
 - `public/assets/weapons/shotgun/shotgun_idle.png`, pivot bottom, muzzle attachment at [0.27, 0.36].
 - `public/assets/monsters/runner/runner_front.png`, pivot at the feet, front view only.
-- `public/assets/effects/muzzle_flash_shotgun.png`, centred radial flash.
-- `public/assets/scenery/crate_face.png`, opaque crate texture.
 
 Nothing under `output/` is used as a runtime texture. Those files are references only.
 

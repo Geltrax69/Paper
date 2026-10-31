@@ -1,5 +1,9 @@
 # Verification
 
+## Current entry point
+
+Run `npm test` (same as `npm run check`) in `game/`. It runs verification/fix-n08-n11/verify.mjs, which builds, starts its own preview server, and drives headless Chromium. Environment variables: PAPER_BROWSER (Chromium executable path, discovered from the Playwright cache by default), PAPER_PORT (default 5181), PAPER_BASE_URL, and PAPER_OUT_DIR. The latest report from that suite is verification/fix-n08-n11/report.json. The sections below are the original milestone report and are historical. Later pass reports under verification/ record later work. `?debug=1` setups in any harness are controlled test setups, not ordinary keyboard and mouse play, and headless results are not real-device review.
+
 ## Build
 
 `npm install` and `npm run build` in `game/` succeed. Three.js is pinned to 0.186.0 in `package.json`. Three.js 0.187.0 was the latest at check time, but `@types/three` 0.187.0 was not published yet, so the pinned pair is 0.186.0 for both. TypeScript compiles with no errors. Vite build output is `dist/`.

@@ -1,0 +1,143 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "n08-startup-no-alpha",
+      "name": "Normal play start performs no alpha scan",
+      "status": "PASS",
+      "detail": "alphaLogs=0 startupBytes=37185370 assetBytes=37173668 jsBytes=665412 responses=109"
+    },
+    {
+      "id": "n08-review-alpha",
+      "name": "Review mode still shows alpha diagnostics",
+      "status": "PASS",
+      "detail": "alphaLogs=321"
+    },
+    {
+      "id": "n08-caps",
+      "name": "Caps reported as 12 active runners and 4 attackers",
+      "status": "PASS",
+      "detail": "{\"activeRunnerCap\":12,\"activeRunners\":1,\"attackers\":0,\"fxPools\":{\"explosions\":0,\"flashes\":0,\"fragments\":0,\"inkStars\":0,\"pooled\":236,\"rings\":0,\"smoke\":0,\"sparks\":0,\"textures\":7},\"lastNeighborCandidates\":1,\"maxAttackers\":4,\"neighborBuckets\":1,\"queuedRunners\":5,\"totalRunners\":1}"
+    },
+    {
+      "id": "n08-spatial",
+      "name": "Spatial grid excludes a far runner from neighbor candidates",
+      "status": "PASS",
+      "detail": "fullCount=3 gridCandidates=2"
+    },
+    {
+      "id": "n08-cap-queue",
+      "name": "Wave 5 caps at 12 active, queues 2, drains on kill, then completes",
+      "status": "PASS",
+      "detail": "wave5Queued=14 cappedActive=12 cappedQueue=2 phase=waveComplete beforeGeometries=21 afterGeometries=18"
+    },
+    {
+      "id": "n08-attack-cap",
+      "name": "Attack concurrency stays at or below 4",
+      "status": "PASS",
+      "detail": "attackers=1 active=6"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Two shots use ammo 6 to 4",
+      "status": "PASS",
+      "detail": "after1=5 after2=4"
+    },
+    {
+      "id": "accept-reload",
+      "name": "Reload transfers ammo and refills to 6",
+      "status": "PASS",
+      "detail": "reloadTransferred true, ammo 6"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Kill scores and changes the comic HUD combo",
+      "status": "PASS",
+      "detail": "score=350 comboBefore=– comboAfter=1 wave=1 ammo=6 / 6"
+    },
+    {
+      "id": "accept-crate-blocked",
+      "name": "Crate-blocked shot leaves runner at 36 and stops at the crate near face z 4.90",
+      "status": "PASS",
+      "detail": "health=36 tracerZ=4.9"
+    },
+    {
+      "id": "accept-directional",
+      "name": "Forced direction shows the left run clip",
+      "status": "PASS",
+      "detail": "direction=left runClip=runner_run_left"
+    },
+    {
+      "id": "n03-aerial",
+      "name": "Melee from 10m above deals no damage",
+      "status": "PASS",
+      "detail": "health=36"
+    },
+    {
+      "id": "n03-close",
+      "name": "Valid close strike deals exactly 18",
+      "status": "PASS",
+      "detail": "health=18"
+    },
+    {
+      "id": "n05-behind",
+      "name": "No behind-camera grapple",
+      "status": "PASS",
+      "detail": "cue=-3,1.5,-2 anchor=-3,1.5,-2"
+    },
+    {
+      "id": "accept-double-jump",
+      "name": "Two jump presses register as ground plus air jump",
+      "status": "PASS",
+      "detail": "jumpCount=2 airJumpsUsed=1"
+    },
+    {
+      "id": "n04-ledge",
+      "name": "Stepping off a crate clears grounded",
+      "status": "PASS",
+      "detail": "beforeGrounded=true offGrounded=false"
+    },
+    {
+      "id": "accept-barrel-cover",
+      "name": "Explosion behind a crate deals no player damage through cover",
+      "status": "PASS",
+      "detail": "healthBefore=100 healthAfter=100"
+    },
+    {
+      "id": "accept-barrel",
+      "name": "Triggered barrel detonates and is gone",
+      "status": "PASS",
+      "detail": "trigger=warning barrel0=gone"
+    },
+    {
+      "id": "n10-decal",
+      "name": "Decal stays on its surface after a camera move",
+      "status": "PASS",
+      "detail": "decals=1 normal=0,0,1"
+    },
+    {
+      "id": "accept-sprint",
+      "name": "Sprint moves the player forward",
+      "status": "PASS",
+      "detail": "feetZ=7.35"
+    },
+    {
+      "id": "n08-stability",
+      "name": "Wave 3 and wave 4 clears settle at the same geometry and texture counts",
+      "status": "PASS",
+      "detail": "beforeGeo=21 midGeo=51 afterCycleGeo=21 wave2Geo=18 wave2Tex=27 wave3Geo=18 wave3Tex=27 wave4Geo=18 wave4Tex=27 drawCalls=14 frameTimeMs=49.99999999999998"
+    },
+    {
+      "id": "accept-1920",
+      "name": "Game runs at 1920x1080 with HUD state",
+      "status": "PASS",
+      "detail": "phase=playing wave=1 drawCalls=25 frameTimeMs=45.7739531205841 triangles=802"
+    }
+  ],
+  "failed": 0
+}

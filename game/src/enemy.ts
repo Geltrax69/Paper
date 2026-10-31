@@ -506,6 +506,7 @@ export class Runner {
     player: PlayerBody,
     onPlayerDamage: (amount: number, source?: THREE.Vector3) => void,
     neighbors: Runner[] = [],
+    options: { canAttack?: boolean } = {},
   ): void {
     const dtMs = dt * 1000;
     const previousTime = this.stateTimeMs;
@@ -601,7 +602,7 @@ export class Runner {
         if (this.attackUsesFrontArt()) this.syncAttackTexture();
       }
       if (this.stateTimeMs >= 400) {
-        this.setState("attack");
+        if (options.canAttack !== false) this.setState("attack");
       }
     } else if (this.state === "attack") {
       this.showMesh(this.attackMeshKind());

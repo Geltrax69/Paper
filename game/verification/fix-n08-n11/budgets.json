@@ -1,0 +1,125 @@
+{
+  "after": {
+    "assetBytes": 36508256,
+    "assetCount": 107,
+    "clipCount": 15,
+    "jsBytes": 665412,
+    "jsFile": "index-ZrlinQ8J.js",
+    "largest": [
+      {
+        "bytes": 1994448,
+        "file": "assets/weapons/shotgun/punchy_shotgun_idle.png",
+        "id": "punchy_shotgun_idle",
+        "size": [
+          1920,
+          1280
+        ]
+      },
+      {
+        "bytes": 1773606,
+        "file": "assets/monsters/runner/runner_front.png",
+        "id": "runner_front",
+        "size": [
+          1600,
+          1600
+        ]
+      },
+      {
+        "bytes": 861326,
+        "file": "assets/environment/punchy_sky_cyan_open.png",
+        "id": "punchy_sky_cyan_open",
+        "size": [
+          1024,
+          512
+        ]
+      },
+      {
+        "bytes": 746414,
+        "file": "assets/environment/mid_ruins.png",
+        "id": "mid_ruins",
+        "size": [
+          960,
+          640
+        ]
+      },
+      {
+        "bytes": 557369,
+        "file": "assets/environment/crate_variant_paper.png",
+        "id": "crate_variant_paper",
+        "size": [
+          512,
+          512
+        ]
+      },
+      {
+        "bytes": 516350,
+        "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_03.png",
+        "id": "shotgun_fire_diag_03",
+        "size": [
+          640,
+          912
+        ]
+      },
+      {
+        "bytes": 497723,
+        "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_04.png",
+        "id": "shotgun_fire_diag_04",
+        "size": [
+          640,
+          912
+        ]
+      },
+      {
+        "bytes": 480926,
+        "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_02.png",
+        "id": "shotgun_fire_diag_02",
+        "size": [
+          640,
+          912
+        ]
+      },
+      {
+        "bytes": 469333,
+        "file": "assets/effects/frames/muzzle_flash_02.png",
+        "id": "muzzle_flash_02",
+        "size": [
+          456,
+          912
+        ]
+      },
+      {
+        "bytes": 463985,
+        "file": "assets/environment/crate_variant_wood.png",
+        "id": "crate_variant_wood",
+        "size": [
+          512,
+          512
+        ]
+      }
+    ],
+    "textureEstimateMiB": 211.2
+  },
+  "before": {
+    "assetBytes": 43379985,
+    "assetCount": 109,
+    "clipCount": 15,
+    "jsBytes": 664380,
+    "note": "Measured on HEAD before this change with the same script logic: 109 manifest assets, 43,379,985 runtime bytes, 237.2 MiB texture estimate, 664,380 byte JS chunk.",
+    "textureEstimateMiB": 237.2
+  },
+  "removed": [
+    {
+      "bytes": 4283728,
+      "file": "assets/scenery/crate_face.png",
+      "id": "crate_face",
+      "reason": "No clip, environment entry, or source file references it. Masters remain in the repo assets/scenery/crate_face.png outside game/public."
+    },
+    {
+      "bytes": 2588001,
+      "file": "assets/effects/muzzle_flash_shotgun.png",
+      "id": "muzzle_flash_shotgun",
+      "reason": "No clip, weapon, or source file references it. The flash clip uses frames instead. Masters remain in the repo assets/effects/muzzle_flash_shotgun.png outside game/public."
+    }
+  ],
+  "runtimeNote": "Texture estimate is manifest pixel dimensions at RGBA8 with a 4/3 mipmap factor. It is a planning estimate, not measured GPU memory."
+}

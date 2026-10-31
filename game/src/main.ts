@@ -13,7 +13,8 @@ import {
   type PlayerBody,
   type RayHit,
 } from "./arena";
-import { loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
+import { alphaReport, loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
+import { SpatialGrid } from "./spatial";
 import { AnimationPlayer, clipFromManifest } from "./animation";
 import { RUN_DIRECTION_CLIPS, Runner, type RunDirection } from "./enemy";
 import { applySky, buildEnvironment } from "./environment";
@@ -65,6 +66,7 @@ function buildReview(): void {
       const img = document.createElement("img");
       img.src = `/${entry.file}`;
       img.alt = entry.id;
+      img.addEventListener("load", () => alphaReport(img, entry));
       wrapper.appendChild(img);
       const pivot = document.createElement("div");
       pivot.className = "marker pivot";
@@ -406,6 +408,10 @@ async function startGame(): Promise<void> {
     new THREE.Vector3(-10, 0, 0),
   ];
   let spawnQueue: THREE.Vector3[] = [...spawnPoints];
+  const ACTIVE_RUNNER_CAP = 12;
+  const MAX_ATTACKERS = 4;
+  const neighborGrid = new SpatialGrid<Runner>(2.0);
+  let lastNeighborCandidates = 0;
 
   const particleCount = 300;
   const particlePositions = new Float32Array(particleCount * 3);
@@ -1701,6 +1707,27 @@ async function startGame(): Promise<void> {
           y: entry.mesh.position.y,
           z: entry.mesh.position.z,
         })),
+      getCaps: () => ({
+        activeRunnerCap: ACTIVE_RUNNER_CAP,
+        activeRunners: runners.length,
+        attackers: runners.filter((runner) => runner.state === "attack").length,
+        fxPools: fx.counts(),
+        lastNeighborCandidates: lastNeighborCandidates,
+        maxAttackers: MAX_ATTACKERS,
+        neighborBuckets: neighborGrid.bucketCount,
+        queuedRunners: spawnQueue.length,
+        totalRunners: runners.length,
+      }),
+      spatialProbe: () => {
+        neighborGrid.rebuild(runners);
+        const first = runners[0];
+        return first
+          ? {
+              fullCount: runners.length,
+              gridCandidates: neighborGrid.neighbors(first.position).length,
+            }
+          : { fullCount: 0, gridCandidates: 0 };
+      },
       getFx: () => fx.counts(),
       getLastShotFx: () => lastShotFx,
       getBarrels: () =>
@@ -1733,6 +1760,13 @@ async function startGame(): Promise<void> {
         runners = [];
         spawnQueue = [];
         waveActive = false;
+      },
+      startWaveDebug: (next: number) => {
+        for (const runner of runners) runner.dispose();
+        runners = [];
+        spawnQueue = [];
+        startWave(next);
+        return { queued: spawnQueue.length, wave };
       },
       resetGame,
       damagePlayer: (amount: number) => onPlayerDamage(amount),
@@ -1782,9 +1816,12 @@ async function startGame(): Promise<void> {
     startBtn.disabled = true;
     menuText.textContent = "Loading assets…";
     try {
-      textures = await loadTextures((done, total, id) => {
-        menuText.textContent = `Loading assets ${done}/${total}: ${id}…`;
-      });
+      textures = await loadTextures(
+        (done, total, id) => {
+          menuText.textContent = `Loading assets ${done}/${total}: ${id}…`;
+        },
+        { alphaDiagnostics: debugMode || params.get("review") === "1" },
+      );
       if (!arenaBuilt) {
         scene.add(buildArena(textures, manifest.environment));
         spawnBarrels();
@@ -2035,7 +2072,7 @@ async function startGame(): Promise<void> {
         }
       }
 
-      if (spawnQueue.length > 0) {
+      if (spawnQueue.length > 0 && runners.length < ACTIVE_RUNNER_CAP) {
         spawnTimerMs -= dtMs;
         if (spawnTimerMs <= 0) {
           const next = spawnQueue.shift();
@@ -2255,13 +2292,20 @@ async function startGame(): Promise<void> {
       mouseDelta.x = 0;
       mouseDelta.y = 0;
 
+      neighborGrid.rebuild(runners);
+      let attackers = runners.filter((runner) => runner.state === "attack").length;
       for (const runner of [...runners]) {
         const stop = runnerHitStop.get(runner) ?? 0;
         if (stop > 0) {
           runnerHitStop.set(runner, stop - dtMs);
         } else {
           runnerHitStop.delete(runner);
-          runner.update(dt, camera, playerBody, onPlayerDamage, runners);
+          const candidates = neighborGrid.neighbors(runner.position);
+          lastNeighborCandidates = candidates.length;
+          let canAttack = true;
+          if (runner.state === "telegraph" && attackers >= MAX_ATTACKERS) canAttack = false;
+          if (runner.state === "telegraph" && canAttack) attackers += 1;
+          runner.update(dt, camera, playerBody, onPlayerDamage, candidates, { canAttack });
         }
         const prevSteps = runnerFootsteps.get(runner) ?? 0;
         if (runner.footstepCount > prevSteps) {

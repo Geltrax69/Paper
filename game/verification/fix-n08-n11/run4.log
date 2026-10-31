@@ -1,0 +1,29 @@
+
+> paper-vertical-slice@0.1.0 test
+> node verification/fix-n08-n11/verify.mjs
+
+PASS build npm run build: tsc and vite build succeeded
+PASS n08-startup-no-alpha Normal play start performs no alpha scan: alphaLogs=0 startupBytes=37185370 assetBytes=37173668 jsBytes=665412 responses=109
+PASS n08-review-alpha Review mode still shows alpha diagnostics: alphaLogs=321
+PASS n08-caps Caps reported as 12 active runners and 4 attackers: {"activeRunnerCap":12,"activeRunners":1,"attackers":0,"fxPools":{"explosions":0,"flashes":0,"fragments":0,"inkStars":0,"pooled":236,"rings":0,"smoke":0,"sparks":0,"textures":7},"lastNeighborCandidates":1,"maxAttackers":4,"neighborBuckets":1,"queuedRunners":5,"totalRunners":1}
+PASS n08-spatial Spatial grid excludes a far runner from neighbor candidates: fullCount=3 gridCandidates=2
+PASS n08-cap-queue Wave 5 caps at 12 active, queues 2, drains on kill, then completes: wave5Queued=14 cappedActive=12 cappedQueue=2 phase=waveComplete beforeGeometries=21 afterGeometries=18
+PASS n08-attack-cap Attack concurrency stays at or below 4: attackers=1 active=6
+PASS accept-shots Two shots use ammo 6 to 4: after1=5 after2=4
+PASS accept-reload Reload transfers ammo and refills to 6: reloadTransferred true, ammo 6
+PASS accept-kill Kill scores and changes the comic HUD combo: score=350 comboBefore=– comboAfter=1 wave=1 ammo=6 / 6
+PASS accept-crate-blocked Crate-blocked shot leaves runner at 36 and stops at the crate near face z 4.90: health=36 tracerZ=4.9
+PASS accept-directional Forced direction shows the left run clip: direction=left runClip=runner_run_left
+PASS n03-aerial Melee from 10m above deals no damage: health=36
+PASS n03-close Valid close strike deals exactly 18: health=18
+PASS n05-behind No behind-camera grapple: cue=-3,1.5,-2 anchor=-3,1.5,-2
+PASS accept-double-jump Two jump presses register as ground plus air jump: jumpCount=2 airJumpsUsed=1
+PASS n04-ledge Stepping off a crate clears grounded: beforeGrounded=true offGrounded=false
+PASS accept-barrel-cover Explosion behind a crate deals no player damage through cover: healthBefore=100 healthAfter=100
+PASS accept-barrel Triggered barrel detonates and is gone: trigger=warning barrel0=gone
+PASS n10-decal Decal stays on its surface after a camera move: decals=1 normal=0,0,1
+PASS accept-sprint Sprint moves the player forward: feetZ=7.35
+PASS n08-stability Wave 3 and wave 4 clears settle at the same geometry and texture counts: beforeGeo=21 midGeo=51 afterCycleGeo=21 wave2Geo=18 wave2Tex=27 wave3Geo=18 wave3Tex=27 wave4Geo=18 wave4Tex=27 drawCalls=14 frameTimeMs=49.99999999999998
+PASS accept-1920 Game runs at 1920x1080 with HUD state: phase=playing wave=1 drawCalls=25 frameTimeMs=45.7739531205841 triangles=802
+RESULT 23/23 PASS
+EXIT=0
