@@ -1456,8 +1456,8 @@ async function startGame(): Promise<void> {
     weaponView.setAmmoMax(spec.ammo);
     const views: Record<string, { flash: number; h: number; muzzle: [number, number]; w: number }> = {
       shotgun: { flash: 1, h: 1.15, muzzle: [0.095, 0.023], w: 1.725 },
-      pistol: { flash: 0.6, h: 1.15, muzzle: [0.8, 0.32], w: 0.92 },
-      automatic: { flash: 0.8, h: 1.15, muzzle: [0.85, 0.29], w: 0.92 },
+      pistol: { flash: 0.6, h: 1.15, muzzle: [0.195, 0.203], w: 0.92 },
+      automatic: { flash: 0.8, h: 1.15, muzzle: [0.107, 0.148], w: 0.92 },
       blaster: { flash: 1, h: 1.15, muzzle: [0.088, 0.148], w: 1.725 },
       knife: { flash: 0.5, h: 0.55, muzzle: [0.95, 0.5], w: 1.65 },
       throwable: { flash: 0.5, h: 0.7, muzzle: [0.5, 0.5], w: 0.7 },

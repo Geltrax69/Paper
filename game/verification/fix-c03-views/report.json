@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "view-shotgun",
+      "name": "View and HUD match for Shotgun",
+      "status": "PASS",
+      "detail": "hudWeapon=shotgun ammo=Shotgun 6 / 6 screenshot=view-shotgun.png taken immediately after select"
+    },
+    {
+      "id": "view-pistol",
+      "name": "View and HUD match for Pistol",
+      "status": "PASS",
+      "detail": "hudWeapon=pistol ammo=Pistol 12 / 12 screenshot=view-pistol.png taken immediately after select"
+    },
+    {
+      "id": "view-automatic",
+      "name": "View and HUD match for Automatic",
+      "status": "PASS",
+      "detail": "hudWeapon=automatic ammo=Automatic 30 / 30 screenshot=view-automatic.png taken immediately after select"
+    },
+    {
+      "id": "view-blaster",
+      "name": "View and HUD match for Blaster",
+      "status": "PASS",
+      "detail": "hudWeapon=blaster ammo=Blaster 8 / 8 screenshot=view-blaster.png taken immediately after select"
+    },
+    {
+      "id": "view-knife",
+      "name": "View and HUD match for Throwing knife",
+      "status": "PASS",
+      "detail": "hudWeapon=knife ammo=Throwing knife 6 / 6 screenshot=view-knife.png taken immediately after select"
+    },
+    {
+      "id": "view-throwable",
+      "name": "View and HUD match for Grenade",
+      "status": "PASS",
+      "detail": "hudWeapon=throwable ammo=Grenade 3 / 3 screenshot=view-throwable.png taken immediately after select"
+    },
+    {
+      "id": "accept-shotgun",
+      "name": "Shotgun two shots use ammo 6 to 4",
+      "status": "PASS",
+      "detail": "ammo={\"shotgun\":4,\"pistol\":12,\"automatic\":30,\"blaster\":8,\"knife\":6,\"throwable\":3}"
+    },
+    {
+      "id": "accept-pistol",
+      "name": "Pistol shot deals 20 damage, unchanged",
+      "status": "PASS",
+      "detail": "before=36 after=16"
+    },
+    {
+      "id": "accept-errors",
+      "name": "No page or console errors",
+      "status": "PASS",
+      "detail": "none"
+    }
+  ]
+}
