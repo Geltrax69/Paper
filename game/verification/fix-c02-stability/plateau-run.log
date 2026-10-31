@@ -1,0 +1,24 @@
+baseline textures=13 geo=21
+direction front: frames=0,1,2,3,4,5,6,7 count=8/8 textures=17 geo=22
+direction front-right: frames=0,1,2,3,4,5,6,7 count=8/8 textures=22 geo=23
+direction right: frames=0,1,2,3,4,5,6,7 count=8/8 textures=29 geo=23
+direction back-right: frames=0,1,2,3,4,5,6,7 count=8/8 textures=34 geo=23
+direction back: frames=0,1,2,3,4,5,6,7 count=8/8 textures=39 geo=23
+direction back-left: frames=0,1,2,3,4,5,6,7 count=8/8 textures=44 geo=23
+direction left: frames=0,1,2,3,4,5,6,7 count=8/8 textures=50 geo=23
+direction front-left: frames=0,1,2,3,4,5,6,7 count=8/8 textures=56 geo=23
+insect run: frames=0,1,2,3,4,5 count=6/6 textures=59 geo=22
+brute run: frames=0,1,2,3,4,5,6 count=7/7 textures=67 geo=22
+runner attack: frames=0,1,2,3,4,5 count=6/6 textures=69
+runner defeat removal: textures=69 geo=21
+insect attack: frames=0,1,2,3,4 count=5/5 textures=69
+insect defeat removal: textures=69 geo=21
+brute attack: frames=0,1,2,3,4,5 count=6/6 textures=69
+brute defeat removal: textures=69 geo=21
+warmup complete textures=69 geo=21
+wave 4: textures=69 geo=21 phase=waveComplete cumulativeSources=31 newSources=31 environment/punchy_floor_dark_ink.png | environment/wall_seamless.png | environment/crate_variant_wood.png | environment/crate_variant_metal.png | environment/crate_variant_paper.png | environment/far_skyline.png | environment/mid_ruins.png | monsters/runner/frames/punchy_runner_front_run_01.png | monsters/runner/frames/runner_attack_front_01.png | monsters/runner/frames/runner_defeat_front_01.png | weapons/shotgun/punchy_shotgun_idle.png | weapons/shotgun/frames/shotgun_fire_diag_01.png | weapons/shotgun/frames_punchy/punchy_shotgun_reload_01.png | effects/frames/muzzle_flash_01.png | monsters/runner/frames/punchy_runner_front_run_02.png | monsters/runner/frames/runner_defeat_front_02.png | monsters/runner/frames/runner_defeat_front_04.png | monsters/runner/frames/runner_defeat_front_06.png | monsters/runner/frames/runner_defeat_front_08.png | monsters/insect/frames/punchy_insect_run_02.png | monsters/insect/frames/punchy_insect_attack_02.png | monsters/insect/frames/punchy_insect_run_03.png | monsters/insect/frames/punchy_insect_run_05.png | monsters/runner/frames/punchy_runner_front_run_05.png | monsters/runner/frames/punchy_runner_front_run_06.png | monsters/brute/frames/punchy_brute_run_02.png | monsters/brute/frames/punchy_brute_attack_01.png | monsters/brute/frames/punchy_brute_run_07.png | monsters/brute/frames/punchy_brute_run_08.png | monsters/runner/frames/punchy_runner_front_run_07.png | monsters/runner/frames/punchy_runner_front_run_08.png
+wave 5: textures=69 geo=21 phase=waveComplete cumulativeSources=25 newSources=0 
+wave 6: textures=69 geo=21 phase=waveComplete cumulativeSources=29 newSources=5 monsters/runner/frames/punchy_runner_front_run_07.png | monsters/insect/frames/punchy_insect_run_07.png | monsters/runner/frames/punchy_runner_front_run_03.png | monsters/brute/frames/punchy_brute_run_04.png | monsters/brute/frames/punchy_brute_run_05.png
+wave 7: textures=69 geo=21 phase=waveComplete cumulativeSources=25 newSources=2 monsters/insect/frames/punchy_insect_run_06.png | monsters/brute/frames/punchy_brute_run_03.png
+wave 8: textures=69 geo=21 phase=waveComplete cumulativeSources=32 newSources=8 monsters/runner/frames/punchy_runner_front_run_03.png | monsters/insect/frames/punchy_insect_run_04.png | monsters/runner/frames/punchy_runner_front_run_07.png | monsters/brute/frames/punchy_brute_run_07.png | monsters/brute/frames/punchy_brute_run_08.png | monsters/insect/frames/punchy_insect_run_05.png | monsters/insect/frames/punchy_insect_run_03.png | monsters/insect/frames/punchy_insect_run_07.png
+plateau done

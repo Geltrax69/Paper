@@ -1,0 +1,232 @@
+{
+  "segments": [
+    {
+      "name": "baseline-after-clear",
+      "textures": 13,
+      "geometries": 18
+    },
+    {
+      "name": "runner-front-run",
+      "textures": 19,
+      "geometries": 21,
+      "frames": [
+        "punchy_runner_front_run_01",
+        "punchy_runner_front_run_02",
+        "punchy_runner_front_run_03",
+        "punchy_runner_front_run_04",
+        "punchy_runner_front_run_05",
+        "punchy_runner_front_run_06",
+        "punchy_runner_front_run_07",
+        "punchy_runner_front_run_08"
+      ]
+    },
+    {
+      "name": "runner-left-run",
+      "textures": 21,
+      "beforeLeft": 21,
+      "frames": [
+        "runner_run_left_01",
+        "runner_run_left_02",
+        "runner_run_left_03",
+        "runner_run_left_04",
+        "runner_run_left_05",
+        "runner_run_left_06",
+        "runner_run_left_07",
+        "runner_run_left_08"
+      ],
+      "transitions": []
+    },
+    {
+      "name": "runner-left-repeat",
+      "textures": 28,
+      "delta": 6
+    },
+    {
+      "name": "runner-direction-front-right",
+      "textures": 29,
+      "delta": 0,
+      "frames": [
+        "runner_run_front_right_01",
+        "runner_run_front_right_02",
+        "runner_run_front_right_03",
+        "runner_run_front_right_04",
+        "runner_run_front_right_05",
+        "runner_run_front_right_06",
+        "runner_run_front_right_07",
+        "runner_run_front_right_08"
+      ]
+    },
+    {
+      "name": "runner-direction-right",
+      "textures": 31,
+      "delta": 0,
+      "frames": [
+        "runner_run_right_01",
+        "runner_run_right_02",
+        "runner_run_right_03",
+        "runner_run_right_04",
+        "runner_run_right_05",
+        "runner_run_right_06",
+        "runner_run_right_07",
+        "runner_run_right_08"
+      ]
+    },
+    {
+      "name": "runner-direction-back-right",
+      "textures": 33,
+      "delta": 0,
+      "frames": [
+        "runner_run_back_right_01",
+        "runner_run_back_right_02",
+        "runner_run_back_right_03",
+        "runner_run_back_right_04",
+        "runner_run_back_right_05",
+        "runner_run_back_right_06",
+        "runner_run_back_right_07",
+        "runner_run_back_right_08"
+      ]
+    },
+    {
+      "name": "runner-direction-back",
+      "textures": 35,
+      "delta": 0,
+      "frames": [
+        "runner_run_back_01",
+        "runner_run_back_02",
+        "runner_run_back_03",
+        "runner_run_back_04",
+        "runner_run_back_05",
+        "runner_run_back_06",
+        "runner_run_back_07",
+        "runner_run_back_08"
+      ]
+    },
+    {
+      "name": "runner-direction-back-left",
+      "textures": 37,
+      "delta": 0,
+      "frames": [
+        "runner_run_back_left_01",
+        "runner_run_back_left_02",
+        "runner_run_back_left_03",
+        "runner_run_back_left_04",
+        "runner_run_back_left_05",
+        "runner_run_back_left_06",
+        "runner_run_back_left_07",
+        "runner_run_back_left_08"
+      ]
+    },
+    {
+      "name": "runner-direction-front-left",
+      "textures": 39,
+      "delta": 0,
+      "frames": [
+        "runner_run_front_left_01",
+        "runner_run_front_left_02",
+        "runner_run_front_left_03",
+        "runner_run_front_left_04",
+        "runner_run_front_left_05",
+        "runner_run_front_left_06",
+        "runner_run_front_left_07",
+        "runner_run_front_left_08"
+      ]
+    },
+    {
+      "name": "runner-attack",
+      "textures": 44,
+      "frames": [
+        "runner_attack_front_01",
+        "runner_attack_front_02",
+        "runner_attack_front_03",
+        "runner_attack_front_04",
+        "runner_attack_front_05",
+        "runner_attack_front_06"
+      ]
+    },
+    {
+      "name": "runner-hit",
+      "textures": 44,
+      "state": "pursue"
+    },
+    {
+      "name": "runner-defeat",
+      "textures": 52,
+      "frames": [
+        "runner_defeat_front_01",
+        "runner_defeat_front_02",
+        "runner_defeat_front_03",
+        "runner_defeat_front_04",
+        "runner_defeat_front_05",
+        "runner_defeat_front_06",
+        "runner_defeat_front_07",
+        "runner_defeat_front_08"
+      ]
+    }
+  ],
+  "waves": [
+    {
+      "wave": 1,
+      "textures": 22,
+      "geometries": 18,
+      "framesSeen": [
+        "punchy_runner_front_run_01",
+        "runner_defeat_front_01",
+        "runner_defeat_front_02",
+        "runner_defeat_front_03",
+        "runner_defeat_front_04",
+        "runner_defeat_front_05",
+        "runner_defeat_front_06",
+        "runner_defeat_front_07",
+        "runner_defeat_front_08",
+        "punchy_runner_front_run_03",
+        "punchy_runner_front_run_05",
+        "punchy_runner_front_run_07"
+      ],
+      "postWarmup": false
+    },
+    {
+      "wave": 2,
+      "textures": 26,
+      "geometries": 18,
+      "framesSeen": [
+        "punchy_runner_front_run_05",
+        "runner_defeat_front_01",
+        "runner_defeat_front_02",
+        "runner_defeat_front_03",
+        "runner_defeat_front_04",
+        "runner_defeat_front_05",
+        "runner_defeat_front_06",
+        "runner_defeat_front_07",
+        "runner_defeat_front_08",
+        "punchy_insect_run_06",
+        "punchy_runner_front_run_01",
+        "punchy_runner_front_run_03",
+        "punchy_insect_run_05",
+        "punchy_runner_front_run_07"
+      ],
+      "postWarmup": false
+    },
+    {
+      "wave": 3,
+      "textures": 28,
+      "geometries": 18,
+      "framesSeen": [
+        "punchy_runner_front_run_05",
+        "runner_defeat_front_01",
+        "runner_defeat_front_02",
+        "runner_defeat_front_03",
+        "runner_defeat_front_04",
+        "runner_defeat_front_05",
+        "runner_defeat_front_06",
+        "runner_defeat_front_07",
+        "runner_defeat_front_08",
+        "punchy_insect_run_06",
+        "punchy_runner_front_run_01",
+        "punchy_brute_run_03"
+      ],
+      "postWarmup": false
+    }
+  ],
+  "identity": null,
+  "page1Error": "timeout waiting for insect A run frames: "
+}

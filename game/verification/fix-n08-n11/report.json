@@ -10,19 +10,19 @@
       "id": "n08-startup-no-alpha",
       "name": "Normal play start performs no alpha scan",
       "status": "PASS",
-      "detail": "alphaLogs=0 startupBytes=37185370 assetBytes=37173668 jsBytes=665412 responses=109"
+      "detail": "alphaLogs=0 startupBytes=45473804 assetBytes=45462102 jsBytes=679196 responses=133"
     },
     {
       "id": "n08-review-alpha",
       "name": "Review mode still shows alpha diagnostics",
       "status": "PASS",
-      "detail": "alphaLogs=321"
+      "detail": "alphaLogs=393"
     },
     {
       "id": "n08-caps",
       "name": "Caps reported as 12 active runners and 4 attackers",
       "status": "PASS",
-      "detail": "{\"activeRunnerCap\":12,\"activeRunners\":1,\"attackers\":0,\"fxPools\":{\"explosions\":0,\"flashes\":0,\"fragments\":0,\"inkStars\":0,\"pooled\":236,\"rings\":0,\"smoke\":0,\"sparks\":0,\"textures\":7},\"lastNeighborCandidates\":1,\"maxAttackers\":4,\"neighborBuckets\":1,\"queuedRunners\":5,\"totalRunners\":1}"
+      "detail": "{\"activeEnemies\":1,\"activeRunnerCap\":12,\"activeRunners\":1,\"attackers\":0,\"fxPools\":{\"explosions\":0,\"flashes\":0,\"fragments\":0,\"inkStars\":0,\"pooled\":236,\"rings\":0,\"smoke\":0,\"sparks\":0,\"textures\":7},\"lastNeighborCandidates\":1,\"maxAttackers\":4,\"neighborBuckets\":1,\"queuedRunners\":5,\"totalRunners\":1}"
     },
     {
       "id": "n08-spatial",
@@ -118,7 +118,7 @@
       "id": "n10-decal",
       "name": "Decal stays on its surface after a camera move",
       "status": "PASS",
-      "detail": "decals=1 normal=0,0,1"
+      "detail": "decals=2 normal=0,0,1"
     },
     {
       "id": "accept-sprint",
@@ -128,15 +128,15 @@
     },
     {
       "id": "n08-stability",
-      "name": "Wave 3 and wave 4 clears settle at the same geometry and texture counts",
+      "name": "Post-warmup waves 5 and 6 settle at the same geometry and texture counts",
       "status": "PASS",
-      "detail": "beforeGeo=21 midGeo=51 afterCycleGeo=21 wave2Geo=18 wave2Tex=27 wave3Geo=18 wave3Tex=27 wave4Geo=18 wave4Tex=27 drawCalls=14 frameTimeMs=49.99999999999998"
+      "detail": "beforeGeo=21 midGeo=51 afterCycleGeo=21 insectRun=6/6 bruteRun=7/7 runnerAttack=6/6 insectAttack=5/5 bruteAttack=6/6 warmedTex=60 warmedGeo=20 wave4Geo=20 wave4Tex=60 wave5Geo=20 wave5Tex=60 wave6Geo=20 wave6Tex=60 drawCalls=8 frameTimeMs=49.99999999999998"
     },
     {
       "id": "accept-1920",
       "name": "Game runs at 1920x1080 with HUD state",
       "status": "PASS",
-      "detail": "phase=playing wave=1 drawCalls=25 frameTimeMs=45.7739531205841 triangles=802"
+      "detail": "phase=playing wave=1 drawCalls=25 frameTimeMs=46.26955413442342 triangles=802"
     }
   ],
   "failed": 0

@@ -1,0 +1,212 @@
+{
+  "segments": [
+    {
+      "name": "baseline",
+      "infoTextures": 13,
+      "geometries": 18,
+      "visibleEntries": 14,
+      "distinctVisibleUuids": 8,
+      "cumulative": 8,
+      "sources": [
+        "http://127.0.0.1:5185/assets/environment/crate_variant_metal.png",
+        "http://127.0.0.1:5185/assets/environment/crate_variant_paper.png",
+        "http://127.0.0.1:5185/assets/environment/crate_variant_wood.png",
+        "http://127.0.0.1:5185/assets/environment/far_skyline.png",
+        "http://127.0.0.1:5185/assets/environment/mid_ruins.png",
+        "http://127.0.0.1:5185/assets/environment/punchy_floor_dark_ink.png",
+        "http://127.0.0.1:5185/assets/environment/wall_seamless.png",
+        "http://127.0.0.1:5185/assets/weapons/shotgun/punchy_shotgun_idle.png"
+      ]
+    },
+    {
+      "name": "insect-pursue",
+      "infoTextures": 22,
+      "geometries": 24,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 19,
+      "sources": [
+        "http://127.0.0.1:5185/assets/environment/crate_variant_metal.png",
+        "http://127.0.0.1:5185/assets/environment/crate_variant_paper.png",
+        "http://127.0.0.1:5185/assets/environment/crate_variant_wood.png",
+        "http://127.0.0.1:5185/assets/environment/far_skyline.png",
+        "http://127.0.0.1:5185/assets/environment/mid_ruins.png",
+        "http://127.0.0.1:5185/assets/environment/punchy_floor_dark_ink.png",
+        "http://127.0.0.1:5185/assets/environment/wall_seamless.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_02.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_03.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_04.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_05.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_06.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_02.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_03.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_04.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_05.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_06.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_07.png",
+        "http://127.0.0.1:5185/assets/weapons/shotgun/punchy_shotgun_idle.png"
+      ]
+    },
+    {
+      "name": "insect-second",
+      "infoTextures": 23,
+      "geometries": 28,
+      "visibleEntries": 16,
+      "distinctVisibleUuids": 10,
+      "cumulative": 19,
+      "addedSources": [],
+      "sources": [
+        "http://127.0.0.1:5185/assets/environment/crate_variant_metal.png",
+        "http://127.0.0.1:5185/assets/environment/crate_variant_paper.png",
+        "http://127.0.0.1:5185/assets/environment/crate_variant_wood.png",
+        "http://127.0.0.1:5185/assets/environment/far_skyline.png",
+        "http://127.0.0.1:5185/assets/environment/mid_ruins.png",
+        "http://127.0.0.1:5185/assets/environment/punchy_floor_dark_ink.png",
+        "http://127.0.0.1:5185/assets/environment/wall_seamless.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_02.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_03.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_04.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_05.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_attack_06.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_02.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_03.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_04.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_05.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_06.png",
+        "http://127.0.0.1:5185/assets/monsters/insect/frames/punchy_insect_run_07.png",
+        "http://127.0.0.1:5185/assets/weapons/shotgun/punchy_shotgun_idle.png"
+      ]
+    },
+    {
+      "name": "runner-front",
+      "infoTextures": 37,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 33,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_01.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_02.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_03.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_05.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_06.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_08.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_04.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/punchy_runner_front_run_07.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_attack_front_01.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_attack_front_02.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_attack_front_03.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_attack_front_04.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_attack_front_05.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_attack_front_06.png"
+      ]
+    },
+    {
+      "name": "runner-left",
+      "infoTextures": 45,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 41,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_03.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_04.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_05.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_07.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_08.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_02.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_06.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_left_01.png"
+      ]
+    },
+    {
+      "name": "runner-front-right",
+      "infoTextures": 53,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 49,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_05.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_06.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_07.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_01.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_02.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_04.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_08.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_right_03.png"
+      ]
+    },
+    {
+      "name": "runner-right",
+      "infoTextures": 61,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 57,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_07.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_08.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_01.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_03.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_04.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_06.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_02.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_right_05.png"
+      ]
+    },
+    {
+      "name": "runner-back-right",
+      "infoTextures": 69,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 65,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_01.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_02.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_03.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_05.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_06.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_08.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_04.png",
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_right_07.png"
+      ]
+    },
+    {
+      "name": "runner-back",
+      "infoTextures": 70,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 66,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_01.png"
+      ]
+    },
+    {
+      "name": "runner-back-left",
+      "infoTextures": 71,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 67,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_back_left_03.png"
+      ]
+    },
+    {
+      "name": "runner-front-left",
+      "infoTextures": 72,
+      "geometries": 23,
+      "visibleEntries": 15,
+      "distinctVisibleUuids": 9,
+      "cumulative": 68,
+      "addedSources": [
+        "http://127.0.0.1:5185/assets/monsters/runner/frames/runner_run_front_left_05.png"
+      ]
+    }
+  ],
+  "waves": [],
+  "error": "timeout waiting for runner attack"
+}

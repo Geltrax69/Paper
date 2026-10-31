@@ -1,0 +1,206 @@
+{
+  "directions": [
+    {
+      "dir": "front",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 15,
+      "geometries": 20
+    },
+    {
+      "dir": "front-right",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 19,
+      "geometries": 22
+    },
+    {
+      "dir": "right",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 23,
+      "geometries": 23
+    },
+    {
+      "dir": "back-right",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 26,
+      "geometries": 23
+    },
+    {
+      "dir": "back",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 29,
+      "geometries": 23
+    },
+    {
+      "dir": "back-left",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 32,
+      "geometries": 23
+    },
+    {
+      "dir": "left",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 35,
+      "geometries": 23
+    },
+    {
+      "dir": "front-left",
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 38,
+      "geometries": 23
+    }
+  ],
+  "attacks": [
+    {
+      "family": "runner",
+      "attack": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "defeat": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "textures": 54
+    },
+    {
+      "family": "insect",
+      "attack": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "defeat": [],
+      "textures": 60
+    },
+    {
+      "family": "brute",
+      "attack": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "defeat": [],
+      "textures": 71
+    }
+  ],
+  "waves": [
+    {
+      "wave": 4,
+      "textures": 76,
+      "geometries": 22,
+      "phase": "waveComplete"
+    },
+    {
+      "wave": 5,
+      "textures": 76,
+      "geometries": 22,
+      "phase": "waveComplete"
+    },
+    {
+      "wave": 6,
+      "textures": 77,
+      "geometries": 22,
+      "phase": "waveComplete"
+    }
+  ],
+  "identity": {
+    "afterA": 71,
+    "afterB": 74,
+    "delta": 3
+  },
+  "baseline": {
+    "textures": 13,
+    "geometries": 18
+  },
+  "warmup": {
+    "textures": 75,
+    "geometries": 26
+  }
+}

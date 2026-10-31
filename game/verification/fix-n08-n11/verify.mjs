@@ -443,26 +443,101 @@ try {
       const before = await debug(page, "getState()");
       const cycle = await debug(page, "cycleRunners(10)");
       const afterCycle = await debug(page, "getState()");
-      await debug(page, "resetGame()");
+      // Stability premise, updated for C02 (see verification/fix-c02-stability/REPORT.md):
+      // renderer.info.memory.textures counts a texture on first render, so a wave
+      // that first shows a new family frame or runner direction legitimately adds
+      // textures. Comparing two early waves therefore fails without a leak. Warm
+      // up every family frame and runner direction first, with the camera facing
+      // the runner so frames actually render, then compare two consecutive waves
+      // after that point. The pass threshold is unchanged: exact equality of
+      // geometries and textures between the two post-warmup waves.
+      const ensurePlaying = async () => {
+        const s = await debug(page, "getState()");
+        if (s.phase !== "playing") {
+          await page.click("#startBtn");
+          await waitFor(page, async () => (await debug(page, "getState()")).phase === "playing", 60000, "playing after restart");
+        }
+      };
+      const warmRunFrames = async (setup, frames, label) => {
+        await ensurePlaying(page);
+        await debug(page, "clearRunners()");
+        await setup();
+        const seen = new Set();
+        await waitFor(page, async () => {
+          const s = await debug(page, "getState()");
+          for (const r of s.runners) seen.add(r.runFrame);
+          return seen.size >= frames;
+        }, 180000, `${label} run frames`);
+        return seen.size;
+      };
+      const warmAttackFrames = async (family, frames) => {
+        await ensurePlaying(page);
+        await debug(page, "clearRunners()");
+        await debug(page, `spawnFamilyAt(0,0,"${family}")`);
+        const seen = new Set();
+        for (let attempt = 0; attempt < 4; attempt += 1) {
+          await debug(page, "setPlayerFeet(0,0,2)");
+          await debug(page, "setYaw(3.14159)");
+          let movedAway = false;
+          await waitFor(page, async () => {
+            const s = await debug(page, "getState()");
+            const r = s.runners[0];
+            if (!r) return true;
+            if (r.visibleMesh === "attack") {
+              seen.add(r.attackFrame);
+              if (!movedAway) { await debug(page, "setPlayerFeet(8,10,8)"); movedAway = true; }
+            }
+            if (movedAway && r.state === "pursue") return true;
+            return seen.size >= frames;
+          }, 90000, `${family} attack attempt ${attempt}`);
+          if (seen.size >= frames) break;
+        }
+        if (seen.size < frames) throw new Error(`${family} attack frames ${seen.size}/${frames}`);
+        await debug(page, "damageRunner(0,100)");
+        await waitFor(page, async () => (await debug(page, "getState()")).runners.length === 0, 180000, `${family} defeat removal`);
+        return seen.size;
+      };
+      for (const dir of ["front", "front-right", "right", "back-right", "back", "back-left", "left", "front-left"]) {
+        const n = await warmRunFrames(async () => {
+          await debug(page, `spawnFamilyAt(0,0,"runner")`);
+          await debug(page, `setRunnerDirection(0,"${dir}")`);
+          await debug(page, "setPlayerFeet(8,10,8)");
+          await debug(page, "setYaw(0.785)");
+        }, 8, `runner ${dir}`);
+        if (n < 8) throw new Error(`runner ${dir} run frames ${n}/8`);
+      }
+      const insectRun = await warmRunFrames(async () => {
+        await debug(page, `spawnFamilyAt(0,0,"insect")`);
+        await debug(page, "setPlayerFeet(8,10,8)");
+        await debug(page, "setYaw(0.785)");
+      }, 6, "insect");
+      const bruteRun = await warmRunFrames(async () => {
+        await debug(page, `spawnFamilyAt(0,0,"brute")`);
+        await debug(page, "setPlayerFeet(8,10,8)");
+        await debug(page, "setYaw(0.785)");
+      }, 7, "brute");
+      const runnerAttack = await warmAttackFrames("runner", 6);
+      const insectAttack = await warmAttackFrames("insect", 5);
+      const bruteAttack = await warmAttackFrames("brute", 6);
+      const warmed = await debug(page, "getState()");
+      await ensurePlaying(page);
+      await debug(page, "startWaveDebug(4)");
       await killAll(page);
+      const wave4 = await debug(page, "getState()");
       await page.click("#startBtn");
-      await waitFor(page, async () => (await debug(page, "getState()")).phase === "playing", 10000, "wave 2 playing");
+      await waitFor(page, async () => (await debug(page, "getState()")).phase === "playing", 60000, "wave 5 playing");
       await killAll(page);
-      const mid = await debug(page, "getState()");
+      const wave5 = await debug(page, "getState()");
       await page.click("#startBtn");
-      await waitFor(page, async () => (await debug(page, "getState()")).phase === "playing", 10000, "wave 3 playing");
+      await waitFor(page, async () => (await debug(page, "getState()")).phase === "playing", 60000, "wave 6 playing");
       await killAll(page);
-      const after = await debug(page, "getState()");
-      await page.click("#startBtn");
-      await waitFor(page, async () => (await debug(page, "getState()")).phase === "playing", 10000, "wave 4 playing");
-      await killAll(page);
-      const after4 = await debug(page, "getState()");
-      const stable = after4.geometries === after.geometries && after4.textures === after.textures;
-      record("n08-stability", "Wave 3 and wave 4 clears settle at the same geometry and texture counts", stable ? "PASS" : "FAIL",
-        `beforeGeo=${before.geometries} midGeo=${cycle.mid} afterCycleGeo=${cycle.after} wave2Geo=${mid.geometries} wave2Tex=${mid.textures} wave3Geo=${after.geometries} wave3Tex=${after.textures} wave4Geo=${after4.geometries} wave4Tex=${after4.textures} drawCalls=${after4.drawCalls} frameTimeMs=${after4.frameTimeMs}`);
+      const wave6 = await debug(page, "getState()");
+      const stable = wave6.geometries === wave5.geometries && wave6.textures === wave5.textures;
+      record("n08-stability", "Post-warmup waves 5 and 6 settle at the same geometry and texture counts", stable ? "PASS" : "FAIL",
+        `beforeGeo=${before.geometries} midGeo=${cycle.mid} afterCycleGeo=${cycle.after} insectRun=${insectRun}/6 bruteRun=${bruteRun}/7 runnerAttack=${runnerAttack}/6 insectAttack=${insectAttack}/5 bruteAttack=${bruteAttack}/6 warmedTex=${warmed.textures} warmedGeo=${warmed.geometries} wave4Geo=${wave4.geometries} wave4Tex=${wave4.textures} wave5Geo=${wave5.geometries} wave5Tex=${wave5.textures} wave6Geo=${wave6.geometries} wave6Tex=${wave6.textures} drawCalls=${wave6.drawCalls} frameTimeMs=${wave6.frameTimeMs}`);
       await page.screenshot({ path: path.join(outDir, "stability.png") });
     } catch (e) {
-      record("n08-stability", "Two wave clears and a restart leave counts stable", "FAIL", String(e.message).slice(0, 300));
+      record("n08-stability", "Two post-warmup wave clears leave counts stable", "FAIL", String(e.message).slice(0, 300));
     }
     await page.close();
   }

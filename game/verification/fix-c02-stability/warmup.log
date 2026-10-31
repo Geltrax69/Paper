@@ -1,0 +1,23 @@
+baseline textures=13 geo=18
+direction front: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=15 geo=20
+direction front-right: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=19 geo=22
+direction right: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=23 geo=23
+direction back-right: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=26 geo=23
+direction back: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=29 geo=23
+direction back-left: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=32 geo=23
+direction left: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=35 geo=23
+direction front-left: frames seen=0,1,2,3,4,5,6,7 count=8/8 textures=38 geo=23
+runner attack attempt 0: frames seen=0,1,2,3,4,5 count=6/6
+runner attack done: frames=0,1,2,3,4,5 textures=46
+runner defeat: frames=0,1,2,3,4,5,6,7 count=8/8 textures=54
+insect attack attempt 0: frames seen=0,1,2,3,4 count=5/5
+insect attack done: frames=0,1,2,3,4 textures=59
+insect defeat: frames= count=0/0 textures=60
+brute attack attempt 0: frames seen=0,1,2,3,4,5 count=6/6
+brute attack done: frames=0,1,2,3,4,5 textures=71
+brute defeat: frames= count=0/0 textures=71
+identity: after insect A textures=71 after insect B textures=74 delta=3 framesA=0,1,2,3,4,5
+warmup complete textures=75 geo=26
+post-warmup wave 4 textures=76 geo=22 phase=waveComplete waveField=4
+post-warmup wave 5 textures=76 geo=22 phase=waveComplete waveField=5
+post-warmup wave 6 textures=77 geo=22 phase=waveComplete waveField=6
