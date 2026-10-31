@@ -1,0 +1,110 @@
+[
+  {
+    "id": "build",
+    "name": "npm run build",
+    "status": "PASS",
+    "detail": "tsc and vite build succeeded"
+  },
+  {
+    "id": "c03-registry",
+    "name": "Weapon registry with shotgun preserved",
+    "status": "PASS",
+    "detail": "ids=shotgun,pistol,automatic,blaster,knife,throwable shotgun={\"ammo\":6,\"damage\":12,\"fireIntervalMs\":750,\"id\":\"shotgun\",\"kind\":\"hitscan\",\"name\":\"Shotgun\",\"pellets\":7,\"range\":30,\"reloadMs\":1400,\"spread\":0.055} ammo={\"shotgun\":6,\"pistol\":12,\"automatic\":30,\"blaster\":8,\"knife\":6,\"throwable\":3}"
+  },
+  {
+    "id": "c03-switch",
+    "name": "Weapon switching changes view and HUD ammo",
+    "status": "PASS",
+    "detail": "pistol=pistol:Pistol 12 / 12 | automatic=automatic:Automatic 30 / 30 | blaster=blaster:Blaster 8 / 8 | knife=knife:Throwing knife 6 / 6 | throwable=throwable:Grenade 3 / 3 | shotgun=shotgun:Shotgun 6 / 6"
+  },
+  {
+    "id": "c03-shotgun",
+    "name": "Shotgun two shots use ammo 6 to 4",
+    "status": "PASS",
+    "detail": "ammo={\"shotgun\":4,\"pistol\":12,\"automatic\":30,\"blaster\":8,\"knife\":6,\"throwable\":3}"
+  },
+  {
+    "id": "c03-pistol",
+    "name": "Pistol single precise shot deals 20",
+    "status": "PASS",
+    "detail": "before=36 after=16 pistolAmmo=11"
+  },
+  {
+    "id": "c03-blaster-block",
+    "name": "Blaster bolt stops at crate, runner behind unharmed",
+    "status": "PASS",
+    "detail": "lastBolt={\"end\":[3.2800000000000002,1.48,1.75],\"hit\":\"solid\",\"start\":[3.2800000000000002,1.48,6.45]} before=36 after=36"
+  },
+  {
+    "id": "c03-blaster-hit",
+    "name": "Blaster bolt deals 30 on direct hit",
+    "status": "PASS",
+    "detail": "before=36 after=6 lastBolt={\"end\":[0.28,1.48,4.449999999999999],\"hit\":\"runner\",\"start\":[0.28,1.48,8.45]}"
+  },
+  {
+    "id": "c03-knife",
+    "name": "Knife windup, release, spin, contact damage 34",
+    "status": "PASS",
+    "detail": "windup=true before=36 after=2 lastKnife={\"end\":[0.28,1.48,5.300000000000004],\"hit\":\"runner\",\"start\":[0.28,1.48,8.45]}"
+  },
+  {
+    "id": "c03-grenade",
+    "name": "Grenade arcs, detonates, damages, count decrements",
+    "status": "PASS",
+    "detail": "before=36 after=-13 count=3->2 lastGrenade={\"center\":[0.28,0.35,0.4499999999999993],\"fuseMs\":800,\"hit\":\"detonated\"}"
+  },
+  {
+    "id": "c03-grenade-g",
+    "name": "G throws grenade without switching weapon",
+    "status": "PASS",
+    "detail": "count=2->1 lastGrenade={\"center\":[0.28,0.35,0.4499999999999993],\"fuseMs\":800,\"hit\":\"detonated\"}"
+  },
+  {
+    "id": "c03-automatic",
+    "name": "Automatic fires 3 shots in sequence, ammo 30 to 27",
+    "status": "PASS",
+    "detail": "before=30 after=27 tracers=0"
+  },
+  {
+    "id": "c03-ink",
+    "name": "Ink fills on kills and spends 50 on shock",
+    "status": "PASS",
+    "detail": "ink=100->90 expected=90 shockKills=2 spent=true shock={\"center\":[0,1.2,6],\"hits\":[{\"blocked\":false,\"damage\":70,\"distance\":0.7715082630795322,\"kind\":\"killed\"},{\"blocked\":false,\"damage\":54,\"distance\":1.9825236442474026,\"kind\":\"killed\"}]}"
+  },
+  {
+    "id": "c03-ink-partial",
+    "name": "Ink spend blocked below cost 50",
+    "status": "PASS",
+    "detail": "ink=40 spent=false"
+  },
+  {
+    "id": "c03-reduced",
+    "name": "Reduced motion and zero flash settings apply to new weapons",
+    "status": "PASS",
+    "detail": "settings={\"comicWords\":true,\"effectDensity\":\"full\",\"flash\":0,\"muted\":false,\"reducedMotion\":true,\"sensitivity\":1,\"shake\":1,\"volume\":0.8}"
+  },
+  {
+    "id": "c03-accept-shotgun",
+    "name": "Shotgun fires after weapon switching",
+    "status": "PASS",
+    "detail": "shotgunAmmo=5"
+  },
+  {
+    "id": "c03-accept-wave",
+    "name": "Wave clears and waveComplete reached",
+    "status": "PASS",
+    "detail": "phase=waveComplete score=5400"
+  },
+  {
+    "id": "c03-knife-miss",
+    "name": "Knife with no live target hits the crate, not a runner",
+    "status": "PASS",
+    "detail": "lastKnife={\"end\":[-5.72,1.48,4.9],\"hit\":\"solid\",\"start\":[-5.72,1.48,8.45]}"
+  },
+  {
+    "id": "c03-errors",
+    "name": "No page or console errors during C03 checks",
+    "status": "PASS",
+    "detail": "clean"
+  }
+]

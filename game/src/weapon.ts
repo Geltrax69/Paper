@@ -17,11 +17,74 @@ export type WeaponTextures = {
   reload: THREE.Texture[];
 };
 
+export function proceduralWeaponTexture(kind: "pistol" | "automatic"): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 640;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas unavailable for procedural weapon view");
+  ctx.clearRect(0, 0, 512, 640);
+  ctx.fillStyle = "#f3e6c8";
+  ctx.strokeStyle = "#12101b";
+  ctx.lineWidth = 10;
+  ctx.beginPath();
+  ctx.moveTo(150, 640);
+  ctx.lineTo(190, 330);
+  ctx.lineTo(330, 330);
+  ctx.lineTo(380, 640);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#f3e6c8";
+  ctx.strokeStyle = "#12101b";
+  ctx.lineWidth = 10;
+  if (kind === "pistol") {
+    ctx.beginPath();
+    ctx.roundRect(150, 150, 260, 110, 12);
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.roundRect(210, 250, 80, 130, 8);
+    ctx.fill();
+    ctx.stroke();
+  } else {
+    ctx.beginPath();
+    ctx.roundRect(110, 130, 340, 105, 12);
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(230, 235);
+    ctx.quadraticCurveTo(260, 360, 210, 420);
+    ctx.lineTo(180, 400);
+    ctx.quadraticCurveTo(210, 320, 190, 235);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+  }
+  ctx.fillStyle = "#24c9d6";
+  ctx.fillRect(kind === "pistol" ? 330 : 380, kind === "pistol" ? 180 : 160, 50, 30);
+  ctx.fillStyle = "#ffc928";
+  ctx.fillRect(kind === "pistol" ? 300 : 350, kind === "pistol" ? 185 : 165, 20, 20);
+  ctx.strokeStyle = "#35234f";
+  ctx.lineWidth = 4;
+  for (let i = 0; i < 5; i += 1) {
+    ctx.beginPath();
+    ctx.moveTo(200, 380 + i * 40);
+    ctx.lineTo(320, 360 + i * 40);
+    ctx.stroke();
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 export class WeaponView {
   readonly scene = new THREE.Scene();
   readonly camera: THREE.OrthographicCamera;
   ammo: number;
+  ammoMax = 6;
   reloadTimeMs = 0;
+  reloadTotalMs = 1400;
   sprintScale = 1;
   private readonly weapon: THREE.Mesh;
   private readonly fireWeapon: THREE.Mesh;
@@ -44,6 +107,10 @@ export class WeaponView {
   private flashHold = false;
   private reducedMotion = false;
   private flashStrength = 1;
+  private flashScale = 1;
+  private genericReload = false;
+  private reloadElapsedMs = 0;
+  private reloadTransferMs = 675;
 
   constructor(textures: WeaponTextures, aspect: number) {
     this.camera = new THREE.OrthographicCamera(-aspect, aspect, 1, -1, 0.1, 10);
@@ -159,7 +226,34 @@ export class WeaponView {
 
   get reloadProgress01(): number {
     if (!this.reloading) return 0;
-    return Math.max(0, Math.min(1, 1 - this.reloadTimeMs / 1400));
+    return Math.max(0, Math.min(1, 1 - this.reloadTimeMs / this.reloadTotalMs));
+  }
+
+  setAmmoMax(value: number): void {
+    this.ammoMax = value;
+  }
+
+  setFlashScale(value: number): void {
+    this.flashScale = value;
+  }
+
+  setIdle(
+    texture: THREE.Texture,
+    muzzle: [number, number],
+    width: number,
+    height: number,
+  ): void {
+    const material = this.weapon.material as THREE.MeshBasicMaterial;
+    material.map = texture;
+    material.needsUpdate = true;
+    this.weapon.geometry.dispose();
+    const geometry = new THREE.PlaneGeometry(width, height);
+    geometry.translate(0, height / 2, 0);
+    this.weapon.geometry = geometry;
+    this.muzzleNode.position.set((muzzle[0] - 0.5) * width, (1 - muzzle[1]) * height, 0);
+    this.fireWeapon.visible = false;
+    this.reloadWeapon.visible = false;
+    this.weapon.visible = true;
   }
 
   get reloadTransferredFlag(): boolean {
@@ -207,7 +301,10 @@ export class WeaponView {
 
   reset(): void {
     this.ammo = manifest.weapons.shotgun.ammo;
+    this.ammoMax = manifest.weapons.shotgun.ammo;
     this.reloadTimeMs = 0;
+    this.reloadTotalMs = 1400;
+    this.genericReload = false;
     this.recoil = 0;
     this.recoilVelocity = 0;
     this.swayX = 0;
@@ -253,6 +350,16 @@ export class WeaponView {
     this.syncFireFrame();
   }
 
+  triggerKick(): void {
+    if (this.reloading || this.fireActive) return;
+    this.flashActive = true;
+    this.flashHold = false;
+    this.flashPlayer.play(0);
+    this.flash.visible = true;
+    this.flash.rotation.z = Math.random() * Math.PI * 2;
+    if (!this.reducedMotion) this.recoilVelocity += 6;
+  }
+
   triggerFlash(): void {
     this.flashActive = true;
     this.flashPlayer.play(0);
@@ -265,8 +372,12 @@ export class WeaponView {
   }
 
   startReload(): boolean {
-    if (this.reloading || this.ammo === manifest.weapons.shotgun.ammo) return false;
+    if (this.reloading || this.ammo === this.ammoMax) return false;
     this.reloadTimeMs = 1400;
+    this.reloadTotalMs = 1400;
+    this.reloadTransferMs = 675;
+    this.reloadElapsedMs = 0;
+    this.genericReload = false;
     this.reloadTransferred = false;
     this.reloadPlayer.play(0);
     this.reloadWeapon.visible = true;
@@ -275,9 +386,21 @@ export class WeaponView {
     return true;
   }
 
+  startReloadGeneric(totalMs: number): boolean {
+    if (this.reloading || this.ammo === this.ammoMax) return false;
+    this.reloadTimeMs = totalMs;
+    this.reloadTotalMs = totalMs;
+    this.reloadTransferMs = Math.round(totalMs * 0.6);
+    this.reloadElapsedMs = 0;
+    this.genericReload = true;
+    this.reloadTransferred = false;
+    return true;
+  }
+
   cancelReload(): boolean {
     if (!this.reloading) return false;
     this.reloadTimeMs = 0;
+    this.genericReload = false;
     this.reloadPlayer.stop();
     this.reloadWeapon.visible = false;
     this.weapon.visible = true;
@@ -352,16 +475,28 @@ export class WeaponView {
     }
     if (this.reloadTimeMs > 0) {
       this.reloadTimeMs -= dt * 1000;
-      const events = this.reloadPlayer.update(dt * 1000, 1);
-      if (events.includes("ammo")) {
-        this.ammo = manifest.weapons.shotgun.ammo;
-        this.reloadTransferred = true;
-      }
-      this.syncReloadFrame();
-      if (this.reloadPlayer.finished) {
-        this.reloadTimeMs = 0;
-        this.reloadWeapon.visible = false;
-        this.weapon.visible = true;
+      this.reloadElapsedMs += dt * 1000;
+      if (this.genericReload) {
+        if (!this.reloadTransferred && this.reloadElapsedMs >= this.reloadTransferMs) {
+          this.ammo = this.ammoMax;
+          this.reloadTransferred = true;
+        }
+        if (this.reloadTimeMs <= 0) {
+          this.reloadTimeMs = 0;
+          this.genericReload = false;
+        }
+      } else {
+        const events = this.reloadPlayer.update(dt * 1000, 1);
+        if (events.includes("ammo")) {
+          this.ammo = this.ammoMax;
+          this.reloadTransferred = true;
+        }
+        this.syncReloadFrame();
+        if (this.reloadPlayer.finished) {
+          this.reloadTimeMs = 0;
+          this.reloadWeapon.visible = false;
+          this.weapon.visible = true;
+        }
       }
     }
     this.swayX += (-opts.mouseDelta.x * 0.0006 - this.swayX) * Math.min(1, dt * 10);
@@ -415,7 +550,7 @@ export class WeaponView {
     if (this.flash.visible) {
       const muzzle = this.muzzlePosition;
       this.flash.position.set(muzzle.x, muzzle.y, 0);
-      this.flash.scale.setScalar(1 + this.recoil * 0.1);
+      this.flash.scale.setScalar(this.flashScale * (1 + this.recoil * 0.1));
       (this.flash.material as THREE.MeshBasicMaterial).opacity = this.flashStrength;
     }
   }

@@ -118,6 +118,40 @@ export class GameAudio {
     this.tone(160, 55, 140, "square", 0.25);
   }
 
+  pistol(): void {
+    this.count("pistol");
+    this.noise(70, 4000, 0.35);
+    this.tone(900, 300, 70, "square", 0.2);
+  }
+
+  automatic(): void {
+    this.count("automatic");
+    this.noise(90, 3500, 0.35);
+    this.tone(220, 90, 90, "square", 0.2);
+  }
+
+  blaster(): void {
+    this.count("blaster");
+    this.tone(1200, 300, 220, "sawtooth", 0.25);
+    this.noise(180, 5000, 0.2);
+  }
+
+  knifeThrow(): void {
+    this.count("knifeThrow");
+    this.noise(120, 6000, 0.25);
+  }
+
+  grenadeThrow(): void {
+    this.count("grenadeThrow");
+    this.tone(500, 700, 100, "sine", 0.2);
+  }
+
+  shock(): void {
+    this.count("shock");
+    this.noise(400, 400, 0.5);
+    this.tone(200, 50, 400, "sine", 0.4);
+  }
+
   reload(): void {
     this.count("reload");
     this.tone(700, 700, 70, "square", 0.15);

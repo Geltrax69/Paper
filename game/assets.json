@@ -1,4640 +1,4815 @@
 {
-  "assets": {
-    "crate_variant_metal": {
-      "alpha": false,
-      "file": "assets/environment/crate_variant_metal.png",
-      "id": "crate_variant_metal",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        512,
-        512
-      ],
-      "size": [
-        512,
-        512
-      ],
-      "sourceSize": [
-        512,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "crate_variant_paper": {
-      "alpha": false,
-      "file": "assets/environment/crate_variant_paper.png",
-      "id": "crate_variant_paper",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        512,
-        512
-      ],
-      "size": [
-        512,
-        512
-      ],
-      "sourceSize": [
-        512,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "crate_variant_wood": {
-      "alpha": false,
-      "file": "assets/environment/crate_variant_wood.png",
-      "id": "crate_variant_wood",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        512,
-        512
-      ],
-      "size": [
-        512,
-        512
-      ],
-      "sourceSize": [
-        512,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "far_skyline": {
-      "alpha": true,
-      "file": "assets/environment/far_skyline.png",
-      "id": "far_skyline",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        1368,
-        410
-      ],
-      "size": [
-        1368,
-        410
-      ],
-      "sourceSize": [
-        1368,
-        410
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "mid_ruins": {
-      "alpha": true,
-      "file": "assets/environment/mid_ruins.png",
-      "id": "mid_ruins",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        960,
-        640
-      ],
-      "size": [
-        960,
-        640
-      ],
-      "sourceSize": [
-        960,
-        640
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "muzzle_flash_01": {
-      "alpha": true,
-      "file": "assets/effects/frames/muzzle_flash_01.png",
-      "id": "muzzle_flash_01",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "muzzle_flash_02": {
-      "alpha": true,
-      "file": "assets/effects/frames/muzzle_flash_02.png",
-      "id": "muzzle_flash_02",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "muzzle_flash_03": {
-      "alpha": true,
-      "file": "assets/effects/frames/muzzle_flash_03.png",
-      "id": "muzzle_flash_03",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "muzzle_flash_04": {
-      "alpha": true,
-      "file": "assets/effects/frames/muzzle_flash_04.png",
-      "id": "muzzle_flash_04",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "muzzle_flash_05": {
-      "alpha": true,
-      "file": "assets/effects/frames/muzzle_flash_05.png",
-      "id": "muzzle_flash_05",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "muzzle_flash_06": {
-      "alpha": true,
-      "file": "assets/effects/frames/muzzle_flash_06.png",
-      "id": "muzzle_flash_06",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_attack_front_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_attack_front_01.png",
-      "id": "runner_attack_front_01",
-      "pivot": [
-        0.5,
-        0.9704
-      ],
-      "rect": [
-        0,
-        0,
-        518,
-        912
-      ],
-      "size": [
-        518,
-        912
-      ],
-      "sourceSize": [
-        518,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_attack_front_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_attack_front_02.png",
-      "id": "runner_attack_front_02",
-      "pivot": [
-        0.5,
-        0.9704
-      ],
-      "rect": [
-        0,
-        0,
-        518,
-        912
-      ],
-      "size": [
-        518,
-        912
-      ],
-      "sourceSize": [
-        518,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_attack_front_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_attack_front_03.png",
-      "id": "runner_attack_front_03",
-      "pivot": [
-        0.5,
-        0.9704
-      ],
-      "rect": [
-        0,
-        0,
-        518,
-        912
-      ],
-      "size": [
-        518,
-        912
-      ],
-      "sourceSize": [
-        518,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_attack_front_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_attack_front_04.png",
-      "id": "runner_attack_front_04",
-      "pivot": [
-        0.5,
-        0.9704
-      ],
-      "rect": [
-        0,
-        0,
-        518,
-        912
-      ],
-      "size": [
-        518,
-        912
-      ],
-      "sourceSize": [
-        518,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_attack_front_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_attack_front_05.png",
-      "id": "runner_attack_front_05",
-      "pivot": [
-        0.5,
-        0.9704
-      ],
-      "rect": [
-        0,
-        0,
-        518,
-        912
-      ],
-      "size": [
-        518,
-        912
-      ],
-      "sourceSize": [
-        518,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_attack_front_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_attack_front_06.png",
-      "id": "runner_attack_front_06",
-      "pivot": [
-        0.5,
-        0.9704
-      ],
-      "rect": [
-        0,
-        0,
-        518,
-        912
-      ],
-      "size": [
-        518,
-        912
-      ],
-      "sourceSize": [
-        518,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_front": {
-      "alpha": true,
-      "file": "assets/monsters/runner/runner_front.png",
-      "id": "runner_front",
-      "pivot": [
-        0.5,
-        0.99
-      ],
-      "rect": [
-        0,
-        0,
-        1600,
-        1600
-      ],
-      "size": [
-        1600,
-        1600
-      ],
-      "sourceSize": [
-        1600,
-        1600
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_fire_diag_01": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.137,
-          0.155
-        ]
-      },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_01.png",
-      "id": "shotgun_fire_diag_01",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        640,
-        912
-      ],
-      "size": [
-        640,
-        912
-      ],
-      "sourceSize": [
-        640,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_fire_diag_02": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.126,
-          0.137
-        ]
-      },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_02.png",
-      "id": "shotgun_fire_diag_02",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        640,
-        912
-      ],
-      "size": [
-        640,
-        912
-      ],
-      "sourceSize": [
-        640,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_fire_diag_03": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.103,
-          0.083
-        ]
-      },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_03.png",
-      "id": "shotgun_fire_diag_03",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        640,
-        912
-      ],
-      "size": [
-        640,
-        912
-      ],
-      "sourceSize": [
-        640,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_fire_diag_04": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.113,
-          0.092
-        ]
-      },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_04.png",
-      "id": "shotgun_fire_diag_04",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        640,
-        912
-      ],
-      "size": [
-        640,
-        912
-      ],
-      "sourceSize": [
-        640,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_fire_diag_05": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.135,
-          0.101
-        ]
-      },
-      "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_05.png",
-      "id": "shotgun_fire_diag_05",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        640,
-        912
-      ],
-      "size": [
-        640,
-        912
-      ],
-      "sourceSize": [
-        640,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "wall_seamless": {
-      "alpha": false,
-      "file": "assets/environment/wall_seamless.png",
-      "id": "wall_seamless",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        512,
-        512
-      ],
-      "size": [
-        512,
-        512
-      ],
-      "sourceSize": [
-        512,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_01.png",
-      "id": "runner_run_back_01",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_02.png",
-      "id": "runner_run_back_02",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_03.png",
-      "id": "runner_run_back_03",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_04.png",
-      "id": "runner_run_back_04",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_05.png",
-      "id": "runner_run_back_05",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_06.png",
-      "id": "runner_run_back_06",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_07.png",
-      "id": "runner_run_back_07",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_08.png",
-      "id": "runner_run_back_08",
-      "pivot": [
-        0.5,
-        0.96875
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_01.png",
-      "id": "runner_run_back_left_01",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_02.png",
-      "id": "runner_run_back_left_02",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_03.png",
-      "id": "runner_run_back_left_03",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_04.png",
-      "id": "runner_run_back_left_04",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_05.png",
-      "id": "runner_run_back_left_05",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_06.png",
-      "id": "runner_run_back_left_06",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_07.png",
-      "id": "runner_run_back_left_07",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_left_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_left_08.png",
-      "id": "runner_run_back_left_08",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_01.png",
-      "id": "runner_run_back_right_01",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_02.png",
-      "id": "runner_run_back_right_02",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_03.png",
-      "id": "runner_run_back_right_03",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_04.png",
-      "id": "runner_run_back_right_04",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_05.png",
-      "id": "runner_run_back_right_05",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_06.png",
-      "id": "runner_run_back_right_06",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_07.png",
-      "id": "runner_run_back_right_07",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_back_right_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_back_right_08.png",
-      "id": "runner_run_back_right_08",
-      "pivot": [
-        0.5,
-        0.9458333333333333
-      ],
-      "rect": [
-        0,
-        0,
-        320,
-        960
-      ],
-      "size": [
-        320,
-        960
-      ],
-      "sourceSize": [
-        320,
-        960
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_01.png",
-      "id": "runner_run_front_left_01",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_02.png",
-      "id": "runner_run_front_left_02",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_03.png",
-      "id": "runner_run_front_left_03",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_04.png",
-      "id": "runner_run_front_left_04",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_05.png",
-      "id": "runner_run_front_left_05",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_06.png",
-      "id": "runner_run_front_left_06",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_07.png",
-      "id": "runner_run_front_left_07",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_left_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_left_08.png",
-      "id": "runner_run_front_left_08",
-      "pivot": [
-        0.5,
-        0.8859649122807017
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_01.png",
-      "id": "runner_run_front_right_01",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_02.png",
-      "id": "runner_run_front_right_02",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_03.png",
-      "id": "runner_run_front_right_03",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_04.png",
-      "id": "runner_run_front_right_04",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_05.png",
-      "id": "runner_run_front_right_05",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_06.png",
-      "id": "runner_run_front_right_06",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_07.png",
-      "id": "runner_run_front_right_07",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_right_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_right_08.png",
-      "id": "runner_run_front_right_08",
-      "pivot": [
-        0.5,
-        0.945
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_01.png",
-      "id": "runner_run_left_01",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_02.png",
-      "id": "runner_run_left_02",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_03.png",
-      "id": "runner_run_left_03",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_04.png",
-      "id": "runner_run_left_04",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_05.png",
-      "id": "runner_run_left_05",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_06.png",
-      "id": "runner_run_left_06",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_07.png",
-      "id": "runner_run_left_07",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_left_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_left_08.png",
-      "id": "runner_run_left_08",
-      "pivot": [
-        0.5,
-        0.8870614035087719
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_01.png",
-      "id": "runner_run_right_01",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_02.png",
-      "id": "runner_run_right_02",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_03.png",
-      "id": "runner_run_right_03",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_04.png",
-      "id": "runner_run_right_04",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_05.png",
-      "id": "runner_run_right_05",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_06.png",
-      "id": "runner_run_right_06",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_07.png",
-      "id": "runner_run_right_07",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_right_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_right_08.png",
-      "id": "runner_run_right_08",
-      "pivot": [
-        0.5,
-        0.91125
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_01.png",
-      "id": "runner_defeat_front_01",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_02.png",
-      "id": "runner_defeat_front_02",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_03.png",
-      "id": "runner_defeat_front_03",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_04.png",
-      "id": "runner_defeat_front_04",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_05.png",
-      "id": "runner_defeat_front_05",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_06.png",
-      "id": "runner_defeat_front_06",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_07.png",
-      "id": "runner_defeat_front_07",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_defeat_front_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_defeat_front_08.png",
-      "id": "runner_defeat_front_08",
-      "pivot": [
-        0.5,
-        0.8793859649122807
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_floor_dark_ink": {
-      "alpha": false,
-      "file": "assets/environment/punchy_floor_dark_ink.png",
-      "id": "punchy_floor_dark_ink",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        512,
-        512
-      ],
-      "size": [
-        512,
-        512
-      ],
-      "sourceSize": [
-        512,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_sky_cyan_open": {
-      "alpha": false,
-      "file": "assets/environment/punchy_sky_cyan_open.png",
-      "id": "punchy_sky_cyan_open",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        1024,
-        512
-      ],
-      "size": [
-        1024,
-        512
-      ],
-      "sourceSize": [
-        1024,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_idle": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/punchy_shotgun_idle.png",
-      "id": "punchy_shotgun_idle",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        1920,
-        1280
-      ],
-      "size": [
-        1920,
-        1280
-      ],
-      "sourceSize": [
-        1920,
-        1280
-      ],
-      "trimOffset": [
-        0,
-        0
-      ],
-      "attachments": {
-        "muzzle": [
-          0.095,
-          0.023
-        ]
-      }
-    },
-    "punchy_shotgun_reload_01": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_01.png",
-      "id": "punchy_shotgun_reload_01",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_02": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_02.png",
-      "id": "punchy_shotgun_reload_02",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_03": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_03.png",
-      "id": "punchy_shotgun_reload_03",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_04": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_04.png",
-      "id": "punchy_shotgun_reload_04",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_05": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_05.png",
-      "id": "punchy_shotgun_reload_05",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_06": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_06.png",
-      "id": "punchy_shotgun_reload_06",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_07": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_07.png",
-      "id": "punchy_shotgun_reload_07",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_shotgun_reload_08": {
-      "alpha": true,
-      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_08.png",
-      "id": "punchy_shotgun_reload_08",
-      "pivot": [
-        0.5,
-        0.9419
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_01.png",
-      "id": "punchy_runner_front_run_01",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_02.png",
-      "id": "punchy_runner_front_run_02",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_03.png",
-      "id": "punchy_runner_front_run_03",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_04.png",
-      "id": "punchy_runner_front_run_04",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_05.png",
-      "id": "punchy_runner_front_run_05",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_06.png",
-      "id": "punchy_runner_front_run_06",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_07.png",
-      "id": "punchy_runner_front_run_07",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_runner_front_run_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/punchy_runner_front_run_08.png",
-      "id": "punchy_runner_front_run_08",
-      "pivot": [
-        0.5,
-        0.94625
-      ],
-      "rect": [
-        0,
-        0,
-        400,
-        800
-      ],
-      "size": [
-        400,
-        800
-      ],
-      "sourceSize": [
-        400,
-        800
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_run_02": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_run_02.png",
-      "id": "punchy_insect_run_02",
-      "pivot": [
-        0.5,
-        0.8475877192982456
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_run_03": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_run_03.png",
-      "id": "punchy_insect_run_03",
-      "pivot": [
-        0.5,
-        0.8475877192982456
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_run_04": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_run_04.png",
-      "id": "punchy_insect_run_04",
-      "pivot": [
-        0.5,
-        0.8475877192982456
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_run_05": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_run_05.png",
-      "id": "punchy_insect_run_05",
-      "pivot": [
-        0.5,
-        0.8475877192982456
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_run_06": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_run_06.png",
-      "id": "punchy_insect_run_06",
-      "pivot": [
-        0.5,
-        0.8475877192982456
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_run_07": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_run_07.png",
-      "id": "punchy_insect_run_07",
-      "pivot": [
-        0.5,
-        0.8475877192982456
-      ],
-      "rect": [
-        0,
-        0,
-        342,
-        912
-      ],
-      "size": [
-        342,
-        912
-      ],
-      "sourceSize": [
-        342,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_attack_02": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_attack_02.png",
-      "id": "punchy_insect_attack_02",
-      "pivot": [
-        0.5,
-        0.9254385964912281
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_attack_03": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_attack_03.png",
-      "id": "punchy_insect_attack_03",
-      "pivot": [
-        0.5,
-        0.9254385964912281
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_attack_04": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_attack_04.png",
-      "id": "punchy_insect_attack_04",
-      "pivot": [
-        0.5,
-        0.9254385964912281
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_attack_05": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_attack_05.png",
-      "id": "punchy_insect_attack_05",
-      "pivot": [
-        0.5,
-        0.9254385964912281
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_insect_attack_06": {
-      "alpha": true,
-      "file": "assets/monsters/insect/frames/punchy_insect_attack_06.png",
-      "id": "punchy_insect_attack_06",
-      "pivot": [
-        0.5,
-        0.9254385964912281
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_02": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_02.png",
-      "id": "punchy_brute_run_02",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_03": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_03.png",
-      "id": "punchy_brute_run_03",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_04": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_04.png",
-      "id": "punchy_brute_run_04",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_05": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_05.png",
-      "id": "punchy_brute_run_05",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_06": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_06.png",
-      "id": "punchy_brute_run_06",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_07": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_07.png",
-      "id": "punchy_brute_run_07",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_run_08": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_run_08.png",
-      "id": "punchy_brute_run_08",
-      "pivot": [
-        0.5,
-        0.9375
-      ],
-      "rect": [
-        0,
-        0,
-        560,
-        560
-      ],
-      "size": [
-        560,
-        560
-      ],
-      "sourceSize": [
-        560,
-        560
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_attack_01": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_attack_01.png",
-      "id": "punchy_brute_attack_01",
-      "pivot": [
-        0.5,
-        0.9747807017543859
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_attack_02": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_attack_02.png",
-      "id": "punchy_brute_attack_02",
-      "pivot": [
-        0.5,
-        0.9747807017543859
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_attack_03": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_attack_03.png",
-      "id": "punchy_brute_attack_03",
-      "pivot": [
-        0.5,
-        0.9747807017543859
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_attack_04": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_attack_04.png",
-      "id": "punchy_brute_attack_04",
-      "pivot": [
-        0.5,
-        0.9747807017543859
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_attack_05": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_attack_05.png",
-      "id": "punchy_brute_attack_05",
-      "pivot": [
-        0.5,
-        0.9747807017543859
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "punchy_brute_attack_06": {
-      "alpha": true,
-      "file": "assets/monsters/brute/frames/punchy_brute_attack_06.png",
-      "id": "punchy_brute_attack_06",
-      "pivot": [
-        0.5,
-        0.9747807017543859
-      ],
-      "rect": [
-        0,
-        0,
-        456,
-        912
-      ],
-      "size": [
-        456,
-        912
-      ],
-      "sourceSize": [
-        456,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    }
+ "assets": {
+  "crate_variant_metal": {
+   "alpha": false,
+   "file": "assets/environment/crate_variant_metal.png",
+   "id": "crate_variant_metal",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "size": [
+    512,
+    512
+   ],
+   "sourceSize": [
+    512,
+    512
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
   },
-  "clips": {
-    "muzzle_flash": {
-      "assetIds": [
-        "muzzle_flash_01",
-        "muzzle_flash_02",
-        "muzzle_flash_03",
-        "muzzle_flash_04",
-        "muzzle_flash_05",
-        "muzzle_flash_06"
-      ],
-      "events": [
-        {
-          "name": "flash",
-          "timeMs": 0
-        }
-      ],
-      "frameMs": 15,
-      "frames": [
-        {
-          "durationMs": 15,
-          "id": "muzzle_flash_01"
-        },
-        {
-          "durationMs": 20,
-          "id": "muzzle_flash_02"
-        },
-        {
-          "durationMs": 20,
-          "id": "muzzle_flash_03"
-        },
-        {
-          "durationMs": 15,
-          "id": "muzzle_flash_04"
-        },
-        {
-          "durationMs": 15,
-          "id": "muzzle_flash_05"
-        },
-        {
-          "durationMs": 15,
-          "id": "muzzle_flash_06"
-        }
-      ],
-      "loop": false
-    },
-    "runner_attack_front": {
-      "assetIds": [
-        "runner_attack_front_01",
-        "runner_attack_front_02",
-        "runner_attack_front_03",
-        "runner_attack_front_04",
-        "runner_attack_front_05",
-        "runner_attack_front_06"
-      ],
-      "events": [
-        {
-          "name": "strike",
-          "timeMs": 360
-        }
-      ],
-      "frameMs": 100,
-      "frames": [
-        {
-          "durationMs": 100,
-          "id": "runner_attack_front_01"
-        },
-        {
-          "durationMs": 120,
-          "id": "runner_attack_front_02"
-        },
-        {
-          "durationMs": 140,
-          "id": "runner_attack_front_03"
-        },
-        {
-          "durationMs": 140,
-          "id": "runner_attack_front_04"
-        },
-        {
-          "durationMs": 100,
-          "id": "runner_attack_front_05"
-        },
-        {
-          "durationMs": 100,
-          "id": "runner_attack_front_06"
-        }
-      ],
-      "loop": false
-    },
-    "runner_front": {
-      "assetIds": [
-        "runner_front"
-      ],
-      "events": [],
-      "frameMs": 1000,
-      "loop": true
-    },
-    "runner_run_front": {
-      "assetIds": [
-        "punchy_runner_front_run_01",
-        "punchy_runner_front_run_02",
-        "punchy_runner_front_run_03",
-        "punchy_runner_front_run_04",
-        "punchy_runner_front_run_05",
-        "punchy_runner_front_run_06",
-        "punchy_runner_front_run_07",
-        "punchy_runner_front_run_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "punchy_runner_front_run_08"
-        }
-      ],
-      "loop": true
-    },
-    "shotgun_fire": {
-      "assetIds": [
-        "shotgun_fire_diag_01",
-        "shotgun_fire_diag_02",
-        "shotgun_fire_diag_03",
-        "shotgun_fire_diag_04",
-        "shotgun_fire_diag_05"
-      ],
-      "events": [
-        {
-          "name": "shot",
-          "timeMs": 0
-        },
-        {
-          "name": "flash",
-          "timeMs": 0
-        }
-      ],
-      "frameMs": 50,
-      "frames": [
-        {
-          "attachments": {
-            "muzzle": [
-              0.137,
-              0.155
-            ]
-          },
-          "durationMs": 50,
-          "id": "shotgun_fire_diag_01"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.126,
-              0.137
-            ]
-          },
-          "durationMs": 60,
-          "id": "shotgun_fire_diag_02"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.103,
-              0.083
-            ]
-          },
-          "durationMs": 60,
-          "id": "shotgun_fire_diag_03"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.113,
-              0.092
-            ]
-          },
-          "durationMs": 50,
-          "id": "shotgun_fire_diag_04"
-        },
-        {
-          "attachments": {
-            "muzzle": [
-              0.135,
-              0.101
-            ]
-          },
-          "durationMs": 50,
-          "id": "shotgun_fire_diag_05"
-        }
-      ],
-      "loop": false
-    },
-    "shotgun_idle": {
-      "assetIds": [
-        "shotgun_idle"
-      ],
-      "events": [],
-      "frameMs": 1000,
-      "loop": true
-    },
-    "runner_run_back": {
-      "assetIds": [
-        "runner_run_back_01",
-        "runner_run_back_02",
-        "runner_run_back_03",
-        "runner_run_back_04",
-        "runner_run_back_05",
-        "runner_run_back_06",
-        "runner_run_back_07",
-        "runner_run_back_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_run_back_left": {
-      "assetIds": [
-        "runner_run_back_left_01",
-        "runner_run_back_left_02",
-        "runner_run_back_left_03",
-        "runner_run_back_left_04",
-        "runner_run_back_left_05",
-        "runner_run_back_left_06",
-        "runner_run_back_left_07",
-        "runner_run_back_left_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_left_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_run_back_right": {
-      "assetIds": [
-        "runner_run_back_right_01",
-        "runner_run_back_right_02",
-        "runner_run_back_right_03",
-        "runner_run_back_right_04",
-        "runner_run_back_right_05",
-        "runner_run_back_right_06",
-        "runner_run_back_right_07",
-        "runner_run_back_right_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_back_right_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_run_front_left": {
-      "assetIds": [
-        "runner_run_front_left_01",
-        "runner_run_front_left_02",
-        "runner_run_front_left_03",
-        "runner_run_front_left_04",
-        "runner_run_front_left_05",
-        "runner_run_front_left_06",
-        "runner_run_front_left_07",
-        "runner_run_front_left_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_left_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_run_front_right": {
-      "assetIds": [
-        "runner_run_front_right_01",
-        "runner_run_front_right_02",
-        "runner_run_front_right_03",
-        "runner_run_front_right_04",
-        "runner_run_front_right_05",
-        "runner_run_front_right_06",
-        "runner_run_front_right_07",
-        "runner_run_front_right_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_front_right_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_run_left": {
-      "assetIds": [
-        "runner_run_left_01",
-        "runner_run_left_02",
-        "runner_run_left_03",
-        "runner_run_left_04",
-        "runner_run_left_05",
-        "runner_run_left_06",
-        "runner_run_left_07",
-        "runner_run_left_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_left_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_run_right": {
-      "assetIds": [
-        "runner_run_right_01",
-        "runner_run_right_02",
-        "runner_run_right_03",
-        "runner_run_right_04",
-        "runner_run_right_05",
-        "runner_run_right_06",
-        "runner_run_right_07",
-        "runner_run_right_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 284
-        }
-      ],
-      "frameMs": 71,
-      "frames": [
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_01"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_02"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_03"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_04"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_05"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_06"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_07"
-        },
-        {
-          "durationMs": 71,
-          "id": "runner_run_right_08"
-        }
-      ],
-      "loop": true
-    },
-    "runner_defeat_front": {
-      "assetIds": [
-        "runner_defeat_front_01",
-        "runner_defeat_front_02",
-        "runner_defeat_front_03",
-        "runner_defeat_front_04",
-        "runner_defeat_front_05",
-        "runner_defeat_front_06",
-        "runner_defeat_front_07",
-        "runner_defeat_front_08"
-      ],
-      "events": [],
-      "frameMs": 90,
-      "frames": [
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_01"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_02"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_03"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_04"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_05"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_06"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_07"
-        },
-        {
-          "durationMs": 90,
-          "id": "runner_defeat_front_08"
-        }
-      ],
-      "loop": false
-    },
-    "shotgun_reload": {
-      "assetIds": [
-        "punchy_shotgun_reload_01",
-        "punchy_shotgun_reload_02",
-        "punchy_shotgun_reload_03",
-        "punchy_shotgun_reload_04",
-        "punchy_shotgun_reload_05",
-        "punchy_shotgun_reload_06",
-        "punchy_shotgun_reload_07",
-        "punchy_shotgun_reload_08"
-      ],
-      "events": [
-        {
-          "name": "ammo",
-          "timeMs": 675
-        }
-      ],
-      "frames": [
-        {
-          "durationMs": 150,
-          "id": "punchy_shotgun_reload_01"
-        },
-        {
-          "durationMs": 175,
-          "id": "punchy_shotgun_reload_02"
-        },
-        {
-          "durationMs": 175,
-          "id": "punchy_shotgun_reload_03"
-        },
-        {
-          "durationMs": 175,
-          "id": "punchy_shotgun_reload_04"
-        },
-        {
-          "durationMs": 225,
-          "id": "punchy_shotgun_reload_05"
-        },
-        {
-          "durationMs": 175,
-          "id": "punchy_shotgun_reload_06"
-        },
-        {
-          "durationMs": 150,
-          "id": "punchy_shotgun_reload_07"
-        },
-        {
-          "durationMs": 175,
-          "id": "punchy_shotgun_reload_08"
-        }
-      ],
-      "loop": false
-    },
-    "insect_run_front": {
-      "assetIds": [
-        "punchy_insect_run_02",
-        "punchy_insect_run_03",
-        "punchy_insect_run_04",
-        "punchy_insect_run_05",
-        "punchy_insect_run_06",
-        "punchy_insect_run_07"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 180
-        }
-      ],
-      "frameMs": 60,
-      "frames": [
-        {
-          "durationMs": 60,
-          "id": "punchy_insect_run_02"
-        },
-        {
-          "durationMs": 60,
-          "id": "punchy_insect_run_03"
-        },
-        {
-          "durationMs": 60,
-          "id": "punchy_insect_run_04"
-        },
-        {
-          "durationMs": 60,
-          "id": "punchy_insect_run_05"
-        },
-        {
-          "durationMs": 60,
-          "id": "punchy_insect_run_06"
-        },
-        {
-          "durationMs": 60,
-          "id": "punchy_insect_run_07"
-        }
-      ],
-      "loop": true
-    },
-    "insect_attack_front": {
-      "assetIds": [
-        "punchy_insect_attack_02",
-        "punchy_insect_attack_03",
-        "punchy_insect_attack_04",
-        "punchy_insect_attack_05",
-        "punchy_insect_attack_06"
-      ],
-      "events": [
-        {
-          "name": "strike",
-          "timeMs": 270
-        }
-      ],
-      "frameMs": 80,
-      "frames": [
-        {
-          "durationMs": 80,
-          "id": "punchy_insect_attack_02"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_insect_attack_03"
-        },
-        {
-          "durationMs": 100,
-          "id": "punchy_insect_attack_04"
-        },
-        {
-          "durationMs": 110,
-          "id": "punchy_insect_attack_05"
-        },
-        {
-          "durationMs": 110,
-          "id": "punchy_insect_attack_06"
-        }
-      ],
-      "loop": false
-    },
-    "brute_run_front": {
-      "assetIds": [
-        "punchy_brute_run_02",
-        "punchy_brute_run_03",
-        "punchy_brute_run_04",
-        "punchy_brute_run_05",
-        "punchy_brute_run_06",
-        "punchy_brute_run_07",
-        "punchy_brute_run_08"
-      ],
-      "events": [
-        {
-          "name": "footstep",
-          "timeMs": 0
-        },
-        {
-          "name": "footstep",
-          "timeMs": 315
-        }
-      ],
-      "frameMs": 90,
-      "frames": [
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_02"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_03"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_04"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_05"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_06"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_07"
-        },
-        {
-          "durationMs": 90,
-          "id": "punchy_brute_run_08"
-        }
-      ],
-      "loop": true
-    },
-    "brute_attack_front": {
-      "assetIds": [
-        "punchy_brute_attack_01",
-        "punchy_brute_attack_02",
-        "punchy_brute_attack_03",
-        "punchy_brute_attack_04",
-        "punchy_brute_attack_05",
-        "punchy_brute_attack_06"
-      ],
-      "events": [
-        {
-          "name": "strike",
-          "timeMs": 450
-        }
-      ],
-      "frameMs": 150,
-      "frames": [
-        {
-          "durationMs": 150,
-          "id": "punchy_brute_attack_01"
-        },
-        {
-          "durationMs": 150,
-          "id": "punchy_brute_attack_02"
-        },
-        {
-          "durationMs": 150,
-          "id": "punchy_brute_attack_03"
-        },
-        {
-          "durationMs": 150,
-          "id": "punchy_brute_attack_04"
-        },
-        {
-          "durationMs": 150,
-          "id": "punchy_brute_attack_05"
-        },
-        {
-          "durationMs": 150,
-          "id": "punchy_brute_attack_06"
-        }
-      ],
-      "loop": false
-    }
+  "crate_variant_paper": {
+   "alpha": false,
+   "file": "assets/environment/crate_variant_paper.png",
+   "id": "crate_variant_paper",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "size": [
+    512,
+    512
+   ],
+   "sourceSize": [
+    512,
+    512
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
   },
-  "conventions": {
-    "attachmentOrigin": "top-left-of-untrimmed-source",
-    "attachmentUnits": "normalized",
-    "durationUnits": "milliseconds",
-    "eventTiming": "milliseconds-from-clip-start",
-    "pivotOrigin": "top-left-of-untrimmed-source",
-    "pivotUnits": "normalized",
-    "rectOrigin": "top-left",
-    "rectUnits": "pixels"
+  "crate_variant_wood": {
+   "alpha": false,
+   "file": "assets/environment/crate_variant_wood.png",
+   "id": "crate_variant_wood",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "size": [
+    512,
+    512
+   ],
+   "sourceSize": [
+    512,
+    512
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
   },
-  "enemies": {
-    "runner": {
-      "attackClip": "runner_attack_front",
-      "attackDamage": 12,
-      "attackRange": 2.3,
-      "clip": "runner_front",
-      "health": 36,
-      "height": 2.0,
-      "id": "runner",
-      "radius": 0.55,
-      "runClip": "runner_run_front",
-      "speed": 3.4,
-      "defeatClip": "runner_defeat_front",
-      "family": "runner",
-      "attackKind": "strike",
-      "telegraphMs": 400,
-      "leapSpeed": 0,
-      "leapMs": 0,
-      "slamRadius": 0,
-      "recoveryMs": 0
-    },
-    "insect": {
-      "attackClip": "insect_attack_front",
-      "attackDamage": 10,
-      "defeatClip": "",
-      "attackRange": 2.0,
-      "clip": "insect_front",
-      "health": 24,
-      "height": 1.2,
-      "id": "insect",
-      "radius": 0.45,
-      "runClip": "insect_run_front",
-      "speed": 4.6,
-      "family": "insect",
-      "attackKind": "leap",
-      "telegraphMs": 500,
-      "leapSpeed": 9,
-      "leapMs": 250,
-      "slamRadius": 0,
-      "recoveryMs": 200
-    },
-    "brute": {
-      "attackClip": "brute_attack_front",
-      "attackDamage": 20,
-      "defeatClip": "",
-      "attackRange": 2.6,
-      "clip": "brute_front",
-      "health": 72,
-      "height": 2.6,
-      "id": "brute",
-      "radius": 0.85,
-      "runClip": "brute_run_front",
-      "speed": 2.2,
-      "family": "brute",
-      "attackKind": "slam",
-      "telegraphMs": 900,
-      "leapSpeed": 0,
-      "leapMs": 0,
-      "slamRadius": 2.6,
-      "recoveryMs": 900
-    }
+  "far_skyline": {
+   "alpha": true,
+   "file": "assets/environment/far_skyline.png",
+   "id": "far_skyline",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    1368,
+    410
+   ],
+   "size": [
+    1368,
+    410
+   ],
+   "sourceSize": [
+    1368,
+    410
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
   },
-  "environment": {
-    "crates": [
-      "crate_variant_wood",
-      "crate_variant_metal",
-      "crate_variant_paper"
-    ],
-    "floor": {
-      "asset": "punchy_floor_dark_ink",
-      "repeat": [
-        8,
-        8
-      ]
-    },
-    "ruins": {
-      "asset": "mid_ruins",
-      "cards": [
-        [
-          -16,
-          -28,
-          0
-        ],
-        [
-          16,
-          28,
-          3.141592653589793
-        ]
-      ],
-      "height": 20,
-      "width": 30
-    },
-    "sky": {
-      "asset": "punchy_sky_cyan_open"
-    },
-    "skyline": {
-      "asset": "far_skyline",
-      "height": 15,
-      "radius": 40
-    },
-    "wall": {
-      "asset": "wall_seamless",
-      "repeat": [
-        6,
-        1
-      ]
-    }
+  "mid_ruins": {
+   "alpha": true,
+   "file": "assets/environment/mid_ruins.png",
+   "id": "mid_ruins",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    960,
+    640
+   ],
+   "size": [
+    960,
+    640
+   ],
+   "sourceSize": [
+    960,
+    640
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
   },
-  "schema": "paper-slice-v1",
-  "status": "pass3_directional",
-  "weapons": {
-    "shotgun": {
-      "ammo": 6,
-      "clip": "shotgun_idle",
-      "damage": 12,
-      "fireClip": "shotgun_fire",
-      "fireIntervalMs": 750,
-      "flashClip": "muzzle_flash",
-      "id": "shotgun",
-      "pellets": 7,
-      "spread": 0.055,
-      "reloadClip": "shotgun_reload"
-    }
+  "muzzle_flash_01": {
+   "alpha": true,
+   "file": "assets/effects/frames/muzzle_flash_01.png",
+   "id": "muzzle_flash_01",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "muzzle_flash_02": {
+   "alpha": true,
+   "file": "assets/effects/frames/muzzle_flash_02.png",
+   "id": "muzzle_flash_02",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "muzzle_flash_03": {
+   "alpha": true,
+   "file": "assets/effects/frames/muzzle_flash_03.png",
+   "id": "muzzle_flash_03",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "muzzle_flash_04": {
+   "alpha": true,
+   "file": "assets/effects/frames/muzzle_flash_04.png",
+   "id": "muzzle_flash_04",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "muzzle_flash_05": {
+   "alpha": true,
+   "file": "assets/effects/frames/muzzle_flash_05.png",
+   "id": "muzzle_flash_05",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "muzzle_flash_06": {
+   "alpha": true,
+   "file": "assets/effects/frames/muzzle_flash_06.png",
+   "id": "muzzle_flash_06",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_attack_front_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_attack_front_01.png",
+   "id": "runner_attack_front_01",
+   "pivot": [
+    0.5,
+    0.9704
+   ],
+   "rect": [
+    0,
+    0,
+    518,
+    912
+   ],
+   "size": [
+    518,
+    912
+   ],
+   "sourceSize": [
+    518,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_attack_front_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_attack_front_02.png",
+   "id": "runner_attack_front_02",
+   "pivot": [
+    0.5,
+    0.9704
+   ],
+   "rect": [
+    0,
+    0,
+    518,
+    912
+   ],
+   "size": [
+    518,
+    912
+   ],
+   "sourceSize": [
+    518,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_attack_front_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_attack_front_03.png",
+   "id": "runner_attack_front_03",
+   "pivot": [
+    0.5,
+    0.9704
+   ],
+   "rect": [
+    0,
+    0,
+    518,
+    912
+   ],
+   "size": [
+    518,
+    912
+   ],
+   "sourceSize": [
+    518,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_attack_front_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_attack_front_04.png",
+   "id": "runner_attack_front_04",
+   "pivot": [
+    0.5,
+    0.9704
+   ],
+   "rect": [
+    0,
+    0,
+    518,
+    912
+   ],
+   "size": [
+    518,
+    912
+   ],
+   "sourceSize": [
+    518,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_attack_front_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_attack_front_05.png",
+   "id": "runner_attack_front_05",
+   "pivot": [
+    0.5,
+    0.9704
+   ],
+   "rect": [
+    0,
+    0,
+    518,
+    912
+   ],
+   "size": [
+    518,
+    912
+   ],
+   "sourceSize": [
+    518,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_attack_front_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_attack_front_06.png",
+   "id": "runner_attack_front_06",
+   "pivot": [
+    0.5,
+    0.9704
+   ],
+   "rect": [
+    0,
+    0,
+    518,
+    912
+   ],
+   "size": [
+    518,
+    912
+   ],
+   "sourceSize": [
+    518,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_front": {
+   "alpha": true,
+   "file": "assets/monsters/runner/runner_front.png",
+   "id": "runner_front",
+   "pivot": [
+    0.5,
+    0.99
+   ],
+   "rect": [
+    0,
+    0,
+    1600,
+    1600
+   ],
+   "size": [
+    1600,
+    1600
+   ],
+   "sourceSize": [
+    1600,
+    1600
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "shotgun_fire_diag_01": {
+   "alpha": true,
+   "attachments": {
+    "muzzle": [
+     0.137,
+     0.155
+    ]
+   },
+   "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_01.png",
+   "id": "shotgun_fire_diag_01",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    640,
+    912
+   ],
+   "size": [
+    640,
+    912
+   ],
+   "sourceSize": [
+    640,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "shotgun_fire_diag_02": {
+   "alpha": true,
+   "attachments": {
+    "muzzle": [
+     0.126,
+     0.137
+    ]
+   },
+   "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_02.png",
+   "id": "shotgun_fire_diag_02",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    640,
+    912
+   ],
+   "size": [
+    640,
+    912
+   ],
+   "sourceSize": [
+    640,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "shotgun_fire_diag_03": {
+   "alpha": true,
+   "attachments": {
+    "muzzle": [
+     0.103,
+     0.083
+    ]
+   },
+   "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_03.png",
+   "id": "shotgun_fire_diag_03",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    640,
+    912
+   ],
+   "size": [
+    640,
+    912
+   ],
+   "sourceSize": [
+    640,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "shotgun_fire_diag_04": {
+   "alpha": true,
+   "attachments": {
+    "muzzle": [
+     0.113,
+     0.092
+    ]
+   },
+   "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_04.png",
+   "id": "shotgun_fire_diag_04",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    640,
+    912
+   ],
+   "size": [
+    640,
+    912
+   ],
+   "sourceSize": [
+    640,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "shotgun_fire_diag_05": {
+   "alpha": true,
+   "attachments": {
+    "muzzle": [
+     0.135,
+     0.101
+    ]
+   },
+   "file": "assets/weapons/shotgun/frames/shotgun_fire_diag_05.png",
+   "id": "shotgun_fire_diag_05",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    640,
+    912
+   ],
+   "size": [
+    640,
+    912
+   ],
+   "sourceSize": [
+    640,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "wall_seamless": {
+   "alpha": false,
+   "file": "assets/environment/wall_seamless.png",
+   "id": "wall_seamless",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "size": [
+    512,
+    512
+   ],
+   "sourceSize": [
+    512,
+    512
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_01.png",
+   "id": "runner_run_back_01",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_02.png",
+   "id": "runner_run_back_02",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_03.png",
+   "id": "runner_run_back_03",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_04.png",
+   "id": "runner_run_back_04",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_05.png",
+   "id": "runner_run_back_05",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_06.png",
+   "id": "runner_run_back_06",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_07.png",
+   "id": "runner_run_back_07",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_08.png",
+   "id": "runner_run_back_08",
+   "pivot": [
+    0.5,
+    0.96875
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_01.png",
+   "id": "runner_run_back_left_01",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_02.png",
+   "id": "runner_run_back_left_02",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_03.png",
+   "id": "runner_run_back_left_03",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_04.png",
+   "id": "runner_run_back_left_04",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_05.png",
+   "id": "runner_run_back_left_05",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_06.png",
+   "id": "runner_run_back_left_06",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_07.png",
+   "id": "runner_run_back_left_07",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_left_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_left_08.png",
+   "id": "runner_run_back_left_08",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_01.png",
+   "id": "runner_run_back_right_01",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_02.png",
+   "id": "runner_run_back_right_02",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_03.png",
+   "id": "runner_run_back_right_03",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_04.png",
+   "id": "runner_run_back_right_04",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_05.png",
+   "id": "runner_run_back_right_05",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_06.png",
+   "id": "runner_run_back_right_06",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_07.png",
+   "id": "runner_run_back_right_07",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_back_right_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_back_right_08.png",
+   "id": "runner_run_back_right_08",
+   "pivot": [
+    0.5,
+    0.9458333333333333
+   ],
+   "rect": [
+    0,
+    0,
+    320,
+    960
+   ],
+   "size": [
+    320,
+    960
+   ],
+   "sourceSize": [
+    320,
+    960
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_01.png",
+   "id": "runner_run_front_left_01",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_02.png",
+   "id": "runner_run_front_left_02",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_03.png",
+   "id": "runner_run_front_left_03",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_04.png",
+   "id": "runner_run_front_left_04",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_05.png",
+   "id": "runner_run_front_left_05",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_06.png",
+   "id": "runner_run_front_left_06",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_07.png",
+   "id": "runner_run_front_left_07",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_left_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_left_08.png",
+   "id": "runner_run_front_left_08",
+   "pivot": [
+    0.5,
+    0.8859649122807017
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_01.png",
+   "id": "runner_run_front_right_01",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_02.png",
+   "id": "runner_run_front_right_02",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_03.png",
+   "id": "runner_run_front_right_03",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_04.png",
+   "id": "runner_run_front_right_04",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_05.png",
+   "id": "runner_run_front_right_05",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_06.png",
+   "id": "runner_run_front_right_06",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_07.png",
+   "id": "runner_run_front_right_07",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_front_right_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_front_right_08.png",
+   "id": "runner_run_front_right_08",
+   "pivot": [
+    0.5,
+    0.945
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_01.png",
+   "id": "runner_run_left_01",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_02.png",
+   "id": "runner_run_left_02",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_03.png",
+   "id": "runner_run_left_03",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_04.png",
+   "id": "runner_run_left_04",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_05.png",
+   "id": "runner_run_left_05",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_06.png",
+   "id": "runner_run_left_06",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_07.png",
+   "id": "runner_run_left_07",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_left_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_left_08.png",
+   "id": "runner_run_left_08",
+   "pivot": [
+    0.5,
+    0.8870614035087719
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_01.png",
+   "id": "runner_run_right_01",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_02.png",
+   "id": "runner_run_right_02",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_03.png",
+   "id": "runner_run_right_03",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_04.png",
+   "id": "runner_run_right_04",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_05.png",
+   "id": "runner_run_right_05",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_06.png",
+   "id": "runner_run_right_06",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_07.png",
+   "id": "runner_run_right_07",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_run_right_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_run_right_08.png",
+   "id": "runner_run_right_08",
+   "pivot": [
+    0.5,
+    0.91125
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_01.png",
+   "id": "runner_defeat_front_01",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_02.png",
+   "id": "runner_defeat_front_02",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_03.png",
+   "id": "runner_defeat_front_03",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_04.png",
+   "id": "runner_defeat_front_04",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_05.png",
+   "id": "runner_defeat_front_05",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_06.png",
+   "id": "runner_defeat_front_06",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_07.png",
+   "id": "runner_defeat_front_07",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "runner_defeat_front_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/runner_defeat_front_08.png",
+   "id": "runner_defeat_front_08",
+   "pivot": [
+    0.5,
+    0.8793859649122807
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_floor_dark_ink": {
+   "alpha": false,
+   "file": "assets/environment/punchy_floor_dark_ink.png",
+   "id": "punchy_floor_dark_ink",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    512,
+    512
+   ],
+   "size": [
+    512,
+    512
+   ],
+   "sourceSize": [
+    512,
+    512
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_sky_cyan_open": {
+   "alpha": false,
+   "file": "assets/environment/punchy_sky_cyan_open.png",
+   "id": "punchy_sky_cyan_open",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    1024,
+    512
+   ],
+   "size": [
+    1024,
+    512
+   ],
+   "sourceSize": [
+    1024,
+    512
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_idle": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/punchy_shotgun_idle.png",
+   "id": "punchy_shotgun_idle",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    1920,
+    1280
+   ],
+   "size": [
+    1920,
+    1280
+   ],
+   "sourceSize": [
+    1920,
+    1280
+   ],
+   "trimOffset": [
+    0,
+    0
+   ],
+   "attachments": {
+    "muzzle": [
+     0.095,
+     0.023
+    ]
+   }
+  },
+  "punchy_shotgun_reload_01": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_01.png",
+   "id": "punchy_shotgun_reload_01",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_02": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_02.png",
+   "id": "punchy_shotgun_reload_02",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_03": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_03.png",
+   "id": "punchy_shotgun_reload_03",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_04": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_04.png",
+   "id": "punchy_shotgun_reload_04",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_05": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_05.png",
+   "id": "punchy_shotgun_reload_05",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_06": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_06.png",
+   "id": "punchy_shotgun_reload_06",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_07": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_07.png",
+   "id": "punchy_shotgun_reload_07",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_shotgun_reload_08": {
+   "alpha": true,
+   "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_08.png",
+   "id": "punchy_shotgun_reload_08",
+   "pivot": [
+    0.5,
+    0.9419
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_01": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_01.png",
+   "id": "punchy_runner_front_run_01",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_02": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_02.png",
+   "id": "punchy_runner_front_run_02",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_03": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_03.png",
+   "id": "punchy_runner_front_run_03",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_04": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_04.png",
+   "id": "punchy_runner_front_run_04",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_05": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_05.png",
+   "id": "punchy_runner_front_run_05",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_06": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_06.png",
+   "id": "punchy_runner_front_run_06",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_07": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_07.png",
+   "id": "punchy_runner_front_run_07",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_runner_front_run_08": {
+   "alpha": true,
+   "file": "assets/monsters/runner/frames/punchy_runner_front_run_08.png",
+   "id": "punchy_runner_front_run_08",
+   "pivot": [
+    0.5,
+    0.94625
+   ],
+   "rect": [
+    0,
+    0,
+    400,
+    800
+   ],
+   "size": [
+    400,
+    800
+   ],
+   "sourceSize": [
+    400,
+    800
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_run_02": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_run_02.png",
+   "id": "punchy_insect_run_02",
+   "pivot": [
+    0.5,
+    0.8475877192982456
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_run_03": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_run_03.png",
+   "id": "punchy_insect_run_03",
+   "pivot": [
+    0.5,
+    0.8475877192982456
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_run_04": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_run_04.png",
+   "id": "punchy_insect_run_04",
+   "pivot": [
+    0.5,
+    0.8475877192982456
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_run_05": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_run_05.png",
+   "id": "punchy_insect_run_05",
+   "pivot": [
+    0.5,
+    0.8475877192982456
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_run_06": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_run_06.png",
+   "id": "punchy_insect_run_06",
+   "pivot": [
+    0.5,
+    0.8475877192982456
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_run_07": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_run_07.png",
+   "id": "punchy_insect_run_07",
+   "pivot": [
+    0.5,
+    0.8475877192982456
+   ],
+   "rect": [
+    0,
+    0,
+    342,
+    912
+   ],
+   "size": [
+    342,
+    912
+   ],
+   "sourceSize": [
+    342,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_attack_02": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_attack_02.png",
+   "id": "punchy_insect_attack_02",
+   "pivot": [
+    0.5,
+    0.9254385964912281
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_attack_03": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_attack_03.png",
+   "id": "punchy_insect_attack_03",
+   "pivot": [
+    0.5,
+    0.9254385964912281
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_attack_04": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_attack_04.png",
+   "id": "punchy_insect_attack_04",
+   "pivot": [
+    0.5,
+    0.9254385964912281
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_attack_05": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_attack_05.png",
+   "id": "punchy_insect_attack_05",
+   "pivot": [
+    0.5,
+    0.9254385964912281
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_insect_attack_06": {
+   "alpha": true,
+   "file": "assets/monsters/insect/frames/punchy_insect_attack_06.png",
+   "id": "punchy_insect_attack_06",
+   "pivot": [
+    0.5,
+    0.9254385964912281
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_02": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_02.png",
+   "id": "punchy_brute_run_02",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_03": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_03.png",
+   "id": "punchy_brute_run_03",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_04": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_04.png",
+   "id": "punchy_brute_run_04",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_05": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_05.png",
+   "id": "punchy_brute_run_05",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_06": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_06.png",
+   "id": "punchy_brute_run_06",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_07": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_07.png",
+   "id": "punchy_brute_run_07",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_run_08": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_run_08.png",
+   "id": "punchy_brute_run_08",
+   "pivot": [
+    0.5,
+    0.9375
+   ],
+   "rect": [
+    0,
+    0,
+    560,
+    560
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "sourceSize": [
+    560,
+    560
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_attack_01": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_attack_01.png",
+   "id": "punchy_brute_attack_01",
+   "pivot": [
+    0.5,
+    0.9747807017543859
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_attack_02": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_attack_02.png",
+   "id": "punchy_brute_attack_02",
+   "pivot": [
+    0.5,
+    0.9747807017543859
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_attack_03": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_attack_03.png",
+   "id": "punchy_brute_attack_03",
+   "pivot": [
+    0.5,
+    0.9747807017543859
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_attack_04": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_attack_04.png",
+   "id": "punchy_brute_attack_04",
+   "pivot": [
+    0.5,
+    0.9747807017543859
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_attack_05": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_attack_05.png",
+   "id": "punchy_brute_attack_05",
+   "pivot": [
+    0.5,
+    0.9747807017543859
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_brute_attack_06": {
+   "alpha": true,
+   "file": "assets/monsters/brute/frames/punchy_brute_attack_06.png",
+   "id": "punchy_brute_attack_06",
+   "pivot": [
+    0.5,
+    0.9747807017543859
+   ],
+   "rect": [
+    0,
+    0,
+    456,
+    912
+   ],
+   "size": [
+    456,
+    912
+   ],
+   "sourceSize": [
+    456,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_blaster_idle": {
+   "alpha": true,
+   "attachments": {
+    "muzzle": [
+     0.088,
+     0.148
+    ]
+   },
+   "file": "assets/weapons/blaster/punchy_blaster_idle.png",
+   "id": "punchy_blaster_idle",
+   "pivot": [
+    0.5,
+    1.0
+   ],
+   "rect": [
+    0,
+    0,
+    1920,
+    1280
+   ],
+   "size": [
+    1920,
+    1280
+   ],
+   "sourceSize": [
+    1920,
+    1280
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_knife_world": {
+   "alpha": true,
+   "file": "assets/weapons/knife/punchy_knife_world.png",
+   "id": "punchy_knife_world",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    2736,
+    912
+   ],
+   "size": [
+    2736,
+    912
+   ],
+   "sourceSize": [
+    2736,
+    912
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
+  },
+  "punchy_grenade_world": {
+   "alpha": true,
+   "file": "assets/weapons/throwable/punchy_grenade_world.png",
+   "id": "punchy_grenade_world",
+   "pivot": [
+    0.5,
+    0.5
+   ],
+   "rect": [
+    0,
+    0,
+    1600,
+    1600
+   ],
+   "size": [
+    1600,
+    1600
+   ],
+   "sourceSize": [
+    1600,
+    1600
+   ],
+   "trimOffset": [
+    0,
+    0
+   ]
   }
+ },
+ "clips": {
+  "muzzle_flash": {
+   "assetIds": [
+    "muzzle_flash_01",
+    "muzzle_flash_02",
+    "muzzle_flash_03",
+    "muzzle_flash_04",
+    "muzzle_flash_05",
+    "muzzle_flash_06"
+   ],
+   "events": [
+    {
+     "name": "flash",
+     "timeMs": 0
+    }
+   ],
+   "frameMs": 15,
+   "frames": [
+    {
+     "durationMs": 15,
+     "id": "muzzle_flash_01"
+    },
+    {
+     "durationMs": 20,
+     "id": "muzzle_flash_02"
+    },
+    {
+     "durationMs": 20,
+     "id": "muzzle_flash_03"
+    },
+    {
+     "durationMs": 15,
+     "id": "muzzle_flash_04"
+    },
+    {
+     "durationMs": 15,
+     "id": "muzzle_flash_05"
+    },
+    {
+     "durationMs": 15,
+     "id": "muzzle_flash_06"
+    }
+   ],
+   "loop": false
+  },
+  "runner_attack_front": {
+   "assetIds": [
+    "runner_attack_front_01",
+    "runner_attack_front_02",
+    "runner_attack_front_03",
+    "runner_attack_front_04",
+    "runner_attack_front_05",
+    "runner_attack_front_06"
+   ],
+   "events": [
+    {
+     "name": "strike",
+     "timeMs": 360
+    }
+   ],
+   "frameMs": 100,
+   "frames": [
+    {
+     "durationMs": 100,
+     "id": "runner_attack_front_01"
+    },
+    {
+     "durationMs": 120,
+     "id": "runner_attack_front_02"
+    },
+    {
+     "durationMs": 140,
+     "id": "runner_attack_front_03"
+    },
+    {
+     "durationMs": 140,
+     "id": "runner_attack_front_04"
+    },
+    {
+     "durationMs": 100,
+     "id": "runner_attack_front_05"
+    },
+    {
+     "durationMs": 100,
+     "id": "runner_attack_front_06"
+    }
+   ],
+   "loop": false
+  },
+  "runner_front": {
+   "assetIds": [
+    "runner_front"
+   ],
+   "events": [],
+   "frameMs": 1000,
+   "loop": true
+  },
+  "runner_run_front": {
+   "assetIds": [
+    "punchy_runner_front_run_01",
+    "punchy_runner_front_run_02",
+    "punchy_runner_front_run_03",
+    "punchy_runner_front_run_04",
+    "punchy_runner_front_run_05",
+    "punchy_runner_front_run_06",
+    "punchy_runner_front_run_07",
+    "punchy_runner_front_run_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "punchy_runner_front_run_08"
+    }
+   ],
+   "loop": true
+  },
+  "shotgun_fire": {
+   "assetIds": [
+    "shotgun_fire_diag_01",
+    "shotgun_fire_diag_02",
+    "shotgun_fire_diag_03",
+    "shotgun_fire_diag_04",
+    "shotgun_fire_diag_05"
+   ],
+   "events": [
+    {
+     "name": "shot",
+     "timeMs": 0
+    },
+    {
+     "name": "flash",
+     "timeMs": 0
+    }
+   ],
+   "frameMs": 50,
+   "frames": [
+    {
+     "attachments": {
+      "muzzle": [
+       0.137,
+       0.155
+      ]
+     },
+     "durationMs": 50,
+     "id": "shotgun_fire_diag_01"
+    },
+    {
+     "attachments": {
+      "muzzle": [
+       0.126,
+       0.137
+      ]
+     },
+     "durationMs": 60,
+     "id": "shotgun_fire_diag_02"
+    },
+    {
+     "attachments": {
+      "muzzle": [
+       0.103,
+       0.083
+      ]
+     },
+     "durationMs": 60,
+     "id": "shotgun_fire_diag_03"
+    },
+    {
+     "attachments": {
+      "muzzle": [
+       0.113,
+       0.092
+      ]
+     },
+     "durationMs": 50,
+     "id": "shotgun_fire_diag_04"
+    },
+    {
+     "attachments": {
+      "muzzle": [
+       0.135,
+       0.101
+      ]
+     },
+     "durationMs": 50,
+     "id": "shotgun_fire_diag_05"
+    }
+   ],
+   "loop": false
+  },
+  "shotgun_idle": {
+   "assetIds": [
+    "shotgun_idle"
+   ],
+   "events": [],
+   "frameMs": 1000,
+   "loop": true
+  },
+  "runner_run_back": {
+   "assetIds": [
+    "runner_run_back_01",
+    "runner_run_back_02",
+    "runner_run_back_03",
+    "runner_run_back_04",
+    "runner_run_back_05",
+    "runner_run_back_06",
+    "runner_run_back_07",
+    "runner_run_back_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_run_back_left": {
+   "assetIds": [
+    "runner_run_back_left_01",
+    "runner_run_back_left_02",
+    "runner_run_back_left_03",
+    "runner_run_back_left_04",
+    "runner_run_back_left_05",
+    "runner_run_back_left_06",
+    "runner_run_back_left_07",
+    "runner_run_back_left_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_left_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_run_back_right": {
+   "assetIds": [
+    "runner_run_back_right_01",
+    "runner_run_back_right_02",
+    "runner_run_back_right_03",
+    "runner_run_back_right_04",
+    "runner_run_back_right_05",
+    "runner_run_back_right_06",
+    "runner_run_back_right_07",
+    "runner_run_back_right_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_back_right_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_run_front_left": {
+   "assetIds": [
+    "runner_run_front_left_01",
+    "runner_run_front_left_02",
+    "runner_run_front_left_03",
+    "runner_run_front_left_04",
+    "runner_run_front_left_05",
+    "runner_run_front_left_06",
+    "runner_run_front_left_07",
+    "runner_run_front_left_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_left_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_run_front_right": {
+   "assetIds": [
+    "runner_run_front_right_01",
+    "runner_run_front_right_02",
+    "runner_run_front_right_03",
+    "runner_run_front_right_04",
+    "runner_run_front_right_05",
+    "runner_run_front_right_06",
+    "runner_run_front_right_07",
+    "runner_run_front_right_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_front_right_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_run_left": {
+   "assetIds": [
+    "runner_run_left_01",
+    "runner_run_left_02",
+    "runner_run_left_03",
+    "runner_run_left_04",
+    "runner_run_left_05",
+    "runner_run_left_06",
+    "runner_run_left_07",
+    "runner_run_left_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_left_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_run_right": {
+   "assetIds": [
+    "runner_run_right_01",
+    "runner_run_right_02",
+    "runner_run_right_03",
+    "runner_run_right_04",
+    "runner_run_right_05",
+    "runner_run_right_06",
+    "runner_run_right_07",
+    "runner_run_right_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 284
+    }
+   ],
+   "frameMs": 71,
+   "frames": [
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_01"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_02"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_03"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_04"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_05"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_06"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_07"
+    },
+    {
+     "durationMs": 71,
+     "id": "runner_run_right_08"
+    }
+   ],
+   "loop": true
+  },
+  "runner_defeat_front": {
+   "assetIds": [
+    "runner_defeat_front_01",
+    "runner_defeat_front_02",
+    "runner_defeat_front_03",
+    "runner_defeat_front_04",
+    "runner_defeat_front_05",
+    "runner_defeat_front_06",
+    "runner_defeat_front_07",
+    "runner_defeat_front_08"
+   ],
+   "events": [],
+   "frameMs": 90,
+   "frames": [
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_01"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_02"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_03"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_04"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_05"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_06"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_07"
+    },
+    {
+     "durationMs": 90,
+     "id": "runner_defeat_front_08"
+    }
+   ],
+   "loop": false
+  },
+  "shotgun_reload": {
+   "assetIds": [
+    "punchy_shotgun_reload_01",
+    "punchy_shotgun_reload_02",
+    "punchy_shotgun_reload_03",
+    "punchy_shotgun_reload_04",
+    "punchy_shotgun_reload_05",
+    "punchy_shotgun_reload_06",
+    "punchy_shotgun_reload_07",
+    "punchy_shotgun_reload_08"
+   ],
+   "events": [
+    {
+     "name": "ammo",
+     "timeMs": 675
+    }
+   ],
+   "frames": [
+    {
+     "durationMs": 150,
+     "id": "punchy_shotgun_reload_01"
+    },
+    {
+     "durationMs": 175,
+     "id": "punchy_shotgun_reload_02"
+    },
+    {
+     "durationMs": 175,
+     "id": "punchy_shotgun_reload_03"
+    },
+    {
+     "durationMs": 175,
+     "id": "punchy_shotgun_reload_04"
+    },
+    {
+     "durationMs": 225,
+     "id": "punchy_shotgun_reload_05"
+    },
+    {
+     "durationMs": 175,
+     "id": "punchy_shotgun_reload_06"
+    },
+    {
+     "durationMs": 150,
+     "id": "punchy_shotgun_reload_07"
+    },
+    {
+     "durationMs": 175,
+     "id": "punchy_shotgun_reload_08"
+    }
+   ],
+   "loop": false
+  },
+  "insect_run_front": {
+   "assetIds": [
+    "punchy_insect_run_02",
+    "punchy_insect_run_03",
+    "punchy_insect_run_04",
+    "punchy_insect_run_05",
+    "punchy_insect_run_06",
+    "punchy_insect_run_07"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 180
+    }
+   ],
+   "frameMs": 60,
+   "frames": [
+    {
+     "durationMs": 60,
+     "id": "punchy_insect_run_02"
+    },
+    {
+     "durationMs": 60,
+     "id": "punchy_insect_run_03"
+    },
+    {
+     "durationMs": 60,
+     "id": "punchy_insect_run_04"
+    },
+    {
+     "durationMs": 60,
+     "id": "punchy_insect_run_05"
+    },
+    {
+     "durationMs": 60,
+     "id": "punchy_insect_run_06"
+    },
+    {
+     "durationMs": 60,
+     "id": "punchy_insect_run_07"
+    }
+   ],
+   "loop": true
+  },
+  "insect_attack_front": {
+   "assetIds": [
+    "punchy_insect_attack_02",
+    "punchy_insect_attack_03",
+    "punchy_insect_attack_04",
+    "punchy_insect_attack_05",
+    "punchy_insect_attack_06"
+   ],
+   "events": [
+    {
+     "name": "strike",
+     "timeMs": 270
+    }
+   ],
+   "frameMs": 80,
+   "frames": [
+    {
+     "durationMs": 80,
+     "id": "punchy_insect_attack_02"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_insect_attack_03"
+    },
+    {
+     "durationMs": 100,
+     "id": "punchy_insect_attack_04"
+    },
+    {
+     "durationMs": 110,
+     "id": "punchy_insect_attack_05"
+    },
+    {
+     "durationMs": 110,
+     "id": "punchy_insect_attack_06"
+    }
+   ],
+   "loop": false
+  },
+  "brute_run_front": {
+   "assetIds": [
+    "punchy_brute_run_02",
+    "punchy_brute_run_03",
+    "punchy_brute_run_04",
+    "punchy_brute_run_05",
+    "punchy_brute_run_06",
+    "punchy_brute_run_07",
+    "punchy_brute_run_08"
+   ],
+   "events": [
+    {
+     "name": "footstep",
+     "timeMs": 0
+    },
+    {
+     "name": "footstep",
+     "timeMs": 315
+    }
+   ],
+   "frameMs": 90,
+   "frames": [
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_02"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_03"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_04"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_05"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_06"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_07"
+    },
+    {
+     "durationMs": 90,
+     "id": "punchy_brute_run_08"
+    }
+   ],
+   "loop": true
+  },
+  "brute_attack_front": {
+   "assetIds": [
+    "punchy_brute_attack_01",
+    "punchy_brute_attack_02",
+    "punchy_brute_attack_03",
+    "punchy_brute_attack_04",
+    "punchy_brute_attack_05",
+    "punchy_brute_attack_06"
+   ],
+   "events": [
+    {
+     "name": "strike",
+     "timeMs": 450
+    }
+   ],
+   "frameMs": 150,
+   "frames": [
+    {
+     "durationMs": 150,
+     "id": "punchy_brute_attack_01"
+    },
+    {
+     "durationMs": 150,
+     "id": "punchy_brute_attack_02"
+    },
+    {
+     "durationMs": 150,
+     "id": "punchy_brute_attack_03"
+    },
+    {
+     "durationMs": 150,
+     "id": "punchy_brute_attack_04"
+    },
+    {
+     "durationMs": 150,
+     "id": "punchy_brute_attack_05"
+    },
+    {
+     "durationMs": 150,
+     "id": "punchy_brute_attack_06"
+    }
+   ],
+   "loop": false
+  }
+ },
+ "conventions": {
+  "attachmentOrigin": "top-left-of-untrimmed-source",
+  "attachmentUnits": "normalized",
+  "durationUnits": "milliseconds",
+  "eventTiming": "milliseconds-from-clip-start",
+  "pivotOrigin": "top-left-of-untrimmed-source",
+  "pivotUnits": "normalized",
+  "rectOrigin": "top-left",
+  "rectUnits": "pixels"
+ },
+ "enemies": {
+  "runner": {
+   "attackClip": "runner_attack_front",
+   "attackDamage": 12,
+   "attackRange": 2.3,
+   "clip": "runner_front",
+   "health": 36,
+   "height": 2.0,
+   "id": "runner",
+   "radius": 0.55,
+   "runClip": "runner_run_front",
+   "speed": 3.4,
+   "defeatClip": "runner_defeat_front",
+   "family": "runner",
+   "attackKind": "strike",
+   "telegraphMs": 400,
+   "leapSpeed": 0,
+   "leapMs": 0,
+   "slamRadius": 0,
+   "recoveryMs": 0
+  },
+  "insect": {
+   "attackClip": "insect_attack_front",
+   "attackDamage": 10,
+   "defeatClip": "",
+   "attackRange": 2.0,
+   "clip": "insect_front",
+   "health": 24,
+   "height": 1.2,
+   "id": "insect",
+   "radius": 0.45,
+   "runClip": "insect_run_front",
+   "speed": 4.6,
+   "family": "insect",
+   "attackKind": "leap",
+   "telegraphMs": 500,
+   "leapSpeed": 9,
+   "leapMs": 250,
+   "slamRadius": 0,
+   "recoveryMs": 200
+  },
+  "brute": {
+   "attackClip": "brute_attack_front",
+   "attackDamage": 20,
+   "defeatClip": "",
+   "attackRange": 2.6,
+   "clip": "brute_front",
+   "health": 72,
+   "height": 2.6,
+   "id": "brute",
+   "radius": 0.85,
+   "runClip": "brute_run_front",
+   "speed": 2.2,
+   "family": "brute",
+   "attackKind": "slam",
+   "telegraphMs": 900,
+   "leapSpeed": 0,
+   "leapMs": 0,
+   "slamRadius": 2.6,
+   "recoveryMs": 900
+  }
+ },
+ "environment": {
+  "crates": [
+   "crate_variant_wood",
+   "crate_variant_metal",
+   "crate_variant_paper"
+  ],
+  "floor": {
+   "asset": "punchy_floor_dark_ink",
+   "repeat": [
+    8,
+    8
+   ]
+  },
+  "ruins": {
+   "asset": "mid_ruins",
+   "cards": [
+    [
+     -16,
+     -28,
+     0
+    ],
+    [
+     16,
+     28,
+     3.141592653589793
+    ]
+   ],
+   "height": 20,
+   "width": 30
+  },
+  "sky": {
+   "asset": "punchy_sky_cyan_open"
+  },
+  "skyline": {
+   "asset": "far_skyline",
+   "height": 15,
+   "radius": 40
+  },
+  "wall": {
+   "asset": "wall_seamless",
+   "repeat": [
+    6,
+    1
+   ]
+  }
+ },
+ "schema": "paper-slice-v1",
+ "status": "pass3_directional",
+ "weapons": {
+  "shotgun": {
+   "ammo": 6,
+   "clip": "shotgun_idle",
+   "damage": 12,
+   "fireClip": "shotgun_fire",
+   "fireIntervalMs": 750,
+   "flashClip": "muzzle_flash",
+   "id": "shotgun",
+   "kind": "hitscan",
+   "name": "Shotgun",
+   "pellets": 7,
+   "range": 30,
+   "reloadMs": 1400,
+   "spread": 0.055,
+   "reloadClip": "shotgun_reload"
+  },
+  "pistol": {
+   "ammo": 12,
+   "clip": "",
+   "damage": 20,
+   "fireClip": "",
+   "fireIntervalMs": 300,
+   "flashClip": "",
+   "id": "pistol",
+   "kind": "hitscan",
+   "name": "Pistol",
+   "pellets": 1,
+   "range": 40,
+   "reloadMs": 900,
+   "spread": 0.004,
+   "reloadClip": ""
+  },
+  "automatic": {
+   "ammo": 30,
+   "clip": "",
+   "damage": 8,
+   "fireClip": "",
+   "fireIntervalMs": 110,
+   "flashClip": "",
+   "id": "automatic",
+   "kind": "hitscan",
+   "name": "Automatic",
+   "pellets": 1,
+   "range": 30,
+   "reloadMs": 1600,
+   "spread": 0.03,
+   "reloadClip": ""
+  },
+  "blaster": {
+   "ammo": 8,
+   "clip": "",
+   "damage": 30,
+   "fireClip": "",
+   "fireIntervalMs": 600,
+   "flashClip": "",
+   "id": "blaster",
+   "kind": "bolt",
+   "name": "Blaster",
+   "pellets": 1,
+   "range": 40,
+   "reloadMs": 1200,
+   "speed": 40,
+   "spread": 0,
+   "reloadClip": ""
+  },
+  "knife": {
+   "ammo": 6,
+   "clip": "",
+   "damage": 34,
+   "fireClip": "",
+   "fireIntervalMs": 450,
+   "flashClip": "",
+   "id": "knife",
+   "kind": "knife",
+   "name": "Throwing knife",
+   "pellets": 1,
+   "range": 30,
+   "reloadMs": 0,
+   "speed": 18,
+   "spread": 0,
+   "windupMs": 180,
+   "reloadClip": ""
+  },
+  "throwable": {
+   "ammo": 3,
+   "clip": "",
+   "damage": 0,
+   "fireClip": "",
+   "fireIntervalMs": 800,
+   "flashClip": "",
+   "id": "throwable",
+   "kind": "grenade",
+   "name": "Grenade",
+   "pellets": 1,
+   "range": 30,
+   "reloadMs": 0,
+   "fuseMs": 1600,
+   "spread": 0,
+   "reloadClip": ""
+  }
+ }
 }

@@ -31,6 +31,8 @@
       #ammoPips span { display: inline-block; width: 10px; height: 18px; background: #ffc928; margin-right: 3px; border: 1px solid #f3e6c8; }
       #ammoPips span.spent { opacity: 0.25; background: #555; }
       #ammoState { font-weight: 900; min-height: 1.2em; }
+      #ink { left: max(20px, env(safe-area-inset-left)); bottom: 118px; background: #12101b; color: #f3e6c8; padding: 8px 12px; border-radius: 8px; font-weight: 900; font-variant-numeric: tabular-nums; }
+      #inkFill { height: 8px; background: #24c9d6; margin-top: 4px; }
       #ammoState.empty { color: #f52d39; }
       #wave { left: 50%; top: max(20px, env(safe-area-inset-top)); transform: translateX(-50%) rotate(-1deg); background: #12101b; color: #f3e6c8; padding: 6px 14px; font-weight: 700; }
       #waveNum { color: #ffc928; font-weight: 900; }
@@ -92,17 +94,18 @@
     <div id="announce" class="hud sr-only" aria-live="polite"></div>
     <div id="health" class="hud"><span id="healthCross">✚</span> <span id="healthvalue">100 / 100</span><div id="healthbar" role="progressbar" aria-label="Player health" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div id="healthfill"></div></div></div>
     <div id="ammo" class="hud"><div id="ammoCount"></div><div id="ammoPips"><span></span><span></span><span></span><span></span><span></span><span></span></div><div id="ammoState"></div></div>
+    <div id="ink" class="hud"><div id="inkText">INK 0 / 100</div><div id="inkFill" style="width:0%"></div></div>
     <div id="menu" class="menu">
       <h1>Paper</h1>
       <p id="menuText">Loading assets…</p>
-      <p>WASD move. Mouse aim. Click fire. R reload. Shift sprint. Space jump, press again midair for a double jump. Q dash. E hold grapple. F melee. Esc pause.</p>
+      <p>WASD move. Mouse aim. Click fire, hold for automatic. R reload. 1-6 switch weapon: shotgun, pistol, automatic, blaster, knife, grenade. G throw grenade. X spend 50 ink pressure for a shock burst. Shift sprint. Space jump, press again midair for a double jump. Q dash. E hold grapple. F melee. Esc pause.</p>
       <p>Desktop keyboard and mouse required. Touch controls are not available.</p>
       <button id="startBtn" disabled>Play</button>
       <button id="settingsBtn" type="button">Settings</button>
       <button id="howBtn" type="button">How to play</button>
       <div id="howPanel" class="hidden">
         <h2>How to play</h2>
-        <p id="rulesText">Wave 1 has 6 runners at speed 3.4. Each later wave adds 2 runners and 5% speed, up to 1.5x. A kill scores 100 points times the combo multiplier: x1, x2 at 3 combo, x3 at 5 combo. The combo lasts 4 seconds between kills. Wave bonus is 250 times the wave number. Death restarts the current wave with full health. Score and wave are kept, combo is lost. Health carries between waves, ammo refills. Health pickup restores 40, ammo pickup restores 3, both capped at their maximums. Sounds are synthesized with Web Audio. No audio files are used. The second jump resets only on landing. Grapple anchors sit on wall tops and crate tops within 14 units and inside the aim cone, ranked by reticle angle before distance, need a clear line of sight, and detach when the rope is blocked. Melee deals 18 damage once per swing within 2.8 units in 3D, including height, and only with a clear line of sight. Reload takes 1400 ms with 8 poses; ammo transfers only at the loading pose, at 675 ms. Shooting cancels a reload: cancelling before the transfer gives no ammo, cancelling after it keeps the transferred ammo, and the gun recovers to idle.</p>
+        <p id="rulesText">Wave 1 has 6 runners at speed 3.4. Each later wave adds 2 runners and 5% speed, up to 1.5x. A kill scores 100 points times the combo multiplier: x1, x2 at 3 combo, x3 at 5 combo. The combo lasts 4 seconds between kills. Wave bonus is 250 times the wave number. Death restarts the current wave with full health. Score and wave are kept, combo is lost. Health carries between waves, ammo refills. Health pickup restores 40, ammo pickup restores 3, both capped at their maximums. Sounds are synthesized with Web Audio. No audio files are used. The second jump resets only on landing. Grapple anchors sit on wall tops and crate tops within 14 units and inside the aim cone, ranked by reticle angle before distance, need a clear line of sight, and detach when the rope is blocked. Melee deals 18 damage once per swing within 2.8 units in 3D, including height, and only with a clear line of sight. Reload takes 1400 ms with 8 poses; ammo transfers only at the loading pose, at 675 ms. Shooting cancels a reload: cancelling before the transfer gives no ammo, cancelling after it keeps the transferred ammo, and the gun recovers to idle. Pistol, automatic, and blaster reload in 900, 1600, and 1200 ms with transfer at 60 percent. Knife windup is 180 ms, then the knife flies and spins; grenades fuse in 1600 ms or detonate on runner contact, using the same radius, falloff, and cover rules as barrels, and trigger at most one nearby barrel. Every kill adds 20 ink pressure, up to 100; X spends 50 for a shock burst of radius 6 and up to 80 damage with cover respected, on a 3 second cooldown. Shock kills score and combo like any kill. Ammo pickups restore 3 to the current gun or 1 knife or grenade; every wave refills all weapons.</p>
       </div>
       <div id="settingsPanel" class="hidden">
         <h2>Settings</h2>

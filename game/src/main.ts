@@ -13,13 +13,13 @@ import {
   type PlayerBody,
   type RayHit,
 } from "./arena";
-import { alphaReport, enemySpec, loadTextures, manifest, runnerSpec, weaponSpec } from "./assets";
+import { alphaReport, enemySpec, loadTextures, manifest, runnerSpec, weaponOrder, weaponSpec } from "./assets";
 import { SpatialGrid } from "./spatial";
 import { AnimationPlayer, clipFromManifest } from "./animation";
 import { RUN_DIRECTION_CLIPS, Runner, type RunDirection } from "./enemy";
 import { applySky, buildEnvironment } from "./environment";
 import { findRoute } from "./pathing";
-import { WeaponView } from "./weapon";
+import { WeaponView, proceduralWeaponTexture } from "./weapon";
 import { GameAudio } from "./audio";
 import { PICKUP_RULES, Pickup, type PickupKind } from "./pickups";
 import { FxEmitter, type FxSettings } from "./fx";
@@ -233,6 +233,9 @@ async function startGame(): Promise<void> {
   const ammoCountEl = document.getElementById("ammoCount") as HTMLDivElement;
   const ammoPipsEl = document.getElementById("ammoPips") as HTMLDivElement;
   const ammoStateEl = document.getElementById("ammoState") as HTMLDivElement;
+  const inkEl = document.getElementById("ink") as HTMLDivElement;
+  const inkTextEl = document.getElementById("inkText") as HTMLDivElement;
+  const inkFillEl = document.getElementById("inkFill") as HTMLDivElement;
   const waveEl = document.getElementById("wave") as HTMLDivElement;
   const waveNumEl = document.getElementById("waveNum") as HTMLDivElement;
   const waveBannerEl = document.getElementById("waveBanner") as HTMLDivElement;
@@ -317,6 +320,7 @@ async function startGame(): Promise<void> {
   const lastHud = {
     ammo: "",
     ammoState: "",
+    ink: "",
     combo: "",
     comboDecay: "",
     crosshair: "",
@@ -389,6 +393,38 @@ async function startGame(): Promise<void> {
   let dashCooldownMs = 0;
   let dashDirection = new THREE.Vector3(0, 0, -1);
   let fireCooldownMs = 0;
+  let currentWeaponId = "shotgun";
+  const weaponAmmo: Record<string, number> = {};
+  for (const entry of weaponOrder()) weaponAmmo[entry.id] = entry.ammo;
+  let autoHeld = false;
+  let autoShotCount = 0;
+  let knifeWindupActive = false;
+  let knifeWindupMs = 0;
+  let inkPressure = 0;
+  let inkCooldownMs = 0;
+  const INK_MAX = 100;
+  const INK_PER_KILL = 20;
+  const INK_COST = 50;
+  const INK_RADIUS = 6;
+  const INK_MAX_DAMAGE = 80;
+  const INK_COOLDOWN_MS = 3000;
+  const BOLT_SPEED = 40;
+  const KNIFE_SPEED = 18;
+  const GRENADE_FUSE_MS = 1600;
+  type BoltState = { dir: THREE.Vector3; mesh: THREE.Mesh; pos: THREE.Vector3; travelled: number };
+  type KnifeState = { mesh: THREE.Sprite; pos: THREE.Vector3; spinMs: number; vel: THREE.Vector3 };
+  type GrenadeState = { fuseMs: number; mesh: THREE.Sprite; pos: THREE.Vector3; vel: THREE.Vector3 };
+  let bolts: BoltState[] = [];
+  let knives: KnifeState[] = [];
+  let grenades: GrenadeState[] = [];
+  let boltGeometry: THREE.BoxGeometry | null = null;
+  let boltMaterial: THREE.MeshBasicMaterial | null = null;
+  let lastBolt: { end: [number, number, number]; hit: string; start: [number, number, number] } | null = null;
+  let lastKnife: { end: [number, number, number]; hit: string; start: [number, number, number] } | null = null;
+  let lastGrenade: { center: [number, number, number]; fuseMs: number; hit: string } | null = null;
+  let lastShock: { center: [number, number, number]; hits: { blocked: boolean; damage: number; distance: number; kind: string }[] } | null = null;
+  let lastWeaponEvent: { action: string; weapon: string } | null = null;
+  let weaponIdleTextures = new Map<string, THREE.Texture>();
   let hitmarkerMs = 0;
   let damageFlashMs = 0;
   let spawnTimerMs = 0;
@@ -1190,6 +1226,8 @@ async function startGame(): Promise<void> {
 
   function startWave(next: number): void {
     wave = next;
+    for (const entry of weaponOrder()) weaponAmmo[entry.id] = entry.ammo;
+    if (weaponView) weaponView.ammo = weaponAmmo[currentWeaponId];
     pendingWaveBanner = next;
     spawnQueue = buildSpawnQueue(next);
     waveActive = true;
@@ -1228,6 +1266,11 @@ async function startGame(): Promise<void> {
     clearParticles();
     disposeTracers();
     disposeDecals();
+    clearProjectiles();
+    knifeWindupActive = false;
+    knifeWindupMs = 0;
+    autoHeld = false;
+    inkCooldownMs = 0;
     fx.clear();
     cancelBarrelWarnings();
     weaponView?.reset();
@@ -1245,6 +1288,18 @@ async function startGame(): Promise<void> {
     }
     combo = 0;
     comboTimerMs = 0;
+    inkPressure = 0;
+    currentWeaponId = "shotgun";
+    for (const entry of weaponOrder()) weaponAmmo[entry.id] = entry.ammo;
+    if (weaponView) {
+      weaponView.ammo = weaponAmmo.shotgun;
+      weaponView.setAmmoMax(weaponSpec("shotgun").ammo);
+      const shotgunTexture = weaponIdleTextures.get("shotgun");
+      if (shotgunTexture) {
+        weaponView.setIdle(shotgunTexture, [0.095, 0.023], 1.725, 1.15);
+        weaponView.setFlashScale(1);
+      }
+    }
     playerHealth = 100;
     playerFeet.set(0, 0, 9);
     verticalVelocity = 0;
@@ -1354,20 +1409,365 @@ async function startGame(): Promise<void> {
       .addScaledVector(up, -0.22);
   }
 
+  function clearProjectiles(): void {
+    for (const bolt of bolts) scene.remove(bolt.mesh);
+    for (const knife of knives) scene.remove(knife.mesh);
+    for (const grenade of grenades) scene.remove(grenade.mesh);
+    bolts = [];
+    knives = [];
+    grenades = [];
+  }
+
+  function applyRunnerHit(runner: Runner, damage: number, from: THREE.Vector3): void {
+    const result = runner.takeDamage(damage, from);
+    if (result === "applied" || result === "killed") {
+      hitmarkerMs = 150;
+      hitmarkerKind = result === "killed" ? "kill" : "hit";
+      if (result === "killed") comicWord("INKED!");
+      const center = runner.position.clone();
+      center.y = 1.1;
+      const normal = camera.position.clone().sub(center).normalize();
+      fx.impact(center, normal, fxSettings(), result === "killed");
+      if (result === "killed") runnerHitStop.set(runner, 30);
+    }
+  }
+
+  function runnerAtPoint(point: THREE.Vector3): Runner | null {
+    for (const runner of runners) {
+      if (runner.state === "death" || runner.state === "spawn") continue;
+      const center = runner.position.clone();
+      center.y = 1.1;
+      if (point.distanceTo(center) <= 0.85) return runner;
+    }
+    return null;
+  }
+
+  function selectWeapon(id: string): boolean {
+    if (!weaponView || id === currentWeaponId) return id === currentWeaponId;
+    const spec = weaponSpec(id);
+    const texture = weaponIdleTextures.get(id);
+    if (!texture) return false;
+    weaponAmmo[currentWeaponId] = weaponView.ammo;
+    if (weaponView.reloading) weaponView.cancelReload();
+    knifeWindupActive = false;
+    knifeWindupMs = 0;
+    currentWeaponId = id;
+    weaponView.ammo = weaponAmmo[id];
+    weaponView.setAmmoMax(spec.ammo);
+    const views: Record<string, { flash: number; h: number; muzzle: [number, number]; w: number }> = {
+      shotgun: { flash: 1, h: 1.15, muzzle: [0.095, 0.023], w: 1.725 },
+      pistol: { flash: 0.6, h: 1.15, muzzle: [0.8, 0.32], w: 0.92 },
+      automatic: { flash: 0.8, h: 1.15, muzzle: [0.85, 0.29], w: 0.92 },
+      blaster: { flash: 1, h: 1.15, muzzle: [0.088, 0.148], w: 1.725 },
+      knife: { flash: 0.5, h: 0.55, muzzle: [0.95, 0.5], w: 1.65 },
+      throwable: { flash: 0.5, h: 0.7, muzzle: [0.5, 0.5], w: 0.7 },
+    };
+    const view = views[id];
+    weaponView.setIdle(texture, view.muzzle, view.w, view.h);
+    weaponView.setFlashScale(view.flash);
+    lastWeaponEvent = { action: "select", weapon: id };
+    return true;
+  }
+
+  function aimVectors(): { eye: THREE.Vector3; forward: THREE.Vector3; muzzle: THREE.Vector3; right: THREE.Vector3; up: THREE.Vector3 } {
+    const eye = camera.position.clone();
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+    const up = new THREE.Vector3().crossVectors(right, forward).normalize();
+    return { eye, forward, muzzle: worldMuzzle(eye, forward, right, up), right, up };
+  }
+
+  function spawnBolt(): void {
+    if (!boltGeometry) boltGeometry = new THREE.BoxGeometry(0.09, 0.09, 0.7);
+    if (!boltMaterial) boltMaterial = new THREE.MeshBasicMaterial({ color: 0x24c9d6 });
+    const { dir, muzzle } = (() => {
+      const aim = aimVectors();
+      return { dir: aim.forward, muzzle: aim.muzzle };
+    })();
+    const mesh = new THREE.Mesh(boltGeometry, boltMaterial);
+    mesh.position.copy(muzzle);
+    mesh.lookAt(muzzle.clone().add(dir));
+    scene.add(mesh);
+    bolts.push({ dir: dir.clone(), mesh, pos: muzzle.clone(), travelled: 0 });
+    lastBolt = { end: [muzzle.x, muzzle.y, muzzle.z], hit: "flying", start: [muzzle.x, muzzle.y, muzzle.z] };
+  }
+
+  function spawnKnifeProjectile(): void {
+    const texture = textures?.get("punchy_knife_world");
+    if (!texture) return;
+    const aim = aimVectors();
+    const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    const mesh = new THREE.Sprite(material);
+    mesh.scale.set(0.7, 0.23, 1);
+    mesh.position.copy(aim.muzzle);
+    scene.add(mesh);
+    knives.push({ mesh, pos: aim.muzzle.clone(), spinMs: 0, vel: aim.forward.clone().multiplyScalar(KNIFE_SPEED) });
+    lastKnife = { end: [aim.muzzle.x, aim.muzzle.y, aim.muzzle.z], hit: "flying", start: [aim.muzzle.x, aim.muzzle.y, aim.muzzle.z] };
+  }
+
+  function detonateGrenade(entry: GrenadeState): void {
+    scene.remove(entry.mesh);
+    (entry.mesh.material as THREE.Material).dispose();
+    grenades = grenades.filter((item) => item !== entry);
+    const center = entry.pos.clone();
+    fx.explosion(center, fxSettings());
+    audio.explosion();
+    applyExplosionDamage(center);
+    lastGrenade = { center: [center.x, center.y, center.z], fuseMs: entry.fuseMs, hit: "detonated" };
+    let nearest: BarrelState | null = null;
+    let nearestDistance = EXPLOSION_CHAIN_RADIUS;
+    for (const barrel of barrels) {
+      if (barrel.state !== "idle") continue;
+      const distance = Math.hypot(barrel.box.x - center.x, barrel.box.z - center.z);
+      if (distance <= nearestDistance) {
+        nearestDistance = distance;
+        nearest = barrel;
+      }
+    }
+    if (nearest) triggerBarrel(nearest, 0, 1);
+  }
+
+  function throwGrenade(): boolean {
+    if (!weaponView) return false;
+    if (fireCooldownMs > 0 || weaponAmmo.throwable <= 0) return false;
+    const spec = weaponSpec("throwable");
+    weaponAmmo.throwable -= 1;
+    if (currentWeaponId === "throwable") weaponView.ammo = weaponAmmo.throwable;
+    fireCooldownMs = spec.fireIntervalMs;
+    reticleExpandMs = 120;
+    weaponView.triggerKick();
+    audio.grenadeThrow();
+    const aim = aimVectors();
+    const texture = textures?.get("punchy_grenade_world");
+    if (!texture) return false;
+    const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+    const mesh = new THREE.Sprite(material);
+    mesh.scale.set(0.5, 0.5, 1);
+    mesh.position.copy(aim.muzzle);
+    scene.add(mesh);
+    const vel = aim.forward.clone().multiplyScalar(10);
+    vel.y += 6;
+    grenades.push({ fuseMs: GRENADE_FUSE_MS, mesh, pos: aim.muzzle.clone(), vel });
+    lastWeaponEvent = { action: "grenade", weapon: "throwable" };
+    return true;
+  }
+
+  function spendInk(): boolean {
+    if (inkPressure < INK_COST || inkCooldownMs > 0) return false;
+    inkPressure -= INK_COST;
+    inkCooldownMs = INK_COOLDOWN_MS;
+    const aim = aimVectors();
+    const center = aim.eye.clone().addScaledVector(aim.forward, 3);
+    center.y = Math.max(0.6, center.y - 0.5);
+    const hits: { blocked: boolean; damage: number; distance: number; kind: string }[] = [];
+    for (const runner of runners) {
+      if (runner.state === "death" || runner.state === "spawn") continue;
+      const target = runner.position.clone();
+      target.y = 1.1;
+      const toTarget = target.clone().sub(center);
+      const distance = toTarget.length();
+      if (distance > INK_RADIUS) continue;
+      const blocked = rayHitSolid(center, toTarget.normalize(), distance);
+      if (blocked && blocked.distance < distance - 0.05) {
+        hits.push({ blocked: true, damage: 0, distance, kind: "runner" });
+        continue;
+      }
+      const damage = Math.round(INK_MAX_DAMAGE * (1 - distance / INK_RADIUS));
+      if (damage <= 0) continue;
+      const result = runner.takeDamage(damage, center);
+      runnerHitStop.set(runner, EXPLOSION_HITSTOP_MS);
+      hits.push({ blocked: false, damage, distance, kind: result });
+    }
+    fx.explosion(center, fxSettings());
+    audio.shock();
+    if (hits.some((hit) => hit.kind === "killed")) comicWord("INKED!");
+    lastShock = { center: [center.x, center.y, center.z], hits };
+    lastWeaponEvent = { action: "shock", weapon: "ink" };
+    if (!settings.reducedMotion) {
+      shakeAmp = 0.35 * settings.shake;
+      shakeTimeMs = 350;
+    }
+    return true;
+  }
+
+  function updateProjectiles(dt: number): void {
+    const dtMs = dt * 1000;
+    for (const bolt of [...bolts]) {
+      const stepDistance = BOLT_SPEED * dt;
+      const steps = Math.max(1, Math.ceil(stepDistance / 0.25));
+      const step = bolt.dir.clone().multiplyScalar(stepDistance / steps);
+      let removed = false;
+      for (let i = 0; i < steps && !removed; i += 1) {
+        const prev = bolt.pos.clone();
+        bolt.pos.add(step);
+        bolt.travelled += step.length();
+        const surface = rayHitSurface(prev, bolt.dir, step.length() + 0.01);
+        if (surface) {
+          fx.impact(surface.point, surface.normal, fxSettings(), false);
+          addDecal(surface);
+          if (surface.owner.startsWith("barrel(")) triggerBarrelFromOwner(surface.owner);
+          lastBolt = { end: [surface.point.x, surface.point.y, surface.point.z], hit: "solid", start: lastBolt?.start ?? [prev.x, prev.y, prev.z] };
+          scene.remove(bolt.mesh);
+          bolts = bolts.filter((item) => item !== bolt);
+          removed = true;
+          break;
+        }
+        if (bolt.pos.y <= 0) {
+          fx.impact(bolt.pos.clone(), new THREE.Vector3(0, 1, 0), fxSettings(), false);
+          lastBolt = { end: [bolt.pos.x, bolt.pos.y, bolt.pos.z], hit: "floor", start: lastBolt?.start ?? [prev.x, prev.y, prev.z] };
+          scene.remove(bolt.mesh);
+          bolts = bolts.filter((item) => item !== bolt);
+          removed = true;
+          break;
+        }
+        const runner = runnerAtPoint(bolt.pos);
+        if (runner) {
+          applyRunnerHit(runner, weaponSpec("blaster").damage, playerFeet);
+          lastBolt = { end: [bolt.pos.x, bolt.pos.y, bolt.pos.z], hit: "runner", start: lastBolt?.start ?? [prev.x, prev.y, prev.z] };
+          scene.remove(bolt.mesh);
+          bolts = bolts.filter((item) => item !== bolt);
+          removed = true;
+          break;
+        }
+      }
+      if (removed) continue;
+      if (bolt.travelled >= weaponSpec("blaster").range) {
+        scene.remove(bolt.mesh);
+        bolts = bolts.filter((item) => item !== bolt);
+        continue;
+      }
+      bolt.mesh.position.copy(bolt.pos);
+      bolt.mesh.lookAt(bolt.pos.clone().add(bolt.dir));
+      const pulse = 1 + Math.sin(performance.now() / 40) * 0.25;
+      bolt.mesh.scale.set(pulse, pulse, 1);
+    }
+    for (const knife of [...knives]) {
+      const stepDistance = KNIFE_SPEED * dt;
+      const steps = Math.max(1, Math.ceil(stepDistance / 0.25));
+      const step = knife.vel.clone().multiplyScalar(dt / steps);
+      let removed = false;
+      for (let i = 0; i < steps && !removed; i += 1) {
+        const prev = knife.pos.clone();
+        knife.pos.add(step);
+        const surface = rayHitSurface(prev, knife.vel.clone().normalize(), step.length() + 0.01);
+        if (surface) {
+          fx.impact(surface.point, surface.normal, fxSettings(), false);
+          addDecal(surface);
+          lastKnife = { end: [surface.point.x, surface.point.y, surface.point.z], hit: "solid", start: lastKnife?.start ?? [prev.x, prev.y, prev.z] };
+          scene.remove(knife.mesh);
+          (knife.mesh.material as THREE.Material).dispose();
+          knives = knives.filter((item) => item !== knife);
+          removed = true;
+          break;
+        }
+        if (knife.pos.y <= 0.1) {
+          fx.impact(knife.pos.clone(), new THREE.Vector3(0, 1, 0), fxSettings(), false);
+          lastKnife = { end: [knife.pos.x, knife.pos.y, knife.pos.z], hit: "floor", start: lastKnife?.start ?? [prev.x, prev.y, prev.z] };
+          scene.remove(knife.mesh);
+          (knife.mesh.material as THREE.Material).dispose();
+          knives = knives.filter((item) => item !== knife);
+          removed = true;
+          break;
+        }
+        const runner = runnerAtPoint(knife.pos);
+        if (runner) {
+          applyRunnerHit(runner, weaponSpec("knife").damage, playerFeet);
+          lastKnife = { end: [knife.pos.x, knife.pos.y, knife.pos.z], hit: "runner", start: lastKnife?.start ?? [prev.x, prev.y, prev.z] };
+          scene.remove(knife.mesh);
+          (knife.mesh.material as THREE.Material).dispose();
+          knives = knives.filter((item) => item !== knife);
+          removed = true;
+          break;
+        }
+      }
+      if (removed) continue;
+      if (knife.pos.distanceTo(playerFeet) > weaponSpec("knife").range + 5) {
+        scene.remove(knife.mesh);
+        (knife.mesh.material as THREE.Material).dispose();
+        knives = knives.filter((item) => item !== knife);
+        continue;
+      }
+      knife.spinMs += dtMs;
+      (knife.mesh.material as THREE.SpriteMaterial).rotation = knife.spinMs / 1000 * 12;
+      if (knife.spinMs % 300 < dtMs) burst(knife.pos.clone(), 1);
+      knife.mesh.position.copy(knife.pos);
+    }
+    for (const grenade of [...grenades]) {
+      grenade.fuseMs -= dtMs;
+      grenade.vel.y -= 18 * dt;
+      grenade.pos.addScaledVector(grenade.vel, dt);
+      if (grenade.pos.y <= 0.35) {
+        grenade.pos.y = 0.35;
+        grenade.vel.multiplyScalar(0.4);
+        grenade.vel.y = 0;
+      }
+      if (grenade.pos.x < -ARENA_HALF) grenade.pos.x = -ARENA_HALF;
+      if (grenade.pos.x > ARENA_HALF) grenade.pos.x = ARENA_HALF;
+      if (grenade.pos.z < -ARENA_HALF) grenade.pos.z = -ARENA_HALF;
+      if (grenade.pos.z > ARENA_HALF) grenade.pos.z = ARENA_HALF;
+      grenade.mesh.position.copy(grenade.pos);
+      (grenade.mesh.material as THREE.SpriteMaterial).rotation += dt * 4;
+      const runner = runnerAtPoint(grenade.pos);
+      if (runner || grenade.fuseMs <= 0) {
+        detonateGrenade(grenade);
+      }
+    }
+  }
+
   function fireShot(): void {
     if (!weaponView) return;
-    const spec = weaponSpec();
     if (weaponView.reloading) weaponView.cancelReload();
-    if (fireCooldownMs > 0) return;
+    if (fireCooldownMs > 0 || knifeWindupActive) return;
+    const spec = weaponSpec(currentWeaponId);
+    if (spec.kind === "knife") {
+      if (weaponAmmo.knife <= 0) return;
+      knifeWindupActive = true;
+      knifeWindupMs = spec.windupMs ?? 180;
+      lastWeaponEvent = { action: "knifeWindup", weapon: "knife" };
+      return;
+    }
+    if (spec.kind === "grenade") {
+      throwGrenade();
+      return;
+    }
     if (weaponView.ammo <= 0) {
-      if (weaponView.startReload()) audio.reload();
+      const started =
+        spec.id === "shotgun" ? weaponView.startReload() : weaponView.startReloadGeneric(spec.reloadMs);
+      if (started) audio.reload();
       return;
     }
     weaponView.ammo -= 1;
+    weaponAmmo[currentWeaponId] = weaponView.ammo;
     fireCooldownMs = spec.fireIntervalMs;
     reticleExpandMs = 120;
-    weaponView.triggerFire();
-    audio.shot();
+    if (spec.kind === "bolt") {
+      weaponView.triggerKick();
+      audio.blaster();
+      spawnBolt();
+      lastWeaponEvent = { action: "bolt", weapon: "blaster" };
+      return;
+    }
+    if (spec.id === "shotgun") {
+      weaponView.triggerFire();
+      audio.shot();
+      fireHitscanShot(spec, true);
+    } else if (spec.id === "pistol") {
+      weaponView.triggerKick();
+      audio.pistol();
+      fireHitscanShot(spec, true);
+    } else if (spec.id === "automatic") {
+      weaponView.triggerKick();
+      audio.automatic();
+      autoShotCount += 1;
+      fireHitscanShot(spec, autoShotCount % 3 === 0);
+      const aim = aimVectors();
+      burst(aim.muzzle.clone(), 2);
+    }
+    lastWeaponEvent = { action: "fire", weapon: spec.id };
+  }
+
+  function fireHitscanShot(spec: import("./assets").Weapon, drawTracers: boolean): void {
     let anyImpact = false;
     const runnerFxDone = new Set<Runner>();
     const surfaceFxKeys = new Set<string>();
@@ -1383,10 +1783,10 @@ async function startGame(): Promise<void> {
         .addScaledVector(right, (Math.random() - 0.5) * 2 * spec.spread)
         .addScaledVector(up, (Math.random() - 0.5) * 2 * spec.spread)
         .normalize();
-      let aimDistance = 30;
+      let aimDistance = spec.range;
       let aimPoint: THREE.Vector3 | null = null;
       let aimRunner: Runner | null = null;
-      const solid = rayHitSolid(eye, dir, 30);
+      const solid = rayHitSolid(eye, dir, spec.range);
       if (solid) {
         aimDistance = solid.distance;
         aimPoint = solid.point;
@@ -1416,7 +1816,7 @@ async function startGame(): Promise<void> {
           }
         }
       }
-      const aim = aimPoint ?? eye.clone().addScaledVector(dir, 30);
+      const aim = aimPoint ?? eye.clone().addScaledVector(dir, spec.range);
       const toAim = aim.clone().sub(muzzle);
       const aimLen = toAim.length();
       const muzzleDir = aimLen > 0 ? toAim.normalize() : dir.clone();
@@ -1438,7 +1838,7 @@ async function startGame(): Promise<void> {
           }
         }
       }
-      tracer(muzzle, end);
+      if (drawTracers) tracer(muzzle, end);
       if (blocked) {
         const key = blocked.owner;
         if (!surfaceFxKeys.has(key)) {
@@ -1519,6 +1919,7 @@ async function startGame(): Promise<void> {
   }
 
   function setupDebug(): void {
+    let lastSpawnedRunner: Runner | null = null;
     const api = {
       renderer,
       findRoute,
@@ -1734,7 +2135,17 @@ async function startGame(): Promise<void> {
       },
       spawnRunnerAt: (x: number, z: number) => {
         spawnQueue = [];
-        return spawnRunner(new THREE.Vector3(x, 0, z));
+        lastSpawnedRunner = spawnRunner(new THREE.Vector3(x, 0, z));
+        return lastSpawnedRunner.family;
+      },
+      getLastSpawned: () => {
+        if (!lastSpawnedRunner) return null;
+        return {
+          health: lastSpawnedRunner.health,
+          state: lastSpawnedRunner.state,
+          x: lastSpawnedRunner.position.x,
+          z: lastSpawnedRunner.position.z,
+        };
       },
       spawnFamilyAt: (x: number, z: number, family: string) => {
         spawnQueue = [];
@@ -1844,11 +2255,45 @@ async function startGame(): Promise<void> {
       setSettings: (partial: Partial<Settings>) => setSettings(partial),
       getSettings: () => ({ ...settings }),
       fireShot,
+      selectWeapon,
+      throwGrenade,
+      spendInk,
+      getWeapons: () => ({
+        ammo: { ...weaponAmmo },
+        current: currentWeaponId,
+        ink: inkPressure,
+        inkCooldownMs,
+        knifeWindupActive,
+        registry: weaponOrder().map((entry) => ({
+          ammo: entry.ammo,
+          damage: entry.damage,
+          fireIntervalMs: entry.fireIntervalMs,
+          id: entry.id,
+          kind: entry.kind,
+          name: entry.name,
+          pellets: entry.pellets,
+          range: entry.range,
+          reloadMs: entry.reloadMs,
+          spread: entry.spread,
+        })),
+      }),
+      getProjectiles: () => ({
+        bolts: bolts.map((entry) => ({ pos: [entry.pos.x, entry.pos.y, entry.pos.z], travelled: entry.travelled })),
+        grenades: grenades.map((entry) => ({ fuseMs: entry.fuseMs, pos: [entry.pos.x, entry.pos.y, entry.pos.z] })),
+        knives: knives.map((entry) => ({ pos: [entry.pos.x, entry.pos.y, entry.pos.z] })),
+        lastBolt,
+        lastGrenade,
+        lastKnife,
+        lastShock,
+        lastWeaponEvent,
+      }),
       setHitmarkerMs: (ms: number) => {
         hitmarkerMs = ms;
       },
       getHud: () => ({
         ammoCount: ammoCountEl.textContent,
+        inkText: inkTextEl.textContent,
+        weapon: currentWeaponId,
         ammoState: ammoStateEl.textContent,
         comboCount: comboCountEl.textContent,
         comicWords: comicWordsEl.children.length,
@@ -1917,9 +2362,15 @@ async function startGame(): Promise<void> {
         );
         weaponView.setReducedMotion(settings.reducedMotion);
         weaponView.setFlashStrength(settings.flash);
+        weaponIdleTextures.set("shotgun", loaded.get("punchy_shotgun_idle") as THREE.Texture);
+        weaponIdleTextures.set("pistol", proceduralWeaponTexture("pistol"));
+        weaponIdleTextures.set("automatic", proceduralWeaponTexture("automatic"));
+        weaponIdleTextures.set("blaster", loaded.get("punchy_blaster_idle") as THREE.Texture);
+        weaponIdleTextures.set("knife", loaded.get("punchy_knife_world") as THREE.Texture);
+        weaponIdleTextures.set("throwable", loaded.get("punchy_grenade_world") as THREE.Texture);
       }
       startupState = "ready";
-      showMenu("Paper. One shotgun. Runner, insect, and brute waves, score, and pickups.", "Play");
+      showMenu("Paper. Six weapons: shotgun, pistol, automatic, blaster, knife, grenade. Runner, insect, and brute waves, score, pickups, and ink pressure.", "Play");
       startBtn.disabled = false;
       if (viewOnly) setupViewOnly();
       if (viewTwo) setupViewTwo();
@@ -2036,6 +2487,14 @@ async function startGame(): Promise<void> {
     "KeyD",
     "KeyQ",
     "KeyR",
+    "KeyG",
+    "KeyX",
+    "Digit1",
+    "Digit2",
+    "Digit3",
+    "Digit4",
+    "Digit5",
+    "Digit6",
     "KeyE",
     "KeyF",
     "ShiftLeft",
@@ -2048,6 +2507,13 @@ async function startGame(): Promise<void> {
     }
     if (event.code === "Space" && phase === "playing" && !event.repeat) jumpBufferMs = 120;
     if (event.code === "KeyE" && phase === "playing" && !event.repeat) tryAttachGrapple();
+    if (phase === "playing" && !event.repeat && event.code.startsWith("Digit")) {
+      const order = weaponOrder();
+      const index = Number(event.code.slice(5)) - 1;
+      if (order[index]) selectWeapon(order[index].id);
+    }
+    if (event.code === "KeyG" && phase === "playing" && !event.repeat) throwGrenade();
+    if (event.code === "KeyX" && phase === "playing" && !event.repeat) spendInk();
     if (event.code === "KeyF" && phase === "playing" && !event.repeat) startMelee();
     if (event.code === "KeyR" && phase === "playing" && weaponView) {
       if (weaponView.startReload()) audio.reload();
@@ -2072,7 +2538,12 @@ async function startGame(): Promise<void> {
 
   renderer.domElement.addEventListener("mousedown", (event) => {
     if (phase !== "playing" || event.button !== 0) return;
+    autoHeld = true;
     fireShot();
+  });
+  renderer.domElement.addEventListener("mouseup", (event) => {
+    if (event.button !== 0) return;
+    autoHeld = false;
   });
 
   window.addEventListener("resize", () => {
@@ -2127,8 +2598,23 @@ async function startGame(): Promise<void> {
       return;
     }
 
+    fireCooldownMs = Math.max(0, fireCooldownMs - dtMs);
+    inkCooldownMs = Math.max(0, inkCooldownMs - dtMs);
     if (phase === "playing") {
-      fireCooldownMs = Math.max(0, fireCooldownMs - dtMs);
+      if (knifeWindupActive) {
+        knifeWindupMs -= dtMs;
+        if (knifeWindupMs <= 0) {
+          knifeWindupActive = false;
+          weaponAmmo.knife -= 1;
+          if (currentWeaponId === "knife" && weaponView) weaponView.ammo = weaponAmmo.knife;
+          fireCooldownMs = weaponSpec("knife").fireIntervalMs;
+          spawnKnifeProjectile();
+          audio.knifeThrow();
+          lastWeaponEvent = { action: "knifeRelease", weapon: "knife" };
+        }
+      }
+      if (autoHeld && currentWeaponId === "automatic" && fireCooldownMs <= 0) fireShot();
+      updateProjectiles(dt);
       hitmarkerMs = Math.max(0, hitmarkerMs - dtMs);
       reticleExpandMs = Math.max(0, reticleExpandMs - dtMs);
       damageFlashMs = Math.max(0, damageFlashMs - dtMs);
@@ -2405,6 +2891,7 @@ async function startGame(): Promise<void> {
         // caused it, and a shot that only wounds scores nothing.
         if (runner.state === "death" && prevState !== undefined && prevState !== "death") {
           addScoreForKill();
+          inkPressure = Math.min(INK_MAX, inkPressure + INK_PER_KILL);
         }
         runnerStates.set(runner, runner.state);
         if (runner.finished) {
@@ -2425,7 +2912,10 @@ async function startGame(): Promise<void> {
           if (pickup.kind === "health") {
             playerHealth = Math.min(100, playerHealth + rule.amount);
           } else if (weaponView) {
-            weaponView.ammo = Math.min(6, weaponView.ammo + rule.amount);
+            const spec = weaponSpec(currentWeaponId);
+            const add = spec.kind === "knife" || spec.kind === "grenade" ? 1 : rule.amount;
+            weaponAmmo[currentWeaponId] = Math.min(spec.ammo, weaponAmmo[currentWeaponId] + add);
+            weaponView.ammo = weaponAmmo[currentWeaponId];
           }
           scene.remove(pickup.group);
           pickup.dispose();
@@ -2496,26 +2986,51 @@ async function startGame(): Promise<void> {
         window.setTimeout(() => healthValue.classList.remove("compressed"), 180);
       }
     }
-    const hudAmmo = weaponView ? `${weaponView.ammo} / 6` : "Loading…";
+    const hudAmmo = weaponView
+      ? `${weaponSpec(currentWeaponId).name} ${weaponView.ammo} / ${weaponSpec(currentWeaponId).ammo}`
+      : "Loading…";
     if (lastHud.ammo !== hudAmmo) {
       lastHud.ammo = hudAmmo;
       ammoCountEl.textContent = hudAmmo;
     }
     if (weaponView) {
       const wv = weaponView;
+      const spec = weaponSpec(currentWeaponId);
+      const needed = Math.min(spec.ammo, 12);
+      while (ammoPipsEl.children.length < needed) {
+        const span = document.createElement("span");
+        ammoPipsEl.appendChild(span);
+      }
+      while (ammoPipsEl.children.length > needed) {
+        ammoPipsEl.removeChild(ammoPipsEl.lastChild as ChildNode);
+      }
       const pips = Array.from(ammoPipsEl.children);
       pips.forEach((pip, index) => {
-        const filled = index < wv.ammo;
+        const filled = index < Math.round((wv.ammo / spec.ammo) * needed);
         pip.classList.toggle("spent", !filled);
       });
     }
     const hudAmmoState = !weaponView
       ? "Loading…"
-      : weaponView.reloading
-        ? `Reloading ${Math.round(weaponView.reloadProgress01 * 100)}%`
-        : weaponView.ammo <= 0
-          ? "RELOAD"
-          : "";
+      : knifeWindupActive
+        ? "Winding up…"
+        : weaponView.reloading
+          ? `Reloading ${Math.round(weaponView.reloadProgress01 * 100)}%`
+          : weaponView.ammo <= 0
+            ? "RELOAD"
+            : "";
+    const hudInk =
+      inkCooldownMs > 0
+        ? `INK ${inkPressure} / 100 · Shock in ${Math.ceil(inkCooldownMs / 1000)}s`
+        : inkPressure >= INK_COST
+          ? `INK ${inkPressure} / 100 · X: SHOCK READY`
+          : `INK ${inkPressure} / 100 · X needs 50`;
+    if (lastHud.ink !== hudInk) {
+      lastHud.ink = hudInk;
+      inkTextEl.textContent = hudInk;
+      inkFillEl.style.width = `${inkPressure}%`;
+    }
+    void inkEl;
     if (lastHud.ammoState !== hudAmmoState) {
       lastHud.ammoState = hudAmmoState;
       ammoStateEl.textContent = hudAmmoState;

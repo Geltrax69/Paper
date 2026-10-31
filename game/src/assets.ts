@@ -31,10 +31,17 @@ export type Weapon = {
   fireClip: string;
   fireIntervalMs: number;
   flashClip: string;
-  reloadClip: string;
-  id: "shotgun";
+  fuseMs?: number;
+  id: string;
+  kind: "hitscan" | "bolt" | "knife" | "grenade";
+  name: string;
   pellets: number;
+  range: number;
+  reloadClip: string;
+  reloadMs: number;
+  speed?: number;
   spread: number;
+  windupMs?: number;
 };
 export type EnemySpec = {
   attackClip: string;
@@ -81,8 +88,16 @@ export function asset(id: string): Asset {
   return entry;
 }
 
-export function weaponSpec(): Weapon {
-  return manifest.weapons.shotgun;
+export function weaponSpec(id = "shotgun"): Weapon {
+  const spec = manifest.weapons[id];
+  if (!spec) throw new Error(`Unknown weapon: ${id}`);
+  return spec;
+}
+
+export function weaponOrder(): Weapon[] {
+  return ["shotgun", "pistol", "automatic", "blaster", "knife", "throwable"].map(
+    (id) => weaponSpec(id),
+  );
 }
 
 export function runnerSpec(): EnemySpec {
