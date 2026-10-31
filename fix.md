@@ -1,217 +1,192 @@
-# Paper — current audit and punchy ink correction plan
+# Paper — remaining work to fix and finish
 
-**Audited 31 October 2026 after pulling `main` to `6f109f2`.** This replaces the 30 October report, preserved in Git at `9562fe2`. This pass creates new findings, implementation/image prompts and three visual guides. The planned runtime restyle and gameplay fixes are **not yet applied**.
+**Checked against `main` at `170b950`, 31 October 2026.** No newer commits were available at the last pull. Runtime code remains at the `6f109f2` implementation; the later commit added audit/prompt/art documents. All tasks below are still open. This file is an implementation checklist, not a claim that the fixes have been applied.
 
-## Current direction
+## Start here
 
-- **[Detailed implementation prompt](docs/PUNCHY_INK_GAME_PROMPT.md)** — art matching, live comic UI, weapons, fluent animation, explosions, monsters and mechanics.
-- **[Asset prompts and all 40 techniques](docs/PUNCHY_INK_ASSET_PROMPTS.md)** — generation recipes and technical qualifications.
-- **[Gameplay/UI target](output/punchy-ink-v2/gameplay-ui-target.png)** — a new illustration, not a current game screenshot.
-- **[Monster poses](output/punchy-ink-v2/monster-key-pose-guide.png)** and **[FX candidates](output/punchy-ink-v2/effects-candidates.png)** — real-alpha guides, not approved runtime atlases. [QA/provenance notes](output/punchy-ink-v2/README.md).
+The game builds and starts. Shooting, ammo refill, pause, runner animation and closer-gun sprint already work. **Do not rebuild those systems from scratch.** Fix the remaining behavior defects, then make the actual game match the original ink artwork.
 
-The original boards in `output/gameplay/` remain the art authority: violet-black ground, turquoise open depth, expressive ivory/charcoal creatures, golden bursts and drawn HUD. The runtime must match that language rather than merely contain more detailed images.
+| Order | Work | Exit condition |
+| --- | --- | --- |
+| 1 | Melee reach, grounding, grapple targeting and release | Correct predictable movement/combat, with regression checks. |
+| 2 | Matching world, one coherent gun, runner animation and comic UI | One complete playable scene looks like the original boards in motion. |
+| 3 | Impacts, accessibility, asset budgets and portable tests | Feedback remains clear, scalable and verifiable. |
+| 4 | More monster families, weapons and one new mechanic | Expand using the proven pipeline, not placeholders presented as finished content. |
 
-## Latest pull: what exists now
+Use these detailed supporting documents:
 
-Seven implementation commits since the old audit added correctness fixes, animation, scenery, loop features and powers.
+- [Game, animation, UI and combat implementation prompt](docs/PUNCHY_INK_GAME_PROMPT.md)
+- [Image prompts and all 40 optimization techniques](docs/PUNCHY_INK_ASSET_PROMPTS.md)
+- [Original visual authority](output/gameplay/01-shotgun-pistols.png) and [new illustrated target](output/punchy-ink-v2/gameplay-ui-target.png)
+- [Candidate-art QA notes](output/punchy-ink-v2/README.md): the monster sheet is mixed key poses, not a run cycle; the FX sheet needs terminal fade correction and registration before runtime use.
 
-| Area | Current state |
-| --- | --- |
-| Build | Strict TypeScript + Vite production build passes. |
-| Runner | Eight directions × eight run poses, six front attack poses, eight front defeat poses, phase offsets and spawn cue. |
-| Gun | One shotgun, five diagonal firing poses, six flash phases, recoil/sway and closer-gun sprint scale. |
-| Reload | Functional 1400 ms refill; still the idle image plus a dip, no reload poses. |
-| World | Sky, skyline, ruin layers, floor/wall materials and three crate variants are integrated. Their presence does not establish a visual match. |
-| Loop | Waves, score/combo, pickups and synthesized sound. |
-| Player | Sprint, jump/double jump, dash, grapple and melee. |
-| Settings | Sensitivity, shake, flash, sound and reduced motion; health semantics; desktop support notice; review stepping/playback. |
-| Still missing | Other playable weapons, throwables, other monster families, proper explosion gameplay, coherent reload animation and final comic HUD. |
+## Batch 1 — fix gameplay correctness first
 
-Do not describe the current build as four images, one still runner and no powers/audio. That is an outdated milestone.
+### N03 — P1: melee reaches enemies far below the player
 
-## Verification
+- [ ] Fix the damage query in `game/src/main.ts:619–637`.
 
-```sh
-cd game
-npm ci
-npm run build
-npm run preview -- --host 127.0.0.1
-```
+**Reproduced:** a ground runner lost health `36 → 18` while player feet were approximately **9.52 m above the floor**, looking down. The query uses horizontal distance plus aim/obstruction, without a bounded 3D attack volume.
 
-Preview: `http://127.0.0.1:5174/`. Browser: local Playwright-driven headless Chrome **156.0.8078.74**. Controlled scenarios use the existing `?debug=1` API; no tracked source or served source response was patched for inspection.
+**Change:** define a world-space melee origin/volume with actual reach and vertical limits. Check target body intersection and solid obstruction at the strike event. Keep once-per-swing/per-target damage, including when low frame rates cross several animation frames. Do not let looking down extend the arm vertically.
 
-- **Pass:** install/typecheck/build. Vite warns about a **625.51 kB** minified JS chunk; this is advisory, not compilation failure.
-- **Pass:** normal tested loading/play paths had **no console/page errors or failed asset requests**.
-- **Pass:** pointer lock, two shots `6 → 5 → 4`, reload back to `6`, independent runner frame advancement, pause and sprint scale approximately `1.10 → 1.00` on stopping.
-- **Pass:** ten rendered temporary enemies changed geometry count `22 → 52 → 22` after disposal. The original simple enemy-geometry leak did not reproduce.
-- **Pass:** jump count progressed `1 → 2 → 2` after a third midair attempt; landing reset the air-jump allowance.
-- **Pass:** intentionally aborting an asset request showed its name and Retry with no unhandled page error; allowing the request and retrying returned to Start.
-- **Controlled reproductions:** aerial melee overreach, stale grounding off a crate and a grapple target behind the camera, detailed below.
-- **Asset inventory:** **101** manifest images, **40,049,406 bytes**; approximately **225.3 MiB** estimated RGBA8 storage with full mip chains, before other resources. Not measured GPU allocation.
-- **Local startup observation:** approximately 1.53 seconds to ready, 102 `/assets/` requests including the JS bundle. This is not a deployment/network benchmark.
-- **Visual checks:** 1280×720 and 1920×1080 gameplay plus a 390×844 menu. No real-hardware FPS, long-session memory or subjective swing-feel claim.
+**Done when:** the overhead reproduction deals no damage; a close valid strike deals 18 once; crate cover blocks it; valid aerial melee uses the same documented bounded reach. Preserve the existing windup, cooldown and recovery.
 
-Evidence: [main results](game/verification/audit-2026-10-31/results.json), [follow-up](game/verification/audit-2026-10-31/followup-results.json), [gameplay](game/verification/audit-2026-10-31/gameplay-desktop.png), [fire](game/verification/audit-2026-10-31/firing.png), [reload](game/verification/audit-2026-10-31/reloading.png), [narrow menu](game/verification/audit-2026-10-31/menu-narrow.png), [1920 view](game/verification/audit-2026-10-31/gameplay-1920.png).
+### N04 — P1: player remains grounded after walking off a crate
 
-## Reassessment of the old findings
+- [ ] Fix support/grounding transitions in `game/src/main.ts:1568–1607`.
 
-| Old ID | Current assessment |
-| --- | --- |
-| F01 pathing | Visibility-graph routing/separation implemented. Source-reviewed; older pass reports route tests. Do not repeat the old failure as newly reproduced here. |
-| F02 height | Authoritative body position and enemy-to-player height/LOS checks implemented. New player-to-enemy melee overreach is a separate defect. |
-| F03 reset/input | Central input/action/weapon reset and blur/lock-loss cleanup implemented. |
-| F04 startup | Loading/error/retry and pointer-lock error UI implemented. Current missing-asset retry rechecked successfully. |
-| F05 animation | Run/attack/defeat/fire/flash now animated. Reload/hit/other viewpoints remain incomplete. |
-| F06 disposal | Enemy/tracer resource disposal implemented; geometry reclamation rechecked. |
-| F07 muzzle | Transform-following attachment nodes implemented. Source-art registration/identity still needs work. |
-| F08 shots | Gameplay muzzle offset and camera-aim-to-muzzle obstruction check implemented. |
-| F09 spawn | Spawning enemies excluded from shot damage; damage outcomes returned. |
-| F10 visual state/pause | State visual reset and world effects inside playing loop implemented. |
-| F11 repeated jump | Phase-gated non-repeat jump input implemented. Off-ledge grounding is a different new defect. |
-| F12 review | Responsive wrapper/grid and playback controls implemented. |
-| F13 settings | Health semantics, settings and support notice implemented; presentation still needs redesign. |
-| F14 loading | Cached HUD writes improved; eager serial loading and production alpha scans remain. Asset volume grew. |
+**Reproduced:** start on crate `(3,1.5,1)`, strafe right; at approximately `(4.92,1.16,1)` the player is falling above floor height zero but `grounded=true` and `coyoteMs=100`.
 
-## Current prioritized findings
+**Change:** derive support/contact every step. Clear grounded on loss of support; start coyote time once on the grounded-to-airborne transition, rather than refreshing it while falling. Require appropriate foot-height/contact tolerance or swept landing, not merely feet below a possible support height. Reset the air-jump allowance only on a genuine landing.
 
-P1 = major next-pass work; P2 = important follow-up. Art gaps are requirements failures, not JavaScript exceptions. No normal-startup P0 blocker was reproduced.
+**Done when:** walking off a ledge immediately becomes airborne; the coyote window expires; a third midair jump cannot be gained from a false reset; landing audio/dust fires once. Keep ordinary jumping and crate-top landings working.
 
-### N01 — P1: world, creatures and HUD do not match the original boards
+### N05 — P2: grapple can choose an anchor behind the camera
 
-**Evidence:** direct screenshot comparison. Current game has a pale square-grid courtyard, giant cream ceiling-like sky shapes, beige walls and small smooth masked characters. Reference has dark violet ink ground, cyan atmosphere, layered fortress structures and rough monstrous silhouettes. Plain system text replaces the drawn HUD cards.
+- [ ] Replace nearest-only candidate selection in `game/src/main.ts:495–515`.
 
-**Locations:** `game/src/arena.ts:110–149`, `game/src/environment.ts:6–53`, `game/index.html:9–35`, current environment/monster textures.
+**Reproduced:** at `(0,0,9)` facing negative Z, E attaches to `(0,2.8,11)` behind the view, rope length about 3.44. This is current selection behavior, not a JavaScript exception.
 
-**Fix:** apply the reference-locked palette and image recipes in the new prompts. Replace inappropriate source images, especially floor and spherical sky. Set coherent horizon/architecture scale and independent depth layers. Build live ink/paper HUD panels. Do not solve wrong artwork solely with saturation or bloom.
+**Change:** filter by a visible aim cone, range and clear line of sight. Rank reticle angle before world distance, add selection stability, and show the exact available/blocked anchor. Use the same candidate for the cue and the attachment action.
 
-**Accept:** actual idle, shot, reload, sprint and monster-action captures match the reference language at both desktop sizes. A generated poster is a target, not evidence of an implemented restyle.
+**Done when:** aiming at a visible valid anchor predictably attaches there; E does not unexpectedly select behind the player; walls/crates still block acquisition.
 
-### N02 — P1: weapon changes identity when firing; reload remains a dip
+### N06 — P2: grapple release loses useful momentum
 
-**Evidence:** idle/fire screenshots show different barrel/receiver proportions and hand framing; cutoff wrists become visible during fire. The separate fire mesh has approximately **0.38 radians** of orientation compensation. Rotation cannot make two incompatible drawings the same prop. Reload still lowers idle art and refills from a timer.
+- [ ] Rework release velocity at `game/src/main.ts:523–533,1545–1558`.
 
-**Locations:** `game/src/weapon.ts:223–245,278–283,299–325`; shotgun clips in `game/assets.json`.
+**Source-confirmed:** release sets momentum Y to zero, applies horizontal movement for 400 ms and damps it sharply. The old powers report measured only small release drift; that historical value is not a fresh measurement from this check.
 
-**Fix:** approve one canonical reference-matched shotgun. Produce consistent idle/fire/reload/sprint poses, full forearm continuation, common grip and per-frame muzzle/ejection metadata. Prefer layered transforms plus a few true shape-changing poses. Add reload performance and one ammo-transfer event with explicit interruption/recovery rules. Replace art-specific hardcoded dimensions/rotation fixes with metadata where appropriate.
+**Change:** keep authoritative world velocity, remove/limit the rope's radial velocity appropriately and preserve tangential/vertical release motion. Apply consistent air steering/drag, swept collision and rope obstruction detach. Avoid a separate arbitrary displacement timer that fights normal movement.
 
-**Accept:** no silhouette/hand pop, floating wrists, changing barrel arrangement or flash drift. Reload visibly uses hands/prop poses; sprint remains smoothly closer while preserving aim.
+**Done when:** releasing at different swing phases creates predictable arcs and meaningful carry; pumping, landing and wall collision work at varied frame rates. Verify actual feel on real hardware, not only an active momentum flag.
 
-### N03 — P1: player melee can hit ground enemies from far above
+## Batch 2 — make one complete scene match the images
 
-**Reproduced:** a vulnerable ground runner was spawned, then player feet placed at `(0,10,1.5)` looking down. The existing melee action changed runner health **36 → 18** while player feet remained about **9.60 m** high.
+### N01 — P1: world and monster art do not match the original style
 
-**Location:** `game/src/main.ts:619–637`.
+- [ ] Correct environment assets/mapping in `game/src/arena.ts:110–149`, `game/src/environment.ts:6–53`, `game/assets.json` and the relevant runtime textures.
+- [ ] Approve a consistent original-style runner identity before making more variants.
 
-**Cause/fix:** reach is horizontal; aim-cone/ray checks do not impose actual 3D reach or vertical overlap. Use a swept melee volume or height-aware cone/capsule, solid obstruction and per-swing hit deduplication.
+**Current mismatch:** pale tiled courtyard, giant overhead cream sky shapes, beige walls and smooth masked characters. **Target:** dark violet-black ink ground, open ivory/cyan atmosphere, turquoise distant towers, layered fortress silhouettes, expressive charcoal/ivory creatures and controlled golden highlights.
 
-**Accept:** the reproduction deals no damage; a valid close strike still deals exactly 18 once, cover blocks it, and aerial attacks have explicit bounded reach.
+**Change:** replace the wrong floor/sky/material art, not just its saturation. Use an actual seam/pole-checked equirectangular sky or another suitable sky treatment. Keep skyline/ruins as separate depth layers with coherent scale and horizon. Use dark resting areas around clear enemy silhouettes and a quiet aiming region. Preserve real floor/platform/cover geometry and collision.
 
-### N04 — P1: stepping off a crate leaves the player grounded in midair
+**Done when:** actual gameplay captures at 1280×720 and 1920×1080 match the reference palette, depth and silhouettes. Looking up does not resemble a giant painted ceiling. A generated poster is a target, not proof of completion.
 
-**Reproduced:** stand on crate `(3,1.5,1)`, strafe off the right edge and sample before floor contact. At approximately `(4.92,1.16,1)`, **grounded was true** and **coyoteMs was 100**, with actual support at floor height zero.
+### N02 — P1: gun changes shape when firing; reload has no hand animation
 
-**Location:** `game/src/main.ts:1568–1607`.
+- [ ] Replace incompatible shotgun art and extend `game/src/weapon.ts:223–245,278–283,299–325` plus manifest metadata.
 
-**Cause/fix:** support can set grounded true without clearing it when support disappears, so coyote time refreshes while falling. Derive grounding from current support/contact, transition to airborne on support loss, start one finite coyote window, and reset air jumps only on real landing.
+**Current mismatch:** idle/fire use different-looking barrel/receiver proportions and hand framing. Fire exposes cutoff wrists. A hardcoded 0.38-radian fire-mesh compensation cannot fix a different drawing. Reload is still a timer-driven dip of the idle image.
 
-**Accept:** leaving a ledge clears grounding immediately, the window expires, air jumps cannot get unintended resets, and landing feedback triggers once.
+**Change:** approve one canonical shotgun matching the original board. Produce consistent idle/fire/reload/sprint poses with complete forearms, common grip registration and per-frame muzzle/ejection attachments. Use layered transforms for recoil/sway/sprint and a few real silhouette-changing poses for hands/reload. Replace art-specific dimensions/orientation patches with metadata where feasible.
 
-### N05 — P2: grapple selection can choose an anchor behind the camera
+Add explicit action priority and reload interruption rules. Trigger one ammo-transfer event at the correct pose; pause/resume or a long time step must not duplicate it. Preserve the existing actual-speed-driven sprint scale around 1.1; refine its matching arm pose rather than implementing it again.
 
-**Confirmed behavior:** player at `(0,0,9)`, facing negative Z, attached to `(0,2.8,11)` behind the view with rope length about **3.44**. Current nearest-anchor selection is intentional code; this is a control/readability change, not an exception.
+**Done when:** no identity change, hand pop, floating wrist or muzzle drift between states. Reload visibly progresses through anticipation, interaction, regrip and recovery. Sprint/landing/fire blend cleanly without blocking the reticle.
 
-**Location:** `game/src/main.ts:495–515`.
+### N07 — P2: monster direction and state transitions need continuity
 
-**Fix:** visible aim cone plus range/LOS, rank by reticle angle before distance, and show a stable valid/blocked cue. Pressing E must use the indicated point.
+- [ ] Fix view selection/registration in `game/src/enemy.ts:53–68,281–284,572–575` and associated clips/metadata.
 
-**Accept:** looking toward a valid point predictably selects it, no unexpected attachment behind the player, and cover still blocks acquisition.
+**Remaining:** direct 45-degree rounding without hysteresis; front-only attack/defeat; hit switches to old idle art; root/ground measurements are partly hardcoded. The existing independent frame players and preserved run phase are good foundations.
 
-### N06 — P2: grapple release drops vertical momentum and damps sharply
+**Change:** add angular hysteresis while retaining phase. Match identity, scale and foot/root registration across run/attack/hit/defeat. Use suitable directional art or prepared layered/weighted cutouts, adding elevated views when close aerial play exposes missing surfaces. Share rigs only within compatible anatomy. A single PNG is not automatically rigged.
 
-**Evidence:** source review at `game/src/main.ts:523–533,1545–1558` sets momentum Y to zero and applies damped momentum for 400 ms. The historical powers report also notes only about 0.07 units of measured release drift; that value was not independently remeasured here.
+**Done when:** no boundary flicker, wrong-side face, hit-state size pop, foot sliding or transparent joint holes. Separate shadows follow body/height. Review loops and direction changes at normal and slowed speed.
 
-**Fix:** retain a world velocity, constrain appropriate rope components and preserve useful tangential/vertical release velocity. Use coherent air steering/drag, swept collision and obstruction detach. Tune the existing mechanic before promising an aerial-score system.
+### N09 — P2: game UI needs an ink identity and real power feedback
 
-**Accept:** different release phases produce predictable arcs and useful motion without tunneling; verify at varied frame rates and on real hardware.
+- [ ] Restyle `game/index.html:9–35,63–79` and connect live status in `game/src/main.ts:1784–1835`.
 
-### N07 — P2: view/state switching exposes sprite discontinuities
+**Change:** torn ivory combo card, brush-stamp wave indicator, readable ink-backed health/ammo, shell pips, restrained event-linked scale responses and a compact dash/air-jump/grapple/melee readiness strip. Keep numbers/text/state live and accessible; generated art supplies backing materials only.
 
-**Evidence:** `game/src/enemy.ts:53–68,281–284` rounds directly into 45-degree sectors without hysteresis. Phase preservation exists and should remain. Attack/defeat are front-only; hit switches to old idle art (`:572–575`). Artwork measurements are hardcoded rather than fully described per frame.
+Shorten the opening menu to Play, controls, Settings and optional Help/rules. Make help/settings scrollable and preserve focus/health semantics and the desktop keyboard/mouse notice. Add occasional localized KABAM/CRACK stamps only for real major events, not every pellet.
 
-**Fix:** hysteresis, preserved phase, coherent state/view art or prepared cutout rigs, and per-frame root/ground/attachment metadata. Compatible anatomy may share a rig; a one-piece PNG is not already skinned. Add elevated coverage where close aerial views expose missing surfaces.
+**Done when:** values and cooldowns are accurate, layout stays stable, center aim/telegraphs remain clear, and no UI panel competes with sprint gun placement. Narrow menus and zoom remain usable.
 
-**Accept:** no boundary flicker, backward-facing enemy showing its front during every attack, hit-state size pop or foot drift. Check motion, not only contact sheets.
+## Batch 3 — effects, controls and performance
 
-### N08 — P2: asset volume and wave population need budgets before expansion
+### N10 — P2: contact marks must attach to surfaces
 
-**Evidence:** `game/src/assets.ts:115–137` loads all 101 textures serially and scans image alpha in ordinary startup; there is no runtime atlas. `main.ts:702–708` adds two enemies per wave without an active cap; neighbor separation scans other runners per enemy. Current full-mip texture estimate is about 225.3 MiB. Bundle advisory is 625.51 kB.
+- [ ] Extend `RayHit` in `game/src/arena.ts:4` and replace camera-facing decal placement in `game/src/main.ts:407–424`.
 
-**Fix:** separate masters from runtime exports, resize appropriately, pack with edge gutters/extrusion and stream later families. Move diagnostics to review/dev. Share static geometry/texture storage with explicit ownership while preserving independent animation clocks. Add spatial lookup and active-enemy/attack caps. Profile bundle splitting rather than hiding the warning.
+**Change:** return contact normal and surface/owner; orient and offset pooled organic ink decals on the struck surface. Handle edges, z-fighting and destructible owners. Use separate airborne sparks instead of eye-facing circles pretending to be wall marks.
 
-**Accept:** named hardware/browser/resolution startup, frame-time, draw-call and repeated-wave memory measurements. More generated masters must not imply more eager downloads or unlimited active entities.
+**Done when:** moving around a mark keeps it flush to the same wall/crate; it does not turn toward the eye or cross unrelated geometry.
 
-### N09 — P2: plain HUD and long opening rules obscure the action hierarchy
+### C01 — required content: localized punchy impacts and proper explosions
 
-**Evidence:** current HUD is small system text with a simple health rectangle. No visible power-readiness strip exists. The initial menu includes the whole rules specification; at 390×844 Start sits close to the bottom. Desktop-only support is correctly disclosed already.
+- [ ] Build a shared FX emitter/clip pipeline, plus one complete explosion interaction.
 
-**Locations:** `game/index.html:9–35,63–79`; `main.ts:1784–1835`.
+**Change:** reuse 3–5 flash designs and 5–8 shared spark/ring/ink/smoke/fragment textures. Drive transforms, emission, lifetime and palette procedurally. A heavy impact combines an angular flash, target-local ink star, a few fragments, contact audio and short recoil; group same-shot pellet feedback instead of flooding the screen.
 
-**Fix:** live comic cards/stamps, stable numbers, event-linked responses and actual dash/air-jump/grapple/melee indicators. Short Play/Settings/Help menu, optional rules and scrollable content. Keep backing art separate from text/state, retain focus and semantic health.
+Explosions need ignition, bloom, ring, outward fragments, smoke breakup and a genuinely fading terminal phase. Define damage radius, falloff, cover and chain-reaction policy separately from visual size. Use brief capped local hit-stop and adjustable shake for strong events, not repeated global freezes per pellet. Mark explosive barrels distinctly from ordinary cover.
 
-**Accept:** readable center aim, clear true status, no decorative meters, usable settings at narrow sizes/zoom and no effect covering an attack tell.
+**Done when:** effects originate at correct attachments/contacts, cover rules work, particles are pooled/capped, and an explosion is both a working game event and a readable animation. The current FX candidate sheet's bottom row is not an approved fading clip.
 
-### N10 — P2: decals are eye-facing discs rather than surface-attached ink
+### N12 — P2: unify reduced-motion and flash behavior
 
-**Evidence:** `game/src/main.ts:407–424` aims non-floor circles at the camera. `RayHit` at `arena.ts:4` has no normal/owner metadata. Contact marks can appear to float instead of sticking to a wall/crate.
+- [ ] Apply a shared policy to camera shake at `game/src/main.ts:1674–1678`, WeaponView, HUD and new effects.
 
-**Fix:** return contact normal and surface/owner, orient/offset pooled organic ink decals on that surface and handle edges/z-fighting. Keep airborne sparks separate.
+**Remaining:** reduced motion handles sprint/bob/streaks but damage camera translation uses shake strength without an explicit reduced-motion gate.
 
-**Accept:** moving the view preserves a mark flush to its original surface without turning toward the viewer or crossing unrelated geometry.
+**Change:** suppress shake/roll/large zoom when reduced motion is on; separately respect flash strength and effect density. Retain readable danger, hit and cooldown cues without compulsory flashing or camera movement.
 
-### N11 — P2: historical docs and harness paths are not a current portable test entry point
+**Done when:** reduced-motion damage/explosions do not shake/roll the camera; zero flash removes bright flash layers; menus and critical telegraphs remain functional.
 
-**Evidence:** before this documentation update, root/game READMEs still claimed one wave, one front view and four images. `game/VERIFICATION.md` covers the first milestone. Existing verify scripts hardcode Linux Chromium paths; `game/package.json` lacks a standard test command.
+### N08 — P2: bound asset loading, texture memory and enemy count
 
-**Fix:** label milestone reports, keep current features/run/verification links accurate and parameterize browser executable/base URL/output paths. Provide a small portable regression suite for real reach/grounding/resource/action-timing risks. Distinguish scripted state setup from ordinary play.
+- [ ] Rework `game/src/assets.ts:115–137`, wave population at `main.ts:702–708` and neighbor-query scaling.
 
-**Accept:** contributors can follow documented build/check commands on supported machines without editing absolute paths. Current, historical and proposed content are clearly separated.
+**Current inventory:** 101 PNGs, 40,049,406 bytes; about 225.3 MiB estimated RGBA8 storage with full mipmaps, not measured driver memory. All assets load serially and undergo production alpha scans. Wave count grows without an active cap. Vite's 625.51 kB chunk advisory is a warning, not a build failure.
 
-### N12 — P2: reduced-motion policy covers only some camera/visual effects
+**Change:** keep high-resolution masters outside runtime budgets; export suitable gameplay sizes, pack with trim/pivot metadata and filtering gutters, load the core scene first and stream later families/weapons. Move alpha analysis to review/dev. Share static geometry/texture storage while keeping animation clocks independent. Add active-enemy/attack/transparent-effect caps and spatial queries. Profile before splitting the bundle; do not only hide its warning.
 
-**Evidence:** WeaponView handles reduced-motion sprint/bob and aerial streaks check the setting. Damage camera translation at `main.ts:1674–1678` uses shake strength without an explicit reduced-motion gate. Current settings text promises limited reductions, so do not claim complete support from the checkbox.
+**Done when:** report startup bytes/time, frame time, draw calls and repeated-wave resource stability on named hardware/resolutions. New generated images do not automatically become eager downloads; elite/giant variants have proper collision/stats rather than arbitrary visual scaling.
 
-**Fix:** one effective policy for camera shake/roll/zoom, weapon, HUD, hit-stop, streaks and new explosions. Suppress disruptive movement while retaining hit/danger cues; flash strength remains separately adjustable.
+### N11 — P2: provide a portable verification entry point
 
-**Accept:** reduced-motion damage/explosions do not shake/roll the camera; zero flash removes bright layers without hiding intent or hit confirmation.
+- [ ] Make historical browser harnesses configurable and expose a documented check command in `game/package.json`.
 
-## Missing content: implementation order
+**Change:** parameterize browser executable, base URL, ports and output path instead of hardcoded Linux paths. Add focused regressions for melee reach, ledge grounding, grapple selection, action-event deduplication and disposal. Keep historical reports labeled and current docs accurate. README feature descriptions have already been updated; do not repeat that documentation change as unfinished.
 
-These are planned additions/incomplete requirements, not newly reproduced exceptions:
+**Done when:** another contributor can run the checks on a supported machine without editing absolute paths. Controlled debug setups are clearly distinguished from normal keyboard/mouse play and subjective real-device review.
 
-1. **Matching slice:** dark ink floor, open cyan sky, reference-matched runner, one coherent shotgun including reload, live comic UI and one proper layered explosive effect.
-2. **Shared FX:** 3–5 flashes and 5–8 impacts/rings/smoke/fragments. Explosion behavior has radius/falloff/cover, not just a pretty loop.
-3. **Distinct monsters:** runner + insect + brute first, then wraith/winged/mutant/demon families. Share compatible technology; retain anatomy and unique telegraphs/counterplay.
-4. **Arsenal:** pistol, automatic, blaster, knives and throwables with separate action events, ammo rules and collision/projectile behavior.
-5. **One new mechanic first:** ink-pressure spend, a marked explosive-barrel chain or aerial style rewards. Do not show unused meters or claim all concepts are implemented.
+## Batch 4 — content expansion after the matching slice works
 
-## Acceptance checklist for the next implementation pass
+### C02 — distinct monsters
 
-- [ ] Fix aerial melee and off-ledge grounding with meaningful regressions.
-- [ ] Make grapple selection/velocity predictable; preserve working cover/LOS checks.
-- [ ] Lock the original art and compare the actual runtime against it.
-- [ ] Replace incompatible gun/monster art; add real reload/action events once per action.
-- [ ] Build organic live HUD/menu, power feedback and localized layered FX.
-- [ ] Use the [40-technique mapping](docs/PUNCHY_INK_ASSET_PROMPTS.md): prepared cutouts/weights are needed for rigging; perspective already handles distance scale; unlit sprites require explicit lighting/tint logic.
-- [ ] Verify true alpha, matte edges, ivory opacity, pivots, phase correspondence, trim metadata and terminal FX fade.
-- [ ] Deliver normal/slowed short recordings of run, fire, reload, sprint, attack and explosion. Screenshots do not certify animation timing.
-- [ ] Check pause/resume, missing-asset retry, pickups, settings, waves, kills, death/restart, crate-blocked shots and repeated-wave memory.
-- [ ] Check 1280×720, 1920×1080 and narrow menus; measure real-device performance.
-- [ ] Keep illustration targets, source candidates and approved runtime exports distinct in the manifest/docs.
+- [ ] Ship runner + insect + brute first, then wraith/tentacle, winged beast, demon and regenerating mutant families as needed.
 
-## Audit tools and foundations to preserve
+Each needs an approved silhouette/anatomy, 6–8 useful movement poses or prepared cutout articulation, distinct attack windup/recovery and fair counterplay. Use compatible controllers/rigs, not one runner recolored for every family. Add procedural appendages/breathing/head tracking only with art layers or geometry that support them. Reuse shadows, impacts, material masks and animation technology while preserving identity.
 
-Impeccable's detector flags close text-size steps and the intentional red damage glow. Treat the latter as feedback needing appropriate controls, not an automatic deletion. Neither is a crash finding.
+**Done when:** players can recognize the family and its attack without reading a label; state/view changes preserve identity; attacks obey reach, player height, cover and concurrency limits.
 
-Technical scores, scoped judgment rather than certification: accessibility **3/4**, performance **2/4**, responsive **2/4**, visual configuration **1/4**, implementation integrity **2/4** = **10/20**. There are **12 current findings: four P1 and eight P2**.
+### C03 — additional weapons and one new mechanic
 
-Preserve strict build, separate render layers, per-instance animation players, grounded sprite geometry, explicit phases, body-aware collision, muzzle obstruction checks, reset/error handling, disposal, bounded particle/decals and honest pass reports. Useful focused passes: `$impeccable harden`, `$impeccable animate`, `$impeccable optimize`, `$impeccable adapt`, then `$impeccable audit` and finally `$impeccable polish`.
+- [ ] Add pistol, automatic, blaster, knives and throwables in reviewed batches.
+- [ ] Choose one new mechanic to finish first: ink-pressure spend, marked barrel chains or aerial style rewards.
+
+Every weapon needs real switching, action/cooldown/ammo rules, matching hand poses, projectile/hit behavior and distinct feedback. A blaster needs traveling bolts; a grenade needs arc/fuse/explosion rules; a knife needs a separate world projectile. Do not label a shotgun reskin as a different implemented weapon. New meters/rewards must reflect actual game logic.
+
+**Done when:** each added item supports a complete usable loop with input, consequences, clear UI, sound, cancellation/pause handling and tests. Proposed mechanics remain labeled as concepts until playable.
+
+## Completion gate
+
+- [ ] `npm run build` passes; normal loading/play produces no unexpected console/page/network errors.
+- [ ] Reproduced reach/grounding defects are fixed; aimed grapple release and collisions are predictable.
+- [ ] Actual runtime matches the original ink images at 1280×720 and 1920×1080.
+- [ ] Run/fire/reload/sprint/attack/explosion have short normal-speed and slowed recordings, not screenshots alone.
+- [ ] True alpha, opaque ivory, clean edges, frame order, root/grip/muzzle pivots, view phases and terminal fades are reviewed before atlas export.
+- [ ] Pause/resume, missing-asset retry, pickups, wave clear, death/restart, blocked shots and reduced-motion settings work.
+- [ ] Repeated waves/restarts settle at stable resource counts; performance is measured on named real hardware.
+- [ ] Final assets, source candidates and illustration targets remain clearly separated; update this checklist only with evidence.
+
+## Evidence and preserved behavior
+
+The most recent smoke check at `170b950` confirmed no tested runtime errors, pointer lock, ammo `5 → 4 → 6`, pause and the three remaining reach/grounding/grapple reproductions. [Latest smoke results](game/verification/audit-2026-10-31/latest-smoke-results.json). Broader prior checks: [audit results](game/verification/audit-2026-10-31/results.json), [jump/retry follow-up](game/verification/audit-2026-10-31/followup-results.json), [current gameplay](game/verification/audit-2026-10-31/gameplay-desktop.png), [firing mismatch](game/verification/audit-2026-10-31/firing.png).
+
+Preserve the already implemented pathing/body collision foundations, reset/focus cleanup, startup retry, separate render layers, per-instance animation clocks, muzzle obstruction checks, independent runner phases, geometry disposal, bounded base particles/decals, waves/score/pickups/audio and settings. The remaining list is **12 open audit items (N01–N12) plus three content groups (C01–C03)**; it does not reopen completed fixes.
