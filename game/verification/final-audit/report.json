@@ -1,0 +1,162 @@
+{
+  "results": [
+    {
+      "id": "menu-settings",
+      "name": "Menu and settings panel at 1280",
+      "status": "PASS",
+      "detail": "reduced=true flash=true"
+    },
+    {
+      "id": "env-1280",
+      "name": "Dark floor, cyan sky, canonical idle at 1280",
+      "status": "FAIL",
+      "detail": "maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,mid_ruins.png,muzzle_flash_01.png,punchy_floor_dark_ink.png,punchy_shotgun_idle.png,punchy_shotgun_reload_01.png,shotgun_fire_diag_01.png,wall_seamless.png"
+    },
+    {
+      "id": "pause-resume",
+      "name": "Pause on lock loss and resume",
+      "status": "PASS",
+      "detail": "paused then playing"
+    },
+    {
+      "id": "gameplay-1920",
+      "name": "Gameplay at 1920x1080 with a runner",
+      "status": "PASS",
+      "detail": "runners=1 phase=playing"
+    },
+    {
+      "id": "menu-narrow",
+      "name": "Start button inside 390 viewport, settings opens",
+      "status": "PASS",
+      "detail": "startBtn={\"x\":151.484375,\"y\":594.4375,\"w\":87.015625,\"h\":49}"
+    },
+    {
+      "id": "missing-retry",
+      "name": "Missing asset names error and Retry recovers",
+      "status": "PASS",
+      "detail": "button=Retry"
+    },
+    {
+      "id": "pickups",
+      "name": "Health and ammo pickups restore and are taken once",
+      "status": "PASS",
+      "detail": "health 60 to 100, ammo 4 to 6"
+    },
+    {
+      "id": "settings-reduced",
+      "name": "Reduced motion plus zero flash gives no camera shake or roll on damage",
+      "status": "PASS",
+      "detail": "cam=0,1.7,9 roll=0 health=90"
+    },
+    {
+      "id": "waves-death",
+      "name": "Wave clear, death, restart",
+      "status": "FAIL",
+      "detail": "timeout waiting for waveComplete: "
+    },
+    {
+      "id": "crate-blocked",
+      "name": "Crate-blocked shot leaves runner at 36",
+      "status": "PASS",
+      "detail": "health=36 tracerZ=4.9"
+    },
+    {
+      "id": "n03-aerial",
+      "name": "Melee from 10m above deals no damage",
+      "status": "PASS",
+      "detail": "health=36"
+    },
+    {
+      "id": "n05-behind",
+      "name": "No behind-camera grapple",
+      "status": "PASS",
+      "detail": "cue=-3,1.5,-2 anchor=-3,1.5,-2"
+    },
+    {
+      "id": "barrel-cover",
+      "name": "Explosion behind a crate deals no player damage, barrel detonates",
+      "status": "PASS",
+      "detail": "healthBefore=100 healthAfter=100 visuals={\"bloomVisible\":false,\"coreVisible\":false,\"ringVisible\":false}"
+    },
+    {
+      "id": "six-weapons",
+      "name": "All six weapons select and show in HUD",
+      "status": "PASS",
+      "detail": "seen=shotgun,pistol,automatic,blaster,knife,throwable"
+    },
+    {
+      "id": "six-weapons",
+      "name": "Six weapons and ink pressure",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "insect-attack",
+      "name": "Insect and brute attacks",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "stability",
+      "name": "Repeated-wave stability",
+      "status": "FAIL",
+      "detail": "timeout waiting for wave 4 complete: "
+    },
+    {
+      "id": "seq-run",
+      "name": "Run frame sequence at normal speed",
+      "status": "FAIL",
+      "detail": "frames=seq-run-normal-00-frame2.png,seq-run-normal-01-frame1.png,seq-run-normal-02-frame7.png,seq-run-normal-03-frame5.png,seq-run-normal-04-frame4.png,seq-run-normal-05-frame6.png,seq-run-normal-06-frame7.png"
+    },
+    {
+      "id": "seq-fire",
+      "name": "Fire frame sequence at normal speed",
+      "status": "FAIL",
+      "detail": "frames=seq-fire-normal-frame1.png"
+    },
+    {
+      "id": "seq-reload",
+      "name": "Reload frame sequence at normal speed",
+      "status": "FAIL",
+      "detail": "frames=seq-reload-normal-frame0.png,seq-reload-normal-frame1.png"
+    },
+    {
+      "id": "seq-sprint",
+      "name": "Sprint frame sequence at normal speed",
+      "status": "FAIL",
+      "detail": "frames=seq-sprint-00-scale1.00.png,seq-sprint-01-scale1.00.png,seq-sprint-02-scale1.00.png"
+    },
+    {
+      "id": "seq-explosion",
+      "name": "Explosion frame sequence at normal speed",
+      "status": "PASS",
+      "detail": "frames=seq-explosion-00.png,seq-explosion-01.png,seq-explosion-02.png,seq-explosion-03.png,seq-explosion-04.png,seq-explosion-05.png,visuals=null"
+    },
+    {
+      "id": "seq-run",
+      "name": "Frame sequences",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "review-mode",
+      "name": "Review mode renders runtime clips",
+      "status": "PASS",
+      "detail": "rows=151"
+    },
+    {
+      "id": "review-mode",
+      "name": "Review mode and slowed sequences",
+      "status": "FAIL",
+      "detail": "locator.screenshot: Error: strict mode violation: locator('h2').filter({ hasText: 'Clip runner_run_front ' }).locator('xpath=following-sibling::div[contains(@class,\\'review-row\\')][1]') resolved to 3 elements:\n    1) <div class=\"review-row\">…</div> aka getByText('light frame 0 / 8 71msPlayStep frame"
+    },
+    {
+      "id": "console",
+      "name": "Console and page errors during final harness",
+      "status": "PASS",
+      "detail": "consoleErrors= pageErrors="
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+}

@@ -1,0 +1,29 @@
+{
+  "warmup": {
+    "geometries": 21,
+    "textures": 13
+  },
+  "samples": [
+    {
+      "wave": 4,
+      "geometries": 18,
+      "textures": 28,
+      "drawCalls": 20,
+      "frameTimeMs": 49.99999999999991
+    },
+    {
+      "wave": 5,
+      "geometries": 18,
+      "textures": 31,
+      "drawCalls": 20,
+      "frameTimeMs": 49.99999999999998
+    },
+    {
+      "wave": 6,
+      "geometries": 18,
+      "textures": 31,
+      "drawCalls": 20,
+      "frameTimeMs": 49.99999999999998
+    }
+  ]
+}

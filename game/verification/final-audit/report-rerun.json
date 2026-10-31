@@ -1,0 +1,78 @@
+{
+  "results": [
+    {
+      "id": "env-1280-rerun",
+      "name": "Dark floor, sky background, canonical idle at 1280",
+      "status": "PASS",
+      "detail": "background=true maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,mid_ruins.png,muzzle_flash_01.png,punchy_floor_dark_ink.png,punchy_shotgun_idle.png,punchy_shotgun_reload_01.png,shotgun_fire_diag_01.png,wall_seamless.png"
+    },
+    {
+      "id": "waves-death-rerun",
+      "name": "Wave clear, next wave, death, restart on same wave at full health",
+      "status": "PASS",
+      "detail": "waveClearScore=1450 wave2=2 afterWave=2 health=100"
+    },
+    {
+      "id": "ink-pressure-rerun",
+      "name": "Ink pressure rerun",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "insect-attack-rerun",
+      "name": "Insect and brute attacks rerun",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "stability-rerun",
+      "name": "Post-warmup waves settle at stable geometry and texture counts",
+      "status": "FAIL",
+      "detail": "warmup=21/13 samples=w4:18/28/draw20 w5:18/31/draw20 w6:18/31/draw20"
+    },
+    {
+      "id": "seq-run-rerun",
+      "name": "Run frames advance in order by polling only",
+      "status": "PASS",
+      "detail": "frames=2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1"
+    },
+    {
+      "id": "seq-fire-rerun",
+      "name": "Fire frames advance in order by polling only",
+      "status": "PASS",
+      "detail": "frames=1,2,3,4"
+    },
+    {
+      "id": "seq-reload-rerun",
+      "name": "Reload frames advance in order by polling only",
+      "status": "FAIL",
+      "detail": "frames="
+    },
+    {
+      "id": "seq-sprint-rerun",
+      "name": "Sprint scale rises toward 1.1 by polling only",
+      "status": "FAIL",
+      "detail": "scales=1"
+    },
+    {
+      "id": "seq-run-rerun",
+      "name": "Frame sequences rerun",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "seq-slowed-rerun",
+      "name": "Slowed frame-by-frame sequences via review stepping",
+      "status": "PASS",
+      "detail": "clips=runner_run_front:8 shotgun_fire:5 shotgun_reload:8 runner_attack_front:6"
+    },
+    {
+      "id": "console-rerun",
+      "name": "Console and page errors during rerun",
+      "status": "PASS",
+      "detail": "consoleErrors= pageErrors="
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+}

@@ -1,0 +1,54 @@
+{
+  "results": [
+    {
+      "id": "short-spawn",
+      "name": "Spawned runner reaches pursue via runners state",
+      "status": "PASS",
+      "detail": "state=pursue family=runner pos=0,0.17"
+    },
+    {
+      "id": "short-ink",
+      "name": "Ink pressure short run",
+      "status": "FAIL",
+      "detail": "timeout waiting for runner pursue: "
+    },
+    {
+      "id": "short-insect",
+      "name": "Insect telegraph shows before its strike",
+      "status": "PASS",
+      "detail": "family=insect warning=true radius=0.75"
+    },
+    {
+      "id": "short-brute",
+      "name": "Brute windup shows before its slam",
+      "status": "PASS",
+      "detail": "family=brute warning=true radius=2.6"
+    },
+    {
+      "id": "short-reload",
+      "name": "Reload frames advance in order with phase guarded",
+      "status": "PASS",
+      "detail": "ammoAfterShot=5 frames=0,1,2,3,4,5,6,7"
+    },
+    {
+      "id": "short-sprint",
+      "name": "Sprint scale rises toward 1.1 with phase guarded",
+      "status": "PASS",
+      "detail": "scales=1.1"
+    },
+    {
+      "id": "short-attack",
+      "name": "Attack frames advance with phase guarded",
+      "status": "PASS",
+      "detail": "frames=0,1,2,3,4,5"
+    },
+    {
+      "id": "console-short",
+      "name": "Console and page errors during short run",
+      "status": "PASS",
+      "detail": "consoleErrors= pageErrors="
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+}

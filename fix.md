@@ -2,6 +2,15 @@
 
 **Checked against `main` at `170b950`, 31 October 2026.** No newer commits were available at the last pull. Runtime code remains at the `6f109f2` implementation; the later commit added audit/prompt/art documents. All tasks below are still open. This file is an implementation checklist, not a claim that the fixes have been applied.
 
+## Final audit, 31 October 2026, main at 4498ff9
+
+Full evidence is in `game/verification/final-audit/REPORT.md`. Checked off below only where the item passes by its own Done-when clause. Everything else stays unchecked, including items that are close but not complete.
+
+- Done: N03, N04, N05, N09, N10, C01, N12.
+- Partial, unchecked: N01 (walls still pale, non-front runner directions drifted), N02 (fire still uses a 0.38 radian compensation patch), N06 (headless release proven, real-hardware feel not proven), N07 (hysteresis and fallbacks pass, true directional attack art missing), N08 (caps, spatial grid, and review-only alpha done, no atlas or streaming, startup 53.0 MB), N11 (portable `npm test` passes, both READMEs still describe the old state), C02 (insect and brute shipped front-only), C03 (six weapons and ink pressure work, pistol and automatic views are procedural and simpler than generated art).
+- Left, not PASS: real-device performance and feel, pointer-lock denial in a real browser, headless audio audibility, wraith, winged, demon, and mutant families, atlas and streaming, true video recordings, and a docs pass for both READMEs.
+- Completion gate is Partial, not complete, for the same reasons. Do not read this file as a claim that all work is done.
+
 ## Start here
 
 The game builds and starts. Shooting, ammo refill, pause, runner animation and closer-gun sprint already work. **Do not rebuild those systems from scratch.** Fix the remaining behavior defects, then make the actual game match the original ink artwork.
@@ -24,7 +33,7 @@ Use these detailed supporting documents:
 
 ### N03 — P1: melee reaches enemies far below the player
 
-- [ ] Fix the damage query in `game/src/main.ts:619–637`.
+- [x] Fix the damage query in `game/src/main.ts:619–637`. Final audit 4498ff9: aerial melee leaves health at 36, close strike deals exactly 18 once, crate cover blocks.
 
 **Reproduced:** a ground runner lost health `36 → 18` while player feet were approximately **9.52 m above the floor**, looking down. The query uses horizontal distance plus aim/obstruction, without a bounded 3D attack volume.
 
@@ -34,7 +43,7 @@ Use these detailed supporting documents:
 
 ### N04 — P1: player remains grounded after walking off a crate
 
-- [ ] Fix support/grounding transitions in `game/src/main.ts:1568–1607`.
+- [x] Fix support/grounding transitions in `game/src/main.ts:1568–1607`. Final audit 4498ff9: off-ledge grounded false, coyote 100 to 0 without refresh, landing fires once.
 
 **Reproduced:** start on crate `(3,1.5,1)`, strafe right; at approximately `(4.92,1.16,1)` the player is falling above floor height zero but `grounded=true` and `coyoteMs=100`.
 
@@ -44,7 +53,7 @@ Use these detailed supporting documents:
 
 ### N05 — P2: grapple can choose an anchor behind the camera
 
-- [ ] Replace nearest-only candidate selection in `game/src/main.ts:495–515`.
+- [x] Replace nearest-only candidate selection in `game/src/main.ts:495–515`. Final audit 4498ff9: cue and attachment both forward, never the behind-camera anchor.
 
 **Reproduced:** at `(0,0,9)` facing negative Z, E attaches to `(0,2.8,11)` behind the view, rope length about 3.44. This is current selection behavior, not a JavaScript exception.
 
@@ -99,7 +108,7 @@ Add explicit action priority and reload interruption rules. Trigger one ammo-tra
 
 ### N09 — P2: game UI needs an ink identity and real power feedback
 
-- [ ] Restyle `game/index.html:9–35,63–79` and connect live status in `game/src/main.ts:1784–1835`.
+- [x] Restyle `game/index.html:9–35,63–79` and connect live status in `game/src/main.ts:1784–1835`. Final audit 4498ff9: live combo, wave, health, ammo, power strip, ink meter, and reticle shapes all verified.
 
 **Change:** torn ivory combo card, brush-stamp wave indicator, readable ink-backed health/ammo, shell pips, restrained event-linked scale responses and a compact dash/air-jump/grapple/melee readiness strip. Keep numbers/text/state live and accessible; generated art supplies backing materials only.
 
@@ -111,7 +120,7 @@ Shorten the opening menu to Play, controls, Settings and optional Help/rules. Ma
 
 ### N10 — P2: contact marks must attach to surfaces
 
-- [ ] Extend `RayHit` in `game/src/arena.ts:4` and replace camera-facing decal placement in `game/src/main.ts:407–424`.
+- [x] Extend `RayHit` in `game/src/arena.ts:4` and replace camera-facing decal placement in `game/src/main.ts:407–424`. Final audit 4498ff9: decal normal 0,0,1, flush after a camera move.
 
 **Change:** return contact normal and surface/owner; orient and offset pooled organic ink decals on the struck surface. Handle edges, z-fighting and destructible owners. Use separate airborne sparks instead of eye-facing circles pretending to be wall marks.
 
@@ -119,7 +128,7 @@ Shorten the opening menu to Play, controls, Settings and optional Help/rules. Ma
 
 ### C01 — required content: localized punchy impacts and proper explosions
 
-- [ ] Build a shared FX emitter/clip pipeline, plus one complete explosion interaction.
+- [x] Build a shared FX emitter/clip pipeline, plus one complete explosion interaction. Final audit 4498ff9: grouped impacts, falloff, cover, barrel chain, pooled effects, fading terminal phase.
 
 **Change:** reuse 3–5 flash designs and 5–8 shared spark/ring/ink/smoke/fragment textures. Drive transforms, emission, lifetime and palette procedurally. A heavy impact combines an angular flash, target-local ink star, a few fragments, contact audio and short recoil; group same-shot pellet feedback instead of flooding the screen.
 
@@ -129,7 +138,7 @@ Explosions need ignition, bloom, ring, outward fragments, smoke breakup and a ge
 
 ### N12 — P2: unify reduced-motion and flash behavior
 
-- [ ] Apply a shared policy to camera shake at `game/src/main.ts:1674–1678`, WeaponView, HUD and new effects.
+- [x] Apply a shared policy to camera shake at `game/src/main.ts:1674–1678`, WeaponView, HUD and new effects. Final audit 4498ff9: reduced motion plus zero flash gives no camera shake or roll on damage or explosions.
 
 **Remaining:** reduced motion handles sprint/bob/streaks but damage camera translation uses shake strength without an explicit reduced-motion gate.
 
