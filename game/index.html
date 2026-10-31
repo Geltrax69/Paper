@@ -10,28 +10,57 @@
       #game { position: fixed; inset: 0; }
       canvas { display: block; }
       .hud { position: fixed; z-index: 5; color: #1d1710; pointer-events: none; }
-      #crosshair { left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: clamp(18px, 2.5vw, 22px); }
-      #health { left: max(20px, env(safe-area-inset-left)); bottom: max(20px, env(safe-area-inset-bottom)); }
-      #healthbar { width: min(220px, 32vw); height: 14px; background: rgba(0,0,0,0.25); }
+      #crosshair { left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
+      #crosshair .tick { position: absolute; background: #12101b; box-shadow: 0 0 0 1px #f3e6c8; }
+      #crosshair .t { left: 50%; top: 0; width: 3px; height: 12px; transform: translateX(-50%); }
+      #crosshair .b { left: 50%; bottom: 0; width: 3px; height: 12px; transform: translateX(-50%); }
+      #crosshair .l { left: 0; top: 50%; width: 12px; height: 3px; transform: translateY(-50%); }
+      #crosshair .r { right: 0; top: 50%; width: 12px; height: 3px; transform: translateY(-50%); }
+      #crosshair.firing .t { top: -5px; }
+      #crosshair.firing .b { bottom: -5px; }
+      #crosshair.firing .l { left: -5px; }
+      #crosshair.firing .r { right: -5px; }
+      #health { left: max(20px, env(safe-area-inset-left)); bottom: max(20px, env(safe-area-inset-bottom)); background: #12101b; color: #f3e6c8; padding: 8px 12px; border: 3px solid #12101b; border-radius: 8px; }
+      #healthCross { font-size: 22px; color: #f3e6c8; }
+      #healthbar { width: min(220px, 32vw); height: 10px; background: rgba(243,230,200,0.25); margin-top: 4px; }
       #healthfill { height: 100%; background: #c0392b; width: 100%; }
-      #healthvalue { font-weight: 700; }
-      #ammo { right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); font-size: clamp(18px, 2.5vw, 22px); font-weight: 700; }
-      #wave { left: max(20px, env(safe-area-inset-left)); top: max(20px, env(safe-area-inset-top)); font-weight: 700; }
+      #healthvalue { font-weight: 900; font-size: clamp(20px, 2.5vw, 26px); font-variant-numeric: tabular-nums; }
+      #healthvalue.compressed { transform: scaleX(0.82); }
+      #ammo { right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); background: #12101b; color: #f3e6c8; padding: 8px 12px; border-radius: 8px; text-align: right; }
+      #ammoCount { font-size: clamp(18px, 2.5vw, 22px); font-weight: 900; font-variant-numeric: tabular-nums; }
+      #ammoPips span { display: inline-block; width: 10px; height: 18px; background: #ffc928; margin-right: 3px; border: 1px solid #f3e6c8; }
+      #ammoPips span.spent { opacity: 0.25; background: #555; }
+      #ammoState { font-weight: 900; min-height: 1.2em; }
+      #ammoState.empty { color: #f52d39; }
+      #wave { left: 50%; top: max(20px, env(safe-area-inset-top)); transform: translateX(-50%) rotate(-1deg); background: #12101b; color: #f3e6c8; padding: 6px 14px; font-weight: 700; }
+      #waveNum { color: #ffc928; font-weight: 900; }
+      #waveBanner { left: 50%; top: 28%; transform: translateX(-50%) scale(0.9); font-size: clamp(36px, 6vw, 64px); font-weight: 900; color: #12101b; background: #f3e6c8; padding: 10px 30px; border: 4px solid #12101b; opacity: 0; transition: opacity 0.15s, transform 0.15s; }
+      #waveBanner.show { opacity: 1; transform: translateX(-50%) scale(1); }
       #score { right: max(20px, env(safe-area-inset-right)); top: max(20px, env(safe-area-inset-top)); font-weight: 700; text-align: right; }
-      #combo { right: max(20px, env(safe-area-inset-right)); top: 48px; font-weight: 700; text-align: right; }
+      #combo { left: max(20px, env(safe-area-inset-left)); top: max(20px, env(safe-area-inset-top)); background: #f3e6c8; border: 3px solid #12101b; border-radius: 6px; transform: rotate(-3deg); padding: 6px 12px; text-align: center; }
+      #comboCount { font-size: 34px; font-weight: 900; font-style: italic; color: #b8860b; font-variant-numeric: tabular-nums; }
+      #comboCount.bump { animation: combo-bump 0.18s ease-out; }
+      @keyframes combo-bump { from { transform: scale(1.15); } to { transform: scale(1); } }
+      #comboDecay { height: 4px; background: #c0392b; margin-top: 4px; }
+      #powers { left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%); background: rgba(243,230,200,0.92); border: 2px solid #12101b; padding: 6px 12px; font-size: 14px; font-weight: 700; white-space: nowrap; }
+      #comicWords { position: fixed; inset: 0; z-index: 6; pointer-events: none; }
+      .comic-word { position: absolute; font-size: 28px; font-weight: 900; color: #ffc928; text-shadow: 2px 2px 0 #12101b; transform: rotate(-6deg); }
       .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
       .menu button:focus-visible, .menu input:focus-visible, .menu select:focus-visible { outline: 3px solid #2457e7; outline-offset: 2px; }
       #settingsPanel { width: min(560px, 92vw); max-height: 60vh; overflow: auto; text-align: left; background: rgba(255,255,255,0.5); padding: 12px 16px; box-sizing: border-box; }
       #settingsPanel label { display: block; margin: 8px 0; }
+      #howPanel { width: min(560px, 92vw); max-height: 50vh; overflow: auto; text-align: left; background: rgba(255,255,255,0.5); padding: 12px 16px; box-sizing: border-box; }
       @media (max-width: 640px) {
         #healthbar { width: 140px; }
-        #combo { top: 44px; }
+        #powers { font-size: 12px; }
         .menu { padding: 12px; gap: 8px; }
         .menu button { font-size: 16px; padding: 10px 18px; }
       }
-      #hitmarker { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(45deg); font-size: 26px; color: #c0392b; opacity: 0; }
+      #hitmarker { left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 26px; color: #c0392b; opacity: 0; font-weight: 900; }
+      #hitmarker.kill { font-size: 38px; color: #ffc928; text-shadow: 2px 2px 0 #12101b; }
       #damage { inset: 0; box-shadow: inset 0 0 120px rgba(192,57,43,0.8); opacity: 0; }
-      .menu { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #efe6d0; color: #1d1710; text-align: center; padding: 20px; }
+      #damageEdge { inset: 0; opacity: 0; }
+      .menu { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #efe6d0; color: #1d1710; text-align: center; padding: 20px; overflow-y: auto; }
       .menu button { pointer-events: auto; font-size: 18px; padding: 12px 24px; cursor: pointer; }
       .hidden { display: none !important; }
       #review { position: static; overflow: auto; height: 100vh; background: #fff; padding: 20px; box-sizing: border-box; }
@@ -50,23 +79,31 @@
   </head>
   <body>
     <div id="game"></div>
-    <div id="crosshair" class="hud">+</div>
-    <div id="hitmarker" class="hud">+</div>
+    <div id="crosshair" class="hud"><span class="tick t"></span><span class="tick b"></span><span class="tick l"></span><span class="tick r"></span></div>
+    <div id="hitmarker" class="hud">×</div>
     <div id="damage" class="hud"></div>
-    <div id="wave" class="hud"></div>
+    <div id="damageEdge" class="hud"></div>
+    <div id="wave" class="hud">Wave <span id="waveNum">1</span></div>
+    <div id="waveBanner" class="hud"></div>
     <div id="score" class="hud"></div>
-    <div id="combo" class="hud"></div>
+    <div id="combo" class="hud"><div id="comboCount">–</div><div>COMBO</div><div id="comboDecay" style="width:0%"></div></div>
+    <div id="powers" class="hud"></div>
+    <div id="comicWords"></div>
     <div id="announce" class="hud sr-only" aria-live="polite"></div>
-    <div id="health" class="hud"><div>Health</div><div id="healthbar" role="progressbar" aria-label="Player health" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div id="healthfill"></div></div><div id="healthvalue">100 / 100</div></div>
-    <div id="ammo" class="hud"></div>
+    <div id="health" class="hud"><span id="healthCross">✚</span> <span id="healthvalue">100 / 100</span><div id="healthbar" role="progressbar" aria-label="Player health" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div id="healthfill"></div></div></div>
+    <div id="ammo" class="hud"><div id="ammoCount"></div><div id="ammoPips"><span></span><span></span><span></span><span></span><span></span><span></span></div><div id="ammoState"></div></div>
     <div id="menu" class="menu">
       <h1>Paper</h1>
       <p id="menuText">Loading assets…</p>
       <p>WASD move. Mouse aim. Click fire. R reload. Shift sprint. Space jump, press again midair for a double jump. Q dash. E hold grapple. F melee. Esc pause.</p>
       <p>Desktop keyboard and mouse required. Touch controls are not available.</p>
-      <p id="rulesText">Wave 1 has 6 runners at speed 3.4. Each later wave adds 2 runners and 5% speed, up to 1.5x. A kill scores 100 points times the combo multiplier: x1, x2 at 3 combo, x3 at 5 combo. The combo lasts 4 seconds between kills. Wave bonus is 250 times the wave number. Death restarts the current wave with full health. Score and wave are kept, combo is lost. Health carries between waves, ammo refills. Health pickup restores 40, ammo pickup restores 3, both capped at their maximums. Sounds are synthesized with Web Audio. No audio files are used. The second jump resets only on landing. Grapple anchors sit on wall tops and crate tops within 14 units and inside the aim cone, ranked by reticle angle before distance, need a clear line of sight, and detach when the rope is blocked. Melee deals 18 damage once per swing within 2.8 units in 3D, including height, and only with a clear line of sight.</p>
-      <button id="startBtn" disabled>Start</button>
+      <button id="startBtn" disabled>Play</button>
       <button id="settingsBtn" type="button">Settings</button>
+      <button id="howBtn" type="button">How to play</button>
+      <div id="howPanel" class="hidden">
+        <h2>How to play</h2>
+        <p id="rulesText">Wave 1 has 6 runners at speed 3.4. Each later wave adds 2 runners and 5% speed, up to 1.5x. A kill scores 100 points times the combo multiplier: x1, x2 at 3 combo, x3 at 5 combo. The combo lasts 4 seconds between kills. Wave bonus is 250 times the wave number. Death restarts the current wave with full health. Score and wave are kept, combo is lost. Health carries between waves, ammo refills. Health pickup restores 40, ammo pickup restores 3, both capped at their maximums. Sounds are synthesized with Web Audio. No audio files are used. The second jump resets only on landing. Grapple anchors sit on wall tops and crate tops within 14 units and inside the aim cone, ranked by reticle angle before distance, need a clear line of sight, and detach when the rope is blocked. Melee deals 18 damage once per swing within 2.8 units in 3D, including height, and only with a clear line of sight. Reload takes 1400 ms with 8 poses; ammo transfers only at the loading pose, at 675 ms. Shooting cancels a reload: cancelling before the transfer gives no ammo, cancelling after it keeps the transferred ammo, and the gun recovers to idle.</p>
+      </div>
       <div id="settingsPanel" class="hidden">
         <h2>Settings</h2>
         <label>Shake strength <input id="setShake" type="range" min="0" max="1" step="0.1" /></label>
@@ -75,7 +112,9 @@
         <label>Volume <input id="setVolume" type="range" min="0" max="1" step="0.05" /></label>
         <label><input id="setMute" type="checkbox" /> Mute</label>
         <label><input id="setReduced" type="checkbox" /> Reduced motion</label>
-        <p>Shake scales damage camera shake when reduced motion is off. Flash scales the damage vignette and muzzle flash brightness; zero flash removes those bright layers without hiding hit markers, health changes, sounds, or impact marks. Reduced motion stops damage camera shake, camera roll, and camera zoom, weapon bob, recoil, and sway, air streaks, and HUD motion, while hit markers, health changes, sounds, and impact marks stay as hit and danger cues. There is no hit-stop effect and no camera zoom in this build, so the policy covers them by absence. Volume and mute apply to all synthesized sounds. Audio starts only after Start is clicked.</p>
+        <label><input id="setComic" type="checkbox" /> Comic words</label>
+        <label>Effect density <select id="setDensity"><option value="full">Full</option><option value="reduced">Reduced</option></select></label>
+        <p>Shake scales damage camera shake when reduced motion is off. Flash scales the damage vignette and muzzle flash brightness; zero flash removes those bright layers without hiding hit markers, health changes, sounds, or impact marks. Reduced motion stops damage camera shake, camera roll, and camera zoom, weapon bob, recoil, and sway, air streaks, and HUD motion, while hit markers, health changes, sounds, and impact marks stay as hit and danger cues. There is no hit-stop effect and no camera zoom in this build, so the policy covers them by absence. Volume and mute apply to all synthesized sounds. Audio starts only after Start is clicked. Reduced effect density halves impact particles and hides comic words.</p>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>

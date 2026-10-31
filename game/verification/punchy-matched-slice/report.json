@@ -1,0 +1,203 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "hud-banner",
+      "name": "Wave banner shows on wave start",
+      "status": "PASS",
+      "detail": "banner=WAVE 1 visible=true waveNum=1"
+    },
+    {
+      "id": "env",
+      "name": "Dark floor, canonical idle loaded, sky background present",
+      "status": "PASS",
+      "detail": "background=true maps=crate_variant_metal.png,crate_variant_paper.png,crate_variant_wood.png,far_skyline.png,mid_ruins.png,muzzle_flash_01.png,punchy_floor_dark_ink.png,punchy_runner_front_run_01.png,punchy_shotgun_idle.png,punchy_shotgun_reload_01.png,runner_attack_front_01.png,runner_defeat_front_01.png,runner_front.png,shotgun_fire_diag_01.png,wall_seamless.png"
+    },
+    {
+      "id": "front-run",
+      "name": "Front run clip is the punchy replacement",
+      "status": "PASS",
+      "detail": "runClip=runner_run_front runFrame=4 direction=front"
+    },
+    {
+      "id": "directional",
+      "name": "Other directions still use the older set",
+      "status": "PASS",
+      "detail": "runClip=runner_run_back"
+    },
+    {
+      "id": "fire",
+      "name": "Shot fires with existing diagonal clip",
+      "status": "PASS",
+      "detail": "sawFiring=true fireFrame=4 ammo=5"
+    },
+    {
+      "id": "two-shots",
+      "name": "Two shots spend ammo",
+      "status": "PASS",
+      "detail": "ammo=4"
+    },
+    {
+      "id": "reload-transfer",
+      "name": "Ammo transfers at the loading frame",
+      "status": "PASS",
+      "detail": "frame=4 transferred=true ammo=6 progress=0.5357142857142857"
+    },
+    {
+      "id": "reload-done",
+      "name": "Reload finishes at 6 with idle recovered",
+      "status": "PASS",
+      "detail": "ammo=6"
+    },
+    {
+      "id": "reload-cancel-before",
+      "name": "Cancel before transfer keeps old ammo",
+      "status": "PASS",
+      "detail": "ammo=4 transferred=false reloading=false"
+    },
+    {
+      "id": "reload-cancel-after",
+      "name": "Cancel after transfer keeps transferred ammo minus the shot",
+      "status": "PASS",
+      "detail": "ammo=5 transferred=true"
+    },
+    {
+      "id": "sprint",
+      "name": "Sprint scale rises while actually travelling",
+      "status": "PASS",
+      "detail": "sprintScale=1.1"
+    },
+    {
+      "id": "monster-attack",
+      "name": "Runner reaches attack state",
+      "status": "PASS",
+      "detail": "state=attack attackFrame=3"
+    },
+    {
+      "id": "kill-hud",
+      "name": "Kill shows kill hitmarker and a comic word",
+      "status": "PASS",
+      "detail": "hitmarker=✕ comicWords=1 score=100 before=0 combo=1"
+    },
+    {
+      "id": "combo-card",
+      "name": "Combo card shows a live count",
+      "status": "PASS",
+      "detail": "comboCount=1 combo=1"
+    },
+    {
+      "id": "health",
+      "name": "Health number drops live with an edge mark",
+      "status": "PASS",
+      "detail": "health=68 before=88 edgeOpacity=1"
+    },
+    {
+      "id": "reticle-hit",
+      "name": "Non-killing hit shows the hit shape",
+      "status": "PASS",
+      "detail": "hitmarker=×"
+    },
+    {
+      "id": "reticle-kill",
+      "name": "Killing hit shows the different kill shape",
+      "status": "PASS",
+      "detail": "hitmarker=✕"
+    },
+    {
+      "id": "ammo-empty",
+      "name": "Empty ammo shows RELOAD and spent pips",
+      "status": "PASS",
+      "detail": "ammoState=RELOAD ammo=0 count=0 / 6"
+    },
+    {
+      "id": "reload-to-6",
+      "name": "Reload returns ammo to 6",
+      "status": "PASS",
+      "detail": "ammo=6"
+    },
+    {
+      "id": "powers",
+      "name": "Power strip shows real states",
+      "status": "PASS",
+      "detail": "powers=Dash: ready · Air jump: ready · Grapple: valid · Melee: ready"
+    },
+    {
+      "id": "defeat",
+      "name": "Defeat clip removes the runner",
+      "status": "PASS",
+      "detail": "runner removed after defeat"
+    },
+    {
+      "id": "1920",
+      "name": "Game plays at 1920x1080",
+      "status": "PASS",
+      "detail": "phase=playing"
+    },
+    {
+      "id": "crate-blocked",
+      "name": "Crate blocks a shot with a surface decal",
+      "status": "PASS",
+      "detail": "decals=[{\"lifeMs\":3950,\"normal\":[0,0,1],\"owner\":\"crate(-6,4)\",\"quaternion\":[0,0,0,1],\"scale\":0.3,\"x\":-6.046295650870506,\"y\":1.7229814749923626,\"z\":4.92},{\"lifeMs\":3950,\"normal\":[0,0,1],\"owner\":\"crate(-6,4)\",\"quaternion\":[0,0,0,1],\"scale\":0.3,\"x\":-5.90178661368908,\"y\":1.7392747622771207,\"z\":4.92},{\"lifeMs\":3950,\"normal\":[0,0,1],\"owner\":\"crate(-6,4)\",\"quaternion\":[0,0,0,1],\"scale\":0.5573796927843913,\"x\":-5.892803033647201,\"y\":1.6049171075254631,\"z\":4.92}]"
+    },
+    {
+      "id": "decal-flush",
+      "name": "Decal faces along its surface normal, not the camera",
+      "status": "PASS",
+      "detail": "normal=0,0,1 facingDot=1.000"
+    },
+    {
+      "id": "grapple-front",
+      "name": "No grapple anchor behind the camera",
+      "status": "PASS",
+      "detail": "cue={\"anchor\":[-3,1.5,-2],\"angleDeg\":15.287398602843396,\"distance\":11.403508232118746,\"valid\":true} attached=true"
+    },
+    {
+      "id": "double-jump",
+      "name": "Double jump uses one air jump",
+      "status": "PASS",
+      "detail": "airJumpsUsed=1 feetY=1.4050000000000002"
+    },
+    {
+      "id": "aerial-melee",
+      "name": "Aerial melee deals no damage to a ground runner",
+      "status": "PASS",
+      "detail": "health=36"
+    },
+    {
+      "id": "ledge",
+      "name": "Stepping off a crate clears grounding",
+      "status": "PASS",
+      "detail": "grounded false past the crate edge"
+    },
+    {
+      "id": "death",
+      "name": "Player death reaches dead phase",
+      "status": "PASS",
+      "detail": "phase=dead health=0"
+    },
+    {
+      "id": "restart",
+      "name": "Restart returns health to 100",
+      "status": "PASS",
+      "detail": "health=100"
+    },
+    {
+      "id": "wave-clear",
+      "name": "Full wave clears to wave complete",
+      "status": "PASS",
+      "detail": "phase=waveComplete wave=1 score=1450"
+    },
+    {
+      "id": "review-reload",
+      "name": "Review shows the reload clip with 8 frames",
+      "status": "PASS",
+      "detail": "review page lists shotgun_reload"
+    }
+  ],
+  "fails": 0
+}

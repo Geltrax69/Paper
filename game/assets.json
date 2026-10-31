@@ -135,33 +135,6 @@
         0
       ]
     },
-    "floor_seamless": {
-      "alpha": false,
-      "file": "assets/environment/floor_seamless.png",
-      "id": "floor_seamless",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        512,
-        512
-      ],
-      "size": [
-        512,
-        512
-      ],
-      "sourceSize": [
-        512,
-        512
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
     "mid_ruins": {
       "alpha": true,
       "file": "assets/environment/mid_ruins.png",
@@ -567,222 +540,6 @@
         0
       ]
     },
-    "runner_run_front_01": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_01.png",
-      "id": "runner_run_front_01",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_02": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_02.png",
-      "id": "runner_run_front_02",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_03": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_03.png",
-      "id": "runner_run_front_03",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_04": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_04.png",
-      "id": "runner_run_front_04",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_05": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_05.png",
-      "id": "runner_run_front_05",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_06": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_06.png",
-      "id": "runner_run_front_06",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_07": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_07.png",
-      "id": "runner_run_front_07",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "runner_run_front_08": {
-      "alpha": true,
-      "file": "assets/monsters/runner/frames/runner_run_front_08.png",
-      "id": "runner_run_front_08",
-      "pivot": [
-        0.5,
-        0.9123
-      ],
-      "rect": [
-        0,
-        0,
-        373,
-        912
-      ],
-      "size": [
-        373,
-        912
-      ],
-      "sourceSize": [
-        373,
-        912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
     "shotgun_fire_diag_01": {
       "alpha": true,
       "attachments": {
@@ -942,66 +699,6 @@
       "sourceSize": [
         640,
         912
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "shotgun_idle": {
-      "alpha": true,
-      "attachments": {
-        "muzzle": [
-          0.27,
-          0.36
-        ]
-      },
-      "file": "assets/weapons/shotgun/shotgun_idle.png",
-      "id": "shotgun_idle",
-      "pivot": [
-        0.5,
-        1.0
-      ],
-      "rect": [
-        0,
-        0,
-        1920,
-        1280
-      ],
-      "size": [
-        1920,
-        1280
-      ],
-      "sourceSize": [
-        1920,
-        1280
-      ],
-      "trimOffset": [
-        0,
-        0
-      ]
-    },
-    "sky_panorama": {
-      "alpha": false,
-      "file": "assets/environment/sky_panorama.png",
-      "id": "sky_panorama",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "rect": [
-        0,
-        0,
-        1024,
-        512
-      ],
-      "size": [
-        1024,
-        512
-      ],
-      "sourceSize": [
-        1024,
-        512
       ],
       "trimOffset": [
         0,
@@ -2762,6 +2459,525 @@
         0,
         0
       ]
+    },
+    "punchy_floor_dark_ink": {
+      "alpha": false,
+      "file": "assets/environment/punchy_floor_dark_ink.png",
+      "id": "punchy_floor_dark_ink",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sourceSize": [
+        512,
+        512
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_sky_cyan_open": {
+      "alpha": false,
+      "file": "assets/environment/punchy_sky_cyan_open.png",
+      "id": "punchy_sky_cyan_open",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rect": [
+        0,
+        0,
+        1024,
+        512
+      ],
+      "size": [
+        1024,
+        512
+      ],
+      "sourceSize": [
+        1024,
+        512
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_idle": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/punchy_shotgun_idle.png",
+      "id": "punchy_shotgun_idle",
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "rect": [
+        0,
+        0,
+        1920,
+        1280
+      ],
+      "size": [
+        1920,
+        1280
+      ],
+      "sourceSize": [
+        1920,
+        1280
+      ],
+      "trimOffset": [
+        0,
+        0
+      ],
+      "attachments": {
+        "muzzle": [
+          0.095,
+          0.023
+        ]
+      }
+    },
+    "punchy_shotgun_reload_01": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_01.png",
+      "id": "punchy_shotgun_reload_01",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_02": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_02.png",
+      "id": "punchy_shotgun_reload_02",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_03": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_03.png",
+      "id": "punchy_shotgun_reload_03",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_04": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_04.png",
+      "id": "punchy_shotgun_reload_04",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_05": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_05.png",
+      "id": "punchy_shotgun_reload_05",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_06": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_06.png",
+      "id": "punchy_shotgun_reload_06",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_07": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_07.png",
+      "id": "punchy_shotgun_reload_07",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_shotgun_reload_08": {
+      "alpha": true,
+      "file": "assets/weapons/shotgun/frames_punchy/punchy_shotgun_reload_08.png",
+      "id": "punchy_shotgun_reload_08",
+      "pivot": [
+        0.5,
+        0.9419
+      ],
+      "rect": [
+        0,
+        0,
+        342,
+        912
+      ],
+      "size": [
+        342,
+        912
+      ],
+      "sourceSize": [
+        342,
+        912
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_01": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_01.png",
+      "id": "punchy_runner_front_run_01",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_02": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_02.png",
+      "id": "punchy_runner_front_run_02",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_03": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_03.png",
+      "id": "punchy_runner_front_run_03",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_04": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_04.png",
+      "id": "punchy_runner_front_run_04",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_05": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_05.png",
+      "id": "punchy_runner_front_run_05",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_06": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_06.png",
+      "id": "punchy_runner_front_run_06",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_07": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_07.png",
+      "id": "punchy_runner_front_run_07",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
+    },
+    "punchy_runner_front_run_08": {
+      "alpha": true,
+      "file": "assets/monsters/runner/frames/punchy_runner_front_run_08.png",
+      "id": "punchy_runner_front_run_08",
+      "pivot": [
+        0.5,
+        0.94625
+      ],
+      "rect": [
+        0,
+        0,
+        400,
+        800
+      ],
+      "size": [
+        400,
+        800
+      ],
+      "sourceSize": [
+        400,
+        800
+      ],
+      "trimOffset": [
+        0,
+        0
+      ]
     }
   },
   "clips": {
@@ -2863,14 +3079,14 @@
     },
     "runner_run_front": {
       "assetIds": [
-        "runner_run_front_01",
-        "runner_run_front_02",
-        "runner_run_front_03",
-        "runner_run_front_04",
-        "runner_run_front_05",
-        "runner_run_front_06",
-        "runner_run_front_07",
-        "runner_run_front_08"
+        "punchy_runner_front_run_01",
+        "punchy_runner_front_run_02",
+        "punchy_runner_front_run_03",
+        "punchy_runner_front_run_04",
+        "punchy_runner_front_run_05",
+        "punchy_runner_front_run_06",
+        "punchy_runner_front_run_07",
+        "punchy_runner_front_run_08"
       ],
       "events": [
         {
@@ -2886,35 +3102,35 @@
       "frames": [
         {
           "durationMs": 71,
-          "id": "runner_run_front_01"
+          "id": "punchy_runner_front_run_01"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_02"
+          "id": "punchy_runner_front_run_02"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_03"
+          "id": "punchy_runner_front_run_03"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_04"
+          "id": "punchy_runner_front_run_04"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_05"
+          "id": "punchy_runner_front_run_05"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_06"
+          "id": "punchy_runner_front_run_06"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_07"
+          "id": "punchy_runner_front_run_07"
         },
         {
           "durationMs": 71,
-          "id": "runner_run_front_08"
+          "id": "punchy_runner_front_run_08"
         }
       ],
       "loop": true
@@ -3454,6 +3670,59 @@
         }
       ],
       "loop": false
+    },
+    "shotgun_reload": {
+      "assetIds": [
+        "punchy_shotgun_reload_01",
+        "punchy_shotgun_reload_02",
+        "punchy_shotgun_reload_03",
+        "punchy_shotgun_reload_04",
+        "punchy_shotgun_reload_05",
+        "punchy_shotgun_reload_06",
+        "punchy_shotgun_reload_07",
+        "punchy_shotgun_reload_08"
+      ],
+      "events": [
+        {
+          "name": "ammo",
+          "timeMs": 675
+        }
+      ],
+      "frames": [
+        {
+          "durationMs": 150,
+          "id": "punchy_shotgun_reload_01"
+        },
+        {
+          "durationMs": 175,
+          "id": "punchy_shotgun_reload_02"
+        },
+        {
+          "durationMs": 175,
+          "id": "punchy_shotgun_reload_03"
+        },
+        {
+          "durationMs": 175,
+          "id": "punchy_shotgun_reload_04"
+        },
+        {
+          "durationMs": 225,
+          "id": "punchy_shotgun_reload_05"
+        },
+        {
+          "durationMs": 175,
+          "id": "punchy_shotgun_reload_06"
+        },
+        {
+          "durationMs": 150,
+          "id": "punchy_shotgun_reload_07"
+        },
+        {
+          "durationMs": 175,
+          "id": "punchy_shotgun_reload_08"
+        }
+      ],
+      "loop": false
     }
   },
   "conventions": {
@@ -3488,7 +3757,7 @@
       "crate_variant_paper"
     ],
     "floor": {
-      "asset": "floor_seamless",
+      "asset": "punchy_floor_dark_ink",
       "repeat": [
         8,
         8
@@ -3512,7 +3781,7 @@
       "width": 30
     },
     "sky": {
-      "asset": "sky_panorama"
+      "asset": "punchy_sky_cyan_open"
     },
     "skyline": {
       "asset": "far_skyline",
@@ -3539,7 +3808,8 @@
       "flashClip": "muzzle_flash",
       "id": "shotgun",
       "pellets": 7,
-      "spread": 0.055
+      "spread": 0.055,
+      "reloadClip": "shotgun_reload"
     }
   }
 }

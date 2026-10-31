@@ -37,7 +37,7 @@ export const RUN_DIRECTIONS: {
   name: RunDirection;
   topY: number;
 }[] = [
-  { clipId: "runner_run_front", name: "front", topY: 103 },
+  { clipId: "runner_run_front", name: "front", topY: 58 },
   { clipId: "runner_run_front_right", name: "front-right", topY: 51 },
   { clipId: "runner_run_right", name: "right", topY: 82 },
   { clipId: "runner_run_back_right", name: "back-right", topY: 32 },
@@ -504,7 +504,7 @@ export class Runner {
     dt: number,
     camera: THREE.Camera,
     player: PlayerBody,
-    onPlayerDamage: (amount: number) => void,
+    onPlayerDamage: (amount: number, source?: THREE.Vector3) => void,
     neighbors: Runner[] = [],
   ): void {
     const dtMs = dt * 1000;
@@ -617,7 +617,7 @@ export class Runner {
           const reach = toCenter.length();
           const solid = rayHitSolid(enemyChest, toCenter.normalize(), reach);
           if (distance <= this.spec.attackRange + 0.4 && verticalOverlap && !solid) {
-            onPlayerDamage(this.spec.attackDamage);
+            onPlayerDamage(this.spec.attackDamage, this.position);
           }
         }
         if (this.attackPlayer.finished) this.setState("pursue");
@@ -631,7 +631,7 @@ export class Runner {
           const reach = toCenter.length();
           const solid = rayHitSolid(enemyChest, toCenter.normalize(), reach);
           if (distance <= this.spec.attackRange + 0.4 && verticalOverlap && !solid) {
-            onPlayerDamage(this.spec.attackDamage);
+            onPlayerDamage(this.spec.attackDamage, this.position);
           }
         }
         if (this.stateTimeMs >= 280) this.setState("pursue");

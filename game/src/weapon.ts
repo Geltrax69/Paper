@@ -14,6 +14,7 @@ export type WeaponTextures = {
   fire: THREE.Texture[];
   flash: THREE.Texture[];
   idle: THREE.Texture;
+  reload: THREE.Texture[];
 };
 
 export class WeaponView {
@@ -24,6 +25,7 @@ export class WeaponView {
   sprintScale = 1;
   private readonly weapon: THREE.Mesh;
   private readonly fireWeapon: THREE.Mesh;
+  private readonly reloadWeapon: THREE.Mesh;
   private readonly flash: THREE.Mesh;
   private readonly muzzleNode: THREE.Object3D;
   private readonly fireMuzzleNode: THREE.Object3D;
@@ -35,6 +37,8 @@ export class WeaponView {
   private bobAmp = 0;
   private firePlayer: AnimationPlayer;
   private flashPlayer: AnimationPlayer;
+  private reloadPlayer: AnimationPlayer;
+  private reloadTransferred = false;
   private fireActive = false;
   private flashActive = false;
   private flashHold = false;
@@ -48,7 +52,7 @@ export class WeaponView {
     this.reducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const idleEntry = asset("shotgun_idle");
+    const idleEntry = asset("punchy_shotgun_idle");
     const idleMuzzle = idleEntry.attachments?.muzzle ?? [0.5, 0.5];
     const idleHeight = 1.15;
     const idleWidth = idleHeight * (idleEntry.rect[2] / idleEntry.rect[3]);
@@ -103,6 +107,25 @@ export class WeaponView {
       clipFromManifest(manifest.clips[manifest.weapons.shotgun.flashClip]),
     );
     this.flashTextures = textures.flash;
+    this.reloadTextures = textures.reload;
+    this.reloadPlayer = new AnimationPlayer(
+      clipFromManifest(manifest.clips[manifest.weapons.shotgun.reloadClip]),
+    );
+    const reloadHeight = 1.15;
+    const reloadWidth = reloadHeight * (342 / 912);
+    const reloadGeometry = new THREE.PlaneGeometry(reloadWidth, reloadHeight);
+    reloadGeometry.translate(0, reloadHeight / 2, 0);
+    this.reloadWeapon = new THREE.Mesh(
+      reloadGeometry,
+      new THREE.MeshBasicMaterial({
+        depthTest: false,
+        map: textures.reload[0],
+        transparent: true,
+      }),
+    );
+    this.reloadWeapon.renderOrder = 10;
+    this.reloadWeapon.visible = false;
+    this.scene.add(this.reloadWeapon);
 
     const flashGeometry = new THREE.PlaneGeometry(0.31, 0.62);
     this.flash = new THREE.Mesh(
@@ -120,6 +143,7 @@ export class WeaponView {
 
   private fireTextures: THREE.Texture[];
   private flashTextures: THREE.Texture[];
+  private reloadTextures: THREE.Texture[];
 
   get reloading(): boolean {
     return this.reloadTimeMs > 0;
@@ -127,6 +151,19 @@ export class WeaponView {
 
   get firing(): boolean {
     return this.fireActive;
+  }
+
+  get reloadFrameIndex(): number {
+    return this.reloadPlayer.frameIndex;
+  }
+
+  get reloadProgress01(): number {
+    if (!this.reloading) return 0;
+    return Math.max(0, Math.min(1, 1 - this.reloadTimeMs / 1400));
+  }
+
+  get reloadTransferredFlag(): boolean {
+    return this.reloadTransferred;
   }
 
   get flashOn(): boolean {
@@ -181,9 +218,12 @@ export class WeaponView {
     this.fireActive = false;
     this.flashActive = false;
     this.flashHold = false;
+    this.reloadTransferred = false;
     this.firePlayer.stop();
     this.flashPlayer.stop();
+    this.reloadPlayer.stop();
     this.fireWeapon.visible = false;
+    this.reloadWeapon.visible = false;
     this.weapon.visible = true;
     this.flash.visible = false;
     this.update(0, {
@@ -227,7 +267,31 @@ export class WeaponView {
   startReload(): boolean {
     if (this.reloading || this.ammo === manifest.weapons.shotgun.ammo) return false;
     this.reloadTimeMs = 1400;
+    this.reloadTransferred = false;
+    this.reloadPlayer.play(0);
+    this.reloadWeapon.visible = true;
+    this.weapon.visible = false;
+    this.fireWeapon.visible = false;
     return true;
+  }
+
+  cancelReload(): boolean {
+    if (!this.reloading) return false;
+    this.reloadTimeMs = 0;
+    this.reloadPlayer.stop();
+    this.reloadWeapon.visible = false;
+    this.weapon.visible = true;
+    this.fireWeapon.visible = false;
+    return true;
+  }
+
+  private syncReloadFrame(): void {
+    const material = this.reloadWeapon.material as THREE.MeshBasicMaterial;
+    const next = this.reloadTextures[this.reloadPlayer.frameIndex];
+    if (material.map !== next) {
+      material.map = next;
+      material.needsUpdate = true;
+    }
   }
 
   private syncFireFrame(): void {
@@ -288,9 +352,16 @@ export class WeaponView {
     }
     if (this.reloadTimeMs > 0) {
       this.reloadTimeMs -= dt * 1000;
-      if (this.reloadTimeMs <= 0) {
-        this.reloadTimeMs = 0;
+      const events = this.reloadPlayer.update(dt * 1000, 1);
+      if (events.includes("ammo")) {
         this.ammo = manifest.weapons.shotgun.ammo;
+        this.reloadTransferred = true;
+      }
+      this.syncReloadFrame();
+      if (this.reloadPlayer.finished) {
+        this.reloadTimeMs = 0;
+        this.reloadWeapon.visible = false;
+        this.weapon.visible = true;
       }
     }
     this.swayX += (-opts.mouseDelta.x * 0.0006 - this.swayX) * Math.min(1, dt * 10);
@@ -311,13 +382,15 @@ export class WeaponView {
       this.bobAmp += (0 - this.bobAmp) * Math.min(1, dt * 10);
     }
     const bob = Math.sin(this.bobPhase) * this.bobAmp;
-    const reloadDip = this.reloading ? 0.25 * Math.sin((this.reloadTimeMs / 1400) * Math.PI) : 0;
     const posX = 0.45 + this.swayX;
-    const posY = -0.78 - this.recoil * 0.06 - reloadDip + bob;
+    const posY = -0.78 - this.recoil * 0.06 + bob;
     const rotation = -this.recoil * 0.06 + this.swayX * 0.4 - (this.sprintScale - 1) * 0.5;
     this.weapon.position.set(posX, posY, 0);
     this.weapon.rotation.z = rotation;
     this.weapon.scale.setScalar(this.sprintScale);
+    this.reloadWeapon.position.set(posX, posY, 0);
+    this.reloadWeapon.rotation.z = rotation;
+    this.reloadWeapon.scale.setScalar(this.sprintScale);
     // The diagonal fire frames sit about 22 degrees steeper than idle, so
     // the fire mesh alone gets that rotation back, pivoted on the grip so
     // the grip stays where the idle grip was. The idle mesh is untouched.

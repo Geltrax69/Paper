@@ -31,6 +31,7 @@ export type Weapon = {
   fireClip: string;
   fireIntervalMs: number;
   flashClip: string;
+  reloadClip: string;
   id: "shotgun";
   pellets: number;
   spread: number;

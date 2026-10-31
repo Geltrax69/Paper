@@ -224,15 +224,27 @@ async function startGame(): Promise<void> {
   const healthBar = document.getElementById("healthbar") as HTMLDivElement;
   const healthValue = document.getElementById("healthvalue") as HTMLDivElement;
   const ammoEl = document.getElementById("ammo") as HTMLDivElement;
+  const ammoCountEl = document.getElementById("ammoCount") as HTMLDivElement;
+  const ammoPipsEl = document.getElementById("ammoPips") as HTMLDivElement;
+  const ammoStateEl = document.getElementById("ammoState") as HTMLDivElement;
   const waveEl = document.getElementById("wave") as HTMLDivElement;
+  const waveNumEl = document.getElementById("waveNum") as HTMLDivElement;
+  const waveBannerEl = document.getElementById("waveBanner") as HTMLDivElement;
   const scoreEl = document.getElementById("score") as HTMLDivElement;
   const comboEl = document.getElementById("combo") as HTMLDivElement;
+  const comboCountEl = document.getElementById("comboCount") as HTMLDivElement;
+  const comboDecayEl = document.getElementById("comboDecay") as HTMLDivElement;
+  const powersEl = document.getElementById("powers") as HTMLDivElement;
+  const comicWordsEl = document.getElementById("comicWords") as HTMLDivElement;
   const announceEl = document.getElementById("announce") as HTMLDivElement;
   const hitmarker = document.getElementById("hitmarker") as HTMLDivElement;
   const damageEl = document.getElementById("damage") as HTMLDivElement;
+  const damageEdgeEl = document.getElementById("damageEdge") as HTMLDivElement;
   const crosshair = document.getElementById("crosshair") as HTMLDivElement;
 
   type Settings = {
+    comicWords: boolean;
+    effectDensity: "full" | "reduced";
     flash: number;
     muted: boolean;
     reducedMotion: boolean;
@@ -241,6 +253,8 @@ async function startGame(): Promise<void> {
     volume: number;
   };
   const defaultSettings: Settings = {
+    comicWords: true,
+    effectDensity: "full",
     flash: 1,
     muted: false,
     reducedMotion:
@@ -288,15 +302,26 @@ async function startGame(): Promise<void> {
   const runnerStates = new Map<Runner, string>();
   const lastHud = {
     ammo: "",
+    ammoState: "",
     combo: "",
+    comboDecay: "",
     crosshair: "",
     damage: "",
+    damageEdge: "",
     health: "",
     healthValue: "",
     hitmarker: "",
+    powers: "",
     score: "",
     wave: "",
   };
+  let hitmarkerKind: "hit" | "kill" = "hit";
+  let reticleExpandMs = 0;
+  let damageEdgeSide: "left" | "right" | "" = "";
+  let lastCombo = 0;
+  let comicWordIndex = 0;
+  let pendingWaveBanner: number | null = null;
+  let waveBannerToken = 0;
 
   function comboMultiplier(): number {
     return combo >= 5 ? 3 : combo >= 3 ? 2 : 1;
@@ -304,6 +329,38 @@ async function startGame(): Promise<void> {
 
   function announce(text: string): void {
     announceEl.textContent = text;
+  }
+
+  const COMIC_WORD_SPOTS: [string, string][] = [
+    ["18%", "26%"],
+    ["74%", "22%"],
+    ["68%", "64%"],
+    ["24%", "68%"],
+  ];
+  function comicWord(word: string): void {
+    if (!settings.comicWords || settings.effectDensity === "reduced") return;
+    while (comicWordsEl.children.length >= 3) comicWordsEl.firstChild?.remove();
+    const stamp = document.createElement("div");
+    stamp.className = "comic-word";
+    const spot = COMIC_WORD_SPOTS[comicWordIndex % COMIC_WORD_SPOTS.length];
+    comicWordIndex += 1;
+    stamp.style.left = spot[0];
+    stamp.style.top = spot[1];
+    stamp.textContent = word;
+    comicWordsEl.appendChild(stamp);
+    window.setTimeout(() => stamp.remove(), 900);
+  }
+
+  function showWaveBanner(next: number): void {
+    waveBannerToken += 1;
+    const token = waveBannerToken;
+    waveBannerEl.textContent = `WAVE ${next}`;
+    waveBannerEl.classList.remove("show");
+    void waveBannerEl.offsetWidth;
+    waveBannerEl.classList.add("show");
+    window.setTimeout(() => {
+      if (waveBannerToken === token) waveBannerEl.classList.remove("show");
+    }, 1600);
   }
   let yaw = 0;
   let pitch = 0;
@@ -358,7 +415,8 @@ async function startGame(): Promise<void> {
   let particleCursor = 0;
 
   function burst(point: THREE.Vector3, count: number): void {
-    for (let i = 0; i < count; i += 1) {
+    const capped = settings.effectDensity === "reduced" ? Math.ceil(count / 2) : count;
+    for (let i = 0; i < capped; i += 1) {
       const index = particleCursor;
       particleCursor = (particleCursor + 1) % particleCount;
       particlePositions[index * 3] = point.x;
@@ -718,6 +776,7 @@ async function startGame(): Promise<void> {
     camera.getWorldDirection(forward);
     const playerTop = playerFeet.clone();
     playerTop.y += PLAYER_HEIGHT;
+    let meleeAnyHit = false;
     for (const runner of runners) {
       if (runner.state === "death" || runner.state === "spawn") continue;
       if (meleeHitRunners.has(runner)) continue;
@@ -733,8 +792,14 @@ async function startGame(): Promise<void> {
       if (blocked && blocked.distance < toCenter.length() - 0.05) continue;
       meleeHitRunners.add(runner);
       const result = runner.takeDamage(MELEE_DAMAGE, playerFeet);
-      if (result === "applied" || result === "killed") hitmarkerMs = 150;
+      if (result === "applied" || result === "killed") {
+        hitmarkerMs = 150;
+        hitmarkerKind = result === "killed" ? "kill" : "hit";
+        meleeAnyHit = true;
+        if (result === "killed") comicWord("INKED!");
+      }
     }
+    if (meleeAnyHit) comicWord("CRACK!");
   }
 
 
@@ -799,6 +864,7 @@ async function startGame(): Promise<void> {
 
   function startWave(next: number): void {
     wave = next;
+    pendingWaveBanner = next;
     const count = 6 + 2 * (wave - 1);
     const speedScale = Math.min(1.5, 1 + 0.05 * (wave - 1));
     spawnQueue = [];
@@ -882,12 +948,16 @@ async function startGame(): Promise<void> {
     const volume = document.getElementById("setVolume") as HTMLInputElement | null;
     const mute = document.getElementById("setMute") as HTMLInputElement | null;
     const reduced = document.getElementById("setReduced") as HTMLInputElement | null;
+    const comic = document.getElementById("setComic") as HTMLInputElement | null;
+    const density = document.getElementById("setDensity") as HTMLSelectElement | null;
     if (shake) shake.value = String(settings.shake);
     if (flash) flash.value = String(settings.flash);
     if (sensitivity) sensitivity.value = String(settings.sensitivity);
     if (volume) volume.value = String(settings.volume);
     if (mute) mute.checked = settings.muted;
     if (reduced) reduced.checked = settings.reducedMotion;
+    if (comic) comic.checked = settings.comicWords;
+    if (density) density.value = settings.effectDensity;
   }
 
   function setSettings(partial: Partial<Settings>): void {
@@ -905,10 +975,16 @@ async function startGame(): Promise<void> {
     menu.classList.add("hidden");
   }
 
-  function onPlayerDamage(amount: number): void {
+  function onPlayerDamage(amount: number, source?: THREE.Vector3): void {
     if (phase !== "playing" || playerHealth <= 0) return;
     playerHealth -= amount;
     damageFlashMs = 400;
+    if (source) {
+      const forward = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
+      const right = new THREE.Vector3(-forward.z, 0, forward.x);
+      const toSource = source.clone().sub(playerFeet);
+      damageEdgeSide = toSource.dot(right) >= 0 ? "right" : "left";
+    }
     if (settings.reducedMotion) {
       shakeTimeMs = 0;
       shakeAmp = 0;
@@ -957,13 +1033,15 @@ async function startGame(): Promise<void> {
   function fireShot(): void {
     if (!weaponView) return;
     const spec = weaponSpec();
-    if (fireCooldownMs > 0 || weaponView.reloading) return;
+    if (weaponView.reloading) weaponView.cancelReload();
+    if (fireCooldownMs > 0) return;
     if (weaponView.ammo <= 0) {
       if (weaponView.startReload()) audio.reload();
       return;
     }
     weaponView.ammo -= 1;
     fireCooldownMs = spec.fireIntervalMs;
+    reticleExpandMs = 120;
     weaponView.triggerFire();
     audio.shot();
     let anyImpact = false;
@@ -1045,7 +1123,11 @@ async function startGame(): Promise<void> {
       if (blocked || aimPoint) anyImpact = true;
       if (hitRunner) {
         const result = hitRunner.takeDamage(spec.damage, playerFeet);
-        if (result === "applied" || result === "killed") hitmarkerMs = 150;
+        if (result === "applied" || result === "killed") {
+          hitmarkerMs = 150;
+          hitmarkerKind = result === "killed" ? "kill" : "hit";
+          if (result === "killed") comicWord("INKED!");
+        }
       }
     }
     if (anyImpact) audio.impact();
@@ -1131,12 +1213,16 @@ async function startGame(): Promise<void> {
       },
       getEnvironment: () => {
         const maps: string[] = [];
-        scene.traverse((obj) => {
-          const mesh = obj as THREE.Mesh;
-          const material = mesh.material as THREE.MeshBasicMaterial | undefined;
-          const src = (material?.map?.image as { src?: string } | undefined)?.src;
-          if (mesh.isMesh && src) maps.push(src.split("/").pop() ?? src);
-        });
+        const collect = (root: THREE.Object3D) => {
+          root.traverse((obj) => {
+            const mesh = obj as THREE.Mesh;
+            const material = mesh.material as THREE.MeshBasicMaterial | undefined;
+            const src = (material?.map?.image as { src?: string } | undefined)?.src;
+            if (mesh.isMesh && src) maps.push(src.split("/").pop() ?? src);
+          });
+        };
+        collect(scene);
+        if (weaponView) collect(weaponView.scene);
         return { background: scene.background !== null, maps: [...new Set(maps)].sort() };
       },
       getSceneMeshes: () => {
@@ -1265,6 +1351,10 @@ async function startGame(): Promise<void> {
               flashFrame: weaponView.flashFrameIndex,
               flashOn: weaponView.flashOn,
               recoil: weaponView.recoilValue,
+              reloadFrame: weaponView.reloadFrameIndex,
+              reloadProgress01: weaponView.reloadProgress01,
+              reloadTransferred: weaponView.reloadTransferredFlag,
+              reloading: weaponView.reloading,
               sprintScale: weaponView.sprintScale,
             }
           : null,
@@ -1333,6 +1423,17 @@ async function startGame(): Promise<void> {
       setHitmarkerMs: (ms: number) => {
         hitmarkerMs = ms;
       },
+      getHud: () => ({
+        ammoCount: ammoCountEl.textContent,
+        ammoState: ammoStateEl.textContent,
+        comboCount: comboCountEl.textContent,
+        comicWords: comicWordsEl.children.length,
+        hitmarker: hitmarker.textContent,
+        powers: powersEl.textContent,
+        waveBanner: waveBannerEl.textContent,
+        waveBannerVisible: waveBannerEl.classList.contains("show"),
+        waveNum: waveNumEl.textContent,
+      }),
       getHitmarkerMs: () => hitmarkerMs,
       cycleRunners: (count: number) => {
         const texture = textures?.get("runner_front") as THREE.Texture;
@@ -1376,11 +1477,13 @@ async function startGame(): Promise<void> {
         const flashClip = manifest.clips[weaponSpec().flashClip];
         const loaded = textures;
         if (!loaded) throw new Error("Textures not loaded");
+        const reloadClip = manifest.clips[weaponSpec().reloadClip];
         weaponView = new WeaponView(
           {
             fire: fireClip.assetIds.map((id) => loaded.get(id) as THREE.Texture),
             flash: flashClip.assetIds.map((id) => loaded.get(id) as THREE.Texture),
-            idle: loaded.get("shotgun_idle") as THREE.Texture,
+            idle: loaded.get("punchy_shotgun_idle") as THREE.Texture,
+            reload: reloadClip.assetIds.map((id) => loaded.get(id) as THREE.Texture),
           },
           window.innerWidth / window.innerHeight,
         );
@@ -1388,7 +1491,7 @@ async function startGame(): Promise<void> {
         weaponView.setFlashStrength(settings.flash);
       }
       startupState = "ready";
-      showMenu("Paper. One shotgun. One runner type. Waves, score, and pickups.", "Start");
+      showMenu("Paper. One shotgun. One runner type. Waves, score, and pickups.", "Play");
       startBtn.disabled = false;
       if (viewOnly) setupViewOnly();
       if (viewTwo) setupViewTwo();
@@ -1408,6 +1511,11 @@ async function startGame(): Promise<void> {
   settingsBtn.addEventListener("click", () => {
     settingsPanel.classList.toggle("hidden");
   });
+  const howBtn = document.getElementById("howBtn") as HTMLButtonElement;
+  const howPanel = document.getElementById("howPanel") as HTMLDivElement;
+  howBtn.addEventListener("click", () => {
+    howPanel.classList.toggle("hidden");
+  });
   const bindSetting = (
     id: string,
     apply: (element: HTMLInputElement) => void,
@@ -1423,6 +1531,10 @@ async function startGame(): Promise<void> {
   bindSetting("setVolume", (el) => setSettings({ volume: Number(el.value) }));
   bindSetting("setMute", (el) => setSettings({ muted: el.checked }));
   bindSetting("setReduced", (el) => setSettings({ reducedMotion: el.checked }));
+  bindSetting("setComic", (el) => setSettings({ comicWords: el.checked }));
+  bindSetting("setDensity", (el) =>
+    setSettings({ effectDensity: el.value as "full" | "reduced" }),
+  );
   applySettings();
 
   startBtn.addEventListener("click", () => {
@@ -1443,11 +1555,11 @@ async function startGame(): Promise<void> {
         const result = renderer.domElement.requestPointerLock() as unknown;
         if (result && typeof (result as Promise<void>).catch === "function") {
           (result as Promise<void>).catch(() => {
-            showMenu("Pointer lock was denied or is unavailable. Click Start to try again.", "Start");
+            showMenu("Pointer lock was denied or is unavailable. Click Play to try again.", "Play");
           });
         }
       } catch {
-        showMenu("Pointer lock is not supported in this browser. Click Start to try again.", "Start");
+        showMenu("Pointer lock is not supported in this browser. Click Play to try again.", "Play");
       }
     }
   });
@@ -1456,6 +1568,10 @@ async function startGame(): Promise<void> {
     if (document.pointerLockElement) {
       phase = "playing";
       hideMenu();
+      if (pendingWaveBanner !== null) {
+        showWaveBanner(pendingWaveBanner);
+        pendingWaveBanner = null;
+      }
     } else if (phase === "playing") {
       phase = "paused";
       clearInputTransient();
@@ -1465,7 +1581,7 @@ async function startGame(): Promise<void> {
 
   document.addEventListener("pointerlockerror", () => {
     if (phase === "menu" || phase === "paused") {
-      showMenu("Pointer lock was denied or is unavailable. Click Start to try again.", "Start");
+      showMenu("Pointer lock was denied or is unavailable. Click Play to try again.", "Play");
     }
   });
 
@@ -1584,6 +1700,7 @@ async function startGame(): Promise<void> {
     if (phase === "playing") {
       fireCooldownMs = Math.max(0, fireCooldownMs - dtMs);
       hitmarkerMs = Math.max(0, hitmarkerMs - dtMs);
+      reticleExpandMs = Math.max(0, reticleExpandMs - dtMs);
       damageFlashMs = Math.max(0, damageFlashMs - dtMs);
       dashCooldownMs = Math.max(0, dashCooldownMs - dtMs);
       coyoteMs = Math.max(0, coyoteMs - dtMs);
@@ -1913,38 +2030,88 @@ async function startGame(): Promise<void> {
     }
     const hudHealthValue = `${playerHealth} / 100`;
     if (lastHud.healthValue !== hudHealthValue) {
+      const prevHealth = Number(lastHud.healthValue.split(" ")[0] || 100);
       lastHud.healthValue = hudHealthValue;
       healthValue.textContent = hudHealthValue;
+      if (playerHealth < prevHealth && !settings.reducedMotion) {
+        healthValue.classList.remove("compressed");
+        void healthValue.offsetWidth;
+        healthValue.classList.add("compressed");
+        window.setTimeout(() => healthValue.classList.remove("compressed"), 180);
+      }
     }
-    const hudAmmo = weaponView
-      ? weaponView.reloading
-        ? "Reloading..."
-        : `${weaponView.ammo} / 6`
-      : "Loading…";
+    const hudAmmo = weaponView ? `${weaponView.ammo} / 6` : "Loading…";
     if (lastHud.ammo !== hudAmmo) {
       lastHud.ammo = hudAmmo;
-      ammoEl.textContent = hudAmmo;
+      ammoCountEl.textContent = hudAmmo;
+    }
+    if (weaponView) {
+      const wv = weaponView;
+      const pips = Array.from(ammoPipsEl.children);
+      pips.forEach((pip, index) => {
+        const filled = index < wv.ammo;
+        pip.classList.toggle("spent", !filled);
+      });
+    }
+    const hudAmmoState = !weaponView
+      ? "Loading…"
+      : weaponView.reloading
+        ? `Reloading ${Math.round(weaponView.reloadProgress01 * 100)}%`
+        : weaponView.ammo <= 0
+          ? "RELOAD"
+          : "";
+    if (lastHud.ammoState !== hudAmmoState) {
+      lastHud.ammoState = hudAmmoState;
+      ammoStateEl.textContent = hudAmmoState;
+      ammoStateEl.classList.toggle("empty", hudAmmoState === "RELOAD");
     }
     const hudWave = `Wave ${wave} — Runners left: ${runners.length + spawnQueue.length}`;
     if (lastHud.wave !== hudWave) {
       lastHud.wave = hudWave;
       waveEl.textContent = hudWave;
+      waveNumEl.textContent = String(wave);
     }
     const hudScore = `Score: ${score}`;
     if (lastHud.score !== hudScore) {
       lastHud.score = hudScore;
       scoreEl.textContent = hudScore;
     }
-    const hudCombo =
-      combo > 0 ? `Combo x${comboMultiplier()} (${combo})` : "Combo: —";
+    const hudCombo = combo > 0 ? String(combo) : "–";
     if (lastHud.combo !== hudCombo) {
       lastHud.combo = hudCombo;
-      comboEl.textContent = hudCombo;
+      comboCountEl.textContent = hudCombo;
+      if (combo > lastCombo && !settings.reducedMotion) {
+        comboCountEl.classList.remove("bump");
+        void comboCountEl.offsetWidth;
+        comboCountEl.classList.add("bump");
+      }
+      lastCombo = combo;
+    }
+    const hudComboDecay = combo > 0 ? String(Math.round((comboTimerMs / 4000) * 100)) : "0";
+    if (lastHud.comboDecay !== hudComboDecay) {
+      lastHud.comboDecay = hudComboDecay;
+      comboDecayEl.style.width = `${hudComboDecay}%`;
+    }
+    const grappleState = lastGrappleSelection
+      ? lastGrappleSelection.valid
+        ? "Grapple: valid"
+        : "Grapple: blocked"
+      : "Grapple: —";
+    const hudPowers =
+      `Dash: ${dashCooldownMs > 0 ? `${Math.ceil(dashCooldownMs / 1000)}s` : "ready"} · ` +
+      `Air jump: ${airJumpsUsed === 0 ? "ready" : "used"} · ` +
+      `${grappleState} · ` +
+      `Melee: ${meleeCooldownMs > 0 ? `${Math.ceil(meleeCooldownMs / 1000)}s` : "ready"}`;
+    if (lastHud.powers !== hudPowers) {
+      lastHud.powers = hudPowers;
+      powersEl.textContent = hudPowers;
     }
     const hudHitmarker = hitmarkerMs > 0 ? "1" : "0";
     if (lastHud.hitmarker !== hudHitmarker) {
       lastHud.hitmarker = hudHitmarker;
       hitmarker.style.opacity = hudHitmarker;
+      hitmarker.textContent = hitmarkerKind === "kill" ? "✕" : "×";
+      hitmarker.classList.toggle("kill", hitmarkerKind === "kill");
     }
     const hudDamage =
       damageFlashMs > 0 ? String((damageFlashMs / 400) * settings.flash) : "0";
@@ -1952,11 +2119,23 @@ async function startGame(): Promise<void> {
       lastHud.damage = hudDamage;
       damageEl.style.opacity = hudDamage;
     }
+    const hudDamageEdge = damageFlashMs > 0 ? damageEdgeSide : "";
+    if (lastHud.damageEdge !== hudDamageEdge) {
+      lastHud.damageEdge = hudDamageEdge;
+      damageEdgeEl.style.opacity = hudDamageEdge ? String(settings.flash) : "0";
+      damageEdgeEl.style.boxShadow =
+        hudDamageEdge === "left"
+          ? "inset 24px 0 40px rgba(192,57,43,0.8)"
+          : hudDamageEdge === "right"
+            ? "inset -24px 0 40px rgba(192,57,43,0.8)"
+            : "none";
+    }
     const hudCrosshair = phase === "playing" ? "block" : "none";
     if (lastHud.crosshair !== hudCrosshair) {
       lastHud.crosshair = hudCrosshair;
       crosshair.style.display = hudCrosshair;
     }
+    crosshair.classList.toggle("firing", reticleExpandMs > 0);
 
     renderer.clear();
     renderer.render(scene, camera);
