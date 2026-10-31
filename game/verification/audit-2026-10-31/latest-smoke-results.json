@@ -1,0 +1,123 @@
+{
+  "errors": [],
+  "failedRequests": [],
+  "pointerLock": true,
+  "ammo": [
+    5,
+    4,
+    6
+  ],
+  "aerialMelee": {
+    "healthBefore": 36,
+    "healthAfter": 18,
+    "playerHeight": 9.522856300000004
+  },
+  "offLedge": {
+    "position": [
+      4.916999999999998,
+      1.1637542000000007,
+      1
+    ],
+    "grounded": true,
+    "coyoteMs": 100
+  },
+  "grapple": {
+    "airJumpsUsed": 0,
+    "anchors": [
+      [
+        -11,
+        2.8,
+        -11
+      ],
+      [
+        11,
+        2.8,
+        -11
+      ],
+      [
+        -11,
+        2.8,
+        11
+      ],
+      [
+        11,
+        2.8,
+        11
+      ],
+      [
+        0,
+        2.8,
+        -11
+      ],
+      [
+        0,
+        2.8,
+        11
+      ],
+      [
+        -11,
+        2.8,
+        0
+      ],
+      [
+        11,
+        2.8,
+        0
+      ],
+      [
+        -3,
+        1.5,
+        -2
+      ],
+      [
+        3,
+        1.5,
+        1
+      ],
+      [
+        0,
+        1.2,
+        -6
+      ],
+      [
+        -6,
+        1.8,
+        4
+      ],
+      [
+        6,
+        1.5,
+        -5
+      ]
+    ],
+    "anchorCueVisible": true,
+    "anchorCue": [
+      0,
+      2.8,
+      11
+    ],
+    "grapple": {
+      "anchor": [
+        0,
+        2.8,
+        11
+      ],
+      "attached": true,
+      "ropeLength": 3.4409301068170506
+    },
+    "grappleMomentumMs": 0,
+    "grappleRange": 14,
+    "meleeCooldownMs": -16.600000000000364,
+    "meleeDamage": 18,
+    "meleeHitDone": true,
+    "meleeRange": 2.8,
+    "meleeSwinging": false,
+    "meleeTimeMs": 0,
+    "ropeVisible": true,
+    "slashVisible": false
+  },
+  "phaseAfterPause": "paused",
+  "checkedCommit": "170b950",
+  "date": "2026-10-31",
+  "method": "Production preview; existing debug API used for controlled melee, ledge and grapple setup. No game source changed."
+}
