@@ -1173,6 +1173,13 @@ async function startGame(): Promise<void> {
 
   function spawnPickups(): void {
     for (const kind of Object.keys(PICKUP_RULES) as PickupKind[]) {
+      pickups = pickups.filter((pickup) => {
+        if (pickup.kind === kind && pickup.taken) {
+          pickup.dispose();
+          return false;
+        }
+        return true;
+      });
       if (pickups.some((pickup) => pickup.kind === kind && !pickup.taken)) continue;
       const rule = PICKUP_RULES[kind];
       const pickup = new Pickup(kind, new THREE.Vector3(...rule.position));
@@ -2421,10 +2428,12 @@ async function startGame(): Promise<void> {
             weaponView.ammo = Math.min(6, weaponView.ammo + rule.amount);
           }
           scene.remove(pickup.group);
+          pickup.dispose();
           burst(pickup.position.clone().setY(0.6), 12);
           audio.pickup();
         }
       }
+      pickups = pickups.filter((pickup) => !pickup.taken);
       if (waveActive && spawnQueue.length === 0 && runners.length === 0 && phase === "playing") {
         waveActive = false;
         const bonus = 250 * wave;

@@ -1,0 +1,113 @@
+{
+  "rows": [
+    {
+      "wave": 1,
+      "beforeTextures": 19,
+      "beforeGeometries": 30,
+      "beforePickups": 2,
+      "afterHealth": 100,
+      "afterAmmo": 6,
+      "afterTextures": 22,
+      "afterGeometries": 23,
+      "afterPickups": 0,
+      "afterTaken": 0
+    },
+    {
+      "wave": 2,
+      "beforeTextures": 22,
+      "beforeGeometries": 30,
+      "beforePickups": 2,
+      "afterHealth": 100,
+      "afterAmmo": 6,
+      "afterTextures": 22,
+      "afterGeometries": 23,
+      "afterPickups": 0,
+      "afterTaken": 0
+    },
+    {
+      "wave": 3,
+      "beforeTextures": 22,
+      "beforeGeometries": 30,
+      "beforePickups": 2,
+      "afterHealth": 100,
+      "afterAmmo": 6,
+      "afterTextures": 22,
+      "afterGeometries": 23,
+      "afterPickups": 0,
+      "afterTaken": 0
+    },
+    {
+      "wave": 4,
+      "beforeTextures": 22,
+      "beforeGeometries": 30,
+      "beforePickups": 2,
+      "afterHealth": 100,
+      "afterAmmo": 6,
+      "afterTextures": 22,
+      "afterGeometries": 23,
+      "afterPickups": 0,
+      "afterTaken": 0
+    },
+    {
+      "wave": 5,
+      "beforeTextures": 22,
+      "beforeGeometries": 30,
+      "beforePickups": 2,
+      "afterHealth": 100,
+      "afterAmmo": 6,
+      "afterTextures": 22,
+      "afterGeometries": 23,
+      "afterPickups": 0,
+      "afterTaken": 0
+    },
+    {
+      "wave": 6,
+      "beforeTextures": 22,
+      "beforeGeometries": 30,
+      "beforePickups": 2,
+      "afterHealth": 100,
+      "afterAmmo": 6,
+      "afterTextures": 22,
+      "afterGeometries": 23,
+      "afterPickups": 0,
+      "afterTaken": 0
+    }
+  ],
+  "deltas": [
+    {
+      "fromWave": 1,
+      "toWave": 2,
+      "texDelta": 0,
+      "geoDelta": 0,
+      "pickupDelta": 0
+    },
+    {
+      "fromWave": 2,
+      "toWave": 3,
+      "texDelta": 0,
+      "geoDelta": 0,
+      "pickupDelta": 0
+    },
+    {
+      "fromWave": 3,
+      "toWave": 4,
+      "texDelta": 0,
+      "geoDelta": 0,
+      "pickupDelta": 0
+    },
+    {
+      "fromWave": 4,
+      "toWave": 5,
+      "texDelta": 0,
+      "geoDelta": 0,
+      "pickupDelta": 0
+    },
+    {
+      "fromWave": 5,
+      "toWave": 6,
+      "texDelta": 0,
+      "geoDelta": 0,
+      "pickupDelta": 0
+    }
+  ]
+}

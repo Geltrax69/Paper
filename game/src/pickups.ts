@@ -52,6 +52,8 @@ export class Pickup {
   private readonly geometry: THREE.PlaneGeometry;
   private readonly material: THREE.MeshBasicMaterial;
   private readonly mesh: THREE.Mesh;
+  private readonly ringGeometry: THREE.RingGeometry;
+  private readonly ringMaterial: THREE.MeshBasicMaterial;
 
   constructor(kind: PickupKind, position: THREE.Vector3) {
     this.kind = kind;
@@ -64,15 +66,14 @@ export class Pickup {
     });
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.group.add(this.mesh);
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(0.55, 0.7, 32),
-      new THREE.MeshBasicMaterial({
-        color: kind === "health" ? 0xc0392b : 0xd9a441,
-        depthWrite: false,
-        side: THREE.DoubleSide,
-        transparent: true,
-      }),
-    );
+    this.ringGeometry = new THREE.RingGeometry(0.55, 0.7, 32);
+    this.ringMaterial = new THREE.MeshBasicMaterial({
+      color: kind === "health" ? 0xc0392b : 0xd9a441,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      transparent: true,
+    });
+    const ring = new THREE.Mesh(this.ringGeometry, this.ringMaterial);
     ring.rotation.x = -Math.PI / 2;
     ring.position.y = -0.55;
     this.group.add(ring);
@@ -89,5 +90,7 @@ export class Pickup {
     this.geometry.dispose();
     this.material.map?.dispose();
     this.material.dispose();
+    this.ringGeometry.dispose();
+    this.ringMaterial.dispose();
   }
 }
