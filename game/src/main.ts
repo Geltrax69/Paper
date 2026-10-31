@@ -1,12 +1,15 @@
 import * as THREE from "three";
 import {
   ARENA_HALF,
+  BARREL_DEFS,
+  BARRELS,
   buildArena,
   decalFitScale,
   groundSupportY,
   rayHitSolid,
   rayHitSurface,
   resolveBody,
+  type Box,
   type PlayerBody,
   type RayHit,
 } from "./arena";
@@ -18,6 +21,7 @@ import { findRoute } from "./pathing";
 import { WeaponView } from "./weapon";
 import { GameAudio } from "./audio";
 import { PICKUP_RULES, Pickup, type PickupKind } from "./pickups";
+import { FxEmitter, type FxSettings } from "./fx";
 
 export type GamePhase = "menu" | "playing" | "paused" | "dead" | "waveComplete";
 export type StartupState = "loading" | "ready" | "error";
@@ -275,6 +279,14 @@ async function startGame(): Promise<void> {
   }
   const settings = loadSettings();
   const audio = new GameAudio();
+  const fx = new FxEmitter(scene);
+  function fxSettings(): FxSettings {
+    return {
+      effectDensity: settings.effectDensity,
+      flash: settings.flash,
+      reducedMotion: settings.reducedMotion,
+    };
+  }
   audio.volume = settings.volume;
   audio.muted = settings.muted;
 
@@ -514,6 +526,258 @@ async function startGame(): Promise<void> {
       entry.material.dispose();
     }
     decals.length = 0;
+  }
+
+
+  const EXPLOSION_RADIUS = 4.5;
+  const EXPLOSION_MAX_DAMAGE = 60;
+  const EXPLOSION_CHAIN_RADIUS = 5;
+  const EXPLOSION_CHAIN_DEPTH_MAX = 2;
+  const EXPLOSION_CHAIN_TOTAL_MAX = 6;
+  const BARREL_WARNING_MS = 350;
+  const EXPLOSION_HITSTOP_MS = 35;
+  type BarrelState = {
+    box: Box;
+    chainDepth: number;
+    chainTotal: number;
+    group: THREE.Group | null;
+    material: THREE.MeshStandardMaterial | null;
+    ring: THREE.Mesh | null;
+    ringMaterial: THREE.MeshBasicMaterial | null;
+    state: "idle" | "warning" | "gone";
+    warningMs: number;
+  };
+  let barrels: BarrelState[] = [];
+  let lastExplosionDamage: {
+    center: [number, number, number];
+    hits: { blocked: boolean; damage: number; distance: number; kind: string }[];
+  } | null = null;
+  const runnerHitStop = new Map<Runner, number>();
+  let lastShotFx: { runnerTargets: number; surfaceOwners: string[] } = {
+    runnerTargets: 0,
+    surfaceOwners: [],
+  };
+
+  function drawBarrelTexture(): THREE.CanvasTexture {
+    const canvas = document.createElement("canvas");
+    canvas.width = 256;
+    canvas.height = 256;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas unavailable for barrel texture");
+    ctx.fillStyle = "#a93226";
+    ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = "#ffc928";
+    ctx.fillRect(0, 18, 256, 26);
+    ctx.fillRect(0, 212, 256, 26);
+    ctx.beginPath();
+    ctx.moveTo(0, 120);
+    ctx.lineTo(64, 70);
+    ctx.lineTo(128, 120);
+    ctx.lineTo(192, 70);
+    ctx.lineTo(256, 120);
+    ctx.lineTo(256, 170);
+    ctx.lineTo(192, 120);
+    ctx.lineTo(128, 170);
+    ctx.lineTo(64, 120);
+    ctx.lineTo(0, 170);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "#12101b";
+    ctx.lineWidth = 10;
+    ctx.strokeRect(5, 5, 246, 246);
+    ctx.fillStyle = "#f3e6c8";
+    ctx.font = "900 120px system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("!", 128, 128);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  }
+  let barrelTexture: THREE.CanvasTexture | null = null;
+
+  function createBarrelGroup(box: Box): BarrelState {
+    if (!barrelTexture) barrelTexture = drawBarrelTexture();
+    const material = new THREE.MeshStandardMaterial({ map: barrelTexture });
+    const geometry = new THREE.CylinderGeometry(box.half, box.half, box.height, 24);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.y = box.height / 2;
+    const group = new THREE.Group();
+    group.add(mesh);
+    const ringMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffc928,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      transparent: true,
+    });
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.7, 0.88, 32), ringMaterial);
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.03;
+    ring.visible = false;
+    group.add(ring);
+    group.position.set(box.x, 0, box.z);
+    scene.add(group);
+    return {
+      box,
+      chainDepth: 0,
+      chainTotal: 0,
+      group,
+      material,
+      ring,
+      ringMaterial,
+      state: "idle",
+      warningMs: 0,
+    };
+  }
+
+  function spawnBarrels(): void {
+    for (const def of BARREL_DEFS) {
+      if (!BARRELS.some((box) => box.x === def.x && box.z === def.z)) {
+        BARRELS.push({ ...def });
+      }
+      let entry = barrels.find((state) => state.box.x === def.x && state.box.z === def.z);
+      if (!entry) {
+        const box = BARRELS.find((candidate) => candidate.x === def.x && candidate.z === def.z);
+        if (!box) continue;
+        entry = createBarrelGroup(box);
+        barrels.push(entry);
+      } else if (entry.state === "gone") {
+        const box = BARRELS.find((candidate) => candidate.x === def.x && candidate.z === def.z);
+        if (!box) continue;
+        const fresh = createBarrelGroup(box);
+        entry.box = box;
+        entry.group = fresh.group;
+        entry.material = fresh.material;
+        entry.ring = fresh.ring;
+        entry.ringMaterial = fresh.ringMaterial;
+        entry.state = "idle";
+        entry.warningMs = 0;
+      }
+    }
+  }
+
+  function triggerBarrel(entry: BarrelState, chainDepth: number, chainTotal: number): void {
+    if (entry.state !== "idle") return;
+    entry.state = "warning";
+    entry.warningMs = BARREL_WARNING_MS;
+    entry.chainDepth = chainDepth;
+    entry.chainTotal = chainTotal;
+    if (entry.ring) entry.ring.visible = true;
+  }
+
+  function triggerBarrelFromOwner(owner: string): void {
+    const match = owner.match(/barrel\((-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)\)/);
+    if (!match) return;
+    const x = Number(match[1]);
+    const z = Number(match[2]);
+    const entry = barrels.find((state) => state.box.x === x && state.box.z === z);
+    if (entry) triggerBarrel(entry, 0, 1);
+  }
+
+  function applyExplosionDamage(center: THREE.Vector3): void {
+    const hits: { blocked: boolean; damage: number; distance: number; kind: string }[] = [];
+    for (const runner of runners) {
+      if (runner.state === "death" || runner.state === "spawn") continue;
+      const target = runner.position.clone();
+      target.y = 1.1;
+      const toTarget = target.clone().sub(center);
+      const distance = toTarget.length();
+      if (distance > EXPLOSION_RADIUS) continue;
+      const blocked = rayHitSolid(center, toTarget.normalize(), distance);
+      if (blocked && blocked.distance < distance - 0.05) {
+        hits.push({ blocked: true, damage: 0, distance, kind: "runner" });
+        continue;
+      }
+      const damage = Math.round(EXPLOSION_MAX_DAMAGE * (1 - distance / EXPLOSION_RADIUS));
+      if (damage <= 0) continue;
+      const result = runner.takeDamage(damage, center);
+      runnerHitStop.set(runner, EXPLOSION_HITSTOP_MS);
+      hits.push({ blocked: false, damage, distance, kind: result });
+    }
+    const playerCenter = playerFeet.clone();
+    playerCenter.y += PLAYER_HEIGHT / 2;
+    const toPlayer = playerCenter.clone().sub(center);
+    const playerDistance = toPlayer.length();
+    if (playerDistance <= EXPLOSION_RADIUS) {
+      const blocked = rayHitSolid(center, toPlayer.normalize(), playerDistance);
+      if (!blocked || blocked.distance >= playerDistance - 0.05) {
+        const damage = Math.round(EXPLOSION_MAX_DAMAGE * (1 - playerDistance / EXPLOSION_RADIUS));
+        if (damage > 0) {
+          hits.push({ blocked: false, damage, distance: playerDistance, kind: "player" });
+          onPlayerDamage(damage, center);
+        }
+      } else {
+        hits.push({ blocked: true, damage: 0, distance: playerDistance, kind: "player" });
+      }
+    }
+    if (hits.some((hit) => hit.kind === "killed")) comicWord("KABAM!");
+    lastExplosionDamage = {
+      center: [center.x, center.y, center.z],
+      hits,
+    };
+    if (settings.reducedMotion) {
+      shakeTimeMs = 0;
+      shakeAmp = 0;
+    } else if (playerDistance <= EXPLOSION_RADIUS + 3) {
+      shakeAmp = 0.35 * settings.shake * Math.max(0, 1 - playerDistance / (EXPLOSION_RADIUS + 3));
+      shakeTimeMs = 350;
+    }
+  }
+
+  function detonateBarrel(entry: BarrelState): void {
+    if (entry.state === "gone") return;
+    const center = new THREE.Vector3(entry.box.x, entry.box.height / 2, entry.box.z);
+    entry.state = "gone";
+    if (entry.group) {
+      scene.remove(entry.group);
+      entry.group.traverse((child) => {
+        if (child instanceof THREE.Mesh) child.geometry.dispose();
+      });
+      entry.material?.dispose();
+    }
+    entry.group = null;
+    entry.ring = null;
+    entry.ringMaterial = null;
+    const boxIndex = BARRELS.findIndex((box) => box.x === entry.box.x && box.z === entry.box.z);
+    if (boxIndex >= 0) BARRELS.splice(boxIndex, 1);
+    fx.explosion(center, fxSettings());
+    audio.explosion();
+    applyExplosionDamage(center);
+    let nextTotal = entry.chainTotal;
+    for (const other of barrels) {
+      if (other.state !== "idle") continue;
+      const distance = Math.hypot(other.box.x - center.x, other.box.z - center.z);
+      if (distance > EXPLOSION_CHAIN_RADIUS) continue;
+      if (entry.chainDepth >= EXPLOSION_CHAIN_DEPTH_MAX) continue;
+      if (nextTotal >= EXPLOSION_CHAIN_TOTAL_MAX) continue;
+      nextTotal += 1;
+      triggerBarrel(other, entry.chainDepth + 1, nextTotal);
+    }
+  }
+
+  function updateBarrels(dtMs: number): void {
+    for (const entry of barrels) {
+      if (entry.state !== "warning") continue;
+      entry.warningMs -= dtMs;
+      const pulse = (Math.sin(performance.now() / 50) + 1) / 2;
+      if (entry.material) {
+        entry.material.emissive.setHex(0xffc928);
+        entry.material.emissiveIntensity = 0.3 + pulse * 0.7;
+      }
+      if (entry.ringMaterial) entry.ringMaterial.opacity = 0.4 + pulse * 0.6;
+      if (entry.ring) entry.ring.scale.setScalar(1 + pulse * 0.25);
+      if (entry.warningMs <= 0) detonateBarrel(entry);
+    }
+  }
+
+  function cancelBarrelWarnings(): void {
+    for (const entry of barrels) {
+      if (entry.state !== "warning") continue;
+      entry.state = "idle";
+      entry.warningMs = 0;
+      if (entry.material) entry.material.emissiveIntensity = 0;
+      if (entry.ring) entry.ring.visible = false;
+    }
   }
 
   // Powers are one small state shape each, not scattered booleans.
@@ -797,6 +1061,8 @@ async function startGame(): Promise<void> {
         hitmarkerKind = result === "killed" ? "kill" : "hit";
         meleeAnyHit = true;
         if (result === "killed") comicWord("INKED!");
+        const normal = eye.clone().sub(center).normalize();
+        fx.impact(center, normal, fxSettings(), result === "killed");
       }
     }
     if (meleeAnyHit) comicWord("CRACK!");
@@ -874,6 +1140,7 @@ async function startGame(): Promise<void> {
     waveActive = true;
     spawnTimerMs = 0;
     spawnPickups();
+    spawnBarrels();
     announce(`Wave ${wave} started`);
   }
 
@@ -906,6 +1173,8 @@ async function startGame(): Promise<void> {
     clearParticles();
     disposeTracers();
     disposeDecals();
+    fx.clear();
+    cancelBarrelWarnings();
     weaponView?.reset();
   }
 
@@ -1045,6 +1314,8 @@ async function startGame(): Promise<void> {
     weaponView.triggerFire();
     audio.shot();
     let anyImpact = false;
+    const runnerFxDone = new Set<Runner>();
+    const surfaceFxKeys = new Set<string>();
     const eye = camera.position.clone();
     const forward = new THREE.Vector3();
     camera.getWorldDirection(forward);
@@ -1114,12 +1385,24 @@ async function startGame(): Promise<void> {
       }
       tracer(muzzle, end);
       if (blocked) {
-        addDecal(blocked);
+        const key = blocked.owner;
+        if (!surfaceFxKeys.has(key)) {
+          surfaceFxKeys.add(key);
+          addDecal(blocked);
+          if (end.distanceTo(muzzle) > 0.05) fx.impact(end, blocked.normal, fxSettings(), false);
+          if (blocked.owner.startsWith("barrel(")) triggerBarrelFromOwner(blocked.owner);
+        }
       } else if (aimPoint && !aimRunner) {
         const eyeSurface = rayHitSurface(eye, dir, aimDistance);
-        if (eyeSurface) addDecal(eyeSurface);
+        if (eyeSurface) {
+          const key = eyeSurface.owner;
+          if (!surfaceFxKeys.has(key)) {
+            surfaceFxKeys.add(key);
+            addDecal(eyeSurface);
+            fx.impact(eyeSurface.point, eyeSurface.normal, fxSettings(), false);
+          }
+        }
       }
-      if (end.distanceTo(muzzle) > 0.05) burst(end, 6);
       if (blocked || aimPoint) anyImpact = true;
       if (hitRunner) {
         const result = hitRunner.takeDamage(spec.damage, playerFeet);
@@ -1127,10 +1410,19 @@ async function startGame(): Promise<void> {
           hitmarkerMs = 150;
           hitmarkerKind = result === "killed" ? "kill" : "hit";
           if (result === "killed") comicWord("INKED!");
+          if (!runnerFxDone.has(hitRunner)) {
+            runnerFxDone.add(hitRunner);
+            const center = hitRunner.position.clone();
+            center.y = 1.1;
+            const normal = camera.position.clone().sub(center).normalize();
+            fx.impact(center, normal, fxSettings(), result === "killed");
+            if (result === "killed") runnerHitStop.set(hitRunner, 30);
+          }
         }
       }
     }
     if (anyImpact) audio.impact();
+    lastShotFx = { runnerTargets: runnerFxDone.size, surfaceOwners: [...surfaceFxKeys] };
   }
 
   function setupViewOnly(): void {
@@ -1409,6 +1701,33 @@ async function startGame(): Promise<void> {
           y: entry.mesh.position.y,
           z: entry.mesh.position.z,
         })),
+      getFx: () => fx.counts(),
+      getLastShotFx: () => lastShotFx,
+      getBarrels: () =>
+        barrels.map((entry) => ({
+          chainDepth: entry.chainDepth,
+          chainTotal: entry.chainTotal,
+          state: entry.state,
+          warningMs: entry.warningMs,
+          x: entry.box.x,
+          z: entry.box.z,
+        })),
+      getExplosionDamage: () => lastExplosionDamage,
+      getActiveExplosion: () => fx.getActiveExplosion(),
+      getExplosionVisuals: () => fx.explosionVisuals(),
+      explodeAt: (x: number, y: number, z: number) => {
+        const center = new THREE.Vector3(x, y, z);
+        fx.explosion(center, fxSettings());
+        audio.explosion();
+        applyExplosionDamage(center);
+        return lastExplosionDamage;
+      },
+      triggerBarrel: (index: number) => {
+        const entry = barrels[index];
+        if (!entry) return null;
+        triggerBarrel(entry, 0, 1);
+        return entry.state;
+      },
       clearRunners: () => {
         for (const runner of runners) runner.dispose();
         runners = [];
@@ -1468,6 +1787,7 @@ async function startGame(): Promise<void> {
       });
       if (!arenaBuilt) {
         scene.add(buildArena(textures, manifest.environment));
+        spawnBarrels();
         scene.add(buildEnvironment(textures, manifest.environment));
         applySky(scene, textures.get(manifest.environment.sky.asset));
         arenaBuilt = true;
@@ -1662,6 +1982,8 @@ async function startGame(): Promise<void> {
     const dt = Math.min(0.05, (now - lastTime) / 1000);
     lastTime = now;
     const dtMs = dt * 1000;
+    fx.update(dtMs, fxSettings());
+    updateBarrels(dtMs);
 
     if (viewOnly && weaponView) {
       updateDecals(dtMs);
@@ -1934,7 +2256,13 @@ async function startGame(): Promise<void> {
       mouseDelta.y = 0;
 
       for (const runner of [...runners]) {
-        runner.update(dt, camera, playerBody, onPlayerDamage, runners);
+        const stop = runnerHitStop.get(runner) ?? 0;
+        if (stop > 0) {
+          runnerHitStop.set(runner, stop - dtMs);
+        } else {
+          runnerHitStop.delete(runner);
+          runner.update(dt, camera, playerBody, onPlayerDamage, runners);
+        }
         const prevSteps = runnerFootsteps.get(runner) ?? 0;
         if (runner.footstepCount > prevSteps) {
           const nowMs = performance.now();

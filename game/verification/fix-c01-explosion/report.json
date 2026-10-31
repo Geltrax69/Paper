@@ -1,0 +1,160 @@
+{
+  "results": [
+    {
+      "id": "build",
+      "name": "npm run build",
+      "status": "PASS",
+      "detail": "tsc and vite build succeeded"
+    },
+    {
+      "id": "c01-grouped",
+      "name": "One shot on one runner gives one grouped impact for that target, not one per pellet",
+      "status": "PASS",
+      "detail": "runnerTargets=1 surfaceOwners=wall-south inkStars=2 fragments=4 flashes=2 sparks=6 pooled=236 textures=7"
+    },
+    {
+      "id": "c01-heavy",
+      "name": "Killing shot gives one grouped heavy impact with at least five fragments",
+      "status": "PASS",
+      "detail": "runnerTargets=1 inkStars=3 fragments=9 sparks=12 flashes=3"
+    },
+    {
+      "id": "c01-explosion-seq",
+      "name": "Explosion runs warning, bloom, smoke, then a fading terminal phase with nothing lingering",
+      "status": "PASS",
+      "detail": "warningSeen=true bloomExplosions=1 terminalExplosions=0 terminalActive=null"
+    },
+    {
+      "id": "c01-falloff",
+      "name": "Explosion damage falls with distance by the stated linear rule",
+      "status": "PASS",
+      "detail": "frozen=-0.80,6.41 | 1.18,6.22 | 3.17,6.08 hits=d=1.05 dmg=46 blocked=false | d=1.32 dmg=42 blocked=false | d=3.22 dmg=17 blocked=false monotonic=true formula=true"
+    },
+    {
+      "id": "c01-cover",
+      "name": "A crate between explosion and runner blocks that runner's damage",
+      "status": "PASS",
+      "detail": "frozen=-0.78,-7.67 | 2.91,-3.67 hits=runner d=3.79 dmg=0 blocked=true | applied d=2.98 dmg=20 blocked=false"
+    },
+    {
+      "id": "c01-chain",
+      "name": "Chain runs at most depth 2 with a warning before the second detonation, and the far barrel stays idle",
+      "status": "PASS",
+      "detail": "warningSeen=true depths=0,1,2,0 states=gone,gone,gone,idle"
+    },
+    {
+      "id": "c01-crate-never",
+      "name": "Shooting an ordinary crate never explodes anything",
+      "status": "PASS",
+      "detail": "barrels=idle,idle,idle,idle explosions=0 damage=null"
+    },
+    {
+      "id": "c01-reduced",
+      "name": "Reduced-motion explosion has no camera shake or roll, but damage and visible effects still land",
+      "status": "PASS",
+      "detail": "shaken=false rolled=false health=100->67 explosions=1"
+    },
+    {
+      "id": "c01-zero-flash",
+      "name": "Zero flash hides bright core and bloom but keeps the ring and the damage",
+      "status": "PASS",
+      "detail": "visuals={\"bloomVisible\":false,\"coreVisible\":false,\"ringVisible\":true} playerDamage=20"
+    },
+    {
+      "id": "accept-shots",
+      "name": "Two shots use two ammo",
+      "status": "PASS",
+      "detail": "ammo 6->4"
+    },
+    {
+      "id": "accept-reload",
+      "name": "Reload transfers ammo at the loading pose and then recovers to idle",
+      "status": "PASS",
+      "detail": "empty=0 midTransferred=true midAmmo=6 doneReloading=false"
+    },
+    {
+      "id": "accept-kill",
+      "name": "Kill plays the defeat clip, removes the runner, and scores once plus the wave bonus",
+      "status": "PASS",
+      "detail": "dyingState=death score 0->350"
+    },
+    {
+      "id": "accept-death",
+      "name": "Death restarts the wave at full health",
+      "status": "PASS",
+      "detail": "health=100 phase=playing"
+    },
+    {
+      "id": "accept-blocked",
+      "name": "Tall-crate-blocked shot deals no damage and leaves a crate decal",
+      "status": "PASS",
+      "detail": "frozen=-6.27,1.21 runnerHealth=36 crateDecal=true"
+    },
+    {
+      "id": "accept-directional",
+      "name": "Direction override switches the run clip to back",
+      "status": "PASS",
+      "detail": "direction=back"
+    },
+    {
+      "id": "accept-wave",
+      "name": "Wave 1 clears with kills plus the wave bonus",
+      "status": "PASS",
+      "detail": "phase=waveComplete score=1450"
+    },
+    {
+      "id": "accept-sprint",
+      "name": "Sprinting while moving scales the weapon toward 1.1",
+      "status": "PASS",
+      "detail": "sprintScale=1.1"
+    },
+    {
+      "id": "accept-doublejump",
+      "name": "Second midair jump counts once as the air jump",
+      "status": "PASS",
+      "detail": "jumpCount=2 airJumpsUsed=1"
+    },
+    {
+      "id": "accept-grapple",
+      "name": "Grapple attaches to the nearest forward anchor, the crate top",
+      "status": "PASS",
+      "detail": "attached=true anchor=0,1.2,-6"
+    },
+    {
+      "id": "accept-melee",
+      "name": "Close melee strike deals exactly 18",
+      "status": "PASS",
+      "detail": "runnerHealth=18"
+    },
+    {
+      "id": "n03-aerial",
+      "name": "Melee from far above deals no damage",
+      "status": "PASS",
+      "detail": "runnerHealth=36 playerFeet=0.00,7.53,1.50"
+    },
+    {
+      "id": "n04-ledge",
+      "name": "Stepping off a crate clears grounded in midair",
+      "status": "PASS",
+      "detail": "beforeGrounded=true offGrounded=false offFeet=4.25,1.45,1.00"
+    },
+    {
+      "id": "n05-behind",
+      "name": "Grapple never attaches to an anchor behind the camera",
+      "status": "PASS",
+      "detail": "attached=true anchor=-3,1.5,-2"
+    },
+    {
+      "id": "n10-decal",
+      "name": "Crate decal stays flush to its surface when the camera moves",
+      "status": "PASS",
+      "detail": "same=true normal=0.00,0.00,1.00"
+    },
+    {
+      "id": "accept-hud",
+      "name": "Comic HUD shows wave 1 and six ammo at start",
+      "status": "PASS",
+      "detail": "hud={\"ammoCount\":\"6 / 6\",\"ammoState\":\"\",\"comboCount\":\"–\",\"comicWords\":0,\"hitmarker\":\"×\",\"powers\":\"Dash: ready · Air jump: ready · Grapple: valid · Melee: ready\",\"waveBanner\":\"WAVE 1\",\"waveBannerVisible\":true,\"waveNum\":\"1\"}"
+    }
+  ]
+}

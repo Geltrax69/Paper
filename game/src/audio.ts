@@ -129,6 +129,12 @@ export class GameAudio {
     this.noise(80, 1200, 0.4);
   }
 
+  explosion(): void {
+    this.count("explosion");
+    this.noise(500, 300, 0.5);
+    this.tone(120, 40, 450, "sine", 0.4);
+  }
+
   footstep(): void {
     this.count("footstep");
     this.noise(60, 400, 0.18);

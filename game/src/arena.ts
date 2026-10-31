@@ -24,7 +24,7 @@ export function intervalsOverlap(aMin: number, aMax: number, bMin: number, bMax:
 
 export function groundSupportY(x: number, z: number, radius: number): number {
   let support = 0;
-  for (const crate of CRATES) {
+  for (const crate of [...CRATES, ...BARRELS]) {
     const nearestX = Math.max(crate.x - crate.half, Math.min(crate.x + crate.half, x));
     const nearestZ = Math.max(crate.z - crate.half, Math.min(crate.z + crate.half, z));
     const dx = x - nearestX;
@@ -41,7 +41,7 @@ export function resolveBody(feet: THREE.Vector3, radius: number, height: number)
   feet.x = Math.max(-limit, Math.min(limit, feet.x));
   feet.z = Math.max(-limit, Math.min(limit, feet.z));
   const top = bodyTop(feet.y, height);
-  for (const crate of CRATES) {
+  for (const crate of [...CRATES, ...BARRELS]) {
     if (!intervalsOverlap(feet.y, top, 0, crate.height)) continue;
     const nearestX = Math.max(crate.x - crate.half, Math.min(crate.x + crate.half, feet.x));
     const nearestZ = Math.max(crate.z - crate.half, Math.min(crate.z + crate.half, feet.z));
@@ -105,6 +105,18 @@ export const CRATES: Box[] = [
   { half: 0.75, height: 1.5, x: 6, z: -5 },
 ];
 
+// Explosive barrels are real boxes, not a texture on a crate. The working
+// list is mutated when a barrel detonates or respawns, so collision, ray
+// and pathing queries always see the live set.
+export const BARREL_DEFS: Box[] = [
+  { half: 0.55, height: 1.1, x: 4, z: -3 },
+  { half: 0.55, height: 1.1, x: 7, z: -3 },
+  { half: 0.55, height: 1.1, x: 10, z: -3 },
+  { half: 0.55, height: 1.1, x: -7, z: -7 },
+];
+
+export const BARRELS: Box[] = BARREL_DEFS.map((box) => ({ ...box }));
+
 export function buildArena(
   textures: Map<string, THREE.Texture>,
   env: {
@@ -166,7 +178,7 @@ export function resolveCircle(pos: THREE.Vector3, radius: number): void {
   const limit = ARENA_HALF - radius;
   pos.x = Math.max(-limit, Math.min(limit, pos.x));
   pos.z = Math.max(-limit, Math.min(limit, pos.z));
-  for (const crate of CRATES) {
+  for (const crate of [...CRATES, ...BARRELS]) {
     const nearestX = Math.max(crate.x - crate.half, Math.min(crate.x + crate.half, pos.x));
     const nearestZ = Math.max(crate.z - crate.half, Math.min(crate.z + crate.half, pos.z));
     const dx = pos.x - nearestX;
@@ -279,6 +291,24 @@ export function rayHitSolid(
       [crate.x - crate.half, crate.x + crate.half, crate.z - crate.half, crate.z + crate.half, 0, crate.height],
     );
   }
+  for (const barrel of BARRELS) {
+    consider(
+      slabHit(
+        origin,
+        dir,
+        barrel.x - barrel.half,
+        barrel.x + barrel.half,
+        barrel.z - barrel.half,
+        barrel.z + barrel.half,
+        0,
+        barrel.height,
+      ),
+      "crate",
+      `barrel(${barrel.x},${barrel.z})`,
+      barrel,
+      [barrel.x - barrel.half, barrel.x + barrel.half, barrel.z - barrel.half, barrel.z + barrel.half, 0, barrel.height],
+    );
+  }
   const h = ARENA_HALF;
   consider(slabHit(origin, dir, -h - 0.5, h + 0.5, -h - 0.5, -h, 0, WALL_HEIGHT), "wall", "wall-south", undefined, [-h - 0.5, h + 0.5, -h - 0.5, -h, 0, WALL_HEIGHT]);
   consider(slabHit(origin, dir, -h - 0.5, h + 0.5, h, h + 0.5, 0, WALL_HEIGHT), "wall", "wall-north", undefined, [-h - 0.5, h + 0.5, h, h + 0.5, 0, WALL_HEIGHT]);
@@ -348,7 +378,7 @@ export function segmentBlockedByCrate(from: THREE.Vector3, to: THREE.Vector3): B
   const length = Math.hypot(dir.x, dir.z);
   if (length === 0) return null;
   dir.divideScalar(length);
-  for (const crate of CRATES) {
+  for (const crate of [...CRATES, ...BARRELS]) {
     const d = slabHit(
       from,
       dir,

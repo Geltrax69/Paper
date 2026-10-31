@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { CRATES, segmentHitsExpandedRect } from "./arena";
+import { BARRELS, CRATES, segmentHitsExpandedRect } from "./arena";
 
 // Visibility graph over expanded crate corners. Nodes are the start, the
 // goal, and every crate corner expanded by the mover radius plus a margin.
@@ -14,14 +14,14 @@ export function findRoute(
 ): THREE.Vector3[] {
   const expand = radius + 0.25;
   const nodes: THREE.Vector3[] = [from.clone(), to.clone()];
-  for (const crate of CRATES) {
+  for (const crate of [...CRATES, ...BARRELS]) {
     nodes.push(new THREE.Vector3(crate.x - crate.half - expand, 0, crate.z - crate.half - expand));
     nodes.push(new THREE.Vector3(crate.x + crate.half + expand, 0, crate.z - crate.half - expand));
     nodes.push(new THREE.Vector3(crate.x - crate.half - expand, 0, crate.z + crate.half + expand));
     nodes.push(new THREE.Vector3(crate.x + crate.half + expand, 0, crate.z + crate.half + expand));
   }
   const clear = (a: THREE.Vector3, b: THREE.Vector3, isGoalEdge: boolean): boolean => {
-    for (const crate of CRATES) {
+    for (const crate of [...CRATES, ...BARRELS]) {
       if (segmentHitsExpandedRect(a, b, crate, 0)) return false;
       if (!isGoalEdge && segmentHitsExpandedRect(a, b, crate, expand)) return false;
     }
